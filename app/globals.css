@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+:root {
+  --color-brand-blue: #038cf2;
+  --color-brand-blue-600: #0272c8;
+  --color-brand-blue-deep: #0358b2;
+  --color-brand-blue-50: #e8f4fe;
+
+  --color-brand-amber: #ffa707;
+  --color-brand-amber-600: #f29a0a;
+  --color-brand-amber-50: #fff4e0;
+
+  --color-brand-green: #57b12d;
+  --color-brand-green-700: #3f8a1e;
+  --color-brand-green-50: #eef8e9;
+
+  --color-brand-navy: #0d1f35;
+  --color-brand-navy-700: #1e3350;
+
+  --color-surface: #ffffff;
+  --color-canvas: #f8fafc;
+  --color-line: #e2e8f0;
+  --color-muted: #5b6b80;
+
+  --font-heading: var(--font-baloo), ui-rounded, system-ui, sans-serif;
+  --font-body: var(--font-nunito), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Radius scale from DESIGN.md: none/xs/sm/md/full — used for rounded-card, rounded-btn, rounded-btn-xs */
+  --radius-btn-xs: 8px;
+  --radius-btn: 11px;
+  --radius-card: 28px;
+}
+
+@theme inline {
+  --color-brand-blue: var(--color-brand-blue);
+  --color-brand-blue-600: var(--color-brand-blue-600);
+  --color-brand-blue-deep: var(--color-brand-blue-deep);
+  --color-brand-blue-50: var(--color-brand-blue-50);
+
+  --color-brand-amber: var(--color-brand-amber);
+  --color-brand-amber-600: var(--color-brand-amber-600);
+  --color-brand-amber-50: var(--color-brand-amber-50);
+
+  --color-brand-green: var(--color-brand-green);
+  --color-brand-green-700: var(--color-brand-green-700);
+  --color-brand-green-50: var(--color-brand-green-50);
+
+  --color-brand-navy: var(--color-brand-navy);
+  --color-brand-navy-700: var(--color-brand-navy-700);
+
+  --color-surface: var(--color-surface);
+  --color-canvas: var(--color-canvas);
+  --color-line: var(--color-line);
+  --color-muted: var(--color-muted);
+
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+
+  --radius-btn-xs: var(--radius-btn-xs);
+  --radius-btn: var(--radius-btn);
+  --radius-card: var(--radius-card);
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-brand-navy);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+::selection {
+  background: var(--color-brand-blue-50);
+  color: var(--color-brand-navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-blue-deep);
+  outline-offset: 2px;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 24s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
