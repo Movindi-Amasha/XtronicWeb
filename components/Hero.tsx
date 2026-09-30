@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
-const TRUST_BADGES = [
-  "🛡️ 100% Child-Safe",
-  "⚡ Battery-Free Solar",
-  "🇦🇺 Fast AU Delivery",
-  "⭐ 4.9/5 by Parents",
+const STATS = [
+  { value: "5", label: "STEM Kits" },
+  { value: "6+", label: "Min Age" },
+  { value: "4.9", label: "Parent Rating" },
+  { value: "AU", label: "Wide Delivery" },
 ];
 
 const MARQUEE_ITEMS = [
@@ -24,25 +24,100 @@ export default function Hero() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section
-      className="relative overflow-hidden bg-brand-navy pb-0"
-      style={{
-        backgroundImage:
-          "radial-gradient(circle at 15% 20%, rgba(3,140,242,0.35), transparent 55%), radial-gradient(circle at 85% 15%, rgba(255,167,7,0.28), transparent 50%), radial-gradient(circle at 50% 100%, rgba(87,177,45,0.15), transparent 50%)",
-      }}
-    >
-      <div className="mx-auto max-w-[1000px] px-4 pb-16 pt-20 text-center md:px-6 md:pt-28">
-        {/* Logo mark, front and center, appears first */}
+    <section className="relative overflow-hidden bg-brand-navy pb-0">
+      {/* Dot-grid texture, spatially faded toward the mascot side — echoes the
+          reference's masked radial dot field rather than a flat repeat. */}
+      <div
+        aria-hidden
+        className="board-joint board-joint-dark pointer-events-none absolute inset-0"
+        style={{
+          maskImage:
+            "radial-gradient(ellipse at 70% 50%, #000 10%, transparent 70%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse at 70% 50%, #000 10%, transparent 70%)",
+        }}
+      />
+
+      <div className="relative mx-auto grid max-w-[1160px] gap-12 px-4 py-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:px-6 md:py-24">
+        <div className="text-left">
+          <motion.span
+            initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.15em] text-brand-blue-50"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-amber" />
+            Learn &bull; Build &bull; Play
+          </motion.span>
+
+          <motion.h1
+            initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mt-5 font-pixel text-4xl leading-[1.15] font-bold text-white sm:text-5xl md:text-6xl"
+          >
+            MAKE LEARNING
+            <br />
+            <span className="text-brand-amber">COME ALIVE.</span>
+            <span className="mt-3 block font-body font-normal text-base text-brand-blue-50/70 sm:text-lg">
+              Screen-free STEM kits, built by hand, powered by curiosity.
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-5 max-w-md text-base text-brand-blue-50/70"
+          >
+            Hands-on robotics and solar engineering kits designed to ignite
+            curious minds — snap-together, screen-free, and built to last for
+            kids 6 and up.
+          </motion.p>
+
+          <motion.div
+            initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-7 flex flex-col gap-3 sm:flex-row"
+          >
+            <Link
+              href="/shop"
+              className="rounded-btn bg-brand-amber px-6 py-3 text-center font-mono text-sm font-medium uppercase tracking-wide text-brand-navy transition-opacity hover:opacity-90 focus-visible:outline-brand-amber"
+            >
+              Explore All Kits
+            </Link>
+            <Link
+              href="/schools"
+              className="rounded-btn border border-white/20 bg-white/5 px-6 py-3 text-center font-mono text-sm font-medium uppercase tracking-wide text-white transition-colors hover:bg-white/10"
+            >
+              For Schools &amp; Teachers →
+            </Link>
+          </motion.div>
+
+          <motion.div
+            initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-10 grid grid-cols-4 gap-4 border-t border-white/10 pt-6"
+          >
+            {STATS.map((stat) => (
+              <div key={stat.label}>
+                <p className="font-pixel text-xl text-white sm:text-2xl">{stat.value}</p>
+                <p className="mt-1 font-mono text-[10px] font-medium uppercase tracking-wide text-brand-blue-50/60 sm:text-xs">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
         <motion.div
-          initial={reduceMotion ? undefined : { opacity: 0, scale: 0.85 }}
+          initial={reduceMotion ? undefined : { opacity: 0, scale: 0.92 }}
           animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="relative mx-auto aspect-[100/65] w-full max-w-[300px] sm:max-w-[360px] md:max-w-[420px]"
+          transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+          className="relative mx-auto aspect-[100/65] w-full max-w-[360px] md:max-w-[440px]"
         >
-          <div
-            aria-hidden
-            className="absolute inset-0 -z-10 scale-125 rounded-full bg-brand-blue/30 blur-3xl"
-          />
           <motion.div
             animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -53,88 +128,22 @@ export default function Hero() {
               alt="XTRONIC KIDZ"
               fill
               priority
-              sizes="300px"
-              className="object-cover object-top drop-shadow-[0_10px_25px_rgba(0,0,0,0.4)]"
+              sizes="440px"
+              className="object-cover object-top"
             />
           </motion.div>
         </motion.div>
-
-        <motion.span
-          initial={reduceMotion ? undefined : { opacity: 0, y: 16 }}
-          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-6 inline-block rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-bold text-white backdrop-blur-sm"
-        >
-          ☀️ Learn &bull; Build &bull; Play
-        </motion.span>
-
-        <motion.h1
-          initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
-          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-6 font-heading text-6xl font-extrabold leading-[0.95] text-white sm:text-7xl md:text-8xl"
-        >
-          MAKE LEARNING
-          <br />
-          <span className="text-brand-amber">COME ALIVE.</span>
-        </motion.h1>
-
-        <motion.p
-          initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
-          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="mx-auto mt-6 max-w-lg text-lg text-brand-blue-50/80"
-        >
-          Hands-on STEM robotics and solar engineering kits designed to
-          ignite curious minds. Learn &bull; Build &bull; Play.
-        </motion.p>
-
-        <motion.div
-          initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
-          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"
-        >
-          <Link
-            href="/shop"
-            className="rounded-full bg-brand-amber px-7 py-3.5 text-center text-base font-bold text-brand-navy shadow-lg shadow-brand-amber/30 transition-transform hover:-translate-y-1 focus-visible:outline-brand-amber"
-          >
-            Explore All Kits
-          </Link>
-          <Link
-            href="/schools"
-            className="rounded-full border-2 border-white/40 px-7 py-3.5 text-center text-base font-bold text-white transition-colors hover:bg-white/10"
-          >
-            For Schools & Teachers
-          </Link>
-        </motion.div>
-
-        <motion.ul
-          initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
-          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
-          className="mt-6 flex flex-wrap items-center justify-center gap-2"
-        >
-          {TRUST_BADGES.map((badge) => (
-            <li
-              key={badge}
-              className="rounded-full border border-white/10 bg-white/5 px-3.5 py-2 text-xs font-bold text-brand-blue-50 backdrop-blur-sm"
-            >
-              {badge}
-            </li>
-          ))}
-        </motion.ul>
       </div>
 
-      {/* Scrolling marquee ribbon — flush, full-bleed, one continuous flex track with
-          the list duplicated so the -50% translate loop is seamless */}
-      <div className="relative w-full overflow-hidden border-y border-white/10 bg-white/5 py-3">
+      {/* Gold ticker band — full-bleed section divider, matching the reference's
+          confident solid-color marquee rather than a subtle translucent strip */}
+      <div className="relative w-full overflow-hidden bg-brand-amber py-2.5">
         <div className="animate-marquee flex w-max items-center gap-8">
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
             <span
               key={`${item}-${i}`}
               aria-hidden={i >= MARQUEE_ITEMS.length}
-              className="whitespace-nowrap text-sm font-bold text-brand-blue-50/80"
+              className="whitespace-nowrap font-mono text-xs font-medium uppercase tracking-wide text-brand-navy"
             >
               {item}
             </span>

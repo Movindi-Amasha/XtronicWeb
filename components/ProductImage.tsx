@@ -25,7 +25,7 @@ export default function ProductImage({
         role="img"
         aria-label={alt}
       >
-        <span className="flex h-20 w-20 items-center justify-center rounded-full bg-surface text-4xl shadow-lg shadow-brand-navy/10">
+        <span className="flex h-20 w-20 items-center justify-center rounded-full border border-line bg-surface text-4xl">
           {emoji}
         </span>
         <span className="text-xs font-bold uppercase tracking-wide text-brand-navy-700/60">

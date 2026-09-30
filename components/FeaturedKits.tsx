@@ -42,9 +42,9 @@ export default function FeaturedKits() {
             role="tab"
             aria-selected={active === tab}
             onClick={() => setActive(tab)}
-            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-colors ${
+            className={`rounded-full px-5 py-2.5 text-sm font-bold uppercase tracking-wide transition-colors ${
               active === tab
-                ? "bg-brand-blue text-white shadow-lg shadow-brand-blue/20"
+                ? "bg-brand-blue text-white hover:opacity-90"
                 : "bg-surface text-brand-navy border border-line hover:bg-brand-blue-50"
             }`}
           >

@@ -1,19 +1,25 @@
 import Hero from "@/components/Hero";
+import SignalGrid from "@/components/SignalGrid";
 import FeaturedKits from "@/components/FeaturedKits";
-import HowItWorks from "@/components/HowItWorks";
-import WhyChoose from "@/components/WhyChoose";
+import FeatureBento from "@/components/FeatureBento";
+import SpecsSection from "@/components/SpecsSection";
+import StatementBand from "@/components/StatementBand";
 import SchoolsSection from "@/components/SchoolsSection";
 import ParentReviews from "@/components/ParentReviews";
+import SignupBand from "@/components/SignupBand";
 
 export default function Home() {
   return (
     <>
       <Hero />
+      <SignalGrid />
       <FeaturedKits />
-      <HowItWorks />
-      <WhyChoose />
+      <FeatureBento />
+      <SpecsSection />
+      <StatementBand />
       <SchoolsSection />
       <ParentReviews />
+      <SignupBand />
     </>
   );
 }

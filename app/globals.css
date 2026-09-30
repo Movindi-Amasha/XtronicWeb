@@ -22,13 +22,17 @@
   --color-line: #e2e8f0;
   --color-muted: #5b6b80;
 
-  --font-heading: var(--font-baloo), ui-rounded, system-ui, sans-serif;
-  --font-body: var(--font-nunito), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: var(--font-doto), ui-monospace, monospace;
+  --font-body: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-pixel: var(--font-doto), ui-monospace, monospace;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* Radius scale from DESIGN.md: none/xs/sm/md/full — used for rounded-card, rounded-btn, rounded-btn-xs */
-  --radius-btn-xs: 8px;
-  --radius-btn: 11px;
-  --radius-card: 28px;
+  /* Radius scale from DESIGN.md (sharpened, board-joint / color-blocking system):
+     none/xs/sm/md/full — used for rounded-card, rounded-btn, rounded-btn-xs.
+     rounded-full stays reserved for primary CTA buttons only. */
+  --radius-btn-xs: 4px;
+  --radius-btn: 8px;
+  --radius-card: 16px;
 }
 
 @theme inline {
@@ -55,20 +59,24 @@
 
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
+  --font-pixel: var(--font-pixel);
+  --font-mono: var(--font-mono);
 
   --radius-btn-xs: var(--radius-btn-xs);
   --radius-btn: var(--radius-btn);
   --radius-card: var(--radius-card);
 }
 
-body {
-  background: var(--color-canvas);
-  color: var(--color-brand-navy);
-  font-family: var(--font-body);
-}
+@layer base {
+  body {
+    background: var(--color-canvas);
+    color: var(--color-brand-navy);
+    font-family: var(--font-body);
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
 }
 
 ::selection {
@@ -92,6 +100,40 @@ h1, h2, h3, h4, h5, h6 {
 
 .animate-marquee {
   animation: marquee 24s linear infinite;
+}
+
+@keyframes signal-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  50%, 100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Pegboard dot texture: scattered small dots, like a pegboard's drill holes
+   — a literal dot-matrix texture fitting a DIY/workshop brand, used at low
+   opacity behind dark hero/section bands only. */
+.board-joint {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1.5px);
+  background-size: 18px 18px;
+}
+
+.board-joint-light {
+  color: var(--color-brand-navy);
+  opacity: 0.12;
+}
+
+.board-joint-dark {
+  color: var(--color-brand-blue-50);
+  opacity: 0.14;
+}
+
+/* Uppercase UI chrome per DESIGN.md: nav, buttons, labels, pills — never
+   headings or body copy. */
+.ui-label {
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
 @media (prefers-reduced-motion: reduce) {

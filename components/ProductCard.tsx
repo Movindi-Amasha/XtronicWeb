@@ -1,10 +1,19 @@
+"use client";
+
 import Link from "next/link";
 import ProductImage from "./ProductImage";
-import { formatPriceAUD, type Product } from "@/lib/products";
+import type { Product } from "@/lib/products";
+import { useCartStore } from "@/lib/cartStore";
+import { useQuickViewStore } from "@/lib/quickViewStore";
+import { useDisplayPrice } from "@/lib/useDisplayPrice";
 
 export default function ProductCard({ product }: { product: Product }) {
+  const addItem = useCartStore((s) => s.addItem);
+  const openQuickView = useQuickViewStore((s) => s.open);
+  const displayPrice = useDisplayPrice(product.priceCents);
+
   return (
-    <div className="group flex flex-col overflow-hidden rounded-card bg-surface shadow-lg shadow-brand-navy/10 ring-1 ring-brand-navy/5 transition-transform hover:-translate-y-1.5 hover:shadow-xl hover:shadow-brand-blue/20">
+    <div className="group flex flex-col overflow-hidden rounded-card border border-line bg-surface transition-transform hover:-translate-y-1.5 hover:border-brand-blue/40">
       <Link
         href={`/shop/${product.slug}`}
         className="relative block aspect-[4/3] w-full overflow-hidden bg-brand-blue-50"
@@ -42,7 +51,7 @@ export default function ProductCard({ product }: { product: Product }) {
               {concept}
             </span>
           ))}
-          <span className="rounded-full bg-brand-amber-50 px-2.5 py-1 text-[11px] font-bold text-brand-navy">
+          <span className="rounded-full bg-brand-amber-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-brand-navy">
             ⏱ {product.buildTime}
           </span>
         </div>
@@ -57,18 +66,31 @@ export default function ProductCard({ product }: { product: Product }) {
 
         <div className="mt-auto flex items-center justify-between pt-2">
           <span className="font-heading text-xl font-extrabold text-brand-navy">
-            {formatPriceAUD(product.priceCents)}
+            {displayPrice}
           </span>
           <div className="flex gap-2">
-            <button
-              type="button"
-              className="rounded-btn-xs border border-line px-3 py-2 text-xs font-bold text-brand-navy transition-colors hover:bg-brand-blue-50"
+            <Link
+              href={`/shop/${product.slug}`}
+              onClick={(e) => {
+                e.preventDefault();
+                openQuickView(product.slug);
+              }}
+              className="rounded-btn-xs border border-line px-3 py-2 text-xs font-bold uppercase tracking-wide text-brand-navy transition-colors hover:bg-brand-blue-50"
             >
               Quick View
-            </button>
+            </Link>
             <button
               type="button"
-              className="rounded-full bg-brand-blue px-4 py-2 text-xs font-bold text-white shadow-lg shadow-brand-blue/20 transition-transform hover:-translate-y-0.5"
+              onClick={() =>
+                addItem({
+                  slug: product.slug,
+                  name: product.name,
+                  emoji: product.emoji,
+                  image: product.image,
+                  priceCents: product.priceCents,
+                })
+              }
+              className="rounded-full bg-brand-blue px-4 py-2 text-xs font-bold uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5 hover:opacity-90"
             >
               Add to Cart
             </button>

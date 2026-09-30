@@ -2,155 +2,116 @@
 version: alpha
 name: XTRONIC KIDZ
 description: |
-  A playful-but-polished design system for XTRONIC KIDZ, adapted from a
-  refined-minimalism reference system with the color palette fully replaced
-  by the XTRONIC brand (Section 2 of CLAUDE.md). The reference system was
-  dark-canvas-first (black backgrounds, white cards); XTRONIC KIDZ flips this
-  to light-canvas-first (soft off-white pages, white cards) with brand navy
-  reserved for accent bands, the footer, and headings/body text — mirroring
-  how the reference used its near-black "surface-alt" for alternating section
-  bands. Structure, type scale, spacing, radii, and component shapes are
-  unchanged from the source system; only color roles and a handful of
-  light/dark pairings that depended on a dark canvas were corrected.
+  A stark, color-blocked design system for XTRONIC KIDZ, restructured from a
+  minimalist tech-brand reference system (dark charcoal/off-white blocking,
+  gold accent, monospace/uppercase UI text, flat shadow-free elevation) with
+  the palette fully replaced by the XTRONIC brand (CLAUDE.md Section 2) and
+  the reference's plain dot-matrix decoration reinterpreted as a laser-cut
+  plywood joinery pattern — small interlocking board-edge tabs, echoing the
+  actual DIY kits (visible laser-cut panel edges, bright painted graphics,
+  exposed mechanical joints). Structure carried over as-is: spacing scale,
+  elevation strategy (color-blocking, no shadows), component box model
+  (heights/padding), uppercase treatment for UI chrome, breakpoints. Radius
+  scale is sharpened toward the reference's flat aesthetic but keeps one
+  pill tier for primary CTAs — a deliberate hybrid, not a full copy, so the
+  brand doesn't lose its friendly signature entirely. Typography sizes/
+  weights/line-heights are kept from the source; font *family* stays
+  CLAUDE.md's Baloo 2 (display) / Nunito (text) — the source system's custom
+  faces (NType82, Ndot, LatteraMonoLL) aren't licensed for this project.
 source:
-  adaptedFrom: "Apple-inspired reference design system (see git history)"
+  adaptedFrom: "Minimalist tech-brand reference system (see git history)"
   colorSubstitution: "CLAUDE.md Section 2 — XTRONIC KIDZ brand palette"
-  adaptedAt: 2026-09-29
+  adaptedAt: 2026-09-30
   tokensMeasured: false
 colors:
-  primary: "#038CF2"
+  primary: "#FFA707"
   canvas: "#F8FAFC"
-  surface: "#FFFFFF"
   surface-alt: "#0D1F35"
-  on-primary: "#FFFFFF"
-  ink: "#FFFFFF"
-  body: "#E8F4FE"
-  muted: "#5B6B80"
-  faint: "#4A6076"
-  hairline: "#E2E8F0"
-  accent-1: "#0358B2"
-  accent-2: "#FFA707"
+  on-primary: "#0D1F35"
+  ink: "#0D1F35"
+  body: "#5B6B80"
+  muted: "#E2E8F0"
+  faint: "#FFFFFF"
   neutral-1: "#E8F4FE"
 typography:
-  display-xxl:
-    fontFamily: "SF Pro Display"
-    fontSize: 96px
-    fontWeight: 600
-    lineHeight: 1.04
-    letterSpacing: -1.44px
-  display-xl:
-    fontFamily: "SF Pro Display"
-    fontSize: 80px
-    fontWeight: 600
-    lineHeight: 1.05
-    letterSpacing: -1.2px
   display-lg:
-    fontFamily: "SF Pro Display"
-    fontSize: 56px
-    fontWeight: 600
-    lineHeight: 1.07
-    letterSpacing: -0.28px
+    fontFamily: "brand display font"
+    fontSize: 48px
+    fontWeight: 700
+    lineHeight: 1
+    letterSpacing: 0px
   display-md:
-    fontFamily: "SF Pro Display"
-    fontSize: 48px
-    fontWeight: 600
-    lineHeight: 1.08
-    letterSpacing: -0.14px
-  display-md-tight:
-    fontFamily: "SF Pro Display"
-    fontSize: 48px
-    fontWeight: 600
-    lineHeight: 1
-    letterSpacing: -0.14px
-  display-sm:
-    fontFamily: "SF Pro Display"
+    fontFamily: "brand display font"
     fontSize: 40px
-    fontWeight: 600
+    fontWeight: 700
     lineHeight: 1
     letterSpacing: 0px
+    textTransform: uppercase
   heading-md:
-    fontFamily: "SF Pro Display"
+    fontFamily: "brand display font"
     fontSize: 32px
-    fontWeight: 600
-    lineHeight: 1.13
-    letterSpacing: 0.13px
-  heading-sm:
-    fontFamily: "SF Pro Display"
-    fontSize: 28px
-    fontWeight: 600
-    lineHeight: 1.14
-    letterSpacing: 0.2px
-  heading-sm-tight:
-    fontFamily: "SF Pro Display"
-    fontSize: 28px
-    fontWeight: 600
-    lineHeight: 1
-    letterSpacing: 0.2px
-  body-xl:
-    fontFamily: "SF Pro Display"
-    fontSize: 21px
-    fontWeight: 600
-    lineHeight: 1.38
-    letterSpacing: 0.23px
-  body-xl-tight:
-    fontFamily: "SF Pro Display"
-    fontSize: 21px
-    fontWeight: 600
-    lineHeight: 1.19
-    letterSpacing: 0.23px
-  body-xl-2:
-    fontFamily: "SF Pro Display"
-    fontSize: 21px
-    fontWeight: 600
-    lineHeight: 1
-    letterSpacing: 0.23px
-  body-lg:
-    fontFamily: "SF Pro Text"
-    fontSize: 19px
     fontWeight: 500
-    lineHeight: 1.21
-    letterSpacing: 0.23px
-  body-lg-strong:
-    fontFamily: "SF Pro Display"
-    fontSize: 19px
-    fontWeight: 600
-    lineHeight: 1.21
-    letterSpacing: 0.23px
-  body-md:
-    fontFamily: "SF Pro Text"
-    fontSize: 17px
-    fontWeight: 600
-    lineHeight: 1.47
-    letterSpacing: -0.37px
-  button-md:
-    fontFamily: "SF Pro Text"
-    fontSize: 17px
-    fontWeight: 400
-    lineHeight: 2.12
+    lineHeight: 1.1
     letterSpacing: 0px
-  button-sm:
-    fontFamily: "SF Pro Text"
-    fontSize: 14px
+    textTransform: uppercase
+  heading-md-strong:
+    fontFamily: "brand display font"
+    fontSize: 32px
+    fontWeight: 700
+    lineHeight: 1
+    letterSpacing: 0px
+  heading-sm:
+    fontFamily: "brand display font"
+    fontSize: 20px
+    fontWeight: 700
+    lineHeight: 1.08
+    letterSpacing: 0px
+    textTransform: uppercase
+  body-xl:
+    fontFamily: "brand text font"
+    fontSize: 20px
+    fontWeight: 800
+    lineHeight: 1
+    letterSpacing: 0px
+    textTransform: uppercase
+  body-lg:
+    fontFamily: "brand text font"
+    fontSize: 18px
     fontWeight: 400
-    lineHeight: 1.29
-    letterSpacing: -0.22px
-  label:
-    fontFamily: "SF Pro Text"
-    fontSize: 17px
-    fontWeight: 600
-    lineHeight: 1.24
-    letterSpacing: -0.37px
-  caption:
-    fontFamily: "SF Pro Text"
+    lineHeight: 1.4
+    letterSpacing: 0px
+  body-md:
+    fontFamily: "brand text font"
+    fontSize: 16px
+    fontWeight: 400
+    lineHeight: 1.4
+    letterSpacing: 0px
+  label-md:
+    fontFamily: "brand text font"
+    fontSize: 14px
+    fontWeight: 700
+    lineHeight: 1.43
+    letterSpacing: 0.4px
+    textTransform: uppercase
+  label-sm:
+    fontFamily: "brand text font"
     fontSize: 12px
-    fontWeight: 600
+    fontWeight: 700
     lineHeight: 1.33
-    letterSpacing: -0.12px
+    letterSpacing: 0.4px
+    textTransform: uppercase
+  label-xs:
+    fontFamily: "brand text font"
+    fontSize: 11px
+    fontWeight: 700
+    lineHeight: 1.1
+    letterSpacing: 0.4px
+    textTransform: uppercase
 rounded:
   none: 0px
-  xs: 8px
-  sm: 11px
-  md: 28px
+  xs: 4px
+  sm: 8px
+  md: 16px
   full: 9999px
 spacing:
   xxs: 4px
@@ -161,255 +122,175 @@ spacing:
   xl: 24px
   xxl: 28px
   xxxl: 32px
-  section: 36px
-  band: 40px
-borderWidths:
-  thin: 1px
+  section: 40px
+  band: 52px
 elevationStrategy: color-blocking
 themes:
-  derived: light   # light is the dominant XTRONIC canvas; dark is the navy accent-band theme
+  derived: light   # light canvas is dominant; dark is the navy accent-band theme
   light:
     bg: "#F8FAFC"
-    surface: "#E8F4FE"
+    surface: "#FFFFFF"
     surfaceRaised: "#FFFFFF"
     text: "#0D1F35"
     textMuted: "#5B6B80"
     border: "#E2E8F0"
-    accent: "#038CF2"
+    accent: "#0358B2"
     accentFg: "#FFFFFF"
     focusRing: "#0358B2"
     elevation: shadow
   dark:
     bg: "#0D1F35"
-    surface: "#FFFFFF"
-    surfaceRaised: "#FFFFFF"
+    surface: "#1E3350"
+    surfaceRaised: "#1E3350"
     text: "#FFFFFF"
     textMuted: "#E8F4FE"
     border: "#1E3350"
-    accent: "#038CF2"
-    accentFg: "#FFFFFF"
+    accent: "#FFA707"
+    accentFg: "#0D1F35"
     focusRing: "#FFA707"
     elevation: "border+surface"
   contrastFailures:
-    - "dark: default 'text' (#FFFFFF) on 'surface' (#FFFFFF) = 1:1 (needs 4.5:1) — never set white text directly on a white surface card inside a navy band; pair white surface cards with brand-navy (#0D1F35) text instead, as in card-featured."
+    - "light: default 'text' color reused as a button label on brand-amber must resolve to navy (#0D1F35), never white — amber fails white-text contrast per CLAUDE.md's own rule."
+gradients:
+  - context: hero / section dividers
+    kind: pattern
+    value: "board-joint-grid — see Section 6 Depth & Elevation for the concrete pattern definition"
 components:
-  button-filled:
-    textColor: "rgba(255, 255, 255, 0.92)"
-    border: "3px solid rgba(255, 255, 255, 0.08)"
-    height: 42px
-    padding: "0px 14px 0px 14px"
-    fontSize: 17px
-    fontFamily: "SF Pro Text"
-    fontWeight: 400
-    lineHeight: 2.41
+  button-secondary:
+    typography: "{typography.label-sm}"
+    textColor: "{colors.faint}"
+    height: 60px
+    padding: "20px 40px 20px 40px"
     rounded: "{rounded.sm}"
     backgroundColor: "{colors.surface-alt}"
   button-primary:
+    typography: "{typography.body-md}"
     textColor: "{colors.ink}"
-    height: 20px
-    padding: "11px 21px 11px 21px"
-    fontSize: 17px
-    fontFamily: "SF Pro Text"
-    fontWeight: 400
-    lineHeight: 1.18
-    rounded: 980px
+    height: 40px
+    padding: "12px 16px 12px 16px"
+    rounded: "{rounded.full}"
     backgroundColor: "{colors.primary}"
+  button-filled:
+    typography: "{typography.label-xs}"
+    textColor: "{colors.faint}"
+    height: 48px
+    padding: "16px 16px 16px 16px"
+    rounded: "{rounded.sm}"
+    backgroundColor: "rgba(255, 255, 255, 0.08)"
   button-filled-sm:
-    typography: "{typography.button-sm}"
-    textColor: "{colors.surface-alt}"
-    height: 36px
-    padding: "8px 15px 8px 15px"
-    rounded: "{rounded.xs}"
-    backgroundColor: "{colors.body}"
-  button-primary-sm:
+    typography: "{typography.body-md}"
     textColor: "{colors.ink}"
-    height: 16px
-    padding: "6px 10px 6px 10px"
-    fontSize: 12px
-    fontFamily: "SF Pro Text"
-    fontWeight: 400
-    lineHeight: 1.33
-    rounded: 120px
-    backgroundColor: "{colors.primary}"
-  button-icon:
-    textColor: "{colors.body}"
-    height: 36px
-    fontSize: 17px
-    fontFamily: "SF Pro Text"
-    fontWeight: 400
-    lineHeight: 1.47
-    rounded: "50%"
-    backgroundColor: "rgba(13, 31, 53, 0.72)"
-  card:
-    textColor: "{colors.body}"
-    padding: "72px 0px 120px 0px"
-    fontSize: 17px
-    fontFamily: "SF Pro Text"
-    fontWeight: 400
-    lineHeight: 1.47
-    rounded: "{rounded.md}"
+    height: 40px
+    padding: "12px 16px 12px 16px"
+    rounded: "{rounded.xs}"
+    backgroundColor: "{colors.faint}"
+  button-secondary-sm:
+    typography: "{typography.body-md}"
+    textColor: "{colors.faint}"
+    height: 40px
+    padding: "12px 16px 12px 16px"
+    rounded: "{rounded.xs}"
     backgroundColor: "{colors.surface-alt}"
-  card-featured:
-    textColor: "{colors.surface-alt}"
-    fontSize: 17px
-    fontFamily: "SF Pro Text"
-    fontWeight: 400
-    lineHeight: 1.47
-    rounded: "{rounded.md}"
-    backgroundColor: "{colors.surface}"
-  card-sm:
-    textColor: "{colors.surface-alt}"
-    border: "1px solid {colors.hairline}"
-    fontSize: 17px
-    fontFamily: "SF Pro Text"
-    fontWeight: 400
-    lineHeight: 1.47
-    rounded: "{rounded.md}"
-  badge-text:
-    textColor: "{colors.surface-alt}"
-    height: 44px
-    fontSize: 17px
-    fontFamily: "SF Pro Text"
-    fontWeight: 400
-    lineHeight: 1.47
-  badge-text-2:
-    typography: "{typography.button-sm}"
-    textColor: "{colors.muted}"
-    height: 44px
+  button-text:
+    typography: "{typography.label-md}"
+    textColor: "{colors.body}"
+    height: 21px
   navigation:
+    typography: "{typography.label-xs}"
     textColor: "{colors.surface-alt}"
     height: 44px
-    fontSize: 17px
-    fontFamily: "SF Pro Text"
-    fontWeight: 400
-    lineHeight: 1.47
   footer:
-    textColor: "rgba(255, 255, 255, 0.72)"
-    fontSize: 12px
-    fontFamily: "SF Pro Text"
-    fontWeight: 400
-    lineHeight: 1.33
+    typography: "{typography.body-md}"
+    textColor: "{colors.faint}"
+    padding: "112px 32px 32px 32px"
     backgroundColor: "{colors.surface-alt}"
   link:
+    typography: "{typography.body-md}"
     textColor: "{colors.surface-alt}"
-    fontSize: 17px
-    fontFamily: "SF Pro Text"
-    fontWeight: 400
-    lineHeight: 1.47
-  link-lg:
-    textColor: "rgb(2, 114, 200)"
-    fontSize: 17px
-    fontFamily: "SF Pro Text"
-    fontWeight: 400
-    lineHeight: 1.47
-    rounded: "{rounded.md}"
-    backgroundColor: "transparent"
+  link-sm:
+    typography: "{typography.label-xs}"
+    textColor: "{colors.surface-alt}"
+    padding: "8px 16px 8px 16px"
 states:
-  button-focus-visible:
-    target: button
-    state: focus-visible
-    opacity: 1
-  link-hover:
-    target: link
-    state: hover
-    textDecoration: none
-  link-focus:
-    target: link
-    state: focus
-    outline: none
-  nav-hover:
-    target: nav
-    state: hover
-    opacity: 1
-  button-hover:
-    target: button
-    state: hover
-    opacity: 1
-  button-active:
-    target: button
-    state: active
-    outline: none
-  other-hover:
-    target: other
-    state: hover
-    textColor: "{colors.canvas}"
-  other-focus-visible:
-    target: other
-    state: focus-visible
-    outline: none
-  link-focus-visible:
-    target: link
-    state: focus-visible
-    outline: none
-  link-disabled:
-    target: link
-    state: disabled
-    textDecoration: none
-  other-focus:
-    target: other
-    state: focus
-    outline: none
-  card-focus-visible:
-    target: card
-    state: focus-visible
-    outlineWidth: 6px
   button-disabled:
     target: button
     state: disabled
-    opacity: 0.32
-  other-disabled:
+    opacity: 0.4
+  button-hover:
+    target: button
+    state: hover
+    opacity: 0.85
+    transform: "translateY(-2px)"
+  other-hover:
     target: other
-    state: disabled
-    textColor: "{colors.muted}"
+    state: hover
+    textColor: "{colors.body}"
+  input-focus:
+    target: input
+    state: focus
+    outline: "{colors.accent-1} solid 2px"
+    outlineColor: "#0358B2"
+    outlineWidth: 2px
+  other-focus:
+    target: other
+    state: focus
+    outline: "#0358B2 solid 2px"
+    outlineColor: "#0358B2"
+    outlineWidth: 2px
+  link-hover:
+    target: link
+    state: hover
+    textColor: "{colors.body}"
+    backgroundColor: "{colors.neutral-1}"
 breakpoints:
   - width: 375
-    containerWidth: 328
-    gridColumns: 3
-    navLinksVisible: 58
+    containerWidth: 343
+    gridColumns: 4
+    navLinksVisible: 0
     menuToggleVisible: true
     headingPx: 32
-    bodyPx: 17
-    sectionPaddingX: 0
+    bodyPx: 16
+    sectionPaddingX: 16
   - width: 768
-    containerWidth: 672
-    gridColumns: 3
-    navLinksVisible: 51
+    containerWidth: 704
+    gridColumns: 4
+    navLinksVisible: 0
     menuToggleVisible: true
     headingPx: 40
-    bodyPx: 17
-    sectionPaddingX: 0
+    bodyPx: 16
+    sectionPaddingX: 24
   - width: 1024
-    containerWidth: 896
-    gridColumns: 3
-    navLinksVisible: 126
-    menuToggleVisible: true
+    containerWidth: 960
+    gridColumns: 4
+    navLinksVisible: 6
+    menuToggleVisible: false
     headingPx: 40
-    bodyPx: 17
-    sectionPaddingX: 0
+    bodyPx: 16
+    sectionPaddingX: 24
   - width: 1280
-    containerWidth: 1120
-    gridColumns: 3
-    navLinksVisible: 126
-    menuToggleVisible: true
+    containerWidth: 1216
+    gridColumns: 4
+    navLinksVisible: 6
+    menuToggleVisible: false
     headingPx: 48
-    bodyPx: 17
-    sectionPaddingX: 0
+    bodyPx: 16
+    sectionPaddingX: 24
   - width: 1440
     containerWidth: 1260
-    gridColumns: 3
-    navLinksVisible: 127
-    menuToggleVisible: true
+    gridColumns: 4
+    navLinksVisible: 6
+    menuToggleVisible: false
     headingPx: 48
-    bodyPx: 17
-    sectionPaddingX: 0
+    bodyPx: 16
+    sectionPaddingX: 24
 coverage:
-  statesFound: 61
-  gradientsFound: 0
-  rolesUnassigned: 3
+  statesFound: 11
+  gradientsFound: 1
+  rolesUnassigned: 1
   archetypesUnnamed: 0
   archetypesDetected: 0
   responsiveMeasured: true
-  stylesheetsBlocked: false
+  stylesheetsBlocked: true
   semanticRampDeclared: false
 ---
 
@@ -417,31 +298,43 @@ coverage:
 
 > Colors in this document are governed by **CLAUDE.md Section 2** and take
 > precedence over anything below (per CLAUDE.md Section 0). Everything else
-> here — type scale, spacing, radii, component shapes, elevation approach,
+> — type scale, spacing, radius, elevation approach, component box model,
 > breakpoints — is the design mechanics to follow.
 
 ## 1. Visual Theme & Atmosphere
 
-XTRONIC KIDZ pairs a bright, high-contrast product presentation with a
-playful, trustworthy tone. The site runs light-canvas-first — soft off-white
-pages (`#F8FAFC`) with white cards — punctuated by deep brand-navy accent
-bands (`#0D1F35`) used the way the source system used near-black bands: to
-segment long pages, anchor the footer, and give the eye a resting point
-between bright product sections. Brand blue (`#038CF2`) is the sole
-chromatic anchor for calls-to-action and interactive moments; amber
-(`#FFA707`) and green (`#57B12D`, used at implementation time per CLAUDE.md,
-not tokenized here) layer in as tag/badge accents on top of this neutral
-structure. Large, bold headings and decisive whitespace keep the focus on
-product imagery, while secondary content recedes into muted navy-grays.
+This is a deliberate pivot away from XTRONIC's earlier soft, heavily-rounded,
+drop-shadowed look toward something starker and more product-honest: stark
+color-blocking between a light canvas and deep navy bands, a single
+high-signal amber accent, flat shadow-free surfaces, and uppercase/technical
+UI chrome (nav, buttons, badges) that reads like a spec sheet or a parts
+list — appropriate for a brand that's fundamentally about kids assembling
+real laser-cut hardware. The reference system's plain dot-matrix decoration
+is reinterpreted as a **board-joint grid**: a repeating pattern of small
+interlocking tabs and slots, the way laser-cut plywood panels actually join
+together on the real kits. Headings and body copy stay legible and
+non-shouty (no uppercase, normal weight) so the site still reads warm to
+parents and clear to kids — the uppercase/technical treatment is reserved
+for chrome (buttons, nav, labels, spec pills), not for the friendly voice of
+the copy itself.
 
-**Key Characteristics:**
-- Light off-white canvas with white card surfaces for a clean, airy read
-- Brand blue (`#038CF2`) used sparingly for primary calls-to-action, links, and focus states
-- Generous whitespace and controlled pacing drive attention to product imagery
-- Heavy reliance on typography weight and scale for hierarchy, color layered on top for brand warmth
-- Sharp edges on small cards and dividers; pill-shaped buttons and inputs create visual interest
-- Subtle opacity shifts and hover states rather than dramatic color transitions
-- Navy accent bands (`{colors.surface-alt}` — `#0D1F35`) provide visual rhythm and house the footer
+**Key Characteristics**
+- Stark color-blocking: light canvas (`{colors.canvas}`) sections against
+  deep navy (`{colors.surface-alt}`) bands — no gradients on backgrounds
+  other than the signature hero gradient reserved by CLAUDE.md.
+- One high-signal accent (`{colors.primary}` — brand amber) used sparingly:
+  primary CTA fills and brand moments only.
+- Flat, shadow-free elevation. Depth comes from color contrast and a thin
+  `border+surface` treatment on dark bands, not `box-shadow`.
+- Uppercase, letter-spaced, bold text for **UI chrome only** — nav links,
+  button labels, spec-pill badges, section eyebrows. Headings and body copy
+  stay normal-case for warmth and kid-readability.
+- Board-joint grid as the decorative motif (hero backgrounds, section
+  dividers) instead of a plain dot pattern — see Section 6.
+- Mostly sharp, minimal-radius surfaces (`{rounded.xs}`–`{rounded.md}`),
+  with the pill radius (`{rounded.full}`) reserved for primary CTA buttons
+  only — the one rounded signature carried over from the previous look.
+- Generous vertical rhythm between sections (`{spacing.band}` = 52px).
 
 ## 2. Color Palette & Roles
 
@@ -449,332 +342,353 @@ Full brand definitions live in CLAUDE.md Section 2 — this maps that palette
 onto the system's structural roles.
 
 ### Primary
-- **Brand Blue** (`{colors.primary}` — `#038CF2`): Primary calls-to-action, link focus states, active indicators, and brand accent moments. The dominant chromatic anchor.
+- **Brand Accent** (`{colors.primary}` — `#FFA707`, brand-amber): Primary
+  CTA fills, active states, brand-mark emphasis. Text on this is always
+  brand-navy (`{colors.on-primary}`) — never white, per CLAUDE.md's
+  contrast rule.
 
-### Accent Colors
-- **Accent 1 / Brand Blue Deep** (`{colors.accent-1}` — `#0358B2`): Decorative and secondary-emphasis use — icon strokes, subtle highlights.
-- **Accent 2 / Brand Amber** (`{colors.accent-2}` — `#FFA707`): Decorative use — CTA badges, sale/promo accents, layered on top of this neutral structure per CLAUDE.md.
+### Surfaces & Backgrounds
+- **Canvas** (`{colors.canvas}` — `#F8FAFC`): Default page background —
+  dominant, light, spacious.
+- **Surface Alt / Ink** (`{colors.surface-alt}` — `#0D1F35`, brand-navy):
+  Dark accent bands (footer, hero, schools section), *and* the default dark
+  text/nav/link color on light backgrounds — same dual role the source
+  system used its near-black for.
 
-### Interactive
-- **Primary Button Fill** (`{colors.primary}` — `#038CF2`): Primary filled buttons and interactive states.
+### Text & Hierarchy
+- **Body** (`{colors.body}` — `#5B6B80`, muted): Secondary body copy, text
+  on dark bands where full white would be too stark.
+- **Muted** (`{colors.muted}` — `#E2E8F0`, line): Captions, dividers,
+  de-emphasized borders on light surfaces.
+- **Faint** (`{colors.faint}` — `#FFFFFF`): Text on dark bands, white card
+  fills.
+- **On Primary** (`{colors.on-primary}` — `#0D1F35`, brand-navy): Text on
+  the amber accent — mandatory per CLAUDE.md, never white-on-amber.
 
-### Neutral Scale
-- **Canvas** (`{colors.canvas}` — `#F8FAFC`): Default page background — the dominant surface.
-- **Surface** (`{colors.surface}` — `#FFFFFF`): Card and panel backgrounds; primary heading/body text color when placed on a navy band.
-- **Surface Alt / Brand Navy** (`{colors.surface-alt}` — `#0D1F35`): Navy accent-band backgrounds (footer, alternating sections) *and* the default dark text color used on light backgrounds (headings, nav, links, body copy).
-- **Body** (`{colors.body}` — `#E8F4FE`, brand-blue-50): Text color on navy bands; light secondary-surface tint.
-- **Muted** (`{colors.muted}` — `#5B6B80`): Captions, secondary text, and supporting labels on light backgrounds.
-- **Faint** (`{colors.faint}` — `#4A6076`, derived navy tint): Tertiary text and disabled copy — one step dimmer than muted; not in the base CLAUDE.md palette, derived per CLAUDE.md Section 0's tint/shade rule.
-
-### Surface & Borders
-- **Hairline** (`{colors.hairline}` — `#E2E8F0`, CLAUDE.md `line`): 1px dividers and subtle borders on light surfaces.
-- **Neutral 1** (`{colors.neutral-1}` — `#E8F4FE`): Light tinted secondary surface/container background.
+### Neutral / Decorative
+- **Neutral 1** (`{colors.neutral-1}` — `#E8F4FE`, brand-blue-50): Light
+  tinted secondary surface, hover fill behind links.
 
 ## 3. Typography Rules
 
 ### Font Family
 
-The type **scale** below (sizes, weights, line-heights, tracking) is kept
-as-is from the source system. The actual font **family** used in
-implementation follows CLAUDE.md Section 2, not the names below:
-headings in a rounded geometric sans (**Baloo 2** or **Fredoka**), body in
-**Inter** or **Nunito**. Treat every "SF Pro Display" reference below as
-"the brand display font" and every "SF Pro Text" reference as "the brand
-text font."
+The type **scale** below (sizes, weights, line-heights, uppercase
+treatment) is kept from the source system. The actual font **family**
+follows CLAUDE.md Section 2: **Baloo 2** (or Fredoka) for display/heading
+roles, **Nunito** (or Inter) for text/label roles. The source system's
+custom faces (NType82, Ndot, LatteraMonoLL, Geist) aren't used — treat
+every "brand display font" below as Baloo 2 and every "brand text font" as
+Nunito.
 
 - **Display role**: brand display font (Baloo 2 / Fredoka)
-  - Fallback: ui-rounded, "Baloo 2", system-ui, sans-serif
-- **Text role**: brand text font (Inter / Nunito)
-  - Fallback: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
+- **Text / label role**: brand text font (Nunito / Inter)
 
 ### Hierarchy
 
-| Role | Size | Weight | Line Height | Letter Spacing | Notes |
-|------|------|--------|-------------|----------------|-------|
-| Display XXL | 96px | 600 | 1.04 | −1.44px | Ultra-large hero statements |
-| Display XL | 80px | 600 | 1.05 | −1.2px | Major section headlines |
-| Display Large | 56px | 600 | 1.07 | −0.28px | Large section headers |
-| Display Medium | 48px | 600 | 1.08 | −0.14px | Mid-size display text |
-| Display Medium Tight | 48px | 600 | 1.0 | −0.14px | Compact display variant |
-| Display Small | 40px | 600 | 1.0 | 0px | Smaller display headlines |
-| Heading Medium | 32px | 600 | 1.13 | 0.13px | Primary page headings |
-| Heading Small | 28px | 600 | 1.14 | 0.2px | Secondary headings |
-| Heading Small Tight | 28px | 600 | 1.0 | 0.2px | Compact heading variant |
-| Body XL | 21px | 600 | 1.38 | 0.23px | Large body emphasis |
-| Body XL Tight | 21px | 600 | 1.19 | 0.23px | Compact body XL |
-| Body XL 2 | 21px | 600 | 1.0 | 0.23px | Ultra-compact body variant |
-| Body Large Strong | 19px | 600 | 1.21 | 0.23px | Strong body copy |
-| Body Large | 19px | 500 | 1.21 | 0.23px | Secondary body text |
-| Body Medium | 17px | 600 | 1.47 | −0.37px | Primary body copy |
-| Label | 17px | 600 | 1.24 | −0.37px | Form labels and metadata |
-| Button Medium | 17px | 400 | 2.12 | 0px | Standard button text |
-| Button Small | 14px | 400 | 1.29 | −0.22px | Small button text |
-| Caption | 12px | 600 | 1.33 | −0.12px | Fine print and captions |
+| Role | Size | Weight | Line Height | Tracking | Case | Notes |
+|---|---|---|---|---|---|---|
+| Display Large | 48px | 700 | 1.0 | 0 | normal | Hero headline |
+| Display Medium | 40px | 700 | 1.0 | 0 | UPPERCASE | Large section titles |
+| Heading MD Strong | 32px | 700 | 1.0 | 0 | normal | Strong section headings |
+| Heading MD | 32px | 500 | 1.1 | 0 | UPPERCASE | Section headings |
+| Heading SM | 20px | 700 | 1.08 | 0 | UPPERCASE | Small headings, card titles |
+| Body XL | 20px | 800 | 1.0 | 0 | UPPERCASE | Emphasized stat/price callouts |
+| Body Large | 18px | 400 | 1.4 | 0 | normal | Large body copy |
+| Body MD | 16px | 400 | 1.4 | 0 | normal | Standard body copy |
+| Label MD | 14px | 700 | 1.43 | 0.4px | UPPERCASE | Button/nav labels |
+| Label SM | 12px | 700 | 1.33 | 0.4px | UPPERCASE | Spec pills, badges |
+| Label XS | 11px | 700 | 1.1 | 0.4px | UPPERCASE | Micro-labels, footnotes |
 
 ### Principles
-- **Negative tracking on display sizes** creates visual tightness; keep it even though the font family changed, it still reads as premium/considered.
-- **Weight contrast drives hierarchy**: heavy 600-weight heads anchor sections; 400-weight body and buttons recede.
-- **Line-height varies by role**: display text sits tight (1.0–1.08), body copy opens to 1.47 for readability.
-- **Never invent intermediate sizes**; use weight and line-height to refine emphasis instead.
+- **Uppercase is a chrome signal, not a voice.** Reserve
+  `text-transform: uppercase` for nav, buttons, labels and pills — actual
+  sentences (headlines, body copy, descriptions) stay normal-case. This is
+  the one deliberate deviation from the source system, made for
+  kid-readability.
+- **Weight carries hierarchy**, not size alone — Heading MD (32px/500) and
+  Heading MD Strong (32px/700) share a size but read differently.
+- **Positive letter-spacing on label roles** (`0.4px`) gives the
+  spec-sheet/technical feel on small uppercase text — the reference
+  system's negative tracking doesn't survive the font swap cleanly, so this
+  is a light positive-tracking analog instead.
+- **Never invent intermediate sizes**; use weight and letter-spacing to
+  differentiate within a size instead.
 
 ## 4. Component Stylings
 
 ### Buttons
 
 **Primary Button**
-- Background: `{colors.primary}` (`#038CF2`)
-- Text Color: `{colors.ink}` (`#FFFFFF`) — safe per CLAUDE.md contrast rule (≥16px bold)
-- Padding: `11px 21px`
-- Font: `{typography.button-md}` (17px, 400 weight)
-- Border Radius: `{rounded.full}` (9999px — pill shape)
-- Focus Visible: `2px solid {colors.accent-1}` (`#0358B2`) outline
+- Background: `{colors.primary}` (`#FFA707`)
+- Text Color: `{colors.on-primary}` (`#0D1F35`) — mandatory, never white
+- Font: `{typography.body-md}`, 16px/400
+- Padding: `12px 16px`
+- Height: 40px
+- Border Radius: `{rounded.full}` — the one pill signature kept
+- Hover: opacity 0.85 + `translateY(-2px)`
+- Disabled: opacity 0.4
 
-**Filled Button (Navy)**
+**Secondary Button (Navy)**
 - Background: `{colors.surface-alt}` (`#0D1F35`)
-- Text Color: `rgba(255, 255, 255, 0.92)`
-- Padding: `0px 14px`
-- Border Radius: `{rounded.sm}` (11px)
-- Border: `3px solid rgba(255, 255, 255, 0.08)`
-- Height: 42px
-- Focus Visible: `2px solid {colors.accent-1}` outline
+- Text Color: `{colors.faint}` (`#FFFFFF`)
+- Font: `{typography.label-sm}`, 12px/700, uppercase, 0.4px tracking
+- Padding: `20px 40px`
+- Height: 60px
+- Border Radius: `{rounded.sm}` (8px)
+
+**Filled Button**
+- Background: `rgba(255, 255, 255, 0.08)` (translucent overlay — for use
+  on dark bands only)
+- Text Color: `{colors.faint}` (`#FFFFFF`)
+- Font: `{typography.label-xs}`, 11px/700, uppercase
+- Padding: `16px`
+- Height: 48px
+- Border Radius: `{rounded.sm}` (8px)
 
 **Filled Small Button**
-- Background: `{colors.body}` (`#E8F4FE`)
-- Text Color: `{colors.surface-alt}` (`#0D1F35`) — *corrected from the source's dark-canvas-only `canvas` reference, which is no longer a dark color here*
-- Padding: `8px 15px`
-- Border Radius: `{rounded.xs}` (8px)
-- Height: 36px
+- Background: `{colors.faint}` (`#FFFFFF`)
+- Text Color: `{colors.on-primary}` (`#0D1F35`)
+- Font: `{typography.body-md}`, 16px/400
+- Padding: `12px 16px`
+- Height: 40px
+- Border Radius: `{rounded.xs}` (4px)
 
-**Primary Small Button**
-- Background: `{colors.primary}` (`#038CF2`)
-- Text Color: `{colors.ink}` (`#FFFFFF`)
-- Padding: `6px 10px`
-- Border Radius: `{rounded.full}` (120px — pill shape)
-- Height: 16px
-
-**Icon Button**
-- Background: `rgba(13, 31, 53, 0.72)` (translucent navy)
-- Text Color: `{colors.body}` (`#E8F4FE`)
-- Height/Width: 36px
-- Border Radius: 50% (circular)
-- Focus Visible: `2px solid {colors.accent-1}` outline
-
-### Cards & Containers
-
-**Card Default (Navy)**
-- Background: `{colors.surface-alt}` (`#0D1F35`)
-- Text Color: `{colors.body}` (`#E8F4FE`)
-- Border Radius: `{rounded.md}` (28px)
-- Padding: `72px 0px 120px 0px`
-- Hover State: slight scale lift
-- Focus Visible: outline color `#FFFFFF`; outline-width 6px
-
-**Card Featured (White)**
-- Background: `{colors.surface}` (`#FFFFFF`)
-- Text Color: `{colors.surface-alt}` (`#0D1F35`)
-- Border Radius: `{rounded.md}` (28px)
-- Hover State: slight scale lift
-- Focus Visible: outline color `#0D1F35`; outline-width 6px
-
-**Card Small**
-- Background: transparent (sits on the light canvas)
-- Text Color: `{colors.surface-alt}` (`#0D1F35`) — *corrected from the source's `body` reference for the same dark-canvas reason as Filled Small Button*
-- Border: `1px solid {colors.hairline}` (`#E2E8F0`)
-- Border Radius: `{rounded.md}` (28px)
+**Text Button**
+- Background: transparent
+- Text Color: `{colors.body}` (`#5B6B80`)
+- Font: `{typography.label-md}`, 14px/700, uppercase, 0.4px tracking
+- Height: 21px
+- Hover: opacity 0.7
 
 ### Navigation
 
 **Global Navigation**
 - Background: transparent
 - Text Color: `{colors.surface-alt}` (`#0D1F35`)
+- Font: `{typography.label-xs}`, 11px/700, uppercase
 - Height: 44px
-- Hover State: underline; opacity 1
-- Focus Visible: `2px solid {colors.accent-1}` outline
-
-### Badges
-
-**Badge Text**
-- Text Color: `{colors.surface-alt}` (`#0D1F35`) — *corrected from `body` for the same reason as above*
-- Height: 44px
-
-**Badge Text 2**
-- Text Color: `{colors.muted}` (`#5B6B80`)
-- Height: 44px
+- Hover: text color → `{colors.body}`
+- Focus: `2px solid #0358B2` outline
 
 ### Links
 
-**Link Default**
+**Standard Link**
 - Text Color: `{colors.surface-alt}` (`#0D1F35`)
-- Hover State: underline
-- Focus Visible: `2px solid {colors.accent-1}` outline
+- Font: `{typography.body-md}`, 16px/400, normal case
+- Hover: text color → `{colors.body}`, background → `{colors.neutral-1}`
 
-**Link Default Large**
-- Text Color: `#0272C8` (brand-blue-600 — CLAUDE.md's AA-safe blue for text under 16px/non-bold)
-- Border Radius: `{rounded.md}` (28px)
-- Hover State: underline
+**Small Link**
+- Text Color: `{colors.surface-alt}` (`#0D1F35`)
+- Font: `{typography.label-xs}`, 11px/700, uppercase
+- Padding: `8px 16px`
+- Height: 28px
 
 ### Footer
 
-- Background: `{colors.surface-alt}` (`#0D1F35`) — *flipped from the source's light footer, per CLAUDE.md Section 4.7 ("Footer (navy)")*
-- Text Color: `rgba(255, 255, 255, 0.72)` — *flipped to light text to match the navy background*
-- Font: caption scale (12px)
+- Background: `{colors.surface-alt}` (`#0D1F35`)
+- Text Color: `{colors.faint}` (`#FFFFFF`)
+- Font: `{typography.body-md}`, 16px/400, normal case (footer copy is
+  still a sentence, not chrome)
+- Padding: `112px 32px 32px 32px`
+- Border Radius: `{rounded.none}` (sharp, full-bleed)
 
 ## 5. Layout Principles
 
 ### Spacing System
 
-**Base Unit:** `{spacing.xs}` (8px)
+Base unit: `{spacing.xs}` (8px).
 
-**Scale:**
-- `{spacing.xxs}` = 4px — Tight micro-spacing between inline elements
-- `{spacing.xs}` = 8px — Small gaps between components
-- `{spacing.sm}` = 12px — Compact section spacing
-- `{spacing.md}` = 16px — Standard padding for components
-- `{spacing.lg}` = 20px — Medium section separation
-- `{spacing.xl}` = 24px — Large component padding
-- `{spacing.xxl}` = 28px — Generous internal spacing
-- `{spacing.xxxl}` = 32px — Large margins between blocks
-- `{spacing.section}` = 36px — Section-level spacing
-- `{spacing.band}` = 40px — Page band / hero padding
+| Scale | Value |
+|---|---|
+| `{spacing.xxs}` | 4px |
+| `{spacing.xs}` | 8px |
+| `{spacing.sm}` | 12px |
+| `{spacing.md}` | 16px |
+| `{spacing.lg}` | 20px |
+| `{spacing.xl}` | 24px |
+| `{spacing.xxl}` | 28px |
+| `{spacing.xxxl}` | 32px |
+| `{spacing.section}` | 40px |
+| `{spacing.band}` | 52px |
 
 ### Grid & Container
 
-- **Content Max Width:** 1260px at 1440px breakpoint; 1120px at 1280px; 896px at 1024px.
-- **Column Count:** 3 columns across all breakpoints.
-- **Section Padding:** 0px horizontal; full-width sections with internal column layout.
+- **Max-width:** 1260px, matching CLAUDE.md's existing container convention.
+- **Grid columns:** 4-column grid at all breakpoints.
+- **Section padding:** full-bleed color blocks (dark navy bands span edge
+  to edge); internal content padding creates the safe area
+  (`{spacing.xxxl}` = 32px on desktop).
 
 ### Whitespace Philosophy
 
-Large hero sections dominate above the fold, with generous breathing room
-around product imagery and headlines. Navy accent bands (`{colors.surface-alt}`)
-segment content into distinct zones — used the way the source system used
-its near-black bands, just inverted in dominance (light is now the base,
-navy is the accent, not the other way around). Vertical spacing between
-sections stays generous — `{spacing.band}` (40px) or larger.
+Sections stack with large vertical gaps (`{spacing.band}` = 52px) so
+alternating canvas/navy blocks read as distinct, deliberate zones rather
+than a continuous scroll. Horizontal padding stays minimal at section
+level; color does the structural work, not borders.
 
 ### Border Radius Scale
 
-- `{rounded.none}` = 0px — Sharp edges on dividers, some borders
-- `{rounded.xs}` = 8px — Small buttons, compact components
-- `{rounded.sm}` = 11px — Medium buttons (navy filled variant)
-- `{rounded.md}` = 28px — Primary card containers, featured surfaces
-- `{rounded.full}` = 9999px — Pill-shaped buttons, text inputs, circular icon buttons
+- `{rounded.none}` = 0px — Footer, images, most flat surfaces.
+- `{rounded.xs}` = 4px — Small/filled buttons, inputs.
+- `{rounded.sm}` = 8px — Secondary and filled buttons, board-joint tabs
+  (see below).
+- `{rounded.md}` = 16px — Cards and panels (a deliberate concession to
+  the source's all-sharp aesthetic — full 0px cards read too austere for a
+  kids' brand).
+- `{rounded.full}` = 9999px — **Primary CTA buttons only.** The one pill
+  signature kept from the previous look; don't apply it elsewhere.
 
 ### Border Widths
 
-- **Thin:** `1px` — Inputs, hairline dividers, card-small borders
+Thin (1px) only, and used sparingly — most separation comes from color
+contrast, not strokes. Where a border does appear (card edges on light
+surfaces), use `{colors.muted}` (`#E2E8F0`).
 
 ## 6. Depth & Elevation
 
+**Color-blocking, not shadows.** Depth comes from adjacent surface color
+changes (canvas ↔ navy), not `box-shadow`. The one exception: white cards
+floating on a navy band use a thin `border+surface` treatment (a subtle
+light border) instead of a shadow to read as "lifted."
+
+### Board-joint grid (the reinterpreted decorative motif)
+
+Where the reference system used a plain dot-matrix pattern, use a
+**board-joint grid** instead — small alternating tabs/slots referencing how
+laser-cut plywood panels actually interlock on the real kits:
+
+```css
+background-image:
+  repeating-linear-gradient(90deg, currentColor 0 6px, transparent 6px 24px),
+  repeating-linear-gradient(0deg, currentColor 0 6px, transparent 6px 24px);
+background-size: 24px 24px;
+opacity: 0.06; /* on light canvas, using brand-navy as currentColor */
+/* on a dark navy band, use brand-blue-50 as currentColor at opacity 0.08 */
+```
+
+Use this at low opacity behind hero copy or as a section-divider strip —
+never at full strength, it's texture, not content.
+
 | Level | Treatment | Use |
-|-------|-----------|-----|
-| Flat (Base) | No shadow; background color only | Body sections, badges, flat text layers |
-| Lifted (Card Hover) | Transform scale; subtle motion | Interactive card hover state |
-| Focus State | 2px solid outline (`{colors.accent-1}` on light, `{colors.accent-2}` on navy) | Keyboard focus on buttons, links, controls |
-| Modal / Overlay | Z-index: 9995–9998; full-screen backdrop or sidebar | Modal dialogs, quick-view, quote modal |
-| Sticky / Fixed | Z-index: 999 | Navigation bar, mobile bottom bar |
-
-**Shadow Philosophy:** Primarily **color-blocking**, matching CLAUDE.md's
-`shadow-lg shadow-brand-blue/10` motif — soft, brand-tinted shadows rather
-than heavy neutral drop shadows. Depth comes from surface color changes
-(white → navy) and soft brand-tinted shadow, not hard drop shadows.
-Interactive elevation is communicated through transform scale on hover
-(`hover:-translate-y-1` per CLAUDE.md) and focus outline strokes.
-
-**Focus ring color differs by context**: `{colors.accent-1}` (brand-blue-deep)
-on light backgrounds per CLAUDE.md's explicit assignment; `{colors.accent-2}`
-(brand-amber) on navy bands, where blue-on-blue would be too low-contrast to
-serve as a visible focus indicator.
+|---|---|---|
+| Flat (Base) | Solid surface color, no shadow | Cards, buttons, content blocks |
+| Blocked Contrast | Adjacent canvas ↔ navy color change | Section boundaries |
+| Board-Joint Texture | Low-opacity repeating tab pattern | Hero backdrop, dividers |
+| Lifted (dark band only) | 1px light border, no shadow | White cards on navy bands |
 
 ### Opacity Levels
 
-- **92%** (0.92) — Near-opaque text on filled navy buttons
-- **72%** (0.72) — Footer text on navy, translucent icon-button backgrounds
-- **36%** (0.36) — Disabled states
+- **0.85** — Button hover (paired with a small `translateY(-2px)` lift).
+- **0.4** — Disabled state.
+- **0.08** — Translucent white overlay for filled buttons on dark bands.
+- **0.06–0.08** — Board-joint texture opacity.
 
 ### Z-index / Layering
 
-- **Base / Content:** 1–4
-- **Sticky / Fixed Navigation:** 999 — header, mobile bottom bar
-- **Modal / Overlay:** 9995–9998 — cart drawer, quick-view, school quote modal
+- `10` — Dropdowns, inline overlays.
+- `999` — Sticky header, mobile bottom bar (matches CLAUDE.md convention).
+- `9998–9999` — Cart drawer, quick-view modal, toasts.
 
 ## 7. Do's and Don'ts
 
 ### Do
-- **Use brand blue** (`{colors.primary}` — `#038CF2`) sparingly and intentionally for primary calls-to-action, focus states, and interactive moments.
-- **Leverage typography weight and scale** to drive hierarchy.
-- **Employ generous whitespace** around product imagery and hero headlines.
-- **Apply navy accent bands** (`{colors.surface-alt}` — `#0D1F35`) to segment long pages, house the footer, and provide visual rhythm.
-- **Use pill-shaped buttons and inputs** (`{rounded.full}`) for primary interactive elements.
-- **Stack cards with 28px radius** (`{rounded.md}`) on featured products and feature blocks.
-- **Implement focus outlines** for keyboard accessibility — brand-blue-deep on light, brand-amber on navy.
-- **Keep borders minimal and subtle** — hairline gray (`{colors.hairline}` — `#E2E8F0`) only when necessary.
-- **Never put white text on amber or green** (CLAUDE.md rule) — use brand-navy text on amber, brand-green-700 for green text on white.
+- **Use brand amber sparingly and only for primary actions.** Text on it is
+  always brand-navy.
+- **Let color-blocking do the structural work.** Alternate canvas and navy
+  bands instead of adding shadows or borders for separation.
+- **Reserve uppercase for chrome** — nav, buttons, labels, pills. Never
+  uppercase a full sentence of body copy or a headline.
+- **Keep the board-joint texture subtle** (6–8% opacity) — it's a material
+  cue, not a pattern to notice consciously.
+- **Reserve the pill radius for primary CTAs only** — every other surface
+  stays sharp-to-modest (`{rounded.xs}`–`{rounded.md}`).
+- **Maintain the 52px section rhythm** between major blocks.
 
 ### Don't
-- **Avoid overusing color** beyond brand blue as the primary anchor; amber/green are decorative badge accents, not backgrounds for large text blocks.
-- **Don't mix multiple border-radius values** on the same component family.
-- **Avoid heavy neutral drop shadows** as the primary depth cue — use brand-tinted soft shadows and color-blocking instead.
-- **Don't crowd sections** with excessive padding or nested components.
-- **Avoid justified text** on body copy.
-- **Don't apply heavy opacity** (`< 0.36`) to primary interactive elements.
-- **Avoid sharp corners** on primary buttons and cards — pill shapes and 28px radius are the signature.
-- **Don't reuse `body` (`#E8F4FE`) as text color on the light canvas** — it's light-on-light. Use `surface-alt` (`#0D1F35`) for text on light backgrounds, and `body` only for text on navy bands.
+- **Don't add box-shadows.** Depth is color contrast and, on dark bands
+  only, a thin light border.
+- **Don't put white text on amber or green** — CLAUDE.md's contrast rule
+  stands regardless of this system's monochrome leanings.
+- **Don't round everything.** Mixing the pill radius onto cards or badges
+  dilutes it as a CTA signal — keep cards/panels at `{rounded.md}` or
+  sharper.
+- **Don't uppercase headings or paragraphs.** That's reserved for UI
+  chrome, not the brand's voice.
+- **Don't scale the board-joint grid up** into a loud, visible pattern —
+  it should read as material texture at a glance, not decoration.
 
 ## 8. Responsive Behavior
 
 ### Breakpoints
 
-| Breakpoint | Viewport Width | Content Column | Grid Columns | Heading (Largest) | Body Text | Section Padding-X |
-|---|---|---|---|---|---|---|
-| Mobile | 375px | 328px | 3 | 32px | 17px | 0px |
-| Tablet | 768px | 672px | 3 | 40px | 17px | 0px |
-| Desktop Small | 1024px | 896px | 3 | 40px | 17px | 0px |
-| Desktop Medium | 1280px | 1120px | 3 | 48px | 17px | 0px |
-| Desktop Large | 1440px | 1260px | 3 | 48px | 17px | 0px |
+| Breakpoint | Width | Container | Columns | Heading | Menu Toggle |
+|---|---|---|---|---|---|
+| Mobile | 375px | 343px | 4 | 32px | Yes |
+| Tablet | 768px | 704px | 4 | 40px | Yes |
+| Desktop Small | 1024px | 960px | 4 | 40px | No |
+| Desktop Medium | 1280px | 1216px | 4 | 48px | No |
+| Desktop Large | 1440px | 1260px | 4 | 48px | No |
+
+Note: the source system measured no mobile menu toggle at any breakpoint
+(a phone brand's nav is short enough to always show). XTRONIC's nav has six
+links plus cart/search/CTA — a hamburger below 1024px is a practical
+necessity, not a stylistic choice; kept from the existing site rather than
+copied from the source.
 
 ### Touch Targets
 
-- **Minimum Touch Size:** 44px × 44px — matches CLAUDE.md's ≥44px rule for mobile.
-- Buttons: 36px–42px height (small to standard)
-- Icon buttons: 36px × 36px (circular)
-- Navigation items: 44px vertical height
+Minimum 40px (matches CLAUDE.md's ≥44px rule when padding is included);
+secondary buttons run 60px tall for extra-comfortable tap targets.
 
 ### Collapsing Strategy
 
-- **Mobile (375px):** Single-column layout; hamburger → slide-in drawer; sticky bottom bar with Shop/Search/Cart/Order Kit.
-- **Tablet (768px):** Column expands to 672px; headings grow to 40px.
-- **Desktop (1024px+):** Full 3-column grid; content column grows to 896px–1260px; all navigation links visible.
+- **Mobile/Tablet (375–768px):** Hamburger menu, single-column card grids,
+  section padding drops to 16–24px.
+- **Desktop (1024px+):** Full nav visible, 4-column grid capacity, section
+  padding settles at 24px internal / 32px on band interiors.
+- Typography steps at the same breakpoints as the existing site
+  (32px → 40px → 48px headings) — no fluid scaling.
 
 ## 9. Agent Prompt Guide
 
 ### Quick Color Reference
 
-- **Primary CTA / Brand Accent:** Brand Blue (`{colors.primary}` — `#038CF2`)
-- **Page Background / Canvas:** `#F8FAFC` — the dominant surface across the site
-- **Card & Panel Background:** White (`{colors.surface}` — `#FFFFFF`) for featured cards; Navy (`{colors.surface-alt}` — `#0D1F35`) for accent-band cards and the footer
-- **Heading & Primary Text:** Navy (`#0D1F35`) on light backgrounds; White (`#FFFFFF`) on navy backgrounds
-- **Body Text:** Navy (`#0D1F35`) on light backgrounds; Body tint (`#E8F4FE`) on navy backgrounds
-- **Secondary / Caption Text:** Muted (`{colors.muted}` — `#5B6B80`) or Faint (`{colors.faint}` — `#4A6076`)
-- **Borders & Dividers:** Hairline (`{colors.hairline}` — `#E2E8F0`) — 1px only
+- **Primary CTA:** Brand Amber (`{colors.primary}` — `#FFA707`), navy text
+- **Page Background:** `#F8FAFC` — dominant, light
+- **Dark Bands (footer, hero, schools):** Brand Navy (`{colors.surface-alt}`
+  — `#0D1F35`), white or blue-50 text
+- **Body Text:** Brand Navy on light; white/blue-50 on navy
+- **Secondary Text:** Muted (`{colors.body}` — `#5B6B80`)
+- **Borders/Dividers:** `{colors.muted}` (`#E2E8F0`)
 
 ### Iteration Guide
 
-1. **Contrast first, per background.** On the light canvas (`#F8FAFC`)/white surface, text is navy (`#0D1F35`). On a navy band, text is white or the body tint (`#E8F4FE`). Never cross the two.
-2. **Typography drives hierarchy.** Use the 14-size hierarchy in Section 3. Never invent intermediate sizes.
-3. **Spacing is additive.** Start with `{spacing.md}` (16px) as default padding; scale up to `{spacing.band}` (40px) for section dividers.
-4. **Button radius matches role.** Pill-shaped primary buttons (`{rounded.full}`); navy filled buttons (`{rounded.sm}` = 11px); small buttons (`{rounded.xs}` = 8px).
-5. **Cards use 28px radius.** Exceptions: badge text (0px), small card borders (28px with 1px hairline stroke).
-6. **Color-blocking + soft brand shadow over heavy shadows.** Lift depth through background color shifts (white ↔ navy) and `shadow-brand-blue/10`, not gray drop shadows.
-7. **Focus outlines are mandatory.** `2px solid` brand-blue-deep on light backgrounds, brand-amber on navy — every interactive element, on `:focus-visible`.
-8. **Mobile-first breakpoints.** Test all five: 375px, 768px, 1024px, 1280px, 1440px.
-9. **Opacity for subtlety.** 0.72 for footer text and translucent overlays; 0.36 for disabled states.
-10. **Amber and green are accents, never large-text backgrounds with white text** — per CLAUDE.md's contrast rule, use navy text on amber, brand-green-700 for green text on white.
+1. **Block color first.** Canvas vs. navy band — decide which before
+   touching any component.
+2. **Chrome is uppercase, voice is not.** Nav/buttons/labels: uppercase,
+   letter-spaced, bold. Headlines/body: normal case, normal tracking.
+3. **No shadows, ever.** If something needs to look lifted, it's either a
+   navy band (contrast) or a white card with a 1px light border (on navy
+   only).
+4. **Pill radius is precious.** Only primary CTA buttons get
+   `{rounded.full}`. Everything else: `{rounded.xs}` to `{rounded.md}`.
+5. **Board-joint texture at 6–8% opacity, nowhere else.** Don't reuse it as
+   a loud background.
+6. **52px between sections**, 32px internal padding on band interiors.
+7. **Focus rings stay `#0358B2` on light, `#FFA707` on navy bands** —
+   matching the existing site's established focus convention.
 
 ## 10. Known Gaps
 
-- **No semantic status colors tokenized here.** Use CLAUDE.md's `brand-green`/`brand-green-700`/`brand-green-50` for success/in-stock states — not part of this file's base token set.
-- **Transition timings not specified.** Durations and easing curves aren't covered; keep motion subtle and respect `prefers-reduced-motion` per CLAUDE.md.
-- **No gradient tokens** beyond CLAUDE.md's signature hero gradient (`linear-gradient(135deg, #038CF2 0%, #038CF2 50%, #FFA707 50%, #FFA707 100%)`), which is reserved for the hero/X motif only, not general use.
-- **Dark mode (OS-level) is out of scope.** The "dark" theme in this file is the navy *accent-band* theme, not a full-site dark mode toggle.
-- **Border styles limited to solid 1px.** Dashed/dotted borders aren't part of this system.
+- **No semantic status colors tokenized here** — use CLAUDE.md's
+  `brand-green` family for success/in-stock states, same as before.
+- **Board-joint grid is a CSS approximation**, not lifted from real
+  product photography — swap in an actual laser-cut-edge texture/SVG later
+  if a higher-fidelity version is wanted.
+- **Transition timings unspecified** — keep motion subtle, respect
+  `prefers-reduced-motion`.
+- **This is a structural pivot from the site's current rounded/shadowed
+  look** — applying it will visibly change existing components (cards lose
+  their `shadow-lg`, most radii shrink). Treat as a decision to confirm
+  before a full site pass, not a drop-in.

@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderStatus {
+  pending
+  paid
+  fulfilled
+  shipped
+  delivered
+  failed
+  refunded
+  cancelled
+}
+
+enum PaymentProvider {
+  stripe
+  paypal
+}
+
+model Order {
+  id                String          @id @default(cuid())
+  status            OrderStatus     @default(pending)
+  paymentProvider   PaymentProvider
+  providerReference String?         @unique // Stripe PaymentIntent id / PayPal order id
+  currency          String          @default("AUD")
+  subtotalCents     Int
+  shippingCents     Int
+  totalCents        Int
+  couponCode        String?
+  email             String
+  shippingAddress   String // JSON blob: name, line1, line2, city, state, postcode, country
+  lineItems         String // JSON snapshot of cart at time of purchase
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@index([email])
+  @@index([status])
+}
+
+model SchoolQuote {
+  id           String   @id @default(cuid())
+  name         String
+  school       String
+  role         String?
+  email        String
+  phone        String?
+  state        String?
+  kitsInterest String
+  quantity     String?
+  timeframe    String?
+  message      String?
+  createdAt    DateTime @default(now())
+
+  @@index([email])
+}
+
+model NewsletterSubscriber {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  couponCode   String   @unique
+  couponUsed   Boolean  @default(false)
+  subscribedAt DateTime @default(now())
+}
+
+model Coupon {
+  id         String    @id @default(cuid())
+  code       String    @unique
+  percentOff Int
+  usedByEmail String?
+  usedAt     DateTime?
+  createdAt  DateTime  @default(now())
+}

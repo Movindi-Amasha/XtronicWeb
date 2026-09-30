@@ -33,7 +33,7 @@ export default function ParentReviews() {
         {REVIEWS.map((review) => (
           <figure
             key={review.name}
-            className="flex flex-col gap-3 rounded-card bg-surface p-6 shadow-lg shadow-brand-navy/10 ring-1 ring-brand-navy/5"
+            className="flex flex-col gap-3 rounded-card bg-surface p-6 border border-line"
           >
             <span
               className="text-brand-amber"

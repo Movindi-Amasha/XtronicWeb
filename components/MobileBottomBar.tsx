@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useCartStore, cartItemCount } from "@/lib/cartStore";
 
 const ITEMS = [
   { href: "/shop", label: "Shop", icon: "🛍️" },
@@ -10,6 +11,9 @@ const ITEMS = [
 ];
 
 export default function MobileBottomBar() {
+  const items = useCartStore((s) => s.items);
+  const cartCount = cartItemCount(items);
+
   return (
     <nav
       aria-label="Mobile"
@@ -19,13 +23,21 @@ export default function MobileBottomBar() {
         <Link
           key={item.label}
           href={item.href}
-          className="flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-brand-navy"
+          className="relative flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-brand-navy"
           style={{ minHeight: 44 }}
         >
-          <span aria-hidden className="text-lg">
+          <span aria-hidden className="relative text-lg">
             {item.icon}
+            {item.label === "Cart" && cartCount > 0 && (
+              <span
+                aria-hidden
+                className="absolute -right-2 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-amber text-[9px] font-bold uppercase tracking-wide text-brand-navy"
+              >
+                {cartCount}
+              </span>
+            )}
           </span>
-          <span className="text-[11px] font-semibold">{item.label}</span>
+          <span className="text-[11px] font-bold uppercase tracking-wide">{item.label}</span>
         </Link>
       ))}
     </nav>

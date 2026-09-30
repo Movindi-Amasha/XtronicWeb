@@ -1,20 +1,34 @@
 import type { Metadata } from "next";
-import { Baloo_2, Nunito } from "next/font/google";
+import { Geist, Geist_Mono, Doto } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomBar from "@/components/MobileBottomBar";
+import CartDrawer from "@/components/CartDrawer";
+import CartToast from "@/components/CartToast";
+import CartHydration from "@/components/CartHydration";
+import QuickViewModal from "@/components/QuickViewModal";
 import "./globals.css";
 
-const baloo = Baloo_2({
-  variable: "--font-baloo",
+// Body text
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["100", "300", "400", "500"],
 });
 
-const nunito = Nunito({
-  variable: "--font-nunito",
+// Uppercase UI labels, buttons, nav, specs
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500"],
+});
+
+// Dotted/pixel display font — hero titles, section headings, stat numbers,
+// the oversized footer wordmark. Reference: RIVICHIMOVICHI build brief.
+const doto = Doto({
+  variable: "--font-doto",
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -36,11 +50,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${baloo.variable} ${nunito.variable} h-full`}>
+    <html
+      lang="en"
+      className={`${geist.variable} ${geistMono.variable} ${doto.variable} h-full`}
+    >
       <body className="flex min-h-full flex-col bg-canvas text-brand-navy antialiased">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:rounded-full focus:bg-brand-blue focus:px-4 focus:py-2 focus:text-white focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:rounded-full focus:bg-brand-blue focus:px-4 focus:py-2 focus:text-white"
         >
           Skip to content
         </a>
@@ -50,6 +67,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <MobileBottomBar />
+        <CartDrawer />
+        <CartToast />
+        <CartHydration />
+        <QuickViewModal />
       </body>
     </html>
   );

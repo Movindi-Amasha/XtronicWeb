@@ -35,7 +35,7 @@ export default function SchoolsSection() {
           </p>
           <button
             type="button"
-            className="rounded-full bg-brand-amber px-6 py-3 text-sm font-bold text-brand-navy transition-transform hover:-translate-y-0.5 focus-visible:outline-brand-amber"
+            className="rounded-full bg-brand-amber px-6 py-3 text-sm font-bold uppercase tracking-wide text-brand-navy transition-transform hover:-translate-y-0.5 focus-visible:outline-brand-amber"
           >
             Request School Quote
           </button>
