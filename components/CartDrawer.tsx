@@ -9,6 +9,7 @@ import {
 } from "@/lib/cartStore";
 import { formatPriceAUD } from "@/lib/products";
 import { amountUntilFreeShippingCents, FREE_SHIPPING_THRESHOLD_CENTS } from "@/lib/shipping";
+import ProductImage from "./ProductImage";
 
 function LineItem({ item }: { item: CartItem }) {
   const { updateQty, removeItem } = useCartStore();
@@ -16,9 +17,7 @@ function LineItem({ item }: { item: CartItem }) {
   return (
     <li className="flex gap-3 py-4">
       <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-btn bg-brand-blue-50">
-        <span className="flex h-full w-full items-center justify-center text-2xl">
-          {item.emoji}
-        </span>
+        <ProductImage src={item.image} alt={item.name} emoji={item.emoji} sizes="64px" />
       </div>
       <div className="flex flex-1 flex-col gap-1">
         <p className="text-sm font-bold text-brand-navy">{item.name}</p>

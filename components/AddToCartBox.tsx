@@ -14,7 +14,7 @@ export default function AddToCartBox({ product }: { product: Product }) {
   return (
     <div className="flex flex-col gap-4 rounded-card border border-line bg-surface p-5">
       <div className="flex items-center justify-between">
-        <span className="font-heading text-3xl font-extrabold text-brand-navy">
+        <span className="font-body text-3xl font-extrabold text-brand-navy">
           {displayPrice}
         </span>
         <div className="flex items-center gap-3 rounded-full border border-line px-2 py-1">

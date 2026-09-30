@@ -1,5 +1,6 @@
 import Link from "next/link";
 import NewsletterForm from "./NewsletterForm";
+import PaymentIcons from "./PaymentIcons";
 
 const HELP_LINKS = [
   { href: "/help/faq", label: "FAQ" },
@@ -7,16 +8,6 @@ const HELP_LINKS = [
   { href: "/help/safety", label: "Safety" },
   { href: "/help/privacy", label: "Privacy" },
   { href: "/help/terms", label: "Terms" },
-];
-
-const PAYMENT_ICONS = [
-  "Visa",
-  "Mastercard",
-  "Amex",
-  "PayPal",
-  "Apple Pay",
-  "Google Pay",
-  "Afterpay",
 ];
 
 export default function Footer() {
@@ -71,28 +62,22 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col gap-4 border-t border-white/15 pt-6 font-mono text-xs text-white/60 md:flex-row md:items-center md:justify-between">
           <p>ABN 00 000 000 000 &middot; Australia-wide shipping</p>
-          <ul className="flex flex-wrap gap-3">
-            {PAYMENT_ICONS.map((name) => (
-              <li
-                key={name}
-                className="rounded-btn-xs border border-white/15 px-2 py-1 uppercase tracking-wide"
-              >
-                {name}
-              </li>
-            ))}
-          </ul>
+          <PaymentIcons />
         </div>
       </div>
 
-      {/* Oversized ghost wordmark, clipped and low-contrast — reads as texture,
-          not a second heading. */}
-      <p
-        aria-hidden
-        className="pointer-events-none -mb-[0.08em] select-none text-center font-pixel font-bold leading-none text-white/5"
-        style={{ fontSize: "clamp(4rem, 18vw, 13rem)" }}
-      >
-        XTRONIC KIDZ
-      </p>
+      {/* Oversized brand-colored wordmark signature, echoing the split-color
+          "X" of the logo (blue/amber). */}
+      <div className="overflow-hidden bg-brand-navy py-6">
+        <p
+          aria-hidden
+          className="pointer-events-none select-none text-center font-pixel font-bold leading-none"
+          style={{ fontSize: "clamp(3rem, 14vw, 9rem)" }}
+        >
+          <span className="text-brand-amber">XTRONIC</span>{" "}
+          <span className="text-brand-blue">KIDZ</span>
+        </p>
+      </div>
     </footer>
   );
 }

@@ -4,31 +4,45 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Why XTRONIC",
   description:
-    "Why parents, teachers and kids choose XTRONIC KIDZ for hands-on STEM learning.",
+    "The story behind XTRONIC KIDZ and why parents, teachers and kids choose us for hands-on STEM learning.",
 };
 
-const REASONS = [
+type Tone = "navy" | "surface" | "amber";
+
+const REASONS: { eyebrow: string; title: string; desc: string; tone: Tone; span?: 1 | 2 }[] = [
   {
-    icon: "📵",
+    eyebrow: "No Screens",
     title: "Screen-Free Interactive Fun",
     desc: "Every kit is a hands-on build — no app, no screen, no login. Just tools, parts and a project to finish.",
+    tone: "navy",
+    span: 2,
   },
   {
-    icon: "🎓",
+    eyebrow: "Real Concepts",
     title: "Curriculum-Aligned STEM",
-    desc: "Mechanics, photovoltaics and sound frequency, taught through play rather than worksheets — concepts kids actually remember.",
+    desc: "Mechanics, photovoltaics and sound frequency, taught through play rather than worksheets.",
+    tone: "surface",
   },
   {
-    icon: "🔁",
-    title: "Lifetime Replacement Guarantee",
-    desc: "Lost a screw or snapped a part mid-build? Tell us and we'll post a free replacement — no receipts, no fuss.",
+    eyebrow: "Guarantee",
+    title: "Lifetime Replacement",
+    desc: "Lost a screw or snapped a part mid-build? We'll post a free replacement — no receipts, no fuss.",
+    tone: "amber",
   },
   {
-    icon: "👨‍👩‍👧",
+    eyebrow: "Together or Solo",
     title: "Independent or Together",
-    desc: "Clear enough for solo discovery from age 6+, and just as good for a parent-child project on a weekend afternoon.",
+    desc: "Clear enough for solo discovery from age 6+, and just as good for a weekend parent-child project.",
+    tone: "surface",
+    span: 2,
   },
 ];
+
+const TONE_STYLES: Record<Tone, string> = {
+  navy: "bg-brand-navy text-white",
+  surface: "bg-surface text-brand-navy border border-line",
+  amber: "bg-brand-amber text-brand-navy",
+};
 
 const COMPARISON = [
   { label: "Screen time", xtronic: "Zero — fully hands-on", typical: "Often required for setup/app" },
@@ -37,12 +51,26 @@ const COMPARISON = [
   { label: "Age range", xtronic: "6+ with adult help if needed", typical: "Often 10+" },
 ];
 
+const VALUES = [
+  "Ships from Australia, worldwide",
+  "Child-safety tested materials",
+  "Lifetime part replacement",
+  "STEM-curriculum aligned",
+];
+
 export default function WhyXtronicPage() {
   return (
     <>
-      <section className="bg-brand-navy py-16 text-center text-white">
-        <div className="mx-auto max-w-2xl px-4 md:px-6">
-          <h1 className="font-heading text-4xl font-extrabold md:text-5xl">
+      <section className="relative overflow-hidden bg-brand-navy py-20 text-center text-white">
+        <div
+          aria-hidden
+          className="board-joint board-joint-dark pointer-events-none absolute inset-0"
+        />
+        <div className="relative mx-auto max-w-2xl px-4 md:px-6">
+          <p className="font-mono text-xs font-medium uppercase tracking-[0.15em] text-brand-blue-50/60">
+            About XTRONIC KIDZ
+          </p>
+          <h1 className="mt-2 font-heading text-4xl font-bold md:text-5xl">
             Why XTRONIC KIDZ
           </h1>
           <p className="mt-4 text-brand-blue-50/80">
@@ -52,20 +80,60 @@ export default function WhyXtronicPage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-[900px] px-4 py-16 text-center md:px-6">
+        <p className="font-mono text-xs font-medium uppercase tracking-[0.15em] text-brand-blue-600">
+          Our Story
+        </p>
+        <h2 className="mt-2 font-heading text-2xl font-bold text-brand-navy md:text-3xl">
+          Years of hands-on electronics, rebuilt for curious kids.
+        </h2>
+        <p className="mt-5 text-brand-navy-700">
+          XTRONIC KIDZ carries on a project that started back in 2018 as a
+          small kit-building venture for makers and students. Two rebrands
+          later — and years spent teaching real circuits, coding and
+          robotics rather than theory alone — that work became XTRONIC: a
+          development platform built on one belief, that people learn best
+          by building something real with their own hands.
+        </p>
+        <p className="mt-4 text-brand-navy-700">
+          XTRONIC KIDZ is the next chapter of that same idea, rebuilt from
+          the ground up for builders aged 6 and up. No apps, no logins — just
+          solar panels, gearboxes and wires that actually do something the
+          moment you finish building them. Founded and still led by Thimith
+          Navodya, XTRONIC KIDZ ships from Australia, is tested for child
+          safety, and comes with a lifetime guarantee on small parts —
+          because a missing screw shouldn&apos;t be the reason a build never
+          gets finished.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-2">
+          {VALUES.map((value) => (
+            <span
+              key={value}
+              className="rounded-full border border-line bg-surface px-4 py-2 font-mono text-xs font-medium uppercase tracking-wide text-brand-navy"
+            >
+              {value}
+            </span>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-[1260px] px-4 py-16 md:px-6">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <h2 className="text-center font-heading text-2xl font-bold text-brand-navy md:text-3xl">
+          What Makes Us Different
+        </h2>
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {REASONS.map((reason) => (
             <div
               key={reason.title}
-              className="flex flex-col gap-3 rounded-card bg-surface p-6 border border-line"
+              className={`flex flex-col gap-3 rounded-card p-6 ${TONE_STYLES[reason.tone]} ${
+                reason.span === 2 ? "lg:col-span-2" : ""
+              }`}
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-blue-50 text-2xl">
-                {reason.icon}
-              </span>
-              <h3 className="font-heading text-lg font-bold text-brand-navy">
-                {reason.title}
-              </h3>
-              <p className="text-sm text-brand-navy-700">{reason.desc}</p>
+              <p className="font-mono text-[10px] font-medium uppercase tracking-wide opacity-70">
+                {reason.eyebrow}
+              </p>
+              <h3 className="font-heading text-lg font-bold">{reason.title}</h3>
+              <p className="text-sm opacity-80">{reason.desc}</p>
             </div>
           ))}
         </div>
@@ -73,16 +141,16 @@ export default function WhyXtronicPage() {
 
       <section className="bg-brand-blue-50/60 py-16">
         <div className="mx-auto max-w-3xl px-4 md:px-6">
-          <h2 className="text-center font-heading text-3xl font-extrabold text-brand-navy">
+          <h2 className="text-center font-heading text-2xl font-bold text-brand-navy md:text-3xl">
             XTRONIC KIDZ vs. a Typical STEM Toy
           </h2>
           <div className="mt-8 overflow-hidden rounded-card border border-line bg-surface">
             <table className="w-full text-left text-sm">
               <thead>
                 <tr className="border-b border-line bg-brand-navy text-white">
-                  <th className="px-4 py-3 font-bold">&nbsp;</th>
-                  <th className="px-4 py-3 font-bold">XTRONIC KIDZ</th>
-                  <th className="px-4 py-3 font-bold">Typical Kit</th>
+                  <th className="px-4 py-3 font-mono text-xs font-medium uppercase tracking-wide">&nbsp;</th>
+                  <th className="px-4 py-3 font-mono text-xs font-medium uppercase tracking-wide">XTRONIC KIDZ</th>
+                  <th className="px-4 py-3 font-mono text-xs font-medium uppercase tracking-wide">Typical Kit</th>
                 </tr>
               </thead>
               <tbody>
@@ -100,12 +168,12 @@ export default function WhyXtronicPage() {
       </section>
 
       <section className="mx-auto max-w-[1260px] px-4 py-16 text-center md:px-6">
-        <h2 className="font-heading text-2xl font-extrabold text-brand-navy md:text-3xl">
+        <h2 className="font-heading text-2xl font-bold text-brand-navy md:text-3xl">
           Ready to see it in action?
         </h2>
         <Link
           href="/shop"
-          className="mt-6 inline-block rounded-full bg-brand-blue px-7 py-3.5 text-base font-bold uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5 hover:opacity-90"
+          className="mt-6 inline-block rounded-btn bg-brand-blue px-7 py-3.5 font-mono text-sm font-medium uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5 hover:opacity-90"
         >
           Explore All Kits
         </Link>

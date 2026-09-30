@@ -1,21 +1,42 @@
 import sharp from "sharp";
-import { mkdir } from "node:fs/promises";
+import { mkdir, readdir } from "node:fs/promises";
 import path from "node:path";
 
 const CANVAS_W = 1200;
 const CANVAS_H = 900;
 const BACKGROUND = "#E8F4FE"; // brand-blue-50, matches the card's image slot
 
+// `file` is the original single hero shot; `folder` is where extra angles
+// for that product get dropped in (product/<folder>/*.svg) — main.jpg stays
+// the first shot, additional files become 2.jpg, 3.jpg, ... in name order.
 const SOURCES = [
-  { slug: "solar-4wd-rover", file: "4wd.svg" },
-  { slug: "wooden-taxiing-aircraft", file: "plane.svg" },
-  { slug: "solar-speedboat", file: "yatch.svg" },
-  { slug: "voice-robot", file: "robit.svg" },
-  { slug: "solar-butterfly", file: "butterfly.svg" },
+  { slug: "solar-4wd-rover", file: "4wd.svg", folder: "4wd" },
+  { slug: "wooden-taxiing-aircraft", file: "plane.svg", folder: "plane" },
+  { slug: "solar-speedboat", file: "yatch.svg", folder: "yatch" },
+  { slug: "voice-robot", file: "robit.svg", folder: "robot" },
+  { slug: "solar-butterfly", file: "butterfly.svg", folder: "Butterfly" },
 ];
 
-async function buildPhoto(slug, file) {
-  const inputPath = path.join("product", file);
+async function collectInputs(file, folder) {
+  const inputs = [path.join("product", file)];
+  const folderPath = path.join("product", folder);
+
+  let entries = [];
+  try {
+    entries = await readdir(folderPath);
+  } catch {
+    entries = [];
+  }
+
+  const extra = entries
+    .filter((f) => f.toLowerCase().endsWith(".svg"))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+    .map((f) => path.join(folderPath, f));
+
+  return [...inputs, ...extra];
+}
+
+async function buildPhoto(inputPath, outPath) {
   const pipeline = sharp(inputPath).ensureAlpha();
 
   let trimmed;
@@ -49,9 +70,7 @@ async function buildPhoto(slug, file) {
     })
     .toBuffer();
 
-  const outDir = path.join("public", "products", slug);
-  await mkdir(outDir, { recursive: true });
-  const outPath = path.join(outDir, "main.jpg");
+  await mkdir(path.dirname(outPath), { recursive: true });
 
   await sharp({
     create: {
@@ -65,9 +84,14 @@ async function buildPhoto(slug, file) {
     .jpeg({ quality: 90 })
     .toFile(outPath);
 
-  console.log(`${slug} -> ${outPath}`);
+  console.log(`${inputPath} -> ${outPath}`);
 }
 
-for (const { slug, file } of SOURCES) {
-  await buildPhoto(slug, file);
+for (const { slug, file, folder } of SOURCES) {
+  const inputs = await collectInputs(file, folder);
+  for (let i = 0; i < inputs.length; i++) {
+    const outName = i === 0 ? "main.jpg" : `${i + 1}.jpg`;
+    const outPath = path.join("public", "products", slug, outName);
+    await buildPhoto(inputs[i], outPath);
+  }
 }

@@ -36,9 +36,7 @@ export default function ProductCard({ product }: { product: Product }) {
             {product.categoryLabel}
           </p>
           <h3 className="mt-1 font-heading text-lg font-bold leading-snug text-brand-navy">
-            <Link href={`/shop/${product.slug}`}>
-              {product.emoji} {product.name}
-            </Link>
+            <Link href={`/shop/${product.slug}`}>{product.name}</Link>
           </h3>
         </div>
 
@@ -65,7 +63,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
 
         <div className="mt-auto flex items-center justify-between pt-2">
-          <span className="font-heading text-xl font-extrabold text-brand-navy">
+          <span className="font-body text-xl font-extrabold text-brand-navy">
             {displayPrice}
           </span>
           <div className="flex gap-2">

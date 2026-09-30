@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ProductImage from "@/components/ProductImage";
+import ProductGallery from "@/components/ProductGallery";
 import ProductCard from "@/components/ProductCard";
 import AddToCartBox from "@/components/AddToCartBox";
 import { getProductBySlug, products } from "@/lib/products";
+import { getProductImages } from "@/lib/productImages";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -36,6 +37,9 @@ export default async function ProductPage({
   const related = products
     .filter((p) => p.category === product.category && p.slug !== product.slug)
     .slice(0, 3);
+
+  const images = getProductImages(product.slug);
+  const galleryImages = images.length > 0 ? images : [product.image];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -72,12 +76,12 @@ export default async function ProductPage({
       </nav>
 
       <div className="mt-6 grid gap-10 md:grid-cols-2">
-        <div className="relative aspect-square w-full overflow-hidden rounded-card bg-brand-blue-50">
-          <ProductImage src={product.image} alt={product.name} emoji={product.emoji} />
-          <span className="absolute left-4 top-4 rounded-full bg-surface/90 px-3 py-1.5 text-sm font-bold text-brand-navy shadow">
-            Age {product.age}
-          </span>
-        </div>
+        <ProductGallery
+          images={galleryImages}
+          alt={product.name}
+          emoji={product.emoji}
+          badge={`Age ${product.age}`}
+        />
 
         <div className="flex flex-col gap-5">
           <div>
@@ -85,7 +89,7 @@ export default async function ProductPage({
               {product.categoryLabel}
             </p>
             <h1 className="mt-1 font-heading text-3xl font-extrabold text-brand-navy md:text-4xl">
-              {product.emoji} {product.name}
+              {product.name}
             </h1>
           </div>
 

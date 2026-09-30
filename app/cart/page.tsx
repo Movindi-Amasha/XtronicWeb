@@ -5,6 +5,7 @@ import { useCartStore, cartSubtotalCents } from "@/lib/cartStore";
 import { formatPriceAUD } from "@/lib/products";
 import { amountUntilFreeShippingCents, FREE_SHIPPING_THRESHOLD_CENTS } from "@/lib/shipping";
 import { gstComponentCents } from "@/lib/pricing";
+import ProductImage from "@/components/ProductImage";
 
 export default function CartPage() {
   const { items, updateQty, removeItem } = useCartStore();
@@ -44,8 +45,8 @@ export default function CartPage() {
         <ul className="flex flex-col divide-y divide-line rounded-card border border-line bg-surface">
           {items.map((item) => (
             <li key={item.slug} className="flex gap-4 p-5">
-              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-btn bg-brand-blue-50 text-3xl">
-                {item.emoji}
+              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-btn bg-brand-blue-50">
+                <ProductImage src={item.image} alt={item.name} emoji={item.emoji} sizes="80px" />
               </div>
               <div className="flex flex-1 flex-col gap-1">
                 <Link
@@ -86,7 +87,7 @@ export default function CartPage() {
                   </button>
                 </div>
               </div>
-              <span className="font-heading font-bold text-brand-navy">
+              <span className="font-body font-bold text-brand-navy">
                 {formatPriceAUD(item.priceCents * item.qty)}
               </span>
             </li>
@@ -127,7 +128,7 @@ export default function CartPage() {
             </div>
           </div>
 
-          <div className="flex justify-between border-t border-line pt-4 font-heading text-lg font-extrabold text-brand-navy">
+          <div className="flex justify-between border-t border-line pt-4 font-body text-lg font-extrabold text-brand-navy">
             <span>Total</span>
             <span>{formatPriceAUD(subtotal)}</span>
           </div>

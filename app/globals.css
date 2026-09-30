@@ -22,13 +22,13 @@
   --color-line: #e2e8f0;
   --color-muted: #5b6b80;
 
-  /* font-heading is the DEFAULT for every h1-h6 and most section titles —
-     keep it a normal, readable sans. font-pixel (Doto) is opt-in only, for
-     a handful of deliberate hero-style display moments (see Hero.tsx,
-     Footer.tsx ghost wordmark, StatementBand.tsx quote mark) — never for
-     prices, product names, or body-adjacent headings; it reads poorly at
-     small sizes and gets noisy fast when overused. */
-  --font-heading: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* font-heading (Doto) is the DEFAULT for every h1-h6, page titles, hero
+     and section headings, and product names — that's the deliberate
+     "dotted display" look. The one deliberate exception is PRICE text,
+     which should never use font-heading — spell it out with font-body
+     explicitly wherever a price renders (see components that call
+     formatPriceAUD / useDisplayPrice) so numerals stay legible. */
+  --font-heading: var(--font-doto), ui-monospace, monospace;
   --font-body: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-pixel: var(--font-doto), ui-monospace, monospace;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;

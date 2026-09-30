@@ -107,7 +107,7 @@ export default function QuickViewModal() {
                 {product.categoryLabel}
               </p>
               <h2 className="mt-1 font-heading text-2xl font-extrabold text-brand-navy">
-                {product.emoji} {product.name}
+                {product.name}
               </h2>
             </div>
 
@@ -147,7 +147,7 @@ export default function QuickViewModal() {
 
             <div className="mt-auto flex flex-col gap-3">
               <div className="flex items-center justify-between">
-                <span className="font-heading text-2xl font-extrabold text-brand-navy">
+                <span className="font-body text-2xl font-extrabold text-brand-navy">
                   {displayPrice}
                 </span>
                 <div className="flex items-center gap-3 rounded-full border border-line px-2 py-1">

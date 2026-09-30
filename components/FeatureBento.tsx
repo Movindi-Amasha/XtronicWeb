@@ -38,13 +38,6 @@ const TILES: Tile[] = [
   },
   {
     eyebrow: "Why XTRONIC",
-    title: "Screen-Free Fun",
-    desc: "Real hands-on building and play, away from the screen.",
-    icon: "📵",
-    tone: "surface",
-  },
-  {
-    eyebrow: "Why XTRONIC",
     title: "Curriculum-Aligned STEM",
     desc: "Mechanics, photovoltaics and sound frequency, taught through play.",
     icon: "🎓",
@@ -66,6 +59,13 @@ const TILES: Tile[] = [
     icon: "👨‍👩‍👧",
     tone: "surface",
     span: 2,
+  },
+  {
+    eyebrow: "Why XTRONIC",
+    title: "Screen-Free Fun",
+    desc: "Real hands-on building and play, away from the screen.",
+    icon: "📵",
+    tone: "surface",
   },
 ];
 

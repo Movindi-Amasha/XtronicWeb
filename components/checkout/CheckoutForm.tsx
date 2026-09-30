@@ -15,6 +15,7 @@ import {
 import { gstComponentCents } from "@/lib/pricing";
 import StripePaymentSection from "./StripePaymentSection";
 import PaypalPaymentSection from "./PaypalPaymentSection";
+import ProductImage from "@/components/ProductImage";
 
 export default function CheckoutForm() {
   const items = useCartStore((s) => s.items);
@@ -178,8 +179,8 @@ export default function CheckoutForm() {
         <ul className="flex flex-col gap-3">
           {items.map((item) => (
             <li key={item.slug} className="flex items-center gap-3 text-sm">
-              <span className="flex h-10 w-10 items-center justify-center rounded-btn bg-brand-blue-50 text-lg">
-                {item.emoji}
+              <span className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-btn bg-brand-blue-50">
+                <ProductImage src={item.image} alt={item.name} emoji={item.emoji} sizes="40px" />
               </span>
               <span className="flex-1 font-semibold text-brand-navy">
                 {item.name} <span className="text-muted">&times;{item.qty}</span>
@@ -204,7 +205,7 @@ export default function CheckoutForm() {
             <span>{formatPriceAUD(gst)}</span>
           </div>
         </div>
-        <div className="flex justify-between border-t border-line pt-4 font-heading text-lg font-extrabold text-brand-navy">
+        <div className="flex justify-between border-t border-line pt-4 font-body text-lg font-extrabold text-brand-navy">
           <span>Total</span>
           <span>{formatPriceAUD(total)}</span>
         </div>
