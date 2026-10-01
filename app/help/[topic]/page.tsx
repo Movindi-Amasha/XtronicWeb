@@ -16,7 +16,7 @@ const TOPICS = {
         h: "Kits",
         items: [
           { q: "What age are the kits for?", a: "6+ for most kits, 7+ for the Smart Voice-Controlled Robot Kit. See the Parents' Guide for detail." },
-          { q: "Do I need extra tools?", a: "No — everything needed is included in the box." },
+          { q: "Do I need extra tools?", a: "No, everything needed is included in the box." },
         ],
       },
     ],
@@ -36,7 +36,7 @@ const TOPICS = {
         h: "Returns",
         items: [
           { q: "Change of mind", a: "Unopened kits can be returned within 30 days for a full refund." },
-          { q: "Missing or damaged parts", a: "Covered by our Lifetime Replacement Guarantee — contact us and we'll post a free replacement." },
+          { q: "Missing or damaged parts", a: "Covered by our Lifetime Replacement Guarantee. Contact us and we'll post a free replacement." },
         ],
       },
     ],

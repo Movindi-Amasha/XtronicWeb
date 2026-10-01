@@ -11,12 +11,12 @@ const BUNDLES = [
   {
     name: "10-Pack Bundle",
     discount: "15% off",
-    desc: "Any single kit, 10 units — perfect for a classroom set.",
+    desc: "Any single kit, 10 units, perfect for a classroom set.",
   },
   {
     name: "30-Pack Bundle",
     discount: "25% off",
-    desc: "Any single kit, 30 units — ideal for a full year group.",
+    desc: "Any single kit, 30 units, ideal for a full year group.",
   },
   {
     name: "Classroom Discovery Pack",
@@ -64,7 +64,7 @@ export default function SchoolsPage() {
           </p>
           <p className="max-w-md text-sm text-brand-navy-700">
             Every bundle order comes with downloadable lesson plans mapped to
-            the STEM concepts in each kit — available once your order is
+            the STEM concepts in each kit, available once your order is
             confirmed.
           </p>
         </div>

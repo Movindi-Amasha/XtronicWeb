@@ -28,11 +28,11 @@ const FAQS = [
   },
   {
     q: "What if a part goes missing?",
-    a: "Every kit is covered by our Lifetime Replacement Guarantee — contact us and we'll post a free replacement part.",
+    a: "Every kit is covered by our Lifetime Replacement Guarantee. Contact us and we'll post a free replacement part.",
   },
   {
     q: "Can these be reused after building once?",
-    a: "Yes — every kit is designed to be taken apart and rebuilt as many times as you like.",
+    a: "Yes, every kit is designed to be taken apart and rebuilt as many times as you like.",
   },
 ];
 
@@ -46,7 +46,7 @@ export default function ParentsGuidePage() {
           </h1>
           <p className="mt-4 text-brand-blue-50/80">
             Age guidance, safety information and the STEM concepts behind
-            every kit — everything you need before your child&apos;s first
+            every kit, everything you need before your child&apos;s first
             build.
           </p>
         </div>

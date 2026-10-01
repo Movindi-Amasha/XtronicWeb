@@ -103,7 +103,7 @@ export default function StripePaymentSection({
   if (!publishableKey) {
     return (
       <div className="rounded-card border border-dashed border-line bg-canvas p-5 text-sm text-muted">
-        Card payments aren&apos;t configured yet — add{" "}
+        Card payments aren&apos;t configured yet. Add{" "}
         <code className="font-mono">STRIPE_SECRET_KEY</code> and{" "}
         <code className="font-mono">NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY</code> to
         your environment to enable this.

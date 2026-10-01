@@ -12,7 +12,7 @@ const REVIEWS = [
   {
     name: "Priya K.",
     rating: 4,
-    text: "Bought the classroom pack for my STEM club — the kids loved the voice robot the most.",
+    text: "Bought the classroom pack for my STEM club, the kids loved the voice robot the most.",
   },
 ];
 

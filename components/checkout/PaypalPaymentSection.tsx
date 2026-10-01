@@ -24,7 +24,7 @@ export default function PaypalPaymentSection({
   if (!clientId) {
     return (
       <div className="rounded-card border border-dashed border-line bg-canvas p-5 text-sm text-muted">
-        PayPal isn&apos;t configured yet — add{" "}
+        PayPal isn&apos;t configured yet. Add{" "}
         <code className="font-mono">PAYPAL_CLIENT_ID</code>,{" "}
         <code className="font-mono">PAYPAL_CLIENT_SECRET</code> and{" "}
         <code className="font-mono">NEXT_PUBLIC_PAYPAL_CLIENT_ID</code> to

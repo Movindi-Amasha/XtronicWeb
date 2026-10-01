@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "How It Works",
-  description: "From unboxing to mastering the STEM concepts behind your build — here's how an XTRONIC KIDZ kit works.",
+  description: "From unboxing to mastering the STEM concepts behind your build, here's how an XTRONIC KIDZ kit works.",
 };
 
 const STEPS = [
@@ -11,14 +11,14 @@ const STEPS = [
     n: 1,
     title: "Unbox & Discover",
     icon: "📦",
-    desc: "Open your kit and lay out every part using the illustrated guide. Each piece is numbered and labelled — nothing to guess.",
+    desc: "Open your kit and lay out every part using the illustrated guide. Each piece is numbered and labelled, nothing to guess.",
     detail: "No tools beyond what's in the box. Every kit is pre-sorted into labelled bags so nothing gets lost before you even start.",
   },
   {
     n: 2,
     title: "Build & Connect",
     icon: "🔧",
-    desc: "Snap, screw and wire the pieces together — no glue, no mess. Step-by-step photos guide every stage.",
+    desc: "Snap, screw and wire the pieces together, no glue, no mess. Step-by-step photos guide every stage.",
     detail: "Snap-fit connectors and pre-threaded screws mean builds typically take 30–90 minutes depending on the kit.",
   },
   {
@@ -32,7 +32,7 @@ const STEPS = [
     n: 4,
     title: "Play & Master",
     icon: "🎉",
-    desc: "Test, tweak and master the STEM concepts behind the build — then take it apart and build it again.",
+    desc: "Test, tweak and master the STEM concepts behind the build, then take it apart and build it again.",
     detail: "Every kit includes a short 'how it works' explainer so kids connect what they built to the real-world science behind it.",
   },
 ];

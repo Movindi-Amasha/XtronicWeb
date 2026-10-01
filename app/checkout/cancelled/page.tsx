@@ -13,7 +13,7 @@ export default function CheckoutCancelledPage() {
         Checkout cancelled
       </h1>
       <p className="mt-2 text-brand-navy-700">
-        No worries — your cart is still saved. You can pick up where you left
+        No worries, your cart is still saved. You can pick up where you left
         off whenever you&apos;re ready.
       </p>
       <Link

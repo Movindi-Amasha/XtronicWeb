@@ -58,7 +58,7 @@ export default function PayHerePaymentSection({
   if (!merchantId) {
     return (
       <div className="rounded-card border border-dashed border-line bg-canvas p-5 text-sm text-muted">
-        PayHere isn&apos;t configured yet — add{" "}
+        PayHere isn&apos;t configured yet. Add{" "}
         <code className="font-mono">PAYHERE_MERCHANT_ID</code>,{" "}
         <code className="font-mono">PAYHERE_MERCHANT_SECRET</code> and{" "}
         <code className="font-mono">NEXT_PUBLIC_PAYHERE_MERCHANT_ID</code> to

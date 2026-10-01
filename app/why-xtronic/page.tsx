@@ -13,7 +13,7 @@ const REASONS: { eyebrow: string; title: string; desc: string; tone: Tone; span?
   {
     eyebrow: "No Screens",
     title: "Screen-Free Interactive Fun",
-    desc: "Every kit is a hands-on build — no app, no screen, no login. Just tools, parts and a project to finish.",
+    desc: "Every kit is a hands-on build, no app, no screen, no login. Just tools, parts and a project to finish.",
     tone: "navy",
     span: 2,
   },
@@ -26,7 +26,7 @@ const REASONS: { eyebrow: string; title: string; desc: string; tone: Tone; span?
   {
     eyebrow: "Guarantee",
     title: "Lifetime Replacement",
-    desc: "Lost a screw or snapped a part mid-build? We'll post a free replacement — no receipts, no fuss.",
+    desc: "Lost a screw or snapped a part mid-build? We'll post a free replacement, no receipts, no fuss.",
     tone: "amber",
   },
   {
@@ -45,7 +45,7 @@ const TONE_STYLES: Record<Tone, string> = {
 };
 
 const COMPARISON = [
-  { label: "Screen time", xtronic: "Zero — fully hands-on", typical: "Often required for setup/app" },
+  { label: "Screen time", xtronic: "Zero, fully hands-on", typical: "Often required for setup/app" },
   { label: "Skill built", xtronic: "Real mechanics & electronics", typical: "Varies, often passive" },
   { label: "Replacement parts", xtronic: "Free for life", typical: "Rarely offered" },
   { label: "Age range", xtronic: "6+ with adult help if needed", typical: "Often 10+" },
@@ -74,7 +74,7 @@ export default function WhyXtronicPage() {
             Why XTRONIC KIDZ
           </h1>
           <p className="mt-4 text-brand-blue-50/80">
-            We build kits the way we&apos;d want them built for our own kids —
+            We build kits the way we&apos;d want them built for our own kids,
             safe, screen-free, and genuinely educational.
           </p>
         </div>
@@ -88,20 +88,21 @@ export default function WhyXtronicPage() {
           Years of hands-on electronics, rebuilt for curious kids.
         </h2>
         <p className="mt-5 text-brand-navy-700">
-          XTRONIC KIDZ carries on a project that started back in 2018 as a
-          small kit-building venture for makers and students. Two rebrands
-          later — and years spent teaching real circuits, coding and
-          robotics rather than theory alone — that work became XTRONIC: a
-          development platform built on one belief, that people learn best
-          by building something real with their own hands.
+          XTRONIC KIDZ carries on a project that started back in 2018 as
+          Digicocoon, a small kit-building venture for makers and students.
+          Word spread fast, sales grew fivefold within a few years, and the
+          project went through two rebrands, first to Ravana PCB in early
+          2022, then to XTRONIC later that same year, growing into a full
+          development platform for coding, electronics and robotics along
+          the way.
         </p>
         <p className="mt-4 text-brand-navy-700">
-          XTRONIC KIDZ is the next chapter of that same idea, rebuilt from
-          the ground up for builders aged 6 and up. No apps, no logins — just
+          XTRONIC KIDZ is that same project&apos;s next chapter, rebuilt from
+          the ground up for builders aged 6 and up. No apps, no logins, just
           solar panels, gearboxes and wires that actually do something the
           moment you finish building them. Founded and still led by Thimith
           Navodya, XTRONIC KIDZ ships from Australia, is tested for child
-          safety, and comes with a lifetime guarantee on small parts —
+          safety, and comes with a lifetime guarantee on small parts,
           because a missing screw shouldn&apos;t be the reason a build never
           gets finished.
         </p>

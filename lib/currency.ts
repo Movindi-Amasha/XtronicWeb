@@ -16,6 +16,29 @@ const AUD_EXCHANGE_RATES: Record<CurrencyCode, number> = {
   SGD: 0.87,
 };
 
+// Disambiguated symbols for the currency picker — plain "$" alone is
+// ambiguous across AUD/USD/NZD/CAD/SGD, so prefix each with its usual
+// regional shorthand instead.
+export const CURRENCY_SYMBOLS: Record<CurrencyCode, string> = {
+  AUD: "A$",
+  USD: "US$",
+  NZD: "NZ$",
+  GBP: "£",
+  EUR: "€",
+  CAD: "CA$",
+  SGD: "S$",
+};
+
+export const CURRENCY_FLAGS: Record<CurrencyCode, string> = {
+  AUD: "🇦🇺",
+  USD: "🇺🇸",
+  NZD: "🇳🇿",
+  GBP: "🇬🇧",
+  EUR: "🇪🇺",
+  CAD: "🇨🇦",
+  SGD: "🇸🇬",
+};
+
 export function isSupportedCurrency(value: string): value is CurrencyCode {
   return (SUPPORTED_CURRENCIES as readonly string[]).includes(value);
 }

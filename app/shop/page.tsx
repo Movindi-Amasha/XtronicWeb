@@ -17,7 +17,7 @@ export default function ShopPage() {
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-brand-navy-700">
           Solar-powered builds, voice-controlled robots and laser-cut wooden
-          mechanics — every kit designed to turn screen time into hands-on
+          mechanics, every kit designed to turn screen time into hands-on
           discovery.
         </p>
       </div>

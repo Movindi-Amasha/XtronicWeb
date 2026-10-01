@@ -15,7 +15,7 @@ export default function SignupBand() {
             Get 10% off your first kit.
           </h2>
           <p className="mt-3 max-w-sm text-sm text-brand-navy/80">
-            New builds, school bundle drops and a one-time welcome code —
+            New builds, school bundle drops and a one-time welcome code,
             straight to your inbox.
           </p>
         </div>

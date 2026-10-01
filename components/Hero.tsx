@@ -71,7 +71,7 @@ export default function Hero() {
             className="mt-5 max-w-md text-base text-brand-blue-50/70"
           >
             Hands-on robotics and solar engineering kits designed to ignite
-            curious minds — snap-together, screen-free, and built to last for
+            curious minds, snap-together, screen-free, and built to last for
             kids 6 and up.
           </motion.p>
 

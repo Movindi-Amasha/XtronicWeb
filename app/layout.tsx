@@ -33,14 +33,14 @@ const doto = Doto({
 
 export const metadata: Metadata = {
   title: {
-    default: "XTRONIC KIDZ — Learn, Build, Play",
+    default: "XTRONIC KIDZ: Learn, Build, Play",
     template: "%s | XTRONIC KIDZ",
   },
   description:
     "Hands-on STEM robotics and solar engineering kits designed to ignite curious minds. Learn, build and play with XTRONIC KIDZ.",
   metadataBase: new URL("http://localhost:3000"),
   openGraph: {
-    title: "XTRONIC KIDZ — Learn, Build, Play",
+    title: "XTRONIC KIDZ: Learn, Build, Play",
     description:
       "Hands-on STEM robotics and solar engineering kits designed to ignite curious minds.",
     siteName: "XTRONIC KIDZ",

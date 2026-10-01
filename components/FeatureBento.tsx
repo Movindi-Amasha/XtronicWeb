@@ -17,7 +17,7 @@ const TILES: Tile[] = [
   {
     eyebrow: "Step 01–02",
     title: "Unbox & Build",
-    desc: "Open the kit and snap, screw and wire the pieces together, guided by the illustrated manual — no glue, no mess.",
+    desc: "Open the kit and snap, screw and wire the pieces together, guided by the illustrated manual. No glue, no mess.",
     icon: "📦",
     tone: "navy",
     span: 2,

@@ -61,7 +61,7 @@ function SuccessContent() {
         </h1>
         <p className="mt-2 text-brand-navy-700">
           If you were charged, contact us with your PayPal receipt and we&apos;ll
-          sort it out — otherwise, no order was placed.
+          sort it out, otherwise no order was placed.
         </p>
         <Link
           href="/checkout"
@@ -80,7 +80,7 @@ function SuccessContent() {
         Order confirmed!
       </h1>
       <p className="mt-2 text-brand-navy-700">
-        Thanks for your order — a confirmation email is on its way. We&apos;ll
+        Thanks for your order. A confirmation email is on its way. We&apos;ll
         let you know as soon as it ships.
       </p>
       <Link

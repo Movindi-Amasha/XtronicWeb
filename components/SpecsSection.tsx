@@ -1,9 +1,9 @@
 const SPECS = [
   { term: "Age Range", desc: "6 years and up, light adult supervision recommended for ages 6–7" },
   { term: "Build Time", desc: "30–90 minutes depending on kit" },
-  { term: "Power Source", desc: "Direct sunlight or AA batteries — no charging cables" },
+  { term: "Power Source", desc: "Direct sunlight or AA batteries, no charging cables" },
   { term: "Materials", desc: "Laser-cut basswood, ABS plastic, monocrystalline solar cells" },
-  { term: "Tools Required", desc: "None — every kit snaps, screws or clips together by hand" },
+  { term: "Tools Required", desc: "None, every kit snaps, screws or clips together by hand" },
   { term: "Warranty", desc: "Lifetime replacement on missing or broken small parts" },
 ];
 
@@ -26,7 +26,7 @@ export default function SpecsSection() {
           </h2>
           <p className="mt-4 max-w-sm text-sm text-brand-navy-700">
             Whatever kit lands on your desk, it ships to the same safety and
-            build standard — no exceptions.
+            build standard, no exceptions.
           </p>
         </div>
 

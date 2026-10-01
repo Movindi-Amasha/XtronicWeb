@@ -18,8 +18,8 @@ export default function SchoolsSection() {
             larger orders.
           </p>
           <ul className="mt-6 space-y-2 text-sm font-semibold text-brand-blue-50">
-            <li>📦 10-pack bundle — 15% off</li>
-            <li>📦 30-pack bundle — 25% off</li>
+            <li>📦 10-pack bundle: 15% off</li>
+            <li>📦 30-pack bundle: 25% off</li>
             <li>🧩 Mixed Classroom Discovery Pack</li>
             <li>📄 Free downloadable lesson plans</li>
           </ul>

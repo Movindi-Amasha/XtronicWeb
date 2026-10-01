@@ -73,7 +73,7 @@ export function orderConfirmationEmail({
     html: `
       <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
         <h1 style="color: #0D1F35;">Order confirmed 🎉</h1>
-        <p>Thanks for your order — we're getting it ready to ship.</p>
+        <p>Thanks for your order. We're getting it ready to ship.</p>
         <p style="background: #F8FAFC; border-radius: 8px; padding: 16px;">
           <strong>Order reference:</strong> ${orderId}<br />
           <strong>Total paid:</strong> ${currency} $${amount}
@@ -133,7 +133,7 @@ export function quoteOwnerNotificationEmail({
   message: string;
 }): { subject: string; html: string } {
   return {
-    subject: `New school quote request — ${organisation}`,
+    subject: `New school quote request: ${organisation}`,
     html: `
       <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
         <h1 style="color: #0D1F35;">New quote request</h1>

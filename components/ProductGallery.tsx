@@ -91,7 +91,7 @@ export default function ProductGallery({
               style={{ width: `${100 / count}%` }}
               aria-hidden={i !== index}
             >
-              <ProductImage src={src} alt={`${alt} — photo ${i + 1} of ${count}`} emoji={emoji} />
+              <ProductImage src={src} alt={`${alt}, photo ${i + 1} of ${count}`} emoji={emoji} />
             </div>
           ))}
         </div>
