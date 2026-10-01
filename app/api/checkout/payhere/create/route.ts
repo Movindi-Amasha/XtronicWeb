@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { isPayhereConfigured, computeCheckoutHash, audCentsToLkrAmount } from "@/lib/payhere";
+import {
+  isPayhereConfigured,
+  computeCheckoutHash,
+  audCentsToLkrAmount,
+  getPayhereActionUrl,
+} from "@/lib/payhere";
 import { computeOrderTotals, type CartLineInput } from "@/lib/orderTotals";
 import type { ShippingMethod } from "@/lib/shipping";
 
@@ -34,13 +39,22 @@ export async function POST(request: Request) {
     const currency = "LKR";
     const hash = computeCheckoutHash({ orderId, amount, currency });
 
+    // notify_url must be a publicly reachable address (PayHere's own docs: it
+    // can never be localhost) — always build these from the configured site
+    // URL, never from the browser's origin.
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
     return NextResponse.json({
+      actionUrl: getPayhereActionUrl(),
       merchantId: process.env.PAYHERE_MERCHANT_ID,
       orderId,
       amount,
       currency,
       hash,
       itemsDescription: totals.lineItems.map((item) => item.name).join(", "),
+      returnUrl: `${siteUrl}/checkout/success?payhere_order=${orderId}`,
+      cancelUrl: `${siteUrl}/checkout`,
+      notifyUrl: `${siteUrl}/api/webhooks/payhere`,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Checkout failed";

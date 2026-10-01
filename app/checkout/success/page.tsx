@@ -5,16 +5,26 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCartStore } from "@/lib/cartStore";
 
+const POLL_INTERVAL_MS = 2000;
+const POLL_MAX_ATTEMPTS = 10;
+
 function SuccessContent() {
   const clearCart = useCartStore((s) => s.clearCart);
   const searchParams = useSearchParams();
+
   // PayPal appends ?token=<orderId> when it redirects the full page back here
   // directly (its fallback path when a popup can't be used) — in that case
   // our in-app onApprove handler never ran, so the order was never captured.
   // Capture it here instead of just trusting the redirect happened.
   const token = searchParams.get("token");
-  const [state, setState] = useState<"idle" | "capturing" | "done" | "error">(
-    token ? "capturing" : "done"
+
+  // PayHere never passes any payment status to return_url (by design, per
+  // its docs) — it only tells our notify_url webhook. So here we just poll
+  // our own database, which that webhook already updated.
+  const payhereOrder = searchParams.get("payhere_order");
+
+  const [state, setState] = useState<"capturing" | "polling" | "done" | "error" | "pending">(
+    token ? "capturing" : payhereOrder ? "polling" : "done"
   );
 
   useEffect(() => {
@@ -40,15 +50,68 @@ function SuccessContent() {
   }, [token]);
 
   useEffect(() => {
+    if (!payhereOrder) return;
+
+    let cancelled = false;
+    let attempts = 0;
+
+    const poll = async () => {
+      try {
+        const res = await fetch(`/api/orders/status?ref=${encodeURIComponent(payhereOrder)}`);
+        const data = await res.json();
+        if (cancelled) return;
+        if (data.status === "paid") {
+          setState("done");
+          return;
+        }
+      } catch {
+        // keep polling, a transient fetch error isn't a payment failure
+      }
+      attempts += 1;
+      if (cancelled) return;
+      if (attempts >= POLL_MAX_ATTEMPTS) {
+        setState("pending");
+        return;
+      }
+      setTimeout(poll, POLL_INTERVAL_MS);
+    };
+
+    poll();
+    return () => {
+      cancelled = true;
+    };
+  }, [payhereOrder]);
+
+  useEffect(() => {
     if (state === "done") clearCart();
   }, [state, clearCart]);
 
-  if (state === "capturing") {
+  if (state === "capturing" || state === "polling") {
     return (
       <section className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-4 py-16 text-center md:px-6">
         <h1 className="font-heading text-2xl font-bold text-brand-navy">
           Finishing up your order&hellip;
         </h1>
+      </section>
+    );
+  }
+
+  if (state === "pending") {
+    return (
+      <section className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-4 py-16 text-center md:px-6">
+        <h1 className="font-heading text-2xl font-bold text-brand-navy">
+          Your payment is still being confirmed
+        </h1>
+        <p className="mt-2 text-brand-navy-700">
+          This can take a minute. We&apos;ll email you as soon as it&apos;s
+          confirmed, no need to try again.
+        </p>
+        <Link
+          href="/shop"
+          className="mt-6 inline-block rounded-full bg-brand-blue px-7 py-3.5 text-base font-bold uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5 hover:opacity-90"
+        >
+          Keep Exploring Kits
+        </Link>
       </section>
     );
   }

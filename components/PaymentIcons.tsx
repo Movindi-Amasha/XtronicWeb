@@ -40,3 +40,21 @@ export default function PaymentIcons() {
     </ul>
   );
 }
+
+export function PayHereBadge() {
+  return (
+    <a
+      href="https://www.payhere.lk"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/payments/payhere.png"
+        alt="PayHere — accepted payment methods"
+        className="h-8 w-auto rounded-btn-xs"
+      />
+    </a>
+  );
+}

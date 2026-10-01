@@ -3,9 +3,10 @@ import { verifyNotifySignature } from "@/lib/payhere";
 import { db } from "@/lib/db";
 import { sendEmail, orderConfirmationEmail } from "@/lib/email";
 
-// PayHere posts this as application/x-www-form-urlencoded, not JSON — the
-// same fields we pass into startPayment() get echoed back here, plus the
-// signed status.
+// PayHere posts this as application/x-www-form-urlencoded, not JSON. Per
+// PayHere's docs, the standard notify params don't include the buyer's
+// email — custom_1 carries it through instead, since we set it ourselves
+// when submitting the checkout form.
 export async function POST(request: Request) {
   const form = await request.formData();
   const get = (key: string) => String(form.get(key) ?? "");
@@ -16,7 +17,7 @@ export async function POST(request: Request) {
   const payhere_currency = get("payhere_currency");
   const status_code = get("status_code");
   const md5sig = get("md5sig");
-  const email = get("email") || "unknown@example.com";
+  const email = get("custom_1") || "unknown@example.com";
 
   if (!merchant_id || !order_id || !md5sig) {
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });

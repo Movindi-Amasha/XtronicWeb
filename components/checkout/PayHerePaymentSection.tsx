@@ -1,24 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 import { useCartStore } from "@/lib/cartStore";
 import type { ShippingMethod } from "@/lib/shipping";
 
-const PAYHERE_SCRIPT_URL = "https://www.payhere.lk/lib/payhere.js";
 const merchantId = process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID;
-const isSandbox = process.env.NEXT_PUBLIC_PAYHERE_ENV !== "live";
-
-declare global {
-  interface Window {
-    payhere?: {
-      startPayment: (payment: Record<string, unknown>) => void;
-      onCompleted?: (orderId: string) => void;
-      onDismissed?: () => void;
-      onError?: (error: string) => void;
-    };
-  }
-}
 
 export default function PayHerePaymentSection({
   shippingMethod,
@@ -36,24 +22,9 @@ export default function PayHerePaymentSection({
   city: string;
 }) {
   const items = useCartStore((s) => s.items);
-  const clearCart = useCartStore((s) => s.clearCart);
   const [error, setError] = useState<string | null>(null);
-  const [scriptReady, setScriptReady] = useState(false);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!merchantId) return;
-    if (window.payhere) {
-      const t = setTimeout(() => setScriptReady(true), 0);
-      return () => clearTimeout(t);
-    }
-    const script = document.createElement("script");
-    script.src = PAYHERE_SCRIPT_URL;
-    script.async = true;
-    script.onload = () => setScriptReady(true);
-    document.body.appendChild(script);
-  }, []);
+  const formRef = useRef<HTMLFormElement>(null);
 
   if (!merchantId) {
     return (
@@ -82,27 +53,21 @@ export default function PayHerePaymentSection({
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Could not start PayHere checkout");
 
+      const form = formRef.current;
+      if (!form) return;
+
       const [firstName, ...rest] = name.trim().split(" ");
       const lastName = rest.join(" ") || firstName;
 
-      window.payhere!.onCompleted = () => {
-        clearCart();
-        router.push("/checkout/success");
-      };
-      window.payhere!.onDismissed = () => setLoading(false);
-      window.payhere!.onError = (err: string) => {
-        setError(err);
-        setLoading(false);
-      };
-
-      window.payhere!.startPayment({
-        sandbox: isSandbox,
-        merchant_id: merchantId,
-        notify_url: `${window.location.origin}/api/webhooks/payhere`,
+      const fields: Record<string, string> = {
+        merchant_id: data.merchantId,
+        return_url: data.returnUrl,
+        cancel_url: data.cancelUrl,
+        notify_url: data.notifyUrl,
         order_id: data.orderId,
         items: data.itemsDescription,
-        amount: data.amount,
         currency: data.currency,
+        amount: data.amount,
         hash: data.hash,
         first_name: firstName,
         last_name: lastName,
@@ -111,7 +76,22 @@ export default function PayHerePaymentSection({
         address,
         city,
         country: "Australia",
-      });
+        // PayHere's notify_url callback doesn't include the buyer's email
+        // directly — custom_1/custom_2 are the documented way to carry
+        // merchant-defined data through the round trip.
+        custom_1: email,
+      };
+
+      form.innerHTML = "";
+      for (const [key, value] of Object.entries(fields)) {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value ?? "";
+        form.appendChild(input);
+      }
+      form.action = data.actionUrl;
+      form.submit();
     } catch (err) {
       setError(err instanceof Error ? err.message : "PayHere checkout failed");
       setLoading(false);
@@ -125,13 +105,17 @@ export default function PayHerePaymentSection({
           {error}
         </p>
       )}
+      {/* Fields are injected and this form is submitted (full-page POST
+          redirect to PayHere) on click — this is PayHere's documented
+          Checkout API integration, not the JS popup SDK. */}
+      <form ref={formRef} method="post" />
       <button
         type="button"
         onClick={handlePay}
-        disabled={!scriptReady || loading}
+        disabled={loading}
         className="w-full rounded-btn bg-brand-navy px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-opacity hover:opacity-90 disabled:opacity-60"
       >
-        {loading ? "Opening PayHere…" : "Pay with PayHere"}
+        {loading ? "Redirecting to PayHere…" : "Pay with PayHere"}
       </button>
     </div>
   );

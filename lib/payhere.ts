@@ -6,14 +6,15 @@ import crypto from "node:crypto";
 // checkout amount is converted to LKR specifically for this provider.
 const LKR_PER_AUD = 195;
 
-export const PAYHERE_SCRIPT_URL = "https://www.payhere.lk/lib/payhere.js";
-
 export function isPayhereConfigured(): boolean {
   return Boolean(process.env.PAYHERE_MERCHANT_ID && process.env.PAYHERE_MERCHANT_SECRET);
 }
 
-export function isPayhereSandbox(): boolean {
-  return process.env.PAYHERE_ENV !== "live";
+/** The classic Checkout API form-POST target — www required in live, per PayHere's docs. */
+export function getPayhereActionUrl(): string {
+  return process.env.PAYHERE_ENV === "live"
+    ? "https://www.payhere.lk/pay/checkout"
+    : "https://sandbox.payhere.lk/pay/checkout";
 }
 
 /** Converts AUD cents to an LKR amount string formatted as PayHere expects (2 decimals). */

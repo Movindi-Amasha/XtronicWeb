@@ -1,6 +1,6 @@
 import Link from "next/link";
 import NewsletterForm from "./NewsletterForm";
-import PaymentIcons from "./PaymentIcons";
+import PaymentIcons, { PayHereBadge } from "./PaymentIcons";
 
 const HELP_LINKS = [
   { href: "/help/faq", label: "FAQ" },
@@ -63,6 +63,9 @@ export default function Footer() {
         <div className="mt-10 flex flex-col gap-4 border-t border-white/15 pt-6 font-mono text-xs text-white/60 md:flex-row md:items-center md:justify-between">
           <p>ABN 00 000 000 000 &middot; Australia-wide shipping</p>
           <PaymentIcons />
+        </div>
+        <div className="mt-4 flex md:justify-end">
+          <PayHereBadge />
         </div>
       </div>
 
