@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { sendEmail, newsletterCouponEmail } from "@/lib/email";
 
 function generateCouponCode(): string {
   const suffix = Math.random().toString(36).slice(2, 8).toUpperCase();
@@ -31,7 +32,8 @@ export async function POST(request: Request) {
     db.coupon.create({ data: { code, percentOff: 10 } }),
   ]);
 
-  // TODO: send the code via Resend once RESEND_API_KEY is configured.
+  const { subject, html } = newsletterCouponEmail({ code });
+  await sendEmail({ to: email, subject, html });
 
   return NextResponse.json({ code, alreadySubscribed: false });
 }

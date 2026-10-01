@@ -21,6 +21,7 @@ enum OrderStatus {
 enum PaymentProvider {
   stripe
   paypal
+  payhere
 }
 
 model Order {

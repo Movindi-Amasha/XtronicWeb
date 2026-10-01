@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import {
+  sendEmail,
+  quoteAcknowledgementEmail,
+  quoteOwnerNotificationEmail,
+} from "@/lib/email";
 
 interface QuoteBody {
   name?: string;
@@ -44,7 +49,19 @@ export async function POST(request: Request) {
     },
   });
 
-  // TODO: email the owner via Resend once RESEND_API_KEY / ORDER_NOTIFICATION_EMAIL are configured.
+  const ack = quoteAcknowledgementEmail({ name: body.name });
+  await sendEmail({ to: body.email, subject: ack.subject, html: ack.html });
+
+  const ownerEmail = process.env.ORDER_NOTIFICATION_EMAIL;
+  if (ownerEmail) {
+    const notification = quoteOwnerNotificationEmail({
+      name: body.name,
+      organisation: body.school,
+      email: body.email,
+      message: body.message ?? "(no message)",
+    });
+    await sendEmail({ to: ownerEmail, subject: notification.subject, html: notification.html });
+  }
 
   return NextResponse.json({ id: quote.id });
 }

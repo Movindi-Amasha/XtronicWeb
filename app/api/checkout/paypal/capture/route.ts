@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { isPaypalConfigured, paypalFetch } from "@/lib/paypal";
 import { db } from "@/lib/db";
+import { sendEmail, orderConfirmationEmail } from "@/lib/email";
 
 interface CaptureBody {
   orderId: string;
@@ -48,6 +49,13 @@ export async function POST(request: Request) {
     const captured = (await res.json()) as PaypalCaptureResponse;
     const amount = captured.purchase_units?.[0]?.payments?.captures?.[0]?.amount;
     const totalCents = amount ? Math.round(parseFloat(amount.value) * 100) : 0;
+    const buyerEmail = captured.payer?.email_address ?? "unknown@example.com";
+    const currency = amount?.currency_code ?? "AUD";
+
+    const existing = await db.order.findUnique({
+      where: { providerReference: captured.id },
+    });
+    const isNewlyPaid = !existing || existing.status !== "paid";
 
     await db.order.upsert({
       where: { providerReference: captured.id },
@@ -56,17 +64,26 @@ export async function POST(request: Request) {
         paymentProvider: "paypal",
         providerReference: captured.id,
         status: "paid",
-        currency: amount?.currency_code ?? "AUD",
+        currency,
         subtotalCents: totalCents,
         shippingCents: 0,
         totalCents,
-        email: captured.payer?.email_address ?? "unknown@example.com",
+        email: buyerEmail,
         shippingAddress: JSON.stringify(
           captured.purchase_units?.[0]?.shipping?.address ?? {}
         ),
         lineItems: "[]",
       },
     });
+
+    if (isNewlyPaid) {
+      const { subject, html } = orderConfirmationEmail({
+        orderId: captured.id,
+        totalCents,
+        currency,
+      });
+      await sendEmail({ to: buyerEmail, subject, html });
+    }
 
     return NextResponse.json({ status: captured.status });
   } catch (err) {

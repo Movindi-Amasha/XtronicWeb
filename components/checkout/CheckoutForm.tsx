@@ -13,14 +13,18 @@ import {
   type ShippingMethod,
 } from "@/lib/shipping";
 import { gstComponentCents } from "@/lib/pricing";
-import StripePaymentSection from "./StripePaymentSection";
 import PaypalPaymentSection from "./PaypalPaymentSection";
+import PayHerePaymentSection from "./PayHerePaymentSection";
 import ProductImage from "@/components/ProductImage";
 
 export default function CheckoutForm() {
   const items = useCartStore((s) => s.items);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [postcode, setPostcode] = useState("");
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod>("au-standard");
   const [readyForPayment, setReadyForPayment] = useState(false);
 
@@ -80,12 +84,27 @@ export default function CheckoutForm() {
               />
             </div>
             <div className="flex flex-col gap-1.5 sm:col-span-2">
+              <label htmlFor="phone" className="text-sm font-bold text-brand-navy">
+                Phone
+              </label>
+              <input
+                id="phone"
+                type="tel"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="rounded-btn border border-line px-4 py-2.5 text-sm focus-visible:outline-brand-blue-deep"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5 sm:col-span-2">
               <label htmlFor="address" className="text-sm font-bold text-brand-navy">
                 Address
               </label>
               <input
                 id="address"
                 required
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
                 className="rounded-btn border border-line px-4 py-2.5 text-sm focus-visible:outline-brand-blue-deep"
               />
             </div>
@@ -96,6 +115,8 @@ export default function CheckoutForm() {
               <input
                 id="city"
                 required
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
                 className="rounded-btn border border-line px-4 py-2.5 text-sm focus-visible:outline-brand-blue-deep"
               />
             </div>
@@ -106,6 +127,8 @@ export default function CheckoutForm() {
               <input
                 id="postcode"
                 required
+                value={postcode}
+                onChange={(e) => setPostcode(e.target.value)}
                 className="rounded-btn border border-line px-4 py-2.5 text-sm focus-visible:outline-brand-blue-deep"
               />
             </div>
@@ -151,7 +174,7 @@ export default function CheckoutForm() {
         {!readyForPayment ? (
           <button
             type="button"
-            disabled={!email || !name}
+            disabled={!email || !name || !phone || !address || !city}
             onClick={() => setReadyForPayment(true)}
             className="w-full rounded-full bg-brand-blue px-6 py-3.5 text-base font-bold uppercase tracking-wide text-white disabled:opacity-50 hover:opacity-90 sm:w-fit"
           >
@@ -162,12 +185,21 @@ export default function CheckoutForm() {
             <h2 className="font-heading text-lg font-bold text-brand-navy">Payment</h2>
             <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="rounded-card border border-line p-5">
-                <p className="mb-4 text-sm font-bold text-brand-navy">Pay with Card</p>
-                <StripePaymentSection shippingMethod={shippingMethod} email={email} />
+                <p className="mb-4 text-sm font-bold text-brand-navy">
+                  Pay with PayPal or Card
+                </p>
+                <PaypalPaymentSection shippingMethod={shippingMethod} />
               </div>
               <div className="rounded-card border border-line p-5">
-                <p className="mb-4 text-sm font-bold text-brand-navy">Pay with PayPal</p>
-                <PaypalPaymentSection shippingMethod={shippingMethod} />
+                <p className="mb-4 text-sm font-bold text-brand-navy">Pay with PayHere</p>
+                <PayHerePaymentSection
+                  shippingMethod={shippingMethod}
+                  email={email}
+                  name={name}
+                  phone={phone}
+                  address={address}
+                  city={city}
+                />
               </div>
             </div>
           </div>

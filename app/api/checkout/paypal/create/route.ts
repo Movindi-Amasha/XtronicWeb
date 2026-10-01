@@ -31,10 +31,19 @@ export async function POST(request: Request) {
     const totals = computeOrderTotals(body.items, body.shippingMethod);
     const amount = (totals.totalCents / 100).toFixed(2);
 
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
     const res = await paypalFetch("/v2/checkout/orders", {
       method: "POST",
       body: JSON.stringify({
         intent: "CAPTURE",
+        application_context: {
+          brand_name: "XTRONIC KIDZ",
+          shipping_preference: "NO_SHIPPING",
+          user_action: "PAY_NOW",
+          return_url: `${siteUrl}/checkout/success`,
+          cancel_url: `${siteUrl}/checkout`,
+        },
         purchase_units: [
           {
             amount: {
