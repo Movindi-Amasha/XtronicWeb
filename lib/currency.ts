@@ -1,42 +1,27 @@
-// Static reference rates (AUD base). Refresh from a live FX source via a
+// Static reference rate (AUD base). Refresh from a live FX source via a
 // daily cron route once one is wired up — see CLAUDE.md Section 6.3.
 // Checkout always charges in AUD regardless of the selected display
 // currency; this only affects the price shown while browsing.
-export const SUPPORTED_CURRENCIES = ["AUD", "USD", "NZD", "GBP", "EUR", "CAD", "SGD"] as const;
+// XTRONIC KIDZ currently only sells into Australia and Sri Lanka, so the
+// display-currency picker is scoped to just those two markets.
+export const SUPPORTED_CURRENCIES = ["AUD", "LKR"] as const;
 
 export type CurrencyCode = (typeof SUPPORTED_CURRENCIES)[number];
 
+// Same reference rate as lib/payhere.ts's LKR_PER_AUD — keep the two in sync.
 const AUD_EXCHANGE_RATES: Record<CurrencyCode, number> = {
   AUD: 1,
-  USD: 0.65,
-  NZD: 1.08,
-  GBP: 0.51,
-  EUR: 0.6,
-  CAD: 0.9,
-  SGD: 0.87,
+  LKR: 195,
 };
 
-// Disambiguated symbols for the currency picker — plain "$" alone is
-// ambiguous across AUD/USD/NZD/CAD/SGD, so prefix each with its usual
-// regional shorthand instead.
 export const CURRENCY_SYMBOLS: Record<CurrencyCode, string> = {
   AUD: "A$",
-  USD: "US$",
-  NZD: "NZ$",
-  GBP: "£",
-  EUR: "€",
-  CAD: "CA$",
-  SGD: "S$",
+  LKR: "Rs",
 };
 
 export const CURRENCY_FLAGS: Record<CurrencyCode, string> = {
   AUD: "🇦🇺",
-  USD: "🇺🇸",
-  NZD: "🇳🇿",
-  GBP: "🇬🇧",
-  EUR: "🇪🇺",
-  CAD: "🇨🇦",
-  SGD: "🇸🇬",
+  LKR: "🇱🇰",
 };
 
 export function isSupportedCurrency(value: string): value is CurrencyCode {

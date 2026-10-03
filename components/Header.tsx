@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCartStore, cartItemCount } from "@/lib/cartStore";
 import CurrencySelector from "./CurrencySelector";
 
@@ -15,17 +16,27 @@ const NAV_LINKS = [
   { href: "/parents-guide", label: "Parents' Guide" },
 ];
 
+function isLinkActive(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const items = useCartStore((s) => s.items);
   const openCart = useCartStore((s) => s.openCart);
   const cartCount = cartItemCount(items);
+  const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-[999] border-b border-white/10 bg-brand-navy/95 backdrop-blur">
+    <header className="sticky top-0 z-[999] border-b border-black/10 bg-brand-navy backdrop-blur">
       <div className="mx-auto flex h-16 max-w-[1260px] items-center justify-between gap-4 px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div className="relative h-11 w-14 shrink-0 overflow-hidden">
+          {/* Cropped to the icon/mascot portion of the logo only — the full
+              lockup's "TRONIC" wordmark is dark navy and disappears on this
+              background, but the icon itself is all full-color art, so it
+              reads fine directly on navy without needing a backing plate. */}
+          <div className="relative h-12 aspect-[100/65] shrink-0">
             <Image
               src="/brand/xtronic-logo-transparent.png"
               alt=""
@@ -35,7 +46,7 @@ export default function Header() {
             />
           </div>
           <span className="hidden flex-col leading-tight sm:flex">
-            <span className="font-heading text-lg font-bold tracking-tight text-white">
+            <span className="font-body text-lg font-extrabold tracking-tight text-white">
               XTRONIC KIDZ
             </span>
             <span className="font-mono text-[10px] font-medium uppercase tracking-wide text-brand-blue-50/60">
@@ -48,15 +59,21 @@ export default function Header() {
           aria-label="Primary"
           className="hidden items-center gap-6 lg:flex"
         >
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="font-mono text-xs font-medium uppercase tracking-wide text-brand-blue-50/80 transition-colors hover:text-white"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const active = isLinkActive(pathname, link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                className={`font-mono text-xs font-medium uppercase tracking-wide transition-colors ${
+                  active ? "text-brand-amber" : "text-brand-blue-50/80 hover:text-white"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -109,16 +126,22 @@ export default function Header() {
       {menuOpen && (
         <div className="border-t border-white/10 bg-brand-navy px-4 pb-4 lg:hidden">
           <nav aria-label="Mobile primary" className="flex flex-col gap-1 pt-2">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="rounded-btn px-3 py-3 font-mono text-sm font-medium uppercase tracking-wide text-white hover:bg-white/10"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const active = isLinkActive(pathname, link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className={`rounded-btn px-3 py-3 font-mono text-sm font-medium uppercase tracking-wide hover:bg-white/10 ${
+                    active ? "text-brand-amber" : "text-white"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
             <Link
               href="/shop"
               onClick={() => setMenuOpen(false)}

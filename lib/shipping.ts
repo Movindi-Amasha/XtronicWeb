@@ -1,11 +1,10 @@
 export const FREE_SHIPPING_THRESHOLD_CENTS = 7500; // A$75
 
+// XTRONIC KIDZ currently only sells into Australia and Sri Lanka.
 export const SHIPPING_RATES = {
   "au-standard": { label: "AU Standard", cents: 995, freeOverThreshold: true },
   "au-express": { label: "AU Express", cents: 1495, freeOverThreshold: false },
-  nz: { label: "New Zealand", cents: 1995, freeOverThreshold: false },
-  "intl-standard": { label: "International Standard", cents: 2495, freeOverThreshold: false },
-  "intl-express": { label: "International Express", cents: 3995, freeOverThreshold: false },
+  "sl-standard": { label: "Sri Lanka Standard", cents: 1995, freeOverThreshold: false },
 } as const;
 
 export type ShippingMethod = keyof typeof SHIPPING_RATES;

@@ -52,7 +52,7 @@ const COMPARISON = [
 ];
 
 const VALUES = [
-  "Ships from Australia, worldwide",
+  "Ships to Australia & Sri Lanka",
   "Child-safety tested materials",
   "Lifetime part replacement",
   "STEM-curriculum aligned",
@@ -62,10 +62,6 @@ export default function WhyXtronicPage() {
   return (
     <>
       <section className="relative overflow-hidden bg-brand-navy py-20 text-center text-white">
-        <div
-          aria-hidden
-          className="board-joint board-joint-dark pointer-events-none absolute inset-0"
-        />
         <div className="relative mx-auto max-w-2xl px-4 md:px-6">
           <p className="font-mono text-xs font-medium uppercase tracking-[0.15em] text-brand-blue-50/60">
             About XTRONIC KIDZ
@@ -101,8 +97,8 @@ export default function WhyXtronicPage() {
           the ground up for builders aged 6 and up. No apps, no logins, just
           solar panels, gearboxes and wires that actually do something the
           moment you finish building them. Founded and still led by Thimith
-          Navodya, XTRONIC KIDZ ships from Australia, is tested for child
-          safety, and comes with a lifetime guarantee on small parts,
+          Navodya, XTRONIC KIDZ ships across Australia and Sri Lanka, is
+          tested for child safety, and comes with a lifetime guarantee on small parts,
           because a missing screw shouldn&apos;t be the reason a build never
           gets finished.
         </p>

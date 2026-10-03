@@ -10,11 +10,11 @@ const BACKGROUND = "#E8F4FE"; // brand-blue-50, matches the card's image slot
 // for that product get dropped in (product/<folder>/*.svg) — main.jpg stays
 // the first shot, additional files become 2.jpg, 3.jpg, ... in name order.
 const SOURCES = [
-  { slug: "solar-4wd-rover", file: "4wd.svg", folder: "4wd" },
-  { slug: "wooden-taxiing-aircraft", file: "plane.svg", folder: "plane" },
-  { slug: "solar-speedboat", file: "yatch.svg", folder: "yatch" },
-  { slug: "voice-robot", file: "robit.svg", folder: "robot" },
-  { slug: "solar-butterfly", file: "butterfly.svg", folder: "Butterfly" },
+  { slug: "solar-4wd-rover", file: "4wd.png", folder: "4wd" },
+  { slug: "wooden-taxiing-aircraft", file: "plane.png", folder: "plane" },
+  { slug: "solar-speedboat", file: "Yatch.png", folder: "yatch" },
+  { slug: "voice-robot", file: "robit.png", folder: "robot" },
+  { slug: "solar-butterfly", file: "butterfly.png", folder: "Butterfly" },
 ];
 
 async function collectInputs(file, folder) {

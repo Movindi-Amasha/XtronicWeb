@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Doto } from "next/font/google";
+import { Geist, Geist_Mono, Fredoka } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomBar from "@/components/MobileBottomBar";
@@ -23,12 +23,13 @@ const geistMono = Geist_Mono({
   weight: ["400", "500"],
 });
 
-// Dotted/pixel display font — hero titles, section headings, stat numbers,
-// the oversized footer wordmark. Reference: RIVICHIMOVICHI build brief.
-const doto = Doto({
-  variable: "--font-doto",
+// Bold, chunky, rounded display font — hero titles, section headings, stat
+// numbers. Reads friendly/playful (like LEGO's own branding) without being
+// literally handwritten, which felt too childish for a brand name.
+const fredoka = Fredoka({
+  variable: "--font-fredoka",
   subsets: ["latin"],
-  weight: ["400", "700", "900"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -52,7 +53,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} ${doto.variable} h-full`}
+      className={`${geist.variable} ${geistMono.variable} ${fredoka.variable} h-full`}
     >
       <body className="flex min-h-full flex-col bg-canvas text-brand-navy antialiased">
         <a

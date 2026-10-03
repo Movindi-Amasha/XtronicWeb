@@ -8,7 +8,7 @@ const TOPICS = {
       {
         h: "Ordering",
         items: [
-          { q: "How long does shipping take?", a: "AU Standard ships in 3–5 business days; AU Express in 1–2. International orders take 7–14 business days." },
+          { q: "How long does shipping take?", a: "AU Standard ships in 3–5 business days; AU Express in 1–2. Sri Lanka orders take 7–14 business days." },
           { q: "Can I change or cancel my order?", a: "Contact us within 2 hours of ordering and we'll do our best to change or cancel before it ships." },
         ],
       },
@@ -29,7 +29,7 @@ const TOPICS = {
         items: [
           { q: "AU Standard", a: "Free over A$75, otherwise a flat rate at checkout. 3–5 business days." },
           { q: "AU Express", a: "1–2 business days, calculated at checkout." },
-          { q: "International", a: "Standard (7–14 business days) and Express options available at checkout." },
+          { q: "Sri Lanka", a: "Standard delivery, 7–14 business days, available at checkout." },
         ],
       },
       {

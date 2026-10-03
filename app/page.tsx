@@ -1,5 +1,4 @@
 import Hero from "@/components/Hero";
-import SignalGrid from "@/components/SignalGrid";
 import ProductLineup from "@/components/ProductLineup";
 import FeatureBento from "@/components/FeatureBento";
 import SpecsSection from "@/components/SpecsSection";
@@ -12,7 +11,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <SignalGrid />
       <ProductLineup />
       <FeatureBento />
       <SpecsSection />

@@ -25,8 +25,6 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-brand-navy pb-0">
-      {/* Dot-grid texture, spatially faded toward the mascot side — echoes the
-          reference's masked radial dot field rather than a flat repeat. */}
       <div
         aria-hidden
         className="board-joint board-joint-dark pointer-events-none absolute inset-0"
@@ -116,8 +114,15 @@ export default function Hero() {
           initial={reduceMotion ? undefined : { opacity: 0, scale: 0.92 }}
           animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-          className="relative mx-auto aspect-[100/65] w-full max-w-[360px] md:max-w-[440px]"
+          className="relative mx-auto aspect-square w-full max-w-[320px] md:max-w-[400px]"
         >
+          {/* Faint ambient glow — just enough to lift the mascot off the
+              navy section, kept subtle so it reads as depth, not a halo. */}
+          <div
+            aria-hidden
+            className="absolute inset-[10%] rounded-full bg-gradient-to-br from-brand-blue/15 via-white/10 to-brand-amber/12 blur-2xl"
+          />
+
           <motion.div
             animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -128,8 +133,12 @@ export default function Hero() {
               alt="XTRONIC KIDZ"
               fill
               priority
-              sizes="440px"
-              className="object-cover object-top"
+              sizes="400px"
+              className="object-contain"
+              style={{
+                filter:
+                  "drop-shadow(0 0 1px rgba(255,255,255,0.75)) drop-shadow(0 0 3px rgba(255,255,255,0.4))",
+              }}
             />
           </motion.div>
         </motion.div>

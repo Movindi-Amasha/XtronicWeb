@@ -10,11 +10,6 @@ export default function StatementBand() {
       aria-labelledby="statement-heading"
       className="relative overflow-hidden bg-brand-navy py-20"
     >
-      <div
-        aria-hidden
-        className="board-joint board-joint-dark pointer-events-none absolute inset-0 opacity-60"
-      />
-
       <figure className="relative mx-auto max-w-[760px] px-4 text-center md:px-6">
         <span aria-hidden className="font-pixel text-5xl text-brand-amber">
           &ldquo;

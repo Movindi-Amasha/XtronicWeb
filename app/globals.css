@@ -22,19 +22,21 @@
   --color-line: #e2e8f0;
   --color-muted: #5b6b80;
 
-  /* font-heading (Doto) is the DEFAULT for every h1-h6, page titles, hero
-     and section headings, and product names — that's the deliberate
-     "dotted display" look. The one deliberate exception is PRICE text,
-     which should never use font-heading — spell it out with font-body
-     explicitly wherever a price renders (see components that call
-     formatPriceAUD / useDisplayPrice) so numerals stay legible. */
-  --font-heading: var(--font-doto), ui-monospace, monospace;
+  /* font-heading (Fredoka — bold, chunky, rounded, LEGO-ish) is the DEFAULT
+     for every h1-h6, page titles, hero and section headings, and product
+     names. A handwritten chalk font (Schoolbell) was tried first but read
+     as too childish for a brand name; Fredoka is still warm/playful but
+     reads as a confident wordmark. The one deliberate exception is PRICE
+     text, which should never use font-heading — prices spell out font-body
+     explicitly wherever they render (see components that call
+     formatPriceAUD / useDisplayPrice), since numerals should stay neutral
+     and easy to scan regardless of which display font is active. */
+  --font-heading: var(--font-fredoka), "Trebuchet MS", sans-serif;
   --font-body: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-pixel: var(--font-doto), ui-monospace, monospace;
+  --font-pixel: var(--font-fredoka), "Trebuchet MS", sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* Radius scale from DESIGN.md (sharpened, board-joint / color-blocking system):
-     none/xs/sm/md/full — used for rounded-card, rounded-btn, rounded-btn-xs.
+  /* Radius scale: used for rounded-card, rounded-btn, rounded-btn-xs.
      rounded-full stays reserved for primary CTA buttons only. */
   --radius-btn-xs: 4px;
   --radius-btn: 8px;
@@ -108,38 +110,17 @@
   animation: marquee 24s linear infinite;
 }
 
-@keyframes signal-sweep {
-  0% {
-    transform: translateX(-100%);
-  }
-  50%, 100% {
-    transform: translateX(100%);
-  }
-}
-
 /* Pegboard dot texture: scattered small dots, like a pegboard's drill holes
-   — a literal dot-matrix texture fitting a DIY/workshop brand, used at low
-   opacity behind dark hero/section bands only. */
+   — kept specifically behind the hero section only (the user asked to drop
+   the wider "Nothing"-inspired dotted theme but liked this one spot). */
 .board-joint {
   background-image: radial-gradient(circle, currentColor 1px, transparent 1.5px);
   background-size: 18px 18px;
 }
 
-.board-joint-light {
-  color: var(--color-brand-navy);
-  opacity: 0.12;
-}
-
 .board-joint-dark {
   color: var(--color-brand-blue-50);
   opacity: 0.14;
-}
-
-/* Uppercase UI chrome per DESIGN.md: nav, buttons, labels, pills — never
-   headings or body copy. */
-.ui-label {
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
 }
 
 @media (prefers-reduced-motion: reduce) {

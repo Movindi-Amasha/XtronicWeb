@@ -75,6 +75,13 @@ const TONE_STYLES: Record<Tone, string> = {
   amber: "bg-brand-amber text-brand-navy",
 };
 
+// Bubble background behind each icon needs to contrast with its own card.
+const BUBBLE_STYLES: Record<Tone, string> = {
+  navy: "bg-white/15",
+  surface: "bg-brand-blue-50",
+  amber: "bg-white/70",
+};
+
 export default function FeatureBento() {
   const reduceMotion = useReducedMotion();
 
@@ -105,9 +112,27 @@ export default function FeatureBento() {
               tile.span === 2 ? "lg:col-span-2" : ""
             }`}
           >
-            <span aria-hidden className="text-2xl">
+            <motion.span
+              aria-hidden
+              animate={
+                reduceMotion
+                  ? undefined
+                  : { y: [0, -8, 0] }
+              }
+              transition={
+                reduceMotion
+                  ? undefined
+                  : {
+                      duration: 2.4 + (i % 3) * 0.4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.2,
+                    }
+              }
+              className={`flex h-12 w-12 items-center justify-center rounded-full text-2xl ${BUBBLE_STYLES[tile.tone]}`}
+            >
               {tile.icon}
-            </span>
+            </motion.span>
             <p className="font-mono text-[10px] font-medium uppercase tracking-wide opacity-70">
               {tile.eyebrow}
             </p>
