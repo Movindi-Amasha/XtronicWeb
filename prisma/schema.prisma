@@ -24,6 +24,13 @@ enum PaymentProvider {
   payhere
 }
 
+enum SubscriptionStatus {
+  pending
+  active
+  suspended
+  cancelled
+}
+
 model Order {
   id                String          @id @default(cuid())
   status            OrderStatus     @default(pending)
@@ -67,6 +74,22 @@ model NewsletterSubscriber {
   couponCode   String   @unique
   couponUsed   Boolean  @default(false)
   subscribedAt DateTime @default(now())
+}
+
+model ClubSubscription {
+  id                   String             @id @default(cuid())
+  email                String
+  status               SubscriptionStatus @default(pending)
+  paypalSubscriptionId String?            @unique
+  priceCents           Int
+  currency             String             @default("AUD")
+  startedAt            DateTime?
+  cancelledAt          DateTime?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  @@index([email])
+  @@index([status])
 }
 
 model Coupon {

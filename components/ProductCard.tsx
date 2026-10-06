@@ -16,6 +16,11 @@ const BORDER: Record<Tone, string> = {
   amber: "border-brand-amber",
 };
 
+const MEDIA_BG: Record<Tone, string> = {
+  blue: "bg-brand-blue-50",
+  amber: "bg-brand-amber-50",
+};
+
 export default function ProductCard({
   product,
   index = 0,
@@ -34,9 +39,10 @@ export default function ProductCard({
     >
       <Link
         href={`/shop/${product.slug}`}
-        className="relative block aspect-square w-full overflow-hidden bg-canvas"
+        className={`relative block aspect-square w-full overflow-hidden ${MEDIA_BG[tone]}`}
       >
-        <div className="relative h-full w-full p-4 transition-transform duration-300 group-hover:scale-105">
+        <div aria-hidden className="board-joint board-joint-dark absolute inset-0" />
+        <div className="relative h-full w-full p-6 transition-transform duration-300 group-hover:scale-105">
           <ProductImage
             src={product.image}
             alt={product.name}
@@ -74,8 +80,8 @@ export default function ProductCard({
           <span className="text-muted">({product.reviewCount})</span>
         </div>
 
-        <div className="mt-auto flex items-center justify-between pt-3">
-          <span className="font-body text-xl font-extrabold text-brand-navy">
+        <div className="mt-auto flex items-center justify-between gap-2 pt-3">
+          <span className="min-w-0 truncate font-body text-lg font-extrabold text-brand-navy sm:text-xl">
             {displayPrice}
           </span>
           <button
@@ -89,9 +95,16 @@ export default function ProductCard({
                 priceCents: product.priceCents,
               })
             }
-            className="rounded-full bg-brand-navy px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-blue"
+            aria-label={`Add ${product.name} to cart`}
+            className="btn-brick flex h-11 w-11 shrink-0 items-center justify-center rounded-btn bg-brand-navy text-white transition-colors hover:bg-brand-blue"
+            style={{ "--btn-brick-shadow": "var(--color-brand-navy-700)" } as React.CSSProperties}
           >
-            Add to Cart
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6" />
+              <circle cx="10" cy="20.5" r="1.3" />
+              <circle cx="17" cy="20.5" r="1.3" />
+              <path d="M15 9h4M17 7v4" />
+            </svg>
           </button>
         </div>
       </div>

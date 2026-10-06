@@ -105,6 +105,26 @@ export function newsletterCouponEmail({ code }: { code: string }): {
   };
 }
 
+export function clubWelcomeEmail(): { subject: string; html: string } {
+  return {
+    subject: "Welcome to the XTRONIC KIDZ Club! 🎉",
+    html: `
+      <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
+        <h1 style="color: #0D1F35;">You're a member! 🎉</h1>
+        <p>Thanks for joining the XTRONIC KIDZ Club. Here's what to expect:</p>
+        <ul style="color: #1E3350;">
+          <li>A new STEM kit delivered every month</li>
+          <li>15% off everything else in the shop</li>
+          <li>Early access to new kits</li>
+          <li>Fun learning guides in every box</li>
+        </ul>
+        <p>Your first charge of $19.99 AUD/month has been processed, and the next one will renew automatically each month. You can cancel anytime.</p>
+        <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDZ &middot; Learn &bull; Build &bull; Play</p>
+      </div>
+    `,
+  };
+}
+
 export function quoteAcknowledgementEmail({ name }: { name: string }): {
   subject: string;
   html: string;

@@ -1,26 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  --color-brand-blue: #038cf2;
-  --color-brand-blue-600: #0272c8;
-  --color-brand-blue-deep: #0358b2;
-  --color-brand-blue-50: #e8f4fe;
+  --color-brand-blue: #1f6fe5;
+  --color-brand-blue-600: #1556be;
+  --color-brand-blue-deep: #1556be;
+  --color-brand-blue-50: #eaf2ff;
 
-  --color-brand-amber: #ffa707;
-  --color-brand-amber-600: #f29a0a;
-  --color-brand-amber-50: #fff4e0;
+  --color-brand-amber: #ff7a1f;
+  --color-brand-amber-600: #d95f0b;
+  --color-brand-amber-50: #fff0e4;
 
-  --color-brand-green: #57b12d;
-  --color-brand-green-700: #3f8a1e;
+  --color-brand-yellow: #ffc21a;
+  --color-brand-yellow-600: #e0a000;
+  --color-brand-yellow-50: #fff6d9;
+
+  --color-brand-green: #34a853;
+  --color-brand-green-700: #23853e;
   --color-brand-green-50: #eef8e9;
 
-  --color-brand-navy: #0d1f35;
-  --color-brand-navy-700: #1e3350;
+  --color-brand-red: #e8412f;
+  --color-brand-red-600: #b92d1f;
+
+  --color-brand-navy: #0e1e3f;
+  --color-brand-navy-700: #1b2a4a;
 
   --color-surface: #ffffff;
-  --color-canvas: #f8fafc;
-  --color-line: #e2e8f0;
-  --color-muted: #5b6b80;
+  --color-canvas: #f7f9fd;
+  --color-line: #e7ecf5;
+  --color-muted: #5b6785;
 
   /* font-heading (Fredoka — bold, chunky, rounded, LEGO-ish) is the DEFAULT
      for every h1-h6, page titles, hero and section headings, and product
@@ -32,15 +39,15 @@
      formatPriceAUD / useDisplayPrice), since numerals should stay neutral
      and easy to scan regardless of which display font is active. */
   --font-heading: var(--font-fredoka), "Trebuchet MS", sans-serif;
-  --font-body: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: var(--font-nunito), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-pixel: var(--font-fredoka), "Trebuchet MS", sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
   /* Radius scale: used for rounded-card, rounded-btn, rounded-btn-xs.
      rounded-full stays reserved for primary CTA buttons only. */
-  --radius-btn-xs: 4px;
-  --radius-btn: 8px;
-  --radius-card: 16px;
+  --radius-btn-xs: 10px;
+  --radius-btn: 14px;
+  --radius-card: 22px;
 }
 
 @theme inline {
@@ -53,9 +60,16 @@
   --color-brand-amber-600: var(--color-brand-amber-600);
   --color-brand-amber-50: var(--color-brand-amber-50);
 
+  --color-brand-yellow: var(--color-brand-yellow);
+  --color-brand-yellow-600: var(--color-brand-yellow-600);
+  --color-brand-yellow-50: var(--color-brand-yellow-50);
+
   --color-brand-green: var(--color-brand-green);
   --color-brand-green-700: var(--color-brand-green-700);
   --color-brand-green-50: var(--color-brand-green-50);
+
+  --color-brand-red: var(--color-brand-red);
+  --color-brand-red-600: var(--color-brand-red-600);
 
   --color-brand-navy: var(--color-brand-navy);
   --color-brand-navy-700: var(--color-brand-navy-700);
@@ -121,6 +135,39 @@
 .board-joint-dark {
   color: var(--color-brand-blue-50);
   opacity: 0.14;
+}
+
+/* Chunky "brick" button: a flat bottom-shadow that reads as a pressable
+   LEGO-style brick. Pass a color pair via data-tone (handled per-usage with
+   explicit Tailwind classes); this just supplies the press mechanics. */
+.btn-brick {
+  box-shadow: 0 5px 0 var(--btn-brick-shadow, var(--color-brand-blue-600)), 0 10px 20px -8px rgba(14, 30, 63, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+.btn-brick:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+}
+.btn-brick:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 var(--btn-brick-shadow, var(--color-brand-blue-600)), 0 4px 10px -6px rgba(14, 30, 63, 0.3);
+}
+
+/* Lego-stud dot pattern used on dark/colored panels (subscription band,
+   gift panel, newsletter band) for the brick-toy texture from the reference
+   design. */
+.studs-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.14) 0 9px,
+    rgba(0, 0, 0, 0.08) 9.5px 11px,
+    transparent 11.5px
+  );
+  background-size: 34px 34px;
 }
 
 /* Comic-sticker headline style from the client's mockups: a thick outline

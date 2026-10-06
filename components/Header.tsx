@@ -8,15 +8,16 @@ import { useCartStore, cartItemCount } from "@/lib/cartStore";
 import CurrencySelector from "./CurrencySelector";
 
 const NAV_LINKS = [
-  { href: "/", label: "Home" },
   { href: "/shop", label: "STEM Kits" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/why-xtronic", label: "Why XTRONIC" },
   { href: "/schools", label: "Schools & Clubs" },
   { href: "/parents-guide", label: "Parents' Guide" },
+  { href: "/#subscribe", label: "Club" },
 ];
 
 function isLinkActive(pathname: string, href: string): boolean {
+  if (href.startsWith("/#")) return false;
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
 }
@@ -37,21 +38,30 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-[999] border-b border-line bg-white">
-      <div className="mx-auto flex h-20 max-w-[1260px] items-center justify-between gap-4 px-4 md:px-6">
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div className="relative h-14 w-14 shrink-0">
+    <header className="sticky top-0 z-[999] border-b border-line bg-white/95 backdrop-blur-md">
+      <div className="mx-auto flex h-20 max-w-[1260px] items-center gap-4 px-4 md:px-6">
+        <Link href="/" className="flex shrink-0 items-center gap-2">
+          <div className="relative h-12 w-12 shrink-0">
             <Image
               src="/brand/xtronic-logo-transparent.png"
-              alt="XTRONIC KIDZ"
+              alt=""
               fill
               className="object-contain"
               priority
             />
           </div>
+          <div className="relative hidden h-8 w-32 shrink-0 sm:block">
+            <Image
+              src="/brand/xtronic-wordmark.png"
+              alt="XTRONIC KIDZ"
+              fill
+              className="object-contain object-left"
+              priority
+            />
+          </div>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
+        <nav aria-label="Primary" className="mx-auto hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((link) => {
             const active = isLinkActive(pathname, link.href);
             return (
@@ -59,10 +69,10 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`pb-1 font-body text-sm font-bold transition-colors ${
+                className={`rounded-btn px-3 py-2 font-body text-sm font-extrabold transition-colors ${
                   active
-                    ? "border-b-2 border-brand-blue text-brand-blue"
-                    : "border-b-2 border-transparent text-brand-navy hover:text-brand-blue"
+                    ? "bg-brand-blue-50 text-brand-blue"
+                    : "text-brand-navy hover:bg-brand-blue-50 hover:text-brand-blue"
                 }`}
               >
                 {link.label}
@@ -71,23 +81,22 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <form onSubmit={handleSearch} className="relative hidden md:block">
+        <div className="ml-auto flex items-center gap-2 sm:gap-3">
+          <form
+            onSubmit={handleSearch}
+            className="hidden items-center gap-2 rounded-btn border-2 border-line bg-canvas px-3 focus-within:border-brand-blue focus-within:bg-white md:flex"
+          >
+            <span aria-hidden className="text-muted">
+              🔍
+            </span>
             <input
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search for STEM kits..."
+              placeholder="Search STEM kits…"
               aria-label="Search for STEM kits"
-              className="w-48 rounded-full border border-line bg-canvas py-2 pl-4 pr-9 text-sm text-brand-navy placeholder:text-muted focus-visible:outline-brand-blue lg:w-60"
+              className="h-11 w-44 bg-transparent text-sm font-bold text-brand-navy placeholder:text-muted placeholder:font-semibold focus:outline-none lg:w-56"
             />
-            <button
-              type="submit"
-              aria-label="Search"
-              className="absolute right-1 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-brand-blue"
-            >
-              🔍
-            </button>
           </form>
 
           <CurrencySelector className="hidden lg:flex" />
@@ -95,7 +104,7 @@ export default function Header() {
           <Link
             href="/parents-guide"
             aria-label="Parents' guide"
-            className="hidden h-10 w-10 items-center justify-center rounded-full text-xl text-brand-navy transition-colors hover:bg-canvas sm:flex"
+            className="hidden h-11 w-11 items-center justify-center rounded-btn text-xl text-brand-navy transition-colors hover:bg-brand-blue-50 hover:text-brand-blue sm:flex"
           >
             👤
           </Link>
@@ -104,15 +113,17 @@ export default function Header() {
             type="button"
             onClick={openCart}
             aria-label={`Cart, ${cartCount} items`}
-            className="relative flex h-10 w-10 items-center justify-center rounded-full text-xl text-brand-navy transition-colors hover:bg-canvas"
+            className="relative flex h-11 w-11 items-center justify-center rounded-btn bg-brand-yellow-50 text-xl text-brand-navy transition-colors hover:bg-brand-yellow-50/70"
           >
             🛒
-            <span
-              aria-hidden
-              className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-amber text-[11px] font-bold text-white"
-            >
-              {cartCount}
-            </span>
+            {cartCount > 0 && (
+              <span
+                aria-hidden
+                className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-brand-amber text-[11px] font-bold text-white"
+              >
+                {cartCount}
+              </span>
+            )}
           </button>
 
           <button
@@ -120,7 +131,7 @@ export default function Header() {
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-2xl text-brand-navy hover:bg-canvas lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-btn text-2xl text-brand-navy hover:bg-brand-blue-50 lg:hidden"
           >
             {menuOpen ? "✕" : "☰"}
           </button>
@@ -138,7 +149,7 @@ export default function Header() {
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
                   aria-current={active ? "page" : undefined}
-                  className={`rounded-btn px-3 py-3 text-sm font-bold hover:bg-canvas ${
+                  className={`rounded-btn px-3 py-3 text-sm font-extrabold hover:bg-brand-blue-50 ${
                     active ? "text-brand-blue" : "text-brand-navy"
                   }`}
                 >
@@ -149,7 +160,8 @@ export default function Header() {
             <Link
               href="/shop"
               onClick={() => setMenuOpen(false)}
-              className="mt-2 rounded-btn bg-brand-amber px-5 py-3 text-center font-mono text-sm font-bold uppercase tracking-wide text-white"
+              className="btn-brick mt-2 rounded-btn bg-brand-amber px-5 py-3 text-center font-heading text-sm font-bold text-white"
+              style={{ "--btn-brick-shadow": "var(--color-brand-amber-600)" } as React.CSSProperties}
             >
               Shop STEM Kits
             </Link>

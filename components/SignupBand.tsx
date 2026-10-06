@@ -1,44 +1,30 @@
 import Image from "next/image";
 import NewsletterForm from "./NewsletterForm";
 
-const PERKS = ["🎁 Exclusive Offers", "🆕 New Product Updates", "🔧 Fun STEM Activities", "💡 Parenting Tips"];
-
 export default function SignupBand() {
   return (
-    <section aria-labelledby="signup-heading" className="bg-brand-navy py-14">
-      <div className="mx-auto max-w-[1260px] px-4 md:px-6">
-        <div className="grid gap-8 md:grid-cols-2 md:items-center">
-          <div className="flex items-center gap-4">
-            <div className="relative hidden h-28 w-28 shrink-0 sm:block">
-              <Image
-                src="/mascot/waving.png"
-                alt=""
-                fill
-                sizes="112px"
-                className="object-contain"
-              />
-            </div>
-            <div>
-              <h2
-                id="signup-heading"
-                className="font-heading text-2xl font-bold text-white md:text-3xl"
-              >
-                Join the <span className="text-brand-amber">XTRONIC KIDZ</span> Community
-              </h2>
-              <p className="mt-2 max-w-sm text-sm text-brand-blue-50/80">
-                Get the latest kits, fun ideas and special offers, plus an
-                instant 10% off your first order.
-              </p>
-            </div>
+    <section aria-labelledby="signup-heading" className="mx-auto max-w-[1200px] px-4 pt-24 pb-24 md:px-6">
+      <div
+        className="relative flex flex-wrap items-center justify-between gap-7 overflow-hidden rounded-[32px] px-7 py-10 text-white shadow-[0_10px_0_var(--color-brand-blue-600)] sm:px-12"
+        style={{ background: "linear-gradient(120deg, var(--color-brand-blue), var(--color-brand-blue-600))" }}
+      >
+        <div aria-hidden className="studs-texture" />
+        <div className="relative flex items-center gap-4">
+          <div className="relative hidden h-24 w-24 shrink-0 sm:block">
+            <Image src="/mascot/waving.png" alt="" fill sizes="96px" className="object-contain" />
           </div>
-
-          <NewsletterForm variant="footer" />
+          <div className="max-w-sm">
+            <h2 id="signup-heading" className="text-[clamp(26px,3vw,36px)] font-bold text-white">
+              Join the <span className="text-brand-yellow">XTRONIC</span> community
+            </h2>
+            <p className="mt-1.5 font-bold opacity-90">
+              Get 10% off your first order, plus free STEM activities and
+              new-kit news.
+            </p>
+          </div>
         </div>
-
-        <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2 border-t border-white/10 pt-6 font-mono text-xs font-medium uppercase tracking-wide text-brand-blue-50/70">
-          {PERKS.map((perk) => (
-            <span key={perk}>{perk}</span>
-          ))}
+        <div className="relative">
+          <NewsletterForm variant="band" />
         </div>
       </div>
     </section>

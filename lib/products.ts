@@ -1,7 +1,8 @@
 export type ProductCategory =
   | "Solar Energy"
   | "Robotics & Electronics"
-  | "Wooden Mechanics";
+  | "Wooden Mechanics"
+  | "Bundles & Gifts";
 
 export interface Product {
   slug: string;
@@ -44,7 +45,7 @@ export const products: Product[] = [
       "Snap-fit body panels",
       "Illustrated build guide",
     ],
-    image: "/products/solar-4wd-rover/main.jpg",
+    image: "/products/solar-4wd-rover/cutout.png",
   },
   {
     slug: "wooden-taxiing-aircraft",
@@ -69,7 +70,7 @@ export const products: Product[] = [
       "Circuit switch & battery pack",
       "Illustrated build guide",
     ],
-    image: "/products/wooden-taxiing-aircraft/main.jpg",
+    image: "/products/wooden-taxiing-aircraft/cutout.png",
   },
   {
     slug: "solar-speedboat",
@@ -119,7 +120,7 @@ export const products: Product[] = [
       "LED eye assembly",
       "Illustrated build guide",
     ],
-    image: "/products/voice-robot/main.jpg",
+    image: "/products/voice-robot/cutout.png",
   },
   {
     slug: "solar-butterfly",
@@ -144,7 +145,82 @@ export const products: Product[] = [
       "Display stand",
       "Illustrated build guide",
     ],
-    image: "/products/solar-butterfly/main.jpg",
+    image: "/products/solar-butterfly/cutout.png",
+  },
+  {
+    slug: "stem-bundle-5in1",
+    name: "5-in-1 STEM Kit Bundle",
+    emoji: "🎁",
+    category: "Bundles & Gifts",
+    categoryLabel: "Bundles & Gifts",
+    age: "6+",
+    priceCents: 11995,
+    buildTime: "Weeks of building fun",
+    rating: 5.0,
+    reviewCount: 34,
+    highlights: [
+      "All 5 XTRONIC KIDZ kits in one box",
+      "Over 20% cheaper than buying individually",
+      "Free standard shipping included",
+    ],
+    stemConcepts: ["Photovoltaics", "Mechanics", "Electronics", "Aerodynamics", "Buoyancy"],
+    whatsInTheBox: [
+      "Solar 4-Wheel Drive DIY Rover",
+      "Wooden Taxiing Aircraft Kit",
+      "Solar-Powered Yacht / Speedboat",
+      "Smart Voice-Controlled Robot Kit",
+      "Solar-Powered Flapping Butterfly",
+    ],
+    image: "/products/stem-bundle-5in1/main.jpg",
+  },
+  {
+    slug: "gift-wrap-card",
+    name: "Birthday Gift Wrap & Card",
+    emoji: "🎀",
+    category: "Bundles & Gifts",
+    categoryLabel: "Bundles & Gifts",
+    age: "All ages",
+    priceCents: 495,
+    buildTime: "Add to any kit",
+    rating: 4.9,
+    reviewCount: 41,
+    highlights: [
+      "Add to any kit already in your cart",
+      "Colourful gift wrap with a ribbon bow",
+      "Personalised card with your own message",
+    ],
+    stemConcepts: [],
+    whatsInTheBox: [
+      "Gift wrap for one kit",
+      "Ribbon bow",
+      "Personalised card (add your message at checkout)",
+    ],
+    image: "/products/gift-wrap-card/main.jpg",
+  },
+  {
+    slug: "tools-accessories-pack",
+    name: "Tools & Accessories Pack",
+    emoji: "🧰",
+    category: "Bundles & Gifts",
+    categoryLabel: "Bundles & Gifts",
+    age: "6+",
+    priceCents: 1995,
+    buildTime: "Keeps builds going",
+    rating: 4.8,
+    reviewCount: 57,
+    highlights: [
+      "Kid-sized screwdriver set",
+      "Spare gears and motors for any kit",
+      "Rechargeable AA batteries included",
+    ],
+    stemConcepts: ["Mechanics", "Electronics"],
+    whatsInTheBox: [
+      "Kid-safe screwdriver set",
+      "Spare gear & motor pack",
+      "4x rechargeable AA batteries",
+      "Storage pouch",
+    ],
+    image: "/products/tools-accessories-pack/main.jpg",
   },
 ];
 
@@ -152,6 +228,7 @@ export const categories: ProductCategory[] = [
   "Solar Energy",
   "Robotics & Electronics",
   "Wooden Mechanics",
+  "Bundles & Gifts",
 ];
 
 export function formatPriceAUD(cents: number): string {

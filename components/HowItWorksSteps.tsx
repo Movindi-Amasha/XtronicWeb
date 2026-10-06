@@ -1,66 +1,65 @@
 import Image from "next/image";
 
-type Tone = "blue" | "amber" | "red";
+type Tone = "blue" | "yellow";
 
 const TONE_STYLES: Record<Tone, string> = {
   blue: "bg-brand-blue",
-  amber: "bg-brand-amber text-brand-navy",
-  red: "bg-brand-amber",
+  yellow: "bg-brand-yellow text-brand-navy",
 };
 
 const STEPS: { n: string; icon: string; title: string; desc: string; tone: Tone }[] = [
-  { n: "01", icon: "📦", title: "Choose Your Kit", desc: "Pick a STEM kit that interests your child.", tone: "blue" },
-  { n: "02", icon: "🔧", title: "Build It", desc: "Follow the easy step-by-step instructions.", tone: "amber" },
-  { n: "03", icon: "💡", title: "Discover How It Works", desc: "Learn the real science and technology behind it.", tone: "red" },
-  { n: "04", icon: "▶️", title: "Play & Experiment", desc: "Test your creation and see it in action.", tone: "blue" },
-  { n: "05", icon: "🏆", title: "Create Again!", desc: "Improve, customise and build new ideas.", tone: "amber" },
+  { n: "1", icon: "📦", title: "Choose your kit", desc: "Pick a robot, car, boat, plane or butterfly.", tone: "blue" },
+  { n: "2", icon: "🔧", title: "Build it", desc: "Follow the colourful picture guide step by step.", tone: "yellow" },
+  { n: "3", icon: "💡", title: "Discover", desc: "Learn the science of motors, solar and circuits.", tone: "blue" },
+  { n: "4", icon: "🎮", title: "Play & test", desc: "Race it, sail it, fly it and experiment.", tone: "yellow" },
+  { n: "5", icon: "🏆", title: "Create again", desc: "Remix parts into brand-new inventions.", tone: "blue" },
 ];
 
 export default function HowItWorksSteps() {
   return (
-    <section
-      aria-labelledby="how-it-works-heading"
-      className="mx-auto max-w-[1260px] px-4 pt-8 pb-16 md:px-6"
-    >
-      <div className="flex flex-col items-center text-center">
-        <div className="relative h-32 w-32">
-          <Image
-            src="/mascot/pointing.png"
-            alt=""
-            fill
-            sizes="128px"
-            className="object-contain"
-          />
-        </div>
-        <h2
-          id="how-it-works-heading"
-          className="mt-1 font-heading text-3xl font-bold text-brand-navy md:text-4xl"
-        >
-          5 Simple Steps to a <span className="text-brand-amber">Big Adventure!</span>
-        </h2>
-      </div>
-
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        {STEPS.map((step, i) => (
-          <div key={step.n} className="relative flex flex-col items-center gap-3 rounded-card border-2 border-line bg-surface p-5 text-center">
-            <span
-              className={`absolute -top-4 flex h-9 w-9 items-center justify-center rounded-full font-mono text-xs font-bold text-white shadow-sm ${TONE_STYLES[step.tone]}`}
-            >
-              {step.n}
-            </span>
-            <span className="mt-4 text-3xl">{step.icon}</span>
-            <h3 className="font-heading text-sm font-bold text-brand-navy">{step.title}</h3>
-            <p className="text-xs text-brand-navy-700">{step.desc}</p>
-            {i < STEPS.length - 1 && (
-              <span
-                aria-hidden
-                className="absolute -right-3 top-1/2 hidden -translate-y-1/2 text-xl text-brand-navy/30 lg:block"
-              >
-                →
-              </span>
-            )}
+    <section id="how" aria-labelledby="how-it-works-heading" className="mx-auto max-w-[1200px] px-4 pt-24 md:px-6">
+      <div
+        className="rounded-[40px] px-5 py-14 sm:px-10 md:py-16"
+        style={{ background: "linear-gradient(180deg, var(--color-brand-blue-50), #fff)" }}
+      >
+        <div className="relative flex flex-col items-center text-center">
+          <div className="pointer-events-none absolute -top-10 right-0 hidden h-28 w-28 sm:block md:-top-14 md:right-[6%] md:h-36 md:w-36">
+            <Image src="/mascot/pointing.png" alt="" fill sizes="144px" className="object-contain" />
           </div>
-        ))}
+          <span className="text-xs font-extrabold uppercase tracking-[0.1em] text-brand-amber">
+            Simple as 1-2-3-4-5
+          </span>
+          <h2 id="how-it-works-heading" className="mt-2 text-[clamp(32px,4vw,48px)] font-bold tracking-tight text-brand-navy">
+            How it <span className="text-brand-blue">works</span>
+          </h2>
+          <p className="mt-2.5 text-lg font-semibold text-muted">
+            From box to brilliant creation in one afternoon.
+          </p>
+        </div>
+
+        <ol className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+          {STEPS.map((step, i) => (
+            <li
+              key={step.n}
+              className="relative rounded-card border-2 border-line bg-white px-4 py-7 text-center shadow-[0_10px_30px_-12px_rgba(14,30,63,0.18)]"
+            >
+              <span
+                className={`absolute -top-4 left-1/2 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-[10px] font-heading text-sm font-bold text-white shadow-[inset_0_-3px_0_rgba(0,0,0,0.15)] ${TONE_STYLES[step.tone]}`}
+              >
+                {step.n}
+              </span>
+              <span className="mb-2.5 block text-4xl">{step.icon}</span>
+              <h3 className="text-[18px] font-semibold text-brand-navy">{step.title}</h3>
+              <p className="mt-1.5 text-[14.5px] font-semibold text-muted">{step.desc}</p>
+              {i < STEPS.length - 1 && (
+                <span
+                  aria-hidden
+                  className="absolute top-1/2 -right-[18px] hidden h-1 w-4 -translate-y-1/2 rounded bg-[repeating-linear-gradient(90deg,var(--color-brand-blue)_0_4px,transparent_4px_7px)] lg:block"
+                />
+              )}
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

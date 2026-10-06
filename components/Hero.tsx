@@ -4,199 +4,132 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
-const STATS = [
-  { value: "5", label: "STEM Kits" },
-  { value: "6+", label: "Min Age" },
-  { value: "4.9", label: "Parent Rating" },
-  { value: "AU", label: "Wide Delivery" },
+const TRUST = [
+  { stat: "4.9★", label: "2,000+ reviews", tone: "border-brand-yellow" },
+  { stat: "Ages 6+", label: "Safe & tested", tone: "border-brand-blue" },
+  { stat: "30-day", label: "Happy returns", tone: "border-brand-amber" },
 ];
 
-const MARQUEE_ITEMS = [
-  "☀️ Solar Powered",
-  "🤖 Voice AI Ready",
-  "✈️ Snap-Together Build",
-  "🔊 Sound Frequency",
-  "🧠 STEM Certified",
-  "🔋 Battery-Free",
+const BRICKS = [
+  { tone: "bg-brand-amber shadow-[inset_0_-4px_0_var(--color-brand-amber-600)]", pos: "left-[1%] top-[82%]", size: "h-7 w-12", studs: 2, rotate: "8deg", delay: "0s" },
+  { tone: "bg-brand-blue shadow-[inset_0_-4px_0_var(--color-brand-blue-600)]", pos: "right-[2%] top-[6%]", size: "h-6 w-10", studs: 2, rotate: "-10deg", delay: ".6s" },
+  { tone: "bg-brand-green shadow-[inset_0_-4px_0_var(--color-brand-green-700)]", pos: "left-[46%] top-[90%]", size: "h-6 w-10", studs: 2, rotate: "-6deg", delay: "1.2s" },
 ];
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden bg-brand-navy pb-0">
-      {/* Workshop-themed background — designed with a calm, plain zone
-          across the center (where the text and logo sit) and all the
-          colorful detail (gears, solar panels, blueprints, robot) pushed
-          to the edges/corners, so it adds brand-matching color without
-          fighting the content. A navy tint keeps white text readable
-          while still letting the corner detail read vividly. */}
-      <div aria-hidden className="absolute inset-0">
-        <Image
-          src="/brand/hero-bg.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-70"
-        />
-        <div className="absolute inset-0 bg-brand-navy/50" />
+    <section
+      className="relative overflow-hidden pt-10 pb-18 md:pt-14 md:pb-24"
+      style={{
+        background:
+          "radial-gradient(900px 500px at 85% 30%, var(--color-brand-blue-50), transparent 70%), radial-gradient(600px 400px at 0% 100%, var(--color-brand-yellow-50), transparent 70%), #fff",
+      }}
+    >
+      <div aria-hidden className="pointer-events-none absolute inset-0 hidden md:block">
+        {BRICKS.map((b, i) => (
+          <motion.div
+            key={i}
+            animate={reduceMotion ? undefined : { y: [0, -14, 0] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: Number(b.delay.replace("s", "")) }}
+            className={`absolute rounded-md opacity-45 ${b.tone} ${b.pos} ${b.size}`}
+            style={{ transform: `rotate(${b.rotate})` }}
+          >
+            <div className="absolute inset-x-0 -top-[7px] flex justify-center gap-1.5">
+              {Array.from({ length: b.studs }).map((_, s) => (
+                <span key={s} className={`h-[9px] w-[9px] rounded-full ${b.tone.split(" ")[0]}`} />
+              ))}
+            </div>
+          </motion.div>
+        ))}
       </div>
 
-      {/* Scattered confetti dots/stars — cheap flat decoration, like the
-          reference, instead of a busy photographic background. */}
-      <span aria-hidden className="absolute left-[8%] top-16 h-2 w-2 rounded-full bg-brand-blue/40" />
-      <span aria-hidden className="absolute left-[18%] top-40 text-sm text-brand-amber/50">✦</span>
-      <span aria-hidden className="absolute right-[6%] top-24 h-2.5 w-2.5 rounded-full bg-brand-amber/40" />
-      <span aria-hidden className="absolute right-[14%] bottom-28 text-base text-brand-blue-50/30">✦</span>
-      <span aria-hidden className="absolute left-[4%] bottom-20 h-1.5 w-1.5 rounded-full bg-white/30" />
-      <span aria-hidden className="absolute right-[3%] top-1/2 h-2 w-2 rounded-full bg-brand-amber/40" />
+      <div className="relative z-10 mx-auto grid max-w-[1200px] gap-10 px-4 md:grid-cols-[1.05fr_1fr] md:items-center md:gap-12 md:px-6">
+        <div>
+          <h1 className="flex flex-col text-[2.6rem] leading-[1.03] font-bold tracking-tight text-brand-navy sm:text-6xl md:text-[5.2rem]">
+            <span className="text-brand-blue">Build it.</span>
+            <span className="text-brand-yellow-600">Learn it.</span>
+            <span className="text-brand-amber">Play it.</span>
+          </h1>
 
-      <div className="relative z-10 mx-auto grid max-w-[1160px] gap-12 px-4 py-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:px-6 md:py-24">
-        <div className="relative text-left">
-          <motion.span
-            initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="relative z-10 inline-flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.15em] text-brand-blue-50"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-amber" />
-            Learn &bull; Build &bull; Play
-          </motion.span>
+          <p className="mt-4 max-w-lg text-lg text-muted">
+            Hands-on STEM kits that turn screen time into{" "}
+            <strong className="text-brand-amber">build time</strong>. Kids
+            snap together real robots, solar cars and boats and learn how
+            they work along the way.
+          </p>
 
-          <motion.h1
-            initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative z-10 mt-5 font-pixel text-4xl leading-[1.15] font-bold text-white sm:text-5xl md:text-6xl"
-          >
-            MAKE LEARNING
-            <br />
-            <span className="text-brand-amber">COME ALIVE.</span>
-            <span className="mt-3 block font-body font-normal text-base text-brand-blue-50/70 sm:text-lg">
-              Screen-free STEM kits, built by hand, powered by curiosity.
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative z-10 mt-5 max-w-md text-base text-brand-blue-50/70"
-          >
-            Hands-on robotics and solar engineering kits designed to ignite
-            curious minds, snap-together, screen-free, and built to last for
-            kids 6 and up.
-          </motion.p>
-
-          <motion.div
-            initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative z-10 mt-7 flex flex-col gap-3 sm:flex-row"
-          >
+          <div className="mt-7 flex flex-wrap gap-3.5">
             <Link
               href="/shop"
-              className="rounded-btn bg-brand-amber px-6 py-3 text-center font-mono text-sm font-medium uppercase tracking-wide text-brand-navy transition-opacity hover:opacity-90 focus-visible:outline-brand-amber"
+              className="btn-brick flex items-center gap-2.5 rounded-btn bg-brand-amber px-7 py-4 font-heading text-base font-semibold text-white"
+              style={{ "--btn-brick-shadow": "var(--color-brand-amber-600)" } as React.CSSProperties}
             >
-              Explore All Kits
+              Shop STEM Kits
+              <span aria-hidden>→</span>
             </Link>
             <Link
-              href="/schools"
-              className="rounded-btn border border-white/20 bg-white/5 px-6 py-3 text-center font-mono text-sm font-medium uppercase tracking-wide text-white transition-colors hover:bg-white/10"
+              href="/how-it-works"
+              className="btn-brick flex items-center gap-2.5 rounded-btn border-2 border-line bg-white px-7 py-4 font-heading text-base font-semibold text-brand-navy"
+              style={{ "--btn-brick-shadow": "#d9e2f2" } as React.CSSProperties}
             >
-              For Schools &amp; Teachers →
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-brand-blue text-white">▶</span>
+              See how it works
             </Link>
-          </motion.div>
+          </div>
 
-          {/* Mascot playing with a kit — tucked behind the CTA buttons and
-              stats row (both given relative z-10 above so their opaque
-              backgrounds/text occlude it), peeking out through the gaps
-              around them rather than floating off in the side margin. */}
-          <motion.div
-            aria-hidden
-            animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="pointer-events-none absolute -left-6 top-[400px] z-0 hidden h-52 w-52 opacity-95 lg:block"
-          >
-            <Image
-              src="/mascot/playing-with-robot.png"
-              alt=""
-              fill
-              sizes="256px"
-              className="object-contain"
-            />
-          </motion.div>
-
-          <motion.div
-            initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="relative z-10 mt-10 grid grid-cols-4 gap-4 border-t border-white/10 pt-6"
-          >
-            {STATS.map((stat) => (
-              <div key={stat.label}>
-                <p className="font-pixel text-xl text-white sm:text-2xl">{stat.value}</p>
-                <p className="mt-1 font-mono text-[10px] font-medium uppercase tracking-wide text-brand-blue-50/60 sm:text-xs">
-                  {stat.label}
-                </p>
-              </div>
+          <ul className="mt-9 flex flex-wrap gap-7">
+            {TRUST.map((t) => (
+              <li key={t.label} className={`border-l-4 pl-3.5 ${t.tone}`}>
+                <strong className="block font-heading text-xl text-brand-navy">{t.stat}</strong>
+                <span className="text-sm font-bold text-muted">{t.label}</span>
+              </li>
             ))}
-          </motion.div>
+          </ul>
         </div>
 
-        <div className="relative">
-          <motion.div
-            initial={reduceMotion ? undefined : { opacity: 0, scale: 0.92 }}
-            animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-            className="relative z-10 mx-auto aspect-square w-full max-w-[320px] md:max-w-[400px]"
-          >
-          {/* A deliberate solid-ish blob behind the logo, like the
-              reference's organic color shape, instead of a photo backdrop. */}
+        <div className="relative mx-auto aspect-[1/0.95] w-full max-w-[460px] md:max-w-[620px]">
+          {/* Soft layered spotlight instead of a brick/stud plate — the logo
+              itself already reads as a chunky brick icon, so a second brick
+              texture behind it just competed. A blurred radial glow plus a
+              thin ring gives depth without fighting the mark. */}
           <div
             aria-hidden
-            className="absolute inset-[-8%] rounded-full bg-gradient-to-br from-brand-blue/35 via-brand-blue-deep/25 to-brand-amber/20 blur-xl"
+            className="absolute inset-[6%] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, var(--color-brand-blue-50) 0%, var(--color-brand-amber-50) 60%, transparent 78%)",
+              filter: "blur(18px)",
+            }}
           />
           <div
             aria-hidden
-            className="absolute inset-[6%] rounded-full bg-gradient-to-br from-brand-blue/20 via-white/10 to-brand-amber/15 blur-md"
+            className="absolute inset-[14%] rounded-full border-2 opacity-30"
+            style={{ borderColor: "var(--color-brand-blue)" }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-[22%] rounded-full border-2 opacity-20"
+            style={{ borderColor: "var(--color-brand-amber)" }}
           />
 
           <motion.div
-            animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
+            animate={reduceMotion ? undefined : { y: [0, -14, 0], rotate: [0, 1, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="relative h-full w-full"
+            className="absolute inset-[-14%] grid place-items-center"
           >
-            <Image
-              src="/brand/xtronic-logo-transparent.png"
-              alt="XTRONIC KIDZ"
-              fill
-              priority
-              sizes="400px"
-              className="object-contain"
-              style={{
-                filter:
-                  "drop-shadow(0 0 1px rgba(255,255,255,0.75)) drop-shadow(0 0 3px rgba(255,255,255,0.4))",
-              }}
-            />
+            <div className="relative h-full w-full drop-shadow-[0_24px_30px_rgba(0,0,0,0.3)]">
+              <Image
+                src="/brand/xtronic-logo-transparent.png"
+                alt="XTRONIC KIDZ"
+                fill
+                priority
+                sizes="620px"
+                className="object-contain"
+              />
+            </div>
           </motion.div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Gold ticker band — full-bleed section divider */}
-      <div className="relative w-full overflow-hidden bg-brand-amber py-2.5">
-        <div className="animate-marquee flex w-max items-center gap-8">
-          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
-            <span
-              key={`${item}-${i}`}
-              aria-hidden={i >= MARQUEE_ITEMS.length}
-              className="whitespace-nowrap font-mono text-xs font-medium uppercase tracking-wide text-brand-navy"
-            >
-              {item}
-            </span>
-          ))}
         </div>
       </div>
     </section>

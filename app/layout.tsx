@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fredoka } from "next/font/google";
+import { Geist_Mono, Fredoka, Nunito } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomBar from "@/components/MobileBottomBar";
@@ -10,10 +10,10 @@ import QuickViewModal from "@/components/QuickViewModal";
 import "./globals.css";
 
 // Body text
-const geist = Geist({
-  variable: "--font-geist",
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
-  weight: ["100", "300", "400", "500"],
+  weight: ["500", "600", "700", "800"],
 });
 
 // Uppercase UI labels, buttons, nav, specs
@@ -53,7 +53,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} ${fredoka.variable} h-full`}
+      className={`${nunito.variable} ${geistMono.variable} ${fredoka.variable} h-full`}
     >
       <body className="flex min-h-full flex-col bg-canvas text-brand-navy antialiased">
         <a

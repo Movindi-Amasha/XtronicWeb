@@ -41,7 +41,7 @@ export default function ProductImage({
       alt={alt}
       fill
       sizes={sizes ?? "(min-width: 768px) 33vw, 100vw"}
-      className={`object-cover ${className}`}
+      className={`object-contain ${className}`}
       onError={() => setFailed(true)}
     />
   );

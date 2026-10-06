@@ -36,7 +36,7 @@ export default function NewsletterForm({ variant = "footer" }: { variant?: Varia
       <div
         className={
           isBand
-            ? "rounded-card border border-brand-navy/15 bg-white/40 p-5"
+            ? "w-full max-w-md rounded-[18px] bg-white p-5"
             : "mt-6 max-w-sm rounded-card border border-white/20 bg-white/10 p-4"
         }
       >
@@ -51,10 +51,14 @@ export default function NewsletterForm({ variant = "footer" }: { variant?: Varia
   }
 
   return (
-    <div className={isBand ? "" : "mt-6 max-w-sm"}>
+    <div className={isBand ? "w-full max-w-md" : "mt-6 max-w-sm"}>
       <form
         onSubmit={handleSubmit}
-        className={isBand ? "flex flex-col gap-3 sm:flex-row" : "flex gap-2"}
+        className={
+          isBand
+            ? "flex gap-2.5 rounded-[18px] bg-white p-2"
+            : "flex gap-2"
+        }
         aria-label="Newsletter signup"
       >
         <label htmlFor={`newsletter-email-${variant}`} className="sr-only">
@@ -65,10 +69,10 @@ export default function NewsletterForm({ variant = "footer" }: { variant?: Varia
           name="email"
           type="email"
           required
-          placeholder="Your email"
+          placeholder="Your email address"
           className={
             isBand
-              ? "min-w-0 flex-1 rounded-btn border border-brand-navy/20 bg-white px-4 py-3 text-sm text-brand-navy placeholder:text-brand-navy/50 focus-visible:outline-brand-navy"
+              ? "min-w-0 flex-1 rounded-lg border-0 bg-transparent px-3 text-sm font-bold text-brand-navy placeholder:text-muted focus:outline-none"
               : "min-w-0 flex-1 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm text-white placeholder:text-white/50 focus-visible:outline-brand-amber"
           }
         />
@@ -77,11 +81,12 @@ export default function NewsletterForm({ variant = "footer" }: { variant?: Varia
           disabled={state === "loading"}
           className={
             isBand
-              ? "shrink-0 rounded-btn bg-brand-navy px-6 py-3 font-mono text-sm font-medium uppercase tracking-wide text-white focus-visible:outline-brand-navy disabled:opacity-60"
+              ? "btn-brick shrink-0 rounded-btn bg-brand-amber px-6 py-3 font-heading text-sm font-semibold text-white disabled:opacity-60"
               : "shrink-0 rounded-full bg-brand-amber px-4 py-2.5 text-sm font-bold uppercase tracking-wide text-brand-navy focus-visible:outline-brand-amber disabled:opacity-60"
           }
+          style={isBand ? ({ "--btn-brick-shadow": "var(--color-brand-amber-600)" } as React.CSSProperties) : undefined}
         >
-          {state === "loading" ? "..." : "Get 10% Off"}
+          {state === "loading" ? "..." : "Get 10% off"}
         </button>
       </form>
       {state === "error" && (

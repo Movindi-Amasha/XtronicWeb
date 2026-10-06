@@ -24,9 +24,12 @@ export function getProductImages(slug: string): string[] {
       !f.toLowerCase().startsWith("banner.")
   );
 
+  // Background-removed cutout (if one exists) leads the gallery, then the
+  // original studio photo, then any extra angle shots.
+  const rank = (f: string) => (f === "cutout.png" ? 0 : f === "main.jpg" ? 1 : 2);
   images.sort((a, b) => {
-    if (a === "main.jpg") return -1;
-    if (b === "main.jpg") return 1;
+    const r = rank(a) - rank(b);
+    if (r !== 0) return r;
     return a.localeCompare(b, undefined, { numeric: true });
   });
 
