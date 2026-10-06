@@ -25,6 +25,7 @@ export default function ShopCatalog() {
     categoryParam && (categories as string[]).includes(categoryParam)
       ? (categoryParam as ProductCategory)
       : "All";
+  const query = searchParams.get("q")?.trim().toLowerCase() ?? "";
 
   const [sort, setSort] = useState<SortKey>("featured");
 
@@ -40,15 +41,24 @@ export default function ShopCatalog() {
   }
 
   const filtered = useMemo(() => {
-    const list =
+    let list =
       activeTab === "All" ? products : products.filter((p) => p.category === activeTab);
+
+    if (query) {
+      list = list.filter(
+        (p) =>
+          p.name.toLowerCase().includes(query) ||
+          p.category.toLowerCase().includes(query) ||
+          p.categoryLabel.toLowerCase().includes(query)
+      );
+    }
 
     const sorted = [...list];
     if (sort === "price-low") sorted.sort((a, b) => a.priceCents - b.priceCents);
     if (sort === "price-high") sorted.sort((a, b) => b.priceCents - a.priceCents);
     if (sort === "age") sorted.sort((a, b) => a.age.localeCompare(b.age));
     return sorted;
-  }, [activeTab, sort]);
+  }, [activeTab, sort, query]);
 
   return (
     <div>
@@ -97,8 +107,8 @@ export default function ShopCatalog() {
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((product) => (
-          <ProductCard key={product.slug} product={product} />
+        {filtered.map((product, index) => (
+          <ProductCard key={product.slug} product={product} index={index} />
         ))}
       </div>
     </div>

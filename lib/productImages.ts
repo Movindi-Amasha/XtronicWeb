@@ -18,8 +18,10 @@ export function getProductImages(slug: string): string[] {
     return [];
   }
 
-  const images = files.filter((f) =>
-    IMAGE_EXTENSIONS.includes(path.extname(f).toLowerCase())
+  const images = files.filter(
+    (f) =>
+      IMAGE_EXTENSIONS.includes(path.extname(f).toLowerCase()) &&
+      !f.toLowerCase().startsWith("banner.")
   );
 
   images.sort((a, b) => {
@@ -29,4 +31,14 @@ export function getProductImages(slug: string): string[] {
   });
 
   return images.map((f) => `/products/${slug}/${f}`);
+}
+
+/**
+ * The wide marketing banner for a product's page header, if one exists
+ * (public/products/<slug>/banner.jpg) — separate from the gallery since it
+ * carries baked-in title text rather than being a plain product photo.
+ */
+export function getProductBanner(slug: string): string | null {
+  const file = path.join(process.cwd(), "public", "products", slug, "banner.jpg");
+  return fs.existsSync(file) ? `/products/${slug}/banner.jpg` : null;
 }

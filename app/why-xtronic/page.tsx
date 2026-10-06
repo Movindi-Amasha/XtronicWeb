@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -61,15 +62,25 @@ const VALUES = [
 export default function WhyXtronicPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-brand-navy py-20 text-center text-white">
-        <div className="relative mx-auto max-w-2xl px-4 md:px-6">
-          <p className="font-mono text-xs font-medium uppercase tracking-[0.15em] text-brand-blue-50/60">
-            About XTRONIC KIDZ
-          </p>
-          <h1 className="mt-2 font-heading text-4xl font-bold md:text-5xl">
-            Why XTRONIC KIDZ
+      <section className="relative overflow-hidden bg-brand-blue-50 py-16">
+        <span aria-hidden className="absolute left-[8%] top-10 text-lg text-brand-amber/40">✦</span>
+        <span aria-hidden className="absolute right-[10%] top-14 h-2.5 w-2.5 rounded-full bg-brand-blue/30" />
+        <span aria-hidden className="absolute left-[14%] bottom-8 h-2 w-2 rounded-full bg-brand-blue/30" />
+        <span aria-hidden className="absolute right-[6%] bottom-12 text-xl text-brand-amber/35">✦</span>
+        <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-6 px-4 text-center md:px-6">
+          <div className="relative h-56 w-56 sm:h-72 sm:w-72 md:h-80 md:w-80">
+            <Image
+              src="/mascot/mascot-handshake-robot.png"
+              alt=""
+              fill
+              sizes="320px"
+              className="object-contain"
+            />
+          </div>
+          <h1 className="font-heading text-4xl font-bold text-brand-navy md:text-5xl">
+            Why <span className="text-brand-blue">XTRONIC KIDZ</span>
           </h1>
-          <p className="mt-4 text-brand-blue-50/80">
+          <p className="text-brand-navy-700">
             We build kits the way we&apos;d want them built for our own kids,
             safe, screen-free, and genuinely educational.
           </p>

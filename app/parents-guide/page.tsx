@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -39,16 +40,31 @@ const FAQS = [
 export default function ParentsGuidePage() {
   return (
     <>
-      <section className="bg-brand-navy py-16 text-center text-white">
-        <div className="mx-auto max-w-2xl px-4 md:px-6">
-          <h1 className="font-heading text-4xl font-extrabold md:text-5xl">
-            Parents&apos; Guide
-          </h1>
-          <p className="mt-4 text-brand-blue-50/80">
-            Age guidance, safety information and the STEM concepts behind
-            every kit, everything you need before your child&apos;s first
-            build.
-          </p>
+      <section className="relative overflow-hidden bg-brand-blue-50 py-16">
+        <span aria-hidden className="absolute left-[9%] top-8 text-lg text-brand-amber/40">✦</span>
+        <span aria-hidden className="absolute right-[7%] top-12 h-2.5 w-2.5 rounded-full bg-brand-blue/30" />
+        <span aria-hidden className="absolute left-[13%] bottom-8 h-2 w-2 rounded-full bg-brand-blue/30" />
+        <span aria-hidden className="absolute right-[11%] bottom-10 text-xl text-brand-amber/35">✦</span>
+        <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-6 px-4 text-center md:px-6">
+          <div>
+            <h1 className="font-heading text-4xl font-bold text-brand-navy md:text-5xl">
+              Parents&apos; <span className="text-brand-blue">Guide</span>
+            </h1>
+            <p className="mt-4 text-brand-navy-700">
+              Age guidance, safety information and the STEM concepts behind
+              every kit, everything you need before your child&apos;s first
+              build.
+            </p>
+          </div>
+          <div className="relative h-56 w-56 shrink-0 sm:h-72 sm:w-72 md:h-80 md:w-80">
+            <Image
+              src="/mascot/sitting-reading.png"
+              alt=""
+              fill
+              sizes="320px"
+              className="object-contain"
+            />
+          </div>
         </div>
       </section>
 

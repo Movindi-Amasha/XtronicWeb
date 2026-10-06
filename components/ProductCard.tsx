@@ -7,13 +7,31 @@ import { useCartStore } from "@/lib/cartStore";
 import { useQuickViewStore } from "@/lib/quickViewStore";
 import { useDisplayPrice } from "@/lib/useDisplayPrice";
 
-export default function ProductCard({ product }: { product: Product }) {
+type Tone = "blue" | "amber";
+
+const TONES: Tone[] = ["amber", "blue"];
+
+const BORDER: Record<Tone, string> = {
+  blue: "border-brand-blue",
+  amber: "border-brand-amber",
+};
+
+export default function ProductCard({
+  product,
+  index = 0,
+}: {
+  product: Product;
+  index?: number;
+}) {
   const addItem = useCartStore((s) => s.addItem);
   const openQuickView = useQuickViewStore((s) => s.open);
   const displayPrice = useDisplayPrice(product.priceCents);
+  const tone = TONES[index % TONES.length];
 
   return (
-    <div className="group flex flex-col overflow-hidden rounded-card bg-surface shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+    <div
+      className={`group flex flex-col overflow-hidden rounded-card border-4 bg-surface shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg ${BORDER[tone]}`}
+    >
       <Link
         href={`/shop/${product.slug}`}
         className="relative block aspect-square w-full overflow-hidden bg-canvas"

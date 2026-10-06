@@ -87,7 +87,7 @@ export default function NewsletterForm({ variant = "footer" }: { variant?: Varia
       {state === "error" && (
         <p
           role="alert"
-          className={`mt-2 text-xs font-bold ${isBand ? "text-red-700" : "text-brand-amber"}`}
+          className={`mt-2 text-xs font-bold ${isBand ? "text-brand-amber-600" : "text-brand-amber"}`}
         >
           Something went wrong, please try again.
         </p>

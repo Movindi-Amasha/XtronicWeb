@@ -25,24 +25,40 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-brand-navy pb-0">
-      <div
-        aria-hidden
-        className="board-joint board-joint-dark pointer-events-none absolute inset-0"
-        style={{
-          maskImage:
-            "radial-gradient(ellipse at 70% 50%, #000 10%, transparent 70%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse at 70% 50%, #000 10%, transparent 70%)",
-        }}
-      />
+      {/* Workshop-themed background — designed with a calm, plain zone
+          across the center (where the text and logo sit) and all the
+          colorful detail (gears, solar panels, blueprints, robot) pushed
+          to the edges/corners, so it adds brand-matching color without
+          fighting the content. A navy tint keeps white text readable
+          while still letting the corner detail read vividly. */}
+      <div aria-hidden className="absolute inset-0">
+        <Image
+          src="/brand/hero-bg.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-70"
+        />
+        <div className="absolute inset-0 bg-brand-navy/50" />
+      </div>
 
-      <div className="relative mx-auto grid max-w-[1160px] gap-12 px-4 py-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:px-6 md:py-24">
-        <div className="text-left">
+      {/* Scattered confetti dots/stars — cheap flat decoration, like the
+          reference, instead of a busy photographic background. */}
+      <span aria-hidden className="absolute left-[8%] top-16 h-2 w-2 rounded-full bg-brand-blue/40" />
+      <span aria-hidden className="absolute left-[18%] top-40 text-sm text-brand-amber/50">✦</span>
+      <span aria-hidden className="absolute right-[6%] top-24 h-2.5 w-2.5 rounded-full bg-brand-amber/40" />
+      <span aria-hidden className="absolute right-[14%] bottom-28 text-base text-brand-blue-50/30">✦</span>
+      <span aria-hidden className="absolute left-[4%] bottom-20 h-1.5 w-1.5 rounded-full bg-white/30" />
+      <span aria-hidden className="absolute right-[3%] top-1/2 h-2 w-2 rounded-full bg-brand-amber/40" />
+
+      <div className="relative z-10 mx-auto grid max-w-[1160px] gap-12 px-4 py-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:px-6 md:py-24">
+        <div className="relative text-left">
           <motion.span
             initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.15em] text-brand-blue-50"
+            className="relative z-10 inline-flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.15em] text-brand-blue-50"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-brand-amber" />
             Learn &bull; Build &bull; Play
@@ -52,7 +68,7 @@ export default function Hero() {
             initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-5 font-pixel text-4xl leading-[1.15] font-bold text-white sm:text-5xl md:text-6xl"
+            className="relative z-10 mt-5 font-pixel text-4xl leading-[1.15] font-bold text-white sm:text-5xl md:text-6xl"
           >
             MAKE LEARNING
             <br />
@@ -66,7 +82,7 @@ export default function Hero() {
             initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-5 max-w-md text-base text-brand-blue-50/70"
+            className="relative z-10 mt-5 max-w-md text-base text-brand-blue-50/70"
           >
             Hands-on robotics and solar engineering kits designed to ignite
             curious minds, snap-together, screen-free, and built to last for
@@ -77,7 +93,7 @@ export default function Hero() {
             initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-7 flex flex-col gap-3 sm:flex-row"
+            className="relative z-10 mt-7 flex flex-col gap-3 sm:flex-row"
           >
             <Link
               href="/shop"
@@ -93,11 +109,30 @@ export default function Hero() {
             </Link>
           </motion.div>
 
+          {/* Mascot playing with a kit — tucked behind the CTA buttons and
+              stats row (both given relative z-10 above so their opaque
+              backgrounds/text occlude it), peeking out through the gaps
+              around them rather than floating off in the side margin. */}
+          <motion.div
+            aria-hidden
+            animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="pointer-events-none absolute -left-6 top-[400px] z-0 hidden h-52 w-52 opacity-95 lg:block"
+          >
+            <Image
+              src="/mascot/playing-with-robot.png"
+              alt=""
+              fill
+              sizes="256px"
+              className="object-contain"
+            />
+          </motion.div>
+
           <motion.div
             initial={reduceMotion ? undefined : { opacity: 0, y: 24 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-10 grid grid-cols-4 gap-4 border-t border-white/10 pt-6"
+            className="relative z-10 mt-10 grid grid-cols-4 gap-4 border-t border-white/10 pt-6"
           >
             {STATS.map((stat) => (
               <div key={stat.label}>
@@ -110,17 +145,22 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <motion.div
-          initial={reduceMotion ? undefined : { opacity: 0, scale: 0.92 }}
-          animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-          className="relative mx-auto aspect-square w-full max-w-[320px] md:max-w-[400px]"
-        >
-          {/* Faint ambient glow — just enough to lift the mascot off the
-              navy section, kept subtle so it reads as depth, not a halo. */}
+        <div className="relative">
+          <motion.div
+            initial={reduceMotion ? undefined : { opacity: 0, scale: 0.92 }}
+            animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+            className="relative z-10 mx-auto aspect-square w-full max-w-[320px] md:max-w-[400px]"
+          >
+          {/* A deliberate solid-ish blob behind the logo, like the
+              reference's organic color shape, instead of a photo backdrop. */}
           <div
             aria-hidden
-            className="absolute inset-[10%] rounded-full bg-gradient-to-br from-brand-blue/15 via-white/10 to-brand-amber/12 blur-2xl"
+            className="absolute inset-[-8%] rounded-full bg-gradient-to-br from-brand-blue/35 via-brand-blue-deep/25 to-brand-amber/20 blur-xl"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-[6%] rounded-full bg-gradient-to-br from-brand-blue/20 via-white/10 to-brand-amber/15 blur-md"
           />
 
           <motion.div
@@ -141,11 +181,11 @@ export default function Hero() {
               }}
             />
           </motion.div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
 
-      {/* Gold ticker band — full-bleed section divider, matching the reference's
-          confident solid-color marquee rather than a subtle translucent strip */}
+      {/* Gold ticker band — full-bleed section divider */}
       <div className="relative w-full overflow-hidden bg-brand-amber py-2.5">
         <div className="animate-marquee flex w-max items-center gap-8">
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (

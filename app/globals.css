@@ -123,6 +123,16 @@
   opacity: 0.14;
 }
 
+/* Comic-sticker headline style from the client's mockups: a thick outline
+   behind the fill color plus a hard offset shadow, like a cut-out sticker.
+   Stroke/shadow color default to navy; override per-use with inline
+   `style={{ "--comic-stroke": ..., "--comic-shadow": ... }}` if needed. */
+.text-comic {
+  -webkit-text-stroke: 3px var(--comic-stroke, var(--color-brand-navy));
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 var(--comic-shadow, rgba(13, 31, 53, 0.2));
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

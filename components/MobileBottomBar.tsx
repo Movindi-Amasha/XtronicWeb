@@ -31,7 +31,7 @@ export default function MobileBottomBar() {
             {item.label === "Cart" && cartCount > 0 && (
               <span
                 aria-hidden
-                className="absolute -right-2 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-amber text-[9px] font-bold uppercase tracking-wide text-brand-navy"
+                className="absolute -right-2 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-amber text-[9px] font-bold uppercase tracking-wide text-white"
               >
                 {cartCount}
               </span>

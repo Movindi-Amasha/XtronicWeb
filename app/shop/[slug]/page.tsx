@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProductGallery from "@/components/ProductGallery";
 import ProductCard from "@/components/ProductCard";
 import AddToCartBox from "@/components/AddToCartBox";
 import { getProductBySlug, products } from "@/lib/products";
-import { getProductImages } from "@/lib/productImages";
+import { getProductImages, getProductBanner } from "@/lib/productImages";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -40,6 +41,7 @@ export default async function ProductPage({
 
   const images = getProductImages(product.slug);
   const galleryImages = images.length > 0 ? images : [product.image];
+  const banner = getProductBanner(product.slug);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -160,14 +162,31 @@ export default async function ProductPage({
         </div>
       </div>
 
+      {banner && (
+        <div className="mt-14">
+          <h2 className="font-heading text-xl font-bold text-brand-navy">
+            See It In Action
+          </h2>
+          <div className="relative mt-4 aspect-video w-full overflow-hidden rounded-card shadow-sm">
+            <Image
+              src={banner}
+              alt={`${product.name} — Learn, Build, Have Fun!`}
+              fill
+              sizes="(min-width: 1260px) 1260px, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      )}
+
       {related.length > 0 && (
         <div className="mt-16">
           <h2 className="font-heading text-2xl font-bold text-brand-navy">
             You Might Also Like
           </h2>
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {related.map((p) => (
-              <ProductCard key={p.slug} product={p} />
+            {related.map((p, index) => (
+              <ProductCard key={p.slug} product={p} index={index} />
             ))}
           </div>
         </div>

@@ -3,15 +3,15 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCartStore, cartItemCount } from "@/lib/cartStore";
 import CurrencySelector from "./CurrencySelector";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "STEM Kits" },
-  { href: "/why-xtronic", label: "Why XTRONIC" },
   { href: "/how-it-works", label: "How It Works" },
+  { href: "/why-xtronic", label: "Why XTRONIC" },
   { href: "/schools", label: "Schools & Clubs" },
   { href: "/parents-guide", label: "Parents' Guide" },
 ];
@@ -23,42 +23,35 @@ function isLinkActive(pathname: string, href: string): boolean {
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [search, setSearch] = useState("");
   const items = useCartStore((s) => s.items);
   const openCart = useCartStore((s) => s.openCart);
   const cartCount = cartItemCount(items);
   const pathname = usePathname();
+  const router = useRouter();
+
+  function handleSearch(e: React.FormEvent) {
+    e.preventDefault();
+    const q = search.trim();
+    router.push(q ? `/shop?q=${encodeURIComponent(q)}` : "/shop");
+  }
 
   return (
-    <header className="sticky top-0 z-[999] border-b border-black/10 bg-brand-navy backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-[1260px] items-center justify-between gap-4 px-4 md:px-6">
+    <header className="sticky top-0 z-[999] border-b border-line bg-white">
+      <div className="mx-auto flex h-20 max-w-[1260px] items-center justify-between gap-4 px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          {/* Cropped to the icon/mascot portion of the logo only — the full
-              lockup's "TRONIC" wordmark is dark navy and disappears on this
-              background, but the icon itself is all full-color art, so it
-              reads fine directly on navy without needing a backing plate. */}
-          <div className="relative h-12 aspect-[100/65] shrink-0">
+          <div className="relative h-14 w-14 shrink-0">
             <Image
               src="/brand/xtronic-logo-transparent.png"
-              alt=""
+              alt="XTRONIC KIDZ"
               fill
-              className="object-cover object-top"
+              className="object-contain"
               priority
             />
           </div>
-          <span className="hidden flex-col leading-tight sm:flex">
-            <span className="font-body text-lg font-extrabold tracking-tight text-white">
-              XTRONIC KIDZ
-            </span>
-            <span className="font-mono text-[10px] font-medium uppercase tracking-wide text-brand-blue-50/60">
-              Learn &bull; Build &bull; Play
-            </span>
-          </span>
         </Link>
 
-        <nav
-          aria-label="Primary"
-          className="hidden items-center gap-6 lg:flex"
-        >
+        <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
           {NAV_LINKS.map((link) => {
             const active = isLinkActive(pathname, link.href);
             return (
@@ -66,8 +59,10 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`font-mono text-xs font-medium uppercase tracking-wide transition-colors ${
-                  active ? "text-brand-amber" : "text-brand-blue-50/80 hover:text-white"
+                className={`pb-1 font-body text-sm font-bold transition-colors ${
+                  active
+                    ? "border-b-2 border-brand-blue text-brand-blue"
+                    : "border-b-2 border-transparent text-brand-navy hover:text-brand-blue"
                 }`}
               >
                 {link.label}
@@ -76,47 +71,56 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <form onSubmit={handleSearch} className="relative hidden md:block">
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search for STEM kits..."
+              aria-label="Search for STEM kits"
+              className="w-48 rounded-full border border-line bg-canvas py-2 pl-4 pr-9 text-sm text-brand-navy placeholder:text-muted focus-visible:outline-brand-blue lg:w-60"
+            />
+            <button
+              type="submit"
+              aria-label="Search"
+              className="absolute right-1 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-brand-blue"
+            >
+              🔍
+            </button>
+          </form>
+
           <CurrencySelector className="hidden lg:flex" />
 
-          <button
-            type="button"
-            aria-label="Search products"
-            className="hidden h-10 w-10 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 sm:flex"
+          <Link
+            href="/parents-guide"
+            aria-label="Parents' guide"
+            className="hidden h-10 w-10 items-center justify-center rounded-full text-xl text-brand-navy transition-colors hover:bg-canvas sm:flex"
           >
-            🔍
-          </button>
+            👤
+          </Link>
 
           <button
             type="button"
             onClick={openCart}
             aria-label={`Cart, ${cartCount} items`}
-            className="relative hidden h-10 w-10 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 sm:flex"
+            className="relative flex h-10 w-10 items-center justify-center rounded-full text-xl text-brand-navy transition-colors hover:bg-canvas"
           >
             🛒
-            {cartCount > 0 && (
-              <span
-                aria-hidden
-                className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-amber text-[11px] font-bold uppercase tracking-wide text-brand-navy"
-              >
-                {cartCount}
-              </span>
-            )}
+            <span
+              aria-hidden
+              className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-amber text-[11px] font-bold text-white"
+            >
+              {cartCount}
+            </span>
           </button>
-
-          <Link
-            href="/shop"
-            className="hidden rounded-btn bg-brand-amber px-5 py-2.5 font-mono text-sm font-medium uppercase tracking-wide text-brand-navy transition-opacity hover:opacity-90 sm:inline-block"
-          >
-            Order Kit
-          </Link>
 
           <button
             type="button"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-2xl text-white hover:bg-white/10 lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-2xl text-brand-navy hover:bg-canvas lg:hidden"
           >
             {menuOpen ? "✕" : "☰"}
           </button>
@@ -124,7 +128,7 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-white/10 bg-brand-navy px-4 pb-4 lg:hidden">
+        <div className="border-t border-line bg-white px-4 pb-4 lg:hidden">
           <nav aria-label="Mobile primary" className="flex flex-col gap-1 pt-2">
             {NAV_LINKS.map((link) => {
               const active = isLinkActive(pathname, link.href);
@@ -134,8 +138,8 @@ export default function Header() {
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
                   aria-current={active ? "page" : undefined}
-                  className={`rounded-btn px-3 py-3 font-mono text-sm font-medium uppercase tracking-wide hover:bg-white/10 ${
-                    active ? "text-brand-amber" : "text-white"
+                  className={`rounded-btn px-3 py-3 text-sm font-bold hover:bg-canvas ${
+                    active ? "text-brand-blue" : "text-brand-navy"
                   }`}
                 >
                   {link.label}
@@ -145,9 +149,9 @@ export default function Header() {
             <Link
               href="/shop"
               onClick={() => setMenuOpen(false)}
-              className="mt-2 rounded-btn bg-brand-amber px-5 py-3 text-center font-mono text-sm font-medium uppercase tracking-wide text-brand-navy"
+              className="mt-2 rounded-btn bg-brand-amber px-5 py-3 text-center font-mono text-sm font-bold uppercase tracking-wide text-white"
             >
-              Order Kit
+              Shop STEM Kits
             </Link>
           </nav>
         </div>
