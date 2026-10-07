@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     template: "%s | XTRONIC KIDS",
   },
   description:
-    "Hands-on STEM robotics and solar engineering kits for kids 6+. Screen-free building with real circuits, gears and solar power — shipping across Australia and Sri Lanka.",
+    "Hands-on STEM robotics and solar engineering kits for kids 6+. Screen-free building with real circuits, gears and solar power.",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
@@ -53,9 +53,25 @@ export const metadata: Metadata = {
     title: "XTRONIC KIDS | STEM Robotics & Solar Kits for Kids 6+",
     description:
       "Hands-on STEM robotics and solar engineering kits for kids 6+. Screen-free building with real circuits, gears and solar power.",
+    url: siteUrl,
     siteName: "XTRONIC KIDS",
     type: "website",
     locale: "en_AU",
+    images: [
+      {
+        url: `${siteUrl}/brand/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "XTRONIC KIDS — Learn, Build, Play",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "XTRONIC KIDS | STEM Robotics & Solar Kits for Kids 6+",
+    description:
+      "Hands-on STEM robotics and solar engineering kits for kids 6+. Screen-free building with real circuits, gears and solar power.",
+    images: [`${siteUrl}/brand/og-image.jpg`],
   },
 };
 

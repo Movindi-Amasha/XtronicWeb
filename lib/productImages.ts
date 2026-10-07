@@ -48,13 +48,26 @@ export function getProductBanner(slug: string): string | null {
 
 const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov"];
 
+// Product demo videos are hosted on Cloudinary rather than committed to the
+// repo — GitHub hard-rejects any file over 100MB, and Vercel's build doesn't
+// fetch Git LFS content by default, so a locally-served video breaks in
+// production either way. Cloudinary's CDN works regardless of where the app
+// itself is deployed. Add a new entry here once a video is uploaded; the
+// local public/products/<slug>/video.<ext> fallback below still works for
+// anyone testing with a file dropped in locally before it's uploaded.
+const EXTERNAL_VIDEOS: Record<string, string> = {
+  "voice-robot": "https://res.cloudinary.com/w70iq3ve/video/upload/v1791387112/Xtronic_Voice_Robot_WEB_VID.mp4",
+  "solar-4wd-rover": "https://res.cloudinary.com/w70iq3ve/video/upload/v1791387079/Racer_Web.mp4",
+};
+
 /**
- * A product demo video, if one exists at public/products/<slug>/video.<ext>
- * — drop a file there (any of .mp4/.webm/.mov) and it's picked up
- * automatically, no code change needed. Shown as the first slide in the PDP
- * gallery, ahead of the photos.
+ * A product demo video, if one exists. Checks the Cloudinary mapping first,
+ * then falls back to public/products/<slug>/video.<ext> for local testing.
+ * Shown as the first slide in the PDP gallery, ahead of the photos.
  */
 export function getProductVideo(slug: string): string | null {
+  if (EXTERNAL_VIDEOS[slug]) return EXTERNAL_VIDEOS[slug];
+
   const dir = path.join(process.cwd(), "public", "products", slug);
   for (const ext of VIDEO_EXTENSIONS) {
     if (fs.existsSync(path.join(dir, `video${ext}`))) {

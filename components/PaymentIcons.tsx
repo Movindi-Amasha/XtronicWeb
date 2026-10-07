@@ -19,6 +19,7 @@ export default function PaymentIcons() {
             alt={logo.name}
             width={48}
             height={32}
+            loading="lazy"
             className="h-full w-full object-contain"
           />
         </li>
@@ -41,6 +42,7 @@ export function PayHereBadge() {
         alt="PayHere — accepted payment methods"
         width={580}
         height={120}
+        loading="lazy"
         className="h-8 w-auto rounded-btn-xs"
       />
     </a>

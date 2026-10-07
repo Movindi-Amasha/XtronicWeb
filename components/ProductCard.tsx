@@ -39,6 +39,7 @@ export default function ProductCard({
     >
       <Link
         href={`/shop/${product.slug}`}
+        aria-label={product.name}
         className={`relative block aspect-square w-full overflow-hidden ${MEDIA_BG[tone]}`}
       >
         <div aria-hidden className="board-joint board-joint-dark absolute inset-0" />

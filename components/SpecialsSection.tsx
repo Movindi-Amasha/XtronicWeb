@@ -30,7 +30,7 @@ export default function SpecialsSection() {
               key={product.slug}
               className="flex flex-col overflow-hidden rounded-card border-2 border-line bg-white transition-transform hover:-translate-y-1.5"
             >
-              <Link href={`/shop/${product.slug}`} className="relative block aspect-square bg-brand-blue-50">
+              <Link href={`/shop/${product.slug}`} aria-label={product.name} className="relative block aspect-square bg-brand-blue-50">
                 <div className="relative h-full w-full p-4">
                   <ProductImage src={product.image} alt={product.name} emoji={product.emoji} />
                 </div>

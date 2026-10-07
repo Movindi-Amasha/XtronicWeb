@@ -44,3 +44,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# product demo videos — hosted on Cloudinary instead (see lib/productImages.ts),
+# since GitHub rejects files over 100MB and Vercel doesn't fetch Git LFS
+# content during build. Drop a file here for local testing only; it's
+# gitignored so it can never accidentally get committed again.
+public/products/**/video.mp4
+public/products/**/video.webm
+public/products/**/video.mov

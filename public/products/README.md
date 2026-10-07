@@ -17,23 +17,26 @@ Recommended: square or 4:3, at least 800px wide, JPG or WebP.
 
 ## Product videos
 
-Drop a demo video in as `video.mp4` (`.webm` and `.mov` also work) inside the
-same product folder:
+Product demo videos are hosted on **Cloudinary**, not committed to this repo.
+GitHub hard-rejects any file over 100MB, and Vercel doesn't fetch Git LFS
+content during its build, so a video sitting in `public/` would work locally
+but break (or fail to push) once deployed.
 
-- `solar-4wd-rover/video.mp4`
-- `wooden-taxiing-aircraft/video.mp4`
-- `solar-speedboat/video.mp4`
-- `voice-robot/video.mp4`
-- `solar-butterfly/video.mp4`
-- `stem-bundle-5in1/video.mp4`
-- `gift-wrap-card/video.mp4`
-- `tools-accessories-pack/video.mp4`
+To add a video for a product:
 
-If a video is present, it shows up as the **first** item in that product's
-photo carousel on its product page — visitors swipe or use the arrow buttons
-to move from the video into the regular photos, same as flipping between
-photos. No video, no code change needed — the gallery just shows photos as
-before.
+1. Upload the file at [cloudinary.com](https://cloudinary.com) (Media
+   Library → Upload).
+2. Copy its delivery URL (looks like
+   `https://res.cloudinary.com/<cloud-name>/video/upload/v.../<name>.mp4`).
+3. Add an entry to `EXTERNAL_VIDEOS` in `lib/productImages.ts`, keyed by the
+   product's slug.
 
-Keep file size reasonable for the web (a short 15–30 second clip, compressed
-MP4/H.264, under ~20MB) so the page still loads quickly.
+It then shows up as the **first** item in that product's photo carousel on
+its product page — visitors swipe or use the arrow buttons to move from the
+video into the regular photos. No video, no code change needed — the gallery
+just shows photos as before.
+
+For local testing only, you can still drop a `video.mp4` (`.webm`/`.mov` also
+work) directly into a product's folder here — `getProductVideo()` falls back
+to it when there's no Cloudinary entry for that slug. It's gitignored, so it
+never accidentally gets committed.
