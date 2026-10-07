@@ -37,7 +37,7 @@ export async function POST(request: Request) {
         plan_id: process.env.PAYPAL_CLUB_PLAN_ID,
         subscriber: { email_address: email },
         application_context: {
-          brand_name: "XTRONIC KIDZ",
+          brand_name: "XTRONIC KIDS",
           user_action: "SUBSCRIBE_NOW",
           return_url: `${siteUrl}/club/success`,
           cancel_url: `${siteUrl}/#subscribe`,

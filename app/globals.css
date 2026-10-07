@@ -137,6 +137,28 @@
   opacity: 0.14;
 }
 
+/* Highlighter-marker effect for a key word inside a heading: a colored bar
+   sitting behind the lower half of the text, like a highlighter pen stroke,
+   instead of just recoloring the text itself. Override the bar color per use
+   with inline style `{ "--highlight-color": "var(--color-brand-blue-50)" }`. */
+.text-highlight {
+  position: relative;
+  white-space: nowrap;
+  z-index: 0;
+}
+.text-highlight::after {
+  content: "";
+  position: absolute;
+  left: -0.08em;
+  right: -0.08em;
+  bottom: 0.03em;
+  height: 0.34em;
+  background: var(--highlight-color, var(--color-brand-yellow));
+  opacity: 0.6;
+  border-radius: 3px;
+  z-index: -1;
+}
+
 /* Chunky "brick" button: a flat bottom-shadow that reads as a pressable
    LEGO-style brick. Pass a color pair via data-tone (handled per-usage with
    explicit Tailwind classes); this just supplies the press mechanics. */

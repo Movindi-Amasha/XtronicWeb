@@ -45,3 +45,21 @@ export function getProductBanner(slug: string): string | null {
   const file = path.join(process.cwd(), "public", "products", slug, "banner.jpg");
   return fs.existsSync(file) ? `/products/${slug}/banner.jpg` : null;
 }
+
+const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov"];
+
+/**
+ * A product demo video, if one exists at public/products/<slug>/video.<ext>
+ * — drop a file there (any of .mp4/.webm/.mov) and it's picked up
+ * automatically, no code change needed. Shown as the first slide in the PDP
+ * gallery, ahead of the photos.
+ */
+export function getProductVideo(slug: string): string | null {
+  const dir = path.join(process.cwd(), "public", "products", slug);
+  for (const ext of VIDEO_EXTENSIONS) {
+    if (fs.existsSync(path.join(dir, `video${ext}`))) {
+      return `/products/${slug}/video${ext}`;
+    }
+  }
+  return null;
+}

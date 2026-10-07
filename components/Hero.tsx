@@ -24,7 +24,7 @@ export default function Hero() {
       className="relative overflow-hidden pt-10 pb-18 md:pt-14 md:pb-24"
       style={{
         background:
-          "radial-gradient(900px 500px at 85% 30%, var(--color-brand-blue-50), transparent 70%), radial-gradient(600px 400px at 0% 100%, var(--color-brand-yellow-50), transparent 70%), #fff",
+          "radial-gradient(1100px 750px at 98% 4%, var(--color-brand-blue-50), transparent 72%), radial-gradient(1000px 700px at 2% 98%, var(--color-brand-yellow-50), transparent 72%), #fff",
       }}
     >
       <div aria-hidden className="pointer-events-none absolute inset-0 hidden md:block">
@@ -122,7 +122,7 @@ export default function Hero() {
             <div className="relative h-full w-full drop-shadow-[0_24px_30px_rgba(0,0,0,0.3)]">
               <Image
                 src="/brand/xtronic-logo-transparent.png"
-                alt="XTRONIC KIDZ"
+                alt="XTRONIC KIDS"
                 fill
                 priority
                 sizes="620px"

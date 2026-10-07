@@ -1,8 +1,8 @@
 ---
 version: alpha
-name: XTRONIC KIDZ
+name: XTRONIC KIDS
 description: |
-  A stark, color-blocked design system for XTRONIC KIDZ, restructured from a
+  A stark, color-blocked design system for XTRONIC KIDS, restructured from a
   minimalist tech-brand reference system (dark charcoal/off-white blocking,
   gold accent, monospace/uppercase UI text, flat shadow-free elevation) with
   the palette fully replaced by the XTRONIC brand (CLAUDE.md Section 2) and
@@ -20,7 +20,7 @@ description: |
   faces (NType82, Ndot, LatteraMonoLL) aren't licensed for this project.
 source:
   adaptedFrom: "Minimalist tech-brand reference system (see git history)"
-  colorSubstitution: "CLAUDE.md Section 2 — XTRONIC KIDZ brand palette"
+  colorSubstitution: "CLAUDE.md Section 2 — XTRONIC KIDS brand palette"
   adaptedAt: 2026-09-30
   tokensMeasured: false
 colors:
@@ -294,7 +294,7 @@ coverage:
   semanticRampDeclared: false
 ---
 
-# XTRONIC KIDZ Design System
+# XTRONIC KIDS Design System
 
 > Colors in this document are governed by **CLAUDE.md Section 2** and take
 > precedence over anything below (per CLAUDE.md Section 0). Everything else

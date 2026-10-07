@@ -5,13 +5,56 @@ import ProductImage from "./ProductImage";
 
 const SWIPE_THRESHOLD_PX = 50;
 
+type Slide = { type: "video"; src: string } | { type: "image"; src: string };
+
+function VideoSlide({ src, poster }: { src: string; poster?: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  return (
+    <div className="relative h-full w-full">
+      <video
+        ref={videoRef}
+        src={src}
+        poster={poster}
+        controls
+        playsInline
+        preload="metadata"
+        className="h-full w-full object-contain"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+      >
+        <track kind="captions" />
+      </video>
+
+      {!isPlaying && (
+        <button
+          type="button"
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={() => videoRef.current?.play()}
+          aria-label="Play video"
+          className="absolute inset-0 flex items-center justify-center bg-brand-navy/10 transition-colors hover:bg-brand-navy/15"
+        >
+          <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white/95 text-brand-navy shadow-lg transition-transform hover:scale-105">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="ml-1">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </span>
+        </button>
+      )}
+    </div>
+  );
+}
+
 export default function ProductGallery({
   images,
+  video,
   alt,
   emoji,
   badge,
 }: {
   images: string[];
+  video?: string | null;
   alt: string;
   emoji: string;
   badge?: string;
@@ -21,7 +64,12 @@ export default function ProductGallery({
   const [isDragging, setIsDragging] = useState(false);
   const dragStartX = useRef<number | null>(null);
 
-  const count = images.length;
+  const slides: Slide[] = [
+    ...(video ? [{ type: "video", src: video } as const] : []),
+    ...images.map((src) => ({ type: "image", src }) as const),
+  ];
+
+  const count = slides.length;
   const canSwipe = count > 1;
 
   function goTo(next: number) {
@@ -84,14 +132,18 @@ export default function ProductGallery({
             transition: isDragging ? "none" : "transform 0.3s ease",
           }}
         >
-          {images.map((src, i) => (
+          {slides.map((slide, i) => (
             <div
-              key={src}
+              key={slide.src}
               className="relative h-full shrink-0"
               style={{ width: `${100 / count}%` }}
               aria-hidden={i !== index}
             >
-              <ProductImage src={src} alt={`${alt}, photo ${i + 1} of ${count}`} emoji={emoji} />
+              {slide.type === "video" ? (
+                <VideoSlide src={slide.src} poster={images[0]} />
+              ) : (
+                <ProductImage src={slide.src} alt={`${alt}, photo ${i + 1} of ${count}`} emoji={emoji} />
+              )}
             </div>
           ))}
         </div>
@@ -106,18 +158,20 @@ export default function ProductGallery({
           <>
             <button
               type="button"
+              onPointerDown={(e) => e.stopPropagation()}
               onClick={() => goTo(index - 1)}
               disabled={index === 0}
-              aria-label="Previous photo"
+              aria-label="Previous"
               className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-lg text-brand-navy shadow transition-opacity hover:bg-surface disabled:opacity-0"
             >
               ‹
             </button>
             <button
               type="button"
+              onPointerDown={(e) => e.stopPropagation()}
               onClick={() => goTo(index + 1)}
               disabled={index === count - 1}
-              aria-label="Next photo"
+              aria-label="Next"
               className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-lg text-brand-navy shadow transition-opacity hover:bg-surface disabled:opacity-0"
             >
               ›
@@ -128,12 +182,12 @@ export default function ProductGallery({
 
       {canSwipe && (
         <div className="flex items-center justify-center gap-2">
-          {images.map((src, i) => (
+          {slides.map((slide, i) => (
             <button
-              key={src}
+              key={slide.src}
               type="button"
               onClick={() => goTo(i)}
-              aria-label={`Go to photo ${i + 1}`}
+              aria-label={slide.type === "video" ? "Go to video" : `Go to photo ${i + 1}`}
               aria-current={i === index}
               className={`h-2 rounded-full transition-all ${
                 i === index ? "w-6 bg-brand-blue" : "w-2 bg-line hover:bg-brand-blue/40"

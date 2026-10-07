@@ -3,9 +3,10 @@ import Image from "next/image";
 import SchoolQuoteForm from "@/components/SchoolQuoteForm";
 
 export const metadata: Metadata = {
-  title: "Schools & Clubs",
+  title: "Schools & STEM Clubs: Bulk Kits & Quotes",
   description:
-    "Bulk STEM kit bundles, lesson plans and custom quotes for schools and STEM clubs.",
+    "Bulk STEM kit bundles, free lesson plans and custom quotes for schools, teachers and STEM clubs across Australia and Sri Lanka.",
+  alternates: { canonical: "/schools" },
 };
 
 const BUNDLES = [

@@ -6,7 +6,7 @@ import ProductGallery from "@/components/ProductGallery";
 import ProductCard from "@/components/ProductCard";
 import AddToCartBox from "@/components/AddToCartBox";
 import { getProductBySlug, products } from "@/lib/products";
-import { getProductImages, getProductBanner } from "@/lib/productImages";
+import { getProductImages, getProductBanner, getProductVideo } from "@/lib/productImages";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -21,8 +21,9 @@ export async function generateMetadata({
   const product = getProductBySlug(slug);
   if (!product) return {};
   return {
-    title: product.name,
-    description: product.highlights.join(" "),
+    title: `${product.name} (Ages ${product.age})`,
+    description: `${product.name} — ${product.categoryLabel}, ages ${product.age}. ${product.highlights.join(". ")}.`,
+    alternates: { canonical: `/shop/${product.slug}` },
   };
 }
 
@@ -42,13 +43,15 @@ export default async function ProductPage({
   const images = getProductImages(product.slug);
   const galleryImages = images.length > 0 ? images : [product.image];
   const banner = getProductBanner(product.slug);
+  const video = getProductVideo(product.slug);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
     description: product.highlights.join(" "),
-    image: `https://xtronic-web.vercel.app${product.image}`,
+    image: `${siteUrl}${product.image}`,
     offers: {
       "@type": "Offer",
       priceCurrency: "AUD",
@@ -62,11 +65,24 @@ export default async function ProductPage({
     },
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "STEM Kits", item: `${siteUrl}/shop` },
+      { "@type": "ListItem", position: 2, name: product.name, item: `${siteUrl}/shop/${product.slug}` },
+    ],
+  };
+
   return (
     <section className="mx-auto max-w-[1260px] px-4 py-10 md:px-6 md:py-14">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <nav aria-label="Breadcrumb" className="text-sm font-semibold text-muted">
@@ -80,6 +96,7 @@ export default async function ProductPage({
       <div className="mt-6 grid gap-10 md:grid-cols-2">
         <ProductGallery
           images={galleryImages}
+          video={video}
           alt={product.name}
           emoji={product.emoji}
           badge={`Age ${product.age}`}

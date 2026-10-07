@@ -51,7 +51,7 @@ export default function SubscriptionBand() {
           <div className="absolute inset-0 rotate-[-4deg] rounded-[30px] bg-white p-7 shadow-[0_14px_0_var(--color-brand-amber),0_30px_60px_-20px_rgba(0,0,0,0.5)]">
             <Image
               src="/brand/xtronic-logo-transparent.png"
-              alt="XTRONIC KIDZ Club"
+              alt="XTRONIC KIDS Club"
               fill
               sizes="320px"
               className="object-contain p-10"

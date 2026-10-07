@@ -32,20 +32,55 @@ const fredoka = Fredoka({
   weight: ["500", "600", "700"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
   title: {
-    default: "XTRONIC KIDZ: Learn, Build, Play",
-    template: "%s | XTRONIC KIDZ",
+    default: "XTRONIC KIDS | STEM Robotics & Solar Kits for Kids 6+",
+    template: "%s | XTRONIC KIDS",
   },
   description:
-    "Hands-on STEM robotics and solar engineering kits designed to ignite curious minds. Learn, build and play with XTRONIC KIDZ.",
-  metadataBase: new URL("http://localhost:3000"),
+    "Hands-on STEM robotics and solar engineering kits for kids 6+. Screen-free building with real circuits, gears and solar power — shipping across Australia and Sri Lanka.",
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
-    title: "XTRONIC KIDZ: Learn, Build, Play",
+    title: "XTRONIC KIDS | STEM Robotics & Solar Kits for Kids 6+",
     description:
-      "Hands-on STEM robotics and solar engineering kits designed to ignite curious minds.",
-    siteName: "XTRONIC KIDZ",
+      "Hands-on STEM robotics and solar engineering kits for kids 6+. Screen-free building with real circuits, gears and solar power.",
+    siteName: "XTRONIC KIDS",
     type: "website",
+    locale: "en_AU",
+  },
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
+  name: "XTRONIC KIDS",
+  url: siteUrl,
+  logo: `${siteUrl}/brand/xtronic-logo-transparent.png`,
+  description:
+    "XTRONIC KIDS makes hands-on STEM robotics and solar engineering kits for kids 6+, shipping across Australia and Sri Lanka.",
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  url: siteUrl,
+  name: "XTRONIC KIDS",
+  publisher: { "@id": `${siteUrl}/#organization` },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${siteUrl}/shop?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
   },
 };
 
@@ -56,6 +91,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${nunito.variable} ${geistMono.variable} ${fredoka.variable} h-full`}
     >
       <body className="flex min-h-full flex-col bg-canvas text-brand-navy antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:rounded-full focus:bg-brand-blue focus:px-4 focus:py-2 focus:text-white"

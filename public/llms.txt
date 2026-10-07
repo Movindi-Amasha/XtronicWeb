@@ -1,0 +1,30 @@
+# XTRONIC KIDS
+
+> XTRONIC KIDS makes hands-on STEM robotics and solar engineering kits for kids aged 6 and up. Kits are screen-free, snap-together builds that teach real mechanics, circuits and solar power, shipped across Australia and Sri Lanka.
+
+XTRONIC KIDS is the kids' STEM kit line from XTRONIC, a hands-on electronics and robotics project running since 2018 (previously Digicocoon, then Ravana PCB).
+
+## Products
+
+- [Shop all STEM kits](/shop): the full catalog of solar, robotics and wooden-mechanics kits for kids 6+.
+- [Solar 4-Wheel Drive DIY Rover](/shop/solar-4wd-rover): a battery-free solar-powered off-road car kit.
+- [Wooden Taxiing Aircraft Kit](/shop/wooden-taxiing-aircraft): a laser-cut wooden plane with a working propeller circuit.
+- [Solar-Powered Yacht / Speedboat](/shop/solar-speedboat): a waterproof solar boat kit.
+- [Smart Voice-Controlled Robot Kit](/shop/voice-robot): a robot that responds to claps and voice triggers.
+- [Solar-Powered Flapping Butterfly](/shop/solar-butterfly): a solar mechanism kit with a wing-flutter linkage.
+- [5-in-1 STEM Kit Bundle](/shop/stem-bundle-5in1): all five kits at a bundle discount.
+
+## Company
+
+- [Why XTRONIC KIDS](/why-xtronic): company story and why parents and teachers choose us.
+- [How It Works](/how-it-works): the build-to-play process behind every kit.
+- [Schools & Clubs](/schools): bulk kit bundles and lesson plans for classrooms.
+- [Parents' Guide](/parents-guide): age guidance, safety notes and STEM concepts explained.
+
+## Policies
+
+- [Shipping & Returns](/help/shipping-returns)
+- [FAQ](/help/faq)
+- [Safety](/help/safety)
+- [Privacy Policy](/help/privacy)
+- [Terms & Conditions](/help/terms)

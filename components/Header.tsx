@@ -40,7 +40,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-[999] border-b border-line bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-[1260px] items-center gap-4 px-4 md:px-6">
-        <Link href="/" className="flex shrink-0 items-center gap-2">
+        <Link href="/" aria-label="XTRONIC KIDS — Home" className="flex shrink-0 items-center gap-2">
           <div className="relative h-12 w-12 shrink-0">
             <Image
               src="/brand/xtronic-logo-transparent.png"
@@ -53,7 +53,7 @@ export default function Header() {
           <div className="relative hidden h-8 w-32 shrink-0 sm:block">
             <Image
               src="/brand/xtronic-wordmark.png"
-              alt="XTRONIC KIDZ"
+              alt="XTRONIC KIDS"
               fill
               className="object-contain object-left"
               priority

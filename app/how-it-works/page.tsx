@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "How It Works",
-  description: "From unboxing to mastering the STEM concepts behind your build, here's how an XTRONIC KIDZ kit works.",
+  title: "How It Works: Build, Learn & Play STEM Kits",
+  description:
+    "From unboxing to mastering the STEM concepts behind your build, here's how an XTRONIC KIDS kit works, step by step.",
+  alternates: { canonical: "/how-it-works" },
 };
 
 type Tone = "blue" | "amber";

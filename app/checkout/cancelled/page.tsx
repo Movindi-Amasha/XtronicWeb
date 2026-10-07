@@ -3,6 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Checkout Cancelled",
+  robots: { index: false, follow: true },
 };
 
 export default function CheckoutCancelledPage() {

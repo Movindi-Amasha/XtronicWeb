@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Your Cart",
+  title: "Club Membership Confirmed",
   robots: { index: false, follow: true },
 };
 
-export default function CartLayout({ children }: { children: React.ReactNode }) {
+export default function ClubSuccessLayout({ children }: { children: React.ReactNode }) {
   return children;
 }

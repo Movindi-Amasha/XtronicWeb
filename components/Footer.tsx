@@ -38,13 +38,13 @@ export default function Footer() {
           <div className="relative h-10 w-40">
             <Image
               src="/brand/xtronic-wordmark.png"
-              alt="XTRONIC KIDZ"
+              alt="XTRONIC KIDS"
               fill
               className="object-contain object-left"
             />
           </div>
           <p className="mt-4 max-w-xs text-sm font-semibold text-muted">
-            XTRONIC KIDZ is a STEM brand inspiring young minds through
+            XTRONIC KIDS is a STEM brand inspiring young minds through
             hands-on learning and fun. Learn &middot; Build &middot; Play.
           </p>
           <div className="mt-4 flex gap-2">
@@ -116,7 +116,7 @@ export default function Footer() {
           }}
         />
         <div className="mx-auto flex max-w-[1260px] flex-col gap-2 px-4 py-4 text-xs font-bold md:flex-row md:items-center md:justify-between md:px-6">
-          <span>© 2026 XTRONIC KIDZ. All rights reserved. Shipping to Australia &amp; Sri Lanka.</span>
+          <span>© 2026 XTRONIC KIDS. All rights reserved. Shipping to Australia &amp; Sri Lanka.</span>
           <span>
             <Link href="/help/terms" className="hover:text-white">
               Terms

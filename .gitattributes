@@ -1,0 +1,5 @@
+public/products/**/video.mp4 filter=lfs diff=lfs merge=lfs -text
+public/products/**/video.webm filter=lfs diff=lfs merge=lfs -text
+public/products/**/video.mov filter=lfs diff=lfs merge=lfs -text
+product/VIDEO/**/*.mp4 filter=lfs diff=lfs merge=lfs -text
+product/VIDEO/**/*.mov filter=lfs diff=lfs merge=lfs -text

@@ -25,7 +25,7 @@ export default function ProductLineup() {
             Our collection
           </span>
           <h2 id="lineup-heading" className="text-[clamp(32px,4vw,48px)] font-bold tracking-tight text-brand-navy">
-            Meet our <span className="text-brand-yellow-600">5 STEM kits</span>
+            Meet our <span className="text-highlight">5 STEM kits</span>
           </h2>
           <p className="mt-2.5 text-lg font-semibold text-muted">
             Each kit is a complete adventure: build it, discover how it works, then play.

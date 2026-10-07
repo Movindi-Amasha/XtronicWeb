@@ -12,7 +12,7 @@ function escapeHtml(value: string): string {
 // Resend's shared test address — works with no domain verification, so
 // emails can be sent in dev before the client sets up a verified sending
 // domain. Swap EMAIL_FROM once that domain exists.
-const DEFAULT_FROM = "XTRONIC KIDZ <onboarding@resend.dev>";
+const DEFAULT_FROM = "XTRONIC KIDS <onboarding@resend.dev>";
 
 export function isEmailConfigured(): boolean {
   return Boolean(process.env.RESEND_API_KEY);
@@ -69,7 +69,7 @@ export function orderConfirmationEmail({
 }): { subject: string; html: string } {
   const amount = (totalCents / 100).toFixed(2);
   return {
-    subject: "Your XTRONIC KIDZ order is confirmed!",
+    subject: "Your XTRONIC KIDS order is confirmed!",
     html: `
       <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
         <h1 style="color: #0D1F35;">Order confirmed 🎉</h1>
@@ -79,7 +79,7 @@ export function orderConfirmationEmail({
           <strong>Total paid:</strong> ${currency} $${amount}
         </p>
         <p>We'll email you again as soon as it ships.</p>
-        <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDZ &middot; Learn &bull; Build &bull; Play</p>
+        <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDS &middot; Learn &bull; Build &bull; Play</p>
       </div>
     `,
   };
@@ -94,12 +94,12 @@ export function newsletterCouponEmail({ code }: { code: string }): {
     html: `
       <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
         <h1 style="color: #0D1F35;">You're in! 🎉</h1>
-        <p>Thanks for joining the XTRONIC KIDZ workshop list. Here's your welcome code:</p>
+        <p>Thanks for joining the XTRONIC KIDS workshop list. Here's your welcome code:</p>
         <p style="background: #FFF4E0; border-radius: 8px; padding: 16px; font-size: 20px; font-weight: bold; letter-spacing: 1px; text-align: center;">
           ${code}
         </p>
         <p>Use it at checkout for 10% off your first kit.</p>
-        <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDZ &middot; Learn &bull; Build &bull; Play</p>
+        <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDS &middot; Learn &bull; Build &bull; Play</p>
       </div>
     `,
   };
@@ -107,11 +107,11 @@ export function newsletterCouponEmail({ code }: { code: string }): {
 
 export function clubWelcomeEmail(): { subject: string; html: string } {
   return {
-    subject: "Welcome to the XTRONIC KIDZ Club! 🎉",
+    subject: "Welcome to the XTRONIC KIDS Club! 🎉",
     html: `
       <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
         <h1 style="color: #0D1F35;">You're a member! 🎉</h1>
-        <p>Thanks for joining the XTRONIC KIDZ Club. Here's what to expect:</p>
+        <p>Thanks for joining the XTRONIC KIDS Club. Here's what to expect:</p>
         <ul style="color: #1E3350;">
           <li>A new STEM kit delivered every month</li>
           <li>15% off everything else in the shop</li>
@@ -119,7 +119,7 @@ export function clubWelcomeEmail(): { subject: string; html: string } {
           <li>Fun learning guides in every box</li>
         </ul>
         <p>Your first charge of $19.99 AUD/month has been processed, and the next one will renew automatically each month. You can cancel anytime.</p>
-        <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDZ &middot; Learn &bull; Build &bull; Play</p>
+        <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDS &middot; Learn &bull; Build &bull; Play</p>
       </div>
     `,
   };
@@ -135,7 +135,7 @@ export function quoteAcknowledgementEmail({ name }: { name: string }): {
       <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
         <h1 style="color: #0D1F35;">Thanks, ${escapeHtml(name)}!</h1>
         <p>We've received your request for a school/club quote and will get back to you within one business day.</p>
-        <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDZ &middot; Learn &bull; Build &bull; Play</p>
+        <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDS &middot; Learn &bull; Build &bull; Play</p>
       </div>
     `,
   };

@@ -17,7 +17,7 @@ export default function SpecialsSection() {
         Bundles &amp; extras
       </span>
       <h2 id="specials-heading" className="mt-2 text-[clamp(32px,4vw,48px)] font-bold tracking-tight text-brand-navy">
-        Special <span className="text-brand-yellow-600">products</span>
+        Special <span className="text-highlight">products</span>
       </h2>
       <p className="mt-2.5 text-lg font-semibold text-muted">
         Better value, more fun and the perfect presents.

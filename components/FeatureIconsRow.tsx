@@ -20,7 +20,7 @@ const ITEMS: { icon: string; label: string; tone: Tone }[] = [
 
 export default function FeatureIconsRow() {
   return (
-    <section aria-label="Why families choose XTRONIC KIDZ" className="relative z-20 mx-auto -mt-9 max-w-[1200px] px-4 md:px-6">
+    <section aria-label="Why families choose XTRONIC KIDS" className="relative z-20 mx-auto -mt-9 max-w-[1200px] px-4 md:px-6">
       <div className="grid grid-cols-4 gap-2 rounded-card border-2 border-line bg-white p-5 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.18)] sm:p-6 md:grid-cols-8">
         {ITEMS.map((item) => (
           <div key={item.label} className="group flex flex-col items-center gap-2.5 text-center">

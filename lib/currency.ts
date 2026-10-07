@@ -2,7 +2,7 @@
 // daily cron route once one is wired up — see CLAUDE.md Section 6.3.
 // Checkout always charges in AUD regardless of the selected display
 // currency; this only affects the price shown while browsing.
-// XTRONIC KIDZ currently only sells into Australia and Sri Lanka, so the
+// XTRONIC KIDS currently only sells into Australia and Sri Lanka, so the
 // display-currency picker is scoped to just those two markets.
 export const SUPPORTED_CURRENCIES = ["AUD", "LKR"] as const;
 

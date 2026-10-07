@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Why XTRONIC",
+  title: "Our Story & Why Parents Choose Us",
   description:
-    "The story behind XTRONIC KIDZ and why parents, teachers and kids choose us for hands-on STEM learning.",
+    "The story behind XTRONIC KIDS and why parents, teachers and kids choose us for safe, screen-free, hands-on STEM learning at home and in the classroom.",
+  alternates: { canonical: "/why-xtronic" },
 };
 
 type Tone = "navy" | "surface" | "amber";
@@ -78,7 +79,7 @@ export default function WhyXtronicPage() {
             />
           </div>
           <h1 className="font-heading text-4xl font-bold text-brand-navy md:text-5xl">
-            Why <span className="text-brand-blue">XTRONIC KIDZ</span>
+            Why <span className="text-brand-blue">XTRONIC KIDS</span>
           </h1>
           <p className="text-brand-navy-700">
             We build kits the way we&apos;d want them built for our own kids,
@@ -95,7 +96,7 @@ export default function WhyXtronicPage() {
           Years of hands-on electronics, rebuilt for curious kids.
         </h2>
         <p className="mt-5 text-brand-navy-700">
-          XTRONIC KIDZ carries on a project that started back in 2018 as
+          XTRONIC KIDS carries on a project that started back in 2018 as
           Digicocoon, a small kit-building venture for makers and students.
           Word spread fast, sales grew fivefold within a few years, and the
           project went through two rebrands, first to Ravana PCB in early
@@ -104,11 +105,11 @@ export default function WhyXtronicPage() {
           the way.
         </p>
         <p className="mt-4 text-brand-navy-700">
-          XTRONIC KIDZ is that same project&apos;s next chapter, rebuilt from
+          XTRONIC KIDS is that same project&apos;s next chapter, rebuilt from
           the ground up for builders aged 6 and up. No apps, no logins, just
           solar panels, gearboxes and wires that actually do something the
           moment you finish building them. Founded and still led by Thimith
-          Navodya, XTRONIC KIDZ ships across Australia and Sri Lanka, is
+          Navodya, XTRONIC KIDS ships across Australia and Sri Lanka, is
           tested for child safety, and comes with a lifetime guarantee on small parts,
           because a missing screw shouldn&apos;t be the reason a build never
           gets finished.
@@ -150,14 +151,14 @@ export default function WhyXtronicPage() {
       <section className="bg-brand-blue-50/60 py-16">
         <div className="mx-auto max-w-3xl px-4 md:px-6">
           <h2 className="text-center font-heading text-2xl font-bold text-brand-navy md:text-3xl">
-            XTRONIC KIDZ vs. a Typical STEM Toy
+            XTRONIC KIDS vs. a Typical STEM Toy
           </h2>
           <div className="mt-8 overflow-hidden rounded-card border border-line bg-surface">
             <table className="w-full text-left text-sm">
               <thead>
                 <tr className="border-b border-line bg-brand-navy text-white">
                   <th className="px-4 py-3 font-mono text-xs font-medium uppercase tracking-wide">&nbsp;</th>
-                  <th className="px-4 py-3 font-mono text-xs font-medium uppercase tracking-wide">XTRONIC KIDZ</th>
+                  <th className="px-4 py-3 font-mono text-xs font-medium uppercase tracking-wide">XTRONIC KIDS</th>
                   <th className="px-4 py-3 font-mono text-xs font-medium uppercase tracking-wide">Typical Kit</th>
                 </tr>
               </thead>

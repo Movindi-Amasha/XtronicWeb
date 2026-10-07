@@ -159,7 +159,7 @@ export const products: Product[] = [
     rating: 5.0,
     reviewCount: 34,
     highlights: [
-      "All 5 XTRONIC KIDZ kits in one box",
+      "All 5 XTRONIC KIDS kits in one box",
       "Over 20% cheaper than buying individually",
       "Free standard shipping included",
     ],

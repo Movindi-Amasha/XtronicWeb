@@ -56,7 +56,7 @@ const TOPICS = {
   privacy: {
     title: "Privacy Policy",
     intro:
-      "At XTRONIC KIDZ, we're committed to protecting the privacy and security of our customers' personal information. This Privacy Policy explains how we collect, use and safeguard your information when you visit or make a purchase on our website. By using our website, you agree to the practices described in this policy.",
+      "At XTRONIC KIDS, we're committed to protecting the privacy and security of our customers' personal information. This Privacy Policy explains how we collect, use and safeguard your information when you visit or make a purchase on our website. By using our website, you agree to the practices described in this policy.",
     sections: [
       {
         h: "Information we collect",
@@ -122,7 +122,7 @@ const TOPICS = {
   terms: {
     title: "Terms & Conditions",
     intro:
-      "Welcome to XTRONIC KIDZ. These Terms & Conditions govern your use of our website and the purchase of products from our store. By accessing and using our website, you agree to comply with these terms — please read them carefully before placing an order.",
+      "Welcome to XTRONIC KIDS. These Terms & Conditions govern your use of our website and the purchase of products from our store. By accessing and using our website, you agree to comply with these terms — please read them carefully before placing an order.",
     sections: [
       {
         h: "Use of the website",
@@ -170,7 +170,7 @@ const TOPICS = {
         h: "Intellectual property",
         list: true,
         items: [
-          "All content on our website — including text, images, logos and graphics — is protected by intellectual property rights and belongs to XTRONIC KIDZ or its licensors.",
+          "All content on our website — including text, images, logos and graphics — is protected by intellectual property rights and belongs to XTRONIC KIDS or its licensors.",
           "You may not use, reproduce, distribute or modify any content from our website without our prior written consent.",
         ],
       },
@@ -178,7 +178,7 @@ const TOPICS = {
         h: "Limitation of liability",
         list: true,
         items: [
-          "XTRONIC KIDZ and its team are not liable for any indirect, incidental or consequential damages arising from your use of our website or our products.",
+          "XTRONIC KIDS and its team are not liable for any indirect, incidental or consequential damages arising from your use of our website or our products.",
           "We make no warranties, express or implied, beyond those required by Australian Consumer Law, regarding the products offered on our website.",
         ],
       },
@@ -205,7 +205,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { topic } = await params;
   const entry = TOPICS[topic as Topic];
-  return entry ? { title: entry.title } : {};
+  if (!entry) return {};
+  const description = "intro" in entry && entry.intro ? entry.intro : `${entry.title} for XTRONIC KIDS — STEM robotics and solar kits for kids 6+.`;
+  return {
+    title: entry.title,
+    description,
+    alternates: { canonical: `/help/${topic}` },
+  };
 }
 
 export default async function HelpTopicPage({

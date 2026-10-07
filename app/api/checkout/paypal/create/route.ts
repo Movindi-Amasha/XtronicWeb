@@ -38,7 +38,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         intent: "CAPTURE",
         application_context: {
-          brand_name: "XTRONIC KIDZ",
+          brand_name: "XTRONIC KIDS",
           shipping_preference: "NO_SHIPPING",
           user_action: "PAY_NOW",
           return_url: `${siteUrl}/checkout/success`,

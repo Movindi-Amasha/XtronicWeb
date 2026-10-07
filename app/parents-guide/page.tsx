@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Parents' Guide",
+  title: "Parents' Guide: Age Guidance & Safety Tips",
   description:
-    "Everything parents need to know: age guidance, safety, STEM concepts explained, and build tips.",
+    "Everything parents need to know about XTRONIC KIDS kits: age guidance, safety notes, STEM concepts explained, and tips for a smooth first build.",
+  alternates: { canonical: "/parents-guide" },
 };
 
 const AGE_GUIDANCE = [
