@@ -105,7 +105,7 @@ export function newsletterCouponEmail({ code }: { code: string }): {
   };
 }
 
-export function clubWelcomeEmail(): { subject: string; html: string } {
+export function clubWelcomeEmail({ manageUrl }: { manageUrl: string }): { subject: string; html: string } {
   return {
     subject: "Welcome to the XTRONIC KIDS Club! 🎉",
     html: `
@@ -118,7 +118,25 @@ export function clubWelcomeEmail(): { subject: string; html: string } {
           <li>Early access to new kits</li>
           <li>Fun learning guides in every box</li>
         </ul>
-        <p>Your first charge of $19.99 AUD/month has been processed, and the next one will renew automatically each month. You can cancel anytime.</p>
+        <p>Your first charge of $19.99 AUD/month has been processed, and the next one will renew automatically each month.</p>
+        <p>Need to pause or cancel? You can do it anytime at <a href="${manageUrl}" style="color: #1F6FE5;">${manageUrl}</a>.</p>
+        <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDS &middot; Learn &bull; Build &bull; Play</p>
+      </div>
+    `,
+  };
+}
+
+export function clubManageLinkEmail({ url }: { url: string }): { subject: string; html: string } {
+  return {
+    subject: "Your XTRONIC KIDS Club sign-in link",
+    html: `
+      <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
+        <h1 style="color: #0D1F35;">Manage your membership</h1>
+        <p>Tap the button below to view, pause or cancel your XTRONIC KIDS Club membership.</p>
+        <p style="text-align: center; margin: 28px 0;">
+          <a href="${url}" style="background: #FFA707; color: #0D1F35; font-weight: bold; text-decoration: none; padding: 14px 26px; border-radius: 12px; display: inline-block;">Manage my membership</a>
+        </p>
+        <p style="color: #5B6B80; font-size: 13px;">This link works for 1 hour. If you didn't ask for it, you can safely ignore this email.</p>
         <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDS &middot; Learn &bull; Build &bull; Play</p>
       </div>
     `,

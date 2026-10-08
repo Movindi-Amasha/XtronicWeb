@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const PERKS = [
   { icon: "📦", label: "New STEM kit monthly" },
@@ -125,6 +126,10 @@ export default function SubscriptionBand() {
           )}
           <p className="mt-2 text-xs font-semibold text-brand-blue-50/60">
             You&apos;ll be redirected to PayPal to approve the monthly payment.
+            Already a member?{" "}
+            <Link href="/club/manage" className="font-bold text-brand-blue-50 underline hover:text-white">
+              Pause or cancel here
+            </Link>
           </p>
         </div>
         </div>

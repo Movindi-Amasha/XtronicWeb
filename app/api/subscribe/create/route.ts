@@ -39,6 +39,9 @@ export async function POST(request: Request) {
         application_context: {
           brand_name: "XTRONIC KIDS",
           user_action: "SUBSCRIBE_NOW",
+          // Ask for a delivery address on PayPal's approval screen — every
+          // member gets a kit posted monthly.
+          shipping_preference: "GET_FROM_FILE",
           return_url: `${siteUrl}/club/success`,
           cancel_url: `${siteUrl}/#subscribe`,
         },

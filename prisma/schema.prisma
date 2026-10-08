@@ -81,10 +81,15 @@ model ClubSubscription {
   email                String
   status               SubscriptionStatus @default(pending)
   paypalSubscriptionId String?            @unique
+  shippingAddress      String? // JSON blob from PayPal, same shape as Order.shippingAddress
   priceCents           Int
   currency             String             @default("AUD")
   startedAt            DateTime?
   cancelledAt          DateTime?
+  // Shipping queue: each successful payment means one kit is owed.
+  lastPaidAt           DateTime?
+  nextBillingAt        DateTime?
+  lastShippedAt        DateTime?
   createdAt            DateTime           @default(now())
   updatedAt            DateTime           @updatedAt
 

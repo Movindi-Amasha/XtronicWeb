@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { isPaypalConfigured, paypalFetch } from "@/lib/paypal";
+import { syncClubBilling } from "@/lib/clubBilling";
 
 interface PaypalWebhookEvent {
   event_type: string;
@@ -8,6 +9,7 @@ interface PaypalWebhookEvent {
     id?: string;
     supplementary_data?: { related_ids?: { order_id?: string } };
     billing_agreement_id?: string;
+    create_time?: string;
   };
 }
 
@@ -122,11 +124,21 @@ export async function POST(request: Request) {
   // A recurring charge for an existing subscription — PayPal sends this on
   // every renewal, not just the first payment. billing_agreement_id is the
   // subscription id for this event type.
+  // Each one means another kit is owed, so it also feeds the admin shipping
+  // queue via lastPaidAt / nextBillingAt.
   if (event.event_type === "PAYMENT.SALE.COMPLETED" && event.resource.billing_agreement_id) {
+    const paypalSubscriptionId = event.resource.billing_agreement_id;
     await db.clubSubscription.updateMany({
-      where: { paypalSubscriptionId: event.resource.billing_agreement_id, status: { not: "active" } },
+      where: { paypalSubscriptionId, status: { not: "active" } },
       data: { status: "active" },
     });
+    const synced = await syncClubBilling(paypalSubscriptionId);
+    if (!synced && event.resource.create_time) {
+      await db.clubSubscription.updateMany({
+        where: { paypalSubscriptionId },
+        data: { lastPaidAt: new Date(event.resource.create_time) },
+      });
+    }
   }
 
   return NextResponse.json({ received: true });

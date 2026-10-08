@@ -14,6 +14,7 @@ const HELP_LINKS = [
   { href: "/help/faq", label: "FAQ" },
   { href: "/help/safety", label: "Safety & Quality" },
   { href: "/schools", label: "Schools & Clubs" },
+  { href: "/club/manage", label: "Manage Club Membership" },
 ];
 
 const ABOUT_LINKS = [

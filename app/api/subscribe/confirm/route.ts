@@ -2,15 +2,17 @@ import { NextResponse } from "next/server";
 import { isPaypalConfigured, paypalFetch } from "@/lib/paypal";
 import { db } from "@/lib/db";
 import { sendEmail, clubWelcomeEmail } from "@/lib/email";
+import { shippingFromPaypal, type PaypalSubscriber } from "@/lib/clubAccess";
+import { billingFields, type PaypalSubscriptionBilling } from "@/lib/clubBilling";
 
 interface ConfirmBody {
   subscriptionId: string;
 }
 
-interface PaypalSubscription {
+interface PaypalSubscription extends PaypalSubscriptionBilling {
   id: string;
   status: string;
-  subscriber?: { email_address?: string };
+  subscriber?: PaypalSubscriber;
 }
 
 // Called by the /club/success page right after PayPal redirects back —
@@ -50,24 +52,33 @@ export async function POST(request: Request) {
       where: { paypalSubscriptionId: subscription.id },
     });
     const wasAlreadyActive = existing?.status === "active";
+    const shippingAddress = shippingFromPaypal(subscription.subscriber);
 
     await db.clubSubscription.upsert({
       where: { paypalSubscriptionId: subscription.id },
-      update: isActive ? { status: "active", startedAt: existing?.startedAt ?? new Date() } : {},
+      update: {
+        ...(isActive
+          ? { status: "active" as const, startedAt: existing?.startedAt ?? new Date(), ...billingFields(subscription) }
+          : {}),
+        ...(shippingAddress ? { shippingAddress } : {}),
+      },
       create: {
         email: subscription.subscriber?.email_address ?? "unknown@example.com",
         status: isActive ? "active" : "pending",
         paypalSubscriptionId: subscription.id,
+        shippingAddress,
         priceCents: 1999,
         currency: "AUD",
         startedAt: isActive ? new Date() : null,
+        ...(isActive ? billingFields(subscription) : {}),
       },
     });
 
     if (isActive && !wasAlreadyActive) {
       const email = subscription.subscriber?.email_address ?? existing?.email;
       if (email) {
-        const { subject, html } = clubWelcomeEmail();
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+        const { subject, html } = clubWelcomeEmail({ manageUrl: `${siteUrl}/club/manage` });
         await sendEmail({ to: email, subject, html });
       }
     }
