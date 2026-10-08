@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { formatPriceAUD } from "@/lib/products";
 import type { ResolvedLineItem } from "@/lib/orderTotals";
+import ConfirmActionButton from "@/components/admin/ConfirmActionButton";
+import { refundOrderAction } from "../actions";
+
+const REFUNDABLE = ["paid", "fulfilled", "shipped", "delivered"];
 
 export const dynamic = "force-dynamic";
 
@@ -59,6 +63,37 @@ export default async function AdminOrderDetailPage({
           <span className="font-mono text-xs"> · ref: {order.providerReference}</span>
         )}
       </p>
+
+      {REFUNDABLE.includes(order.status) && (
+        <div className="mt-6 flex flex-wrap items-start justify-between gap-4 rounded-card border border-line bg-surface p-5">
+          <div>
+            <h2 className="font-heading text-base font-bold text-brand-navy">Refund</h2>
+            <p className="mt-1 max-w-md text-sm text-brand-navy-700">
+              {order.paymentProvider === "payhere"
+                ? "PayHere refunds are made in the PayHere merchant portal. Refund it there first, then mark it here."
+                : `Refunds the full ${formatPriceAUD(order.totalCents)} to the customer's original ${order.paymentProvider === "paypal" ? "PayPal" : "card"} payment.`}
+            </p>
+          </div>
+          {order.paymentProvider === "payhere" ? (
+            <ConfirmActionButton
+              action={refundOrderAction}
+              fields={{ orderId: order.id, manual: "1" }}
+              label="Mark as refunded"
+              pendingLabel="Saving…"
+              confirmMessage="Only do this after refunding the order in the PayHere portal. Mark it as refunded?"
+            />
+          ) : (
+            <ConfirmActionButton
+              action={refundOrderAction}
+              fields={{ orderId: order.id }}
+              label={`Refund ${formatPriceAUD(order.totalCents)}`}
+              pendingLabel="Refunding…"
+              tone="danger"
+              confirmMessage={`Refund ${formatPriceAUD(order.totalCents)} to ${order.email}? This can't be undone.`}
+            />
+          )}
+        </div>
+      )}
 
       <div className="mt-6 grid gap-6 sm:grid-cols-2">
         <div className="rounded-card border border-line bg-surface p-5">

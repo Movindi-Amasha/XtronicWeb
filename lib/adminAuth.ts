@@ -11,3 +11,6 @@ export function isAdminAuthorization(header: string | null | undefined): boolean
   if (separator === -1) return false;
   return decoded.slice(0, separator) === adminUser && decoded.slice(separator + 1) === adminPassword;
 }
+
+/** What admin Server Actions report back to their buttons. */
+export type AdminActionResult = { ok?: string; error?: string } | null;

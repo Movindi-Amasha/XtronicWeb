@@ -3,7 +3,8 @@ import { db } from "@/lib/db";
 import { formatPriceAUD } from "@/lib/products";
 import type { SubscriptionStatus } from "@prisma/client";
 import { clubShippingQueue } from "@/lib/clubBilling";
-import { markClubKitShipped } from "./actions";
+import { manageClubSubscriptionAction, markClubKitShipped } from "./actions";
+import ConfirmActionButton from "@/components/admin/ConfirmActionButton";
 
 export const dynamic = "force-dynamic";
 
@@ -188,7 +189,7 @@ export default async function AdminOrdersPage() {
         </span>
       </h2>
       <div className="mt-4 overflow-x-auto rounded-card border border-line bg-surface">
-        <table className="w-full min-w-[960px] text-left text-sm">
+        <table className="w-full min-w-[1180px] text-left text-sm">
           <thead className="bg-brand-navy text-white">
             <tr>
               <th className="px-4 py-3">Signed up</th>
@@ -199,12 +200,13 @@ export default async function AdminOrdersPage() {
               <th className="px-4 py-3">Cancelled</th>
               <th className="px-4 py-3">Price</th>
               <th className="px-4 py-3">PayPal ID</th>
+              <th className="px-4 py-3">Actions</th>
             </tr>
           </thead>
           <tbody>
             {subscriptions.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-4 py-6 text-center text-muted">
+                <td colSpan={9} className="px-4 py-6 text-center text-muted">
                   No Club subscriptions yet.
                 </td>
               </tr>
@@ -223,6 +225,40 @@ export default async function AdminOrdersPage() {
                 <td className="px-4 py-3">{sub.cancelledAt?.toLocaleDateString("en-AU") ?? "—"}</td>
                 <td className="px-4 py-3 font-bold">{formatPriceAUD(sub.priceCents)}/mo</td>
                 <td className="px-4 py-3 font-mono text-xs text-muted">{sub.paypalSubscriptionId ?? "—"}</td>
+                <td className="px-4 py-3">
+                  {sub.paypalSubscriptionId && sub.status !== "pending" && (
+                    <div className="flex flex-wrap gap-2">
+                      {sub.status !== "cancelled" && (
+                        <>
+                          <ConfirmActionButton
+                            action={manageClubSubscriptionAction}
+                            fields={{ subscriptionId: sub.id, mode: "cancel" }}
+                            label="Cancel"
+                            pendingLabel="Cancelling…"
+                            confirmMessage={`Cancel ${sub.email}'s membership? No further payments will be taken. This can't be undone.`}
+                          />
+                          <ConfirmActionButton
+                            action={manageClubSubscriptionAction}
+                            fields={{ subscriptionId: sub.id, mode: "cancel_refund" }}
+                            label="Cancel + refund"
+                            pendingLabel="Working…"
+                            tone="danger"
+                            confirmMessage={`Cancel ${sub.email}'s membership AND refund their latest ${formatPriceAUD(sub.priceCents)} payment? This can't be undone.`}
+                          />
+                        </>
+                      )}
+                      {sub.status === "cancelled" && (
+                        <ConfirmActionButton
+                          action={manageClubSubscriptionAction}
+                          fields={{ subscriptionId: sub.id, mode: "refund" }}
+                          label="Refund last payment"
+                          pendingLabel="Refunding…"
+                          confirmMessage={`Refund ${sub.email}'s latest ${formatPriceAUD(sub.priceCents)} payment? This can't be undone.`}
+                        />
+                      )}
+                    </div>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
