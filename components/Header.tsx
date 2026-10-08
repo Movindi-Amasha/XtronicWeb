@@ -39,7 +39,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-[999] border-b border-line bg-white/95 backdrop-blur-md">
-      <div className="mx-auto flex h-20 max-w-[1260px] items-center gap-4 px-4 md:px-6">
+      <div className="mx-auto flex h-20 max-w-[1260px] items-center gap-3 px-4 md:px-6 xl:gap-4">
         <Link href="/" aria-label="XTRONIC KIDS — Home" className="flex shrink-0 items-center gap-2">
           <div className="relative h-12 w-12 shrink-0">
             <Image
@@ -61,7 +61,7 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav aria-label="Primary" className="mx-auto hidden items-center gap-1 lg:flex">
+        <nav aria-label="Primary" className="mx-auto hidden items-center gap-0.5 lg:flex xl:gap-1">
           {NAV_LINKS.map((link) => {
             const active = isLinkActive(pathname, link.href);
             return (
@@ -69,7 +69,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`rounded-btn px-3 py-2 font-body text-sm font-extrabold transition-colors ${
+                className={`whitespace-nowrap rounded-btn px-2.5 py-2 font-body text-sm font-extrabold transition-colors xl:px-3 ${
                   active
                     ? "bg-brand-blue-50 text-brand-blue"
                     : "text-brand-navy hover:bg-brand-blue-50 hover:text-brand-blue"
@@ -84,7 +84,7 @@ export default function Header() {
         <div className="ml-auto flex items-center gap-2 sm:gap-3">
           <form
             onSubmit={handleSearch}
-            className="hidden items-center gap-2 rounded-btn border-2 border-line bg-canvas px-3 focus-within:border-brand-blue focus-within:bg-white md:flex"
+            className="hidden items-center gap-2 rounded-btn border-2 border-line bg-canvas px-3 focus-within:border-brand-blue focus-within:bg-white md:flex lg:hidden xl:flex"
           >
             <span aria-hidden className="text-muted">
               🔍
@@ -95,19 +95,11 @@ export default function Header() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search STEM kits…"
               aria-label="Search for STEM kits"
-              className="h-11 w-44 bg-transparent text-sm font-bold text-brand-navy placeholder:text-muted placeholder:font-semibold focus:outline-none lg:w-56"
+              className="h-11 w-44 bg-transparent text-sm font-bold text-brand-navy placeholder:text-muted placeholder:font-semibold focus:outline-none xl:w-32 2xl:w-48"
             />
           </form>
 
           <CurrencySelector className="hidden lg:flex" />
-
-          <Link
-            href="/parents-guide"
-            aria-label="Parents' guide"
-            className="hidden h-11 w-11 items-center justify-center rounded-btn text-xl text-brand-navy transition-colors hover:bg-brand-blue-50 hover:text-brand-blue sm:flex"
-          >
-            👤
-          </Link>
 
           <button
             type="button"

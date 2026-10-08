@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { isPaypalConfigured, paypalFetch } from "@/lib/paypal";
 
 interface PaypalWebhookEvent {
   event_type: string;
@@ -10,12 +11,55 @@ interface PaypalWebhookEvent {
   };
 }
 
-// Note: full signature verification requires calling PayPal's
-// /v1/notifications/verify-webhook-signature endpoint with PAYPAL_WEBHOOK_ID.
-// Wire that in once PAYPAL_WEBHOOK_ID is set — left as a TODO so this route
-// doesn't hard-fail while payments aren't configured yet.
+const SIGNATURE_HEADERS = {
+  auth_algo: "paypal-auth-algo",
+  cert_url: "paypal-cert-url",
+  transmission_id: "paypal-transmission-id",
+  transmission_sig: "paypal-transmission-sig",
+  transmission_time: "paypal-transmission-time",
+} as const;
+
+// Asks PayPal whether this delivery really came from PayPal for our webhook.
+// Without this anyone could POST a fake PAYMENT.CAPTURE.COMPLETED and mark an
+// order paid, or activate/cancel a Club subscription.
+async function isGenuinePaypalEvent(request: Request, event: unknown): Promise<boolean> {
+  const headers: Record<string, string> = {};
+  for (const [field, header] of Object.entries(SIGNATURE_HEADERS)) {
+    const value = request.headers.get(header);
+    if (!value) return false;
+    headers[field] = value;
+  }
+
+  const res = await paypalFetch("/v1/notifications/verify-webhook-signature", {
+    method: "POST",
+    body: JSON.stringify({
+      ...headers,
+      webhook_id: process.env.PAYPAL_WEBHOOK_ID,
+      webhook_event: event,
+    }),
+  });
+  if (!res.ok) return false;
+
+  const { verification_status } = (await res.json()) as { verification_status?: string };
+  return verification_status === "SUCCESS";
+}
+
 export async function POST(request: Request) {
+  // Fail closed: with no webhook id there is no way to tell real events from
+  // forged ones. Checkout capture and /club/success already confirm payments
+  // directly with PayPal, so the webhook is only the background sync.
+  if (!isPaypalConfigured() || !process.env.PAYPAL_WEBHOOK_ID) {
+    return NextResponse.json(
+      { error: "PayPal webhooks are not configured on this server yet." },
+      { status: 503 }
+    );
+  }
+
   const event = (await request.json()) as PaypalWebhookEvent;
+
+  if (!(await isGenuinePaypalEvent(request, event))) {
+    return NextResponse.json({ error: "Invalid webhook signature" }, { status: 400 });
+  }
 
   if (event.event_type === "PAYMENT.CAPTURE.COMPLETED") {
     const orderId = event.resource.supplementary_data?.related_ids?.order_id;
