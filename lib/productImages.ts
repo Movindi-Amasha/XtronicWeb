@@ -69,7 +69,7 @@ const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov"];
 // auto-compressed, auto-format version instead (confirmed ~80% smaller,
 // still a valid, good-quality MP4) with no change needed to the source file.
 const EXTERNAL_VIDEOS: Record<string, string> = {
-  "voice-robot": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791442429/Xtronic_Voice_Robot_WEB_VID.mp4",
+  "voice-robot": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791451362/1008_5.mp4",
   "solar-4wd-rover": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791442400/1_Racer.mp4",
   // Uploaded as .mov — Cloudinary transcodes to real video/mp4 on the fly
   // just by requesting the .mp4 extension, which is what every browser
