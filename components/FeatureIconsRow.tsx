@@ -1,12 +1,7 @@
-type Tone = "blue" | "yellow" | "amber" | "green";
+import { LOGO } from "@/lib/brandColors";
 
-const TONE_STYLES: Record<Tone, string> = {
-  blue: "bg-brand-blue",
-  yellow: "bg-brand-yellow text-brand-navy",
-  amber: "bg-brand-amber",
-  green: "bg-brand-green",
-};
-
+// Colour order follows the reference design, with its pink and purple swapped
+// for the logo's red.
 // Line icons (Lucide-style, 24px grid) drawn in currentColor so they pick up
 // each tile's text colour. Emoji rendered differently on every OS and clashed
 // with the flat brick tiles.
@@ -39,12 +34,17 @@ const ICONS: Record<string, React.ReactNode> = {
       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
     </>
   ),
-  sprout: (
+  leaf: (
     <>
-      <path d="M7 20h10" />
-      <path d="M10 20c5.5-2.5.8-6.4 3-10" />
-      <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z" />
-      <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z" />
+      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+      <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+    </>
+  ),
+  smile: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+      <path d="M9 9h.01M15 9h.01" />
     </>
   ),
   gift: (
@@ -57,50 +57,53 @@ const ICONS: Record<string, React.ReactNode> = {
   ),
 };
 
-const ITEMS: { icon: string; label: string; tone: Tone }[] = [
-  { icon: "6+", label: "Ages 6+", tone: "blue" },
-  { icon: "atom", label: "STEM Learning", tone: "yellow" },
-  { icon: "wrench", label: "Hands-On Build", tone: "amber" },
-  { icon: "noScreen", label: "Screen-Free Fun", tone: "blue" },
-  { icon: "star", label: "Builds Confidence", tone: "yellow" },
-  { icon: "family", label: "Family Activity", tone: "amber" },
-  { icon: "sprout", label: "Eco Solar Power", tone: "green" },
-  { icon: "gift", label: "Gift Ready", tone: "blue" },
+const ITEMS: { icon: string; title: string; sub: string; color: string }[] = [
+  { icon: "smile", title: "6+", sub: "Age Suitable", color: LOGO.red },
+  { icon: "atom", title: "STEM", sub: "Learning", color: LOGO.blue },
+  { icon: "wrench", title: "Hands-On", sub: "Building", color: LOGO.green },
+  { icon: "noScreen", title: "Screen-Free", sub: "Fun", color: LOGO.orange },
+  { icon: "gift", title: "Gift", sub: "Ready", color: LOGO.red },
+  { icon: "star", title: "Builds", sub: "Confidence", color: LOGO.yellow },
+  { icon: "family", title: "Family", sub: "Fun", color: LOGO.red },
+  { icon: "leaf", title: "Eco-Friendly", sub: "Solar Power", color: LOGO.lightBlue },
 ];
 
 export default function FeatureIconsRow() {
   return (
-    <section aria-label="Why families choose XTRONIC KIDS" className="relative z-20 mx-auto -mt-9 max-w-[1200px] px-4 md:px-6">
-      <div className="grid grid-cols-4 gap-2 rounded-card border-2 border-line bg-white p-5 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.18)] sm:p-6 md:grid-cols-8">
+    <section aria-label="Why families choose XTRONIC KIDS" className="relative z-20 mx-auto -mt-9 max-w-[1200px] px-4 md:px-6 xl:max-w-[1320px]">
+      <ul className="grid grid-cols-4 gap-x-2 gap-y-5 rounded-card border-2 border-line bg-white px-3 py-5 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.18)] sm:p-6 lg:grid-cols-8 lg:gap-x-1 lg:px-4">
         {ITEMS.map((item) => (
-          <div key={item.label} className="group flex flex-col items-center gap-2.5 text-center">
+          <li
+            key={item.title + item.sub}
+            className="group flex flex-col items-center gap-2 text-center xl:flex-row xl:justify-center xl:gap-2.5 xl:text-left"
+          >
             <span
-              className={`flex h-14 w-14 items-center justify-center rounded-2xl text-2xl font-bold text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.12)] transition-transform group-hover:-translate-y-1 group-hover:-rotate-6 ${TONE_STYLES[item.tone]}`}
+              className="flex h-13 w-13 shrink-0 items-center justify-center rounded-full text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.14),0_6px_14px_-6px_rgba(14,30,63,0.35)] transition-transform group-hover:-translate-y-1 group-hover:-rotate-6 sm:h-14 sm:w-14 xl:h-12 xl:w-12"
+              style={{ background: `radial-gradient(circle at 35% 30%, color-mix(in srgb, ${item.color}, white 22%), ${item.color} 70%)` }}
             >
-              {ICONS[item.icon] ? (
-                <svg
-                  aria-hidden
-                  viewBox="0 0 24 24"
-                  width="28"
-                  height="28"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  {ICONS[item.icon]}
-                </svg>
-              ) : (
-                item.icon
-              )}
+              <svg
+                aria-hidden
+                viewBox="0 0 24 24"
+                width="26"
+                height="26"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {ICONS[item.icon]}
+              </svg>
             </span>
-            <p className="font-body text-[13.5px] font-extrabold leading-snug text-brand-navy">
-              {item.label}
+            <p className="whitespace-nowrap font-body text-[12px] leading-tight text-brand-navy sm:text-[13px]">
+              <strong className={`block font-heading font-semibold ${item.title === "6+" ? "text-lg leading-none sm:text-xl" : ""}`}>
+                {item.title}
+              </strong>
+              <span className="font-bold text-muted">{item.sub}</span>
             </p>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }
