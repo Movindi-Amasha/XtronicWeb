@@ -355,7 +355,8 @@ export default function ProductGallery({
           </>
         )}
 
-        {currentSlide?.type === "image" && (
+        {/* No zoom for a placeholder (product with no photo yet). */}
+        {currentSlide?.type === "image" && currentSlide.src && (
           <button
             type="button"
             onPointerDown={(e) => e.stopPropagation()}

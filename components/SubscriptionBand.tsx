@@ -44,14 +44,14 @@ export default function SubscriptionBand() {
         className="relative grid items-center gap-8 overflow-hidden rounded-[36px] border-2 border-line p-6 sm:p-10 md:grid-cols-[0.9fr_1.4fr]"
         style={{ background: "linear-gradient(120deg, #e9f5ff 0%, #fff 50%, var(--color-brand-yellow-50) 100%)" }}
       >
-        <div className="relative mx-auto aspect-square w-full max-w-[320px]">
-          <div className="absolute inset-0 rotate-[-4deg] overflow-hidden rounded-[30px] border-4 border-white bg-white shadow-[0_12px_0_var(--color-brand-amber),0_30px_60px_-24px_rgba(14,30,63,0.45)]">
+        <div className="relative mx-auto aspect-[5/4] w-full max-w-[360px]">
+          <div className="absolute inset-0 rotate-[-4deg] overflow-hidden rounded-[30px] border-4 border-white bg-[#dcefff] shadow-[0_12px_0_var(--color-brand-amber),0_30px_60px_-24px_rgba(14,30,63,0.45)]">
             <Image
               src="/mascot/banner-toys.png"
               alt="XTRONIC mascot with a new monthly kit"
               fill
               sizes="320px"
-              className="object-cover"
+              className="object-cover object-[25%_50%]"
             />
           </div>
           <span

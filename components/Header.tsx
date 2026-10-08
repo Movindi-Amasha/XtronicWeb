@@ -44,6 +44,7 @@ export default function Header() {
           <div className="relative h-12 w-12 shrink-0">
             <Image
               src="/brand/xtronic-logo-transparent.png"
+              sizes="48px"
               alt=""
               fill
               className="object-contain"
@@ -53,6 +54,7 @@ export default function Header() {
           <div className="relative hidden h-8 w-32 shrink-0 sm:block">
             <Image
               src="/brand/xtronic-wordmark.png"
+              sizes="160px"
               alt="XTRONIC KIDS"
               fill
               className="object-contain object-left"

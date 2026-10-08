@@ -18,7 +18,8 @@ export default function ProductImage({
 }) {
   const [failed, setFailed] = useState(false);
 
-  if (failed) {
+  // No path yet (photo not shot) skips the request entirely instead of a 404.
+  if (failed || !src) {
     return (
       <div
         className={`absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-brand-blue-50 via-surface to-brand-amber-50 ${className}`}

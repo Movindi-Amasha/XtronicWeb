@@ -95,8 +95,10 @@ export default function ProductCard({
             className="btn-brick flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-btn bg-brand-amber px-2 py-2.5 font-heading text-[13px] font-semibold text-white sm:text-sm"
             style={{ "--btn-brick-shadow": "var(--color-brand-amber-600)" } as React.CSSProperties}
           >
-            <span className="truncate">View Product</span>
-            <span aria-hidden className="hidden sm:inline">→</span>
+            {/* Full label only where the card is wide enough for it. */}
+            <span className="sm:hidden lg:inline xl:hidden">View</span>
+            <span className="hidden sm:inline lg:hidden xl:inline">View Product</span>
+            <span aria-hidden className="hidden xl:inline">→</span>
           </Link>
           <button
             type="button"

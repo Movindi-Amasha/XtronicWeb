@@ -6,7 +6,7 @@ function ViewAllButton({ className = "" }: { className?: string }) {
   return (
     <Link
       href="/shop"
-      className={`group inline-flex items-center justify-center gap-2 rounded-btn border-2 border-brand-amber bg-white px-5 py-2.5 font-heading text-sm font-semibold text-brand-amber transition-colors hover:bg-brand-amber hover:text-white ${className}`}
+      className={`group items-center justify-center gap-2 rounded-btn border-2 border-brand-amber bg-white px-5 py-2.5 font-heading text-sm font-semibold text-brand-amber transition-colors hover:bg-brand-amber hover:text-white ${className}`}
     >
       View All Products
       <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
@@ -36,7 +36,7 @@ export default function ProductLineup() {
       </div>
 
       <div className="mt-8 flex justify-center lg:hidden">
-        <ViewAllButton className="w-full sm:w-auto" />
+        <ViewAllButton className="flex w-full sm:inline-flex sm:w-auto" />
       </div>
     </section>
   );

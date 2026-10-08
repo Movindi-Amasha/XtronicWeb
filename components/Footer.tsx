@@ -39,6 +39,7 @@ export default function Footer() {
           <div className="relative h-10 w-40">
             <Image
               src="/brand/xtronic-wordmark.png"
+              sizes="160px"
               alt="XTRONIC KIDS"
               fill
               className="object-contain object-left"

@@ -51,7 +51,7 @@ export default async function ProductPage({
     "@type": "Product",
     name: product.name,
     description: product.highlights.join(" "),
-    image: `${siteUrl}${product.image}`,
+    ...(product.image ? { image: `${siteUrl}${product.image}` } : {}),
     offers: {
       "@type": "Offer",
       priceCurrency: "AUD",

@@ -44,7 +44,7 @@ export default function CreationsCarousel({ items }: { items: Creation[] }) {
           <Link
             key={item.href}
             href={item.href}
-            className="group relative aspect-[4/3] shrink-0 basis-[78%] snap-start overflow-hidden rounded-card border-4 border-white bg-brand-blue-50 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.25)] sm:basis-[calc((100%-16px)/2)] md:basis-[calc((100%-32px)/3)] lg:basis-[calc((100%-64px)/5)]"
+            className="group relative aspect-[4/3] shrink-0 lg:aspect-square basis-[78%] snap-start overflow-hidden rounded-card border-4 border-white bg-brand-blue-50 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.25)] sm:basis-[calc((100%-16px)/2)] md:basis-[calc((100%-32px)/3)] lg:basis-[calc((100%-64px)/5)]"
           >
             <Image
               src={item.image}
@@ -53,7 +53,7 @@ export default function CreationsCarousel({ items }: { items: Creation[] }) {
               sizes="(min-width: 1024px) 240px, (min-width: 768px) 33vw, 78vw"
               className="object-cover transition-transform duration-500 group-hover:scale-110"
             />
-            <span className="absolute inset-x-2 bottom-2 rounded-xl bg-white/95 px-3 py-1.5 font-heading text-sm font-semibold text-brand-navy shadow">
+            <span className="absolute inset-x-2 bottom-2 truncate rounded-xl bg-white/95 px-3 py-1.5 font-heading text-xs font-semibold text-brand-navy shadow sm:text-sm">
               {item.title}
             </span>
           </Link>

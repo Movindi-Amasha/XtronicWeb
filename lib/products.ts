@@ -24,6 +24,7 @@ export interface Product {
   features?: KitFeature[];
   stemConcepts: string[];
   whatsInTheBox: string[];
+  /** Path under /public, or "" while the photo isn't ready (shows a placeholder). */
   image: string;
 }
 
@@ -206,7 +207,7 @@ export const products: Product[] = [
       "Ribbon bow",
       "Personalised card (add your message at checkout)",
     ],
-    image: "/products/gift-wrap-card/main.jpg",
+    image: "", // photo coming: public/products/gift-wrap-card/main.jpg
   },
   {
     slug: "tools-accessories-pack",
@@ -231,7 +232,7 @@ export const products: Product[] = [
       "4x rechargeable AA batteries",
       "Storage pouch",
     ],
-    image: "/products/tools-accessories-pack/main.jpg",
+    image: "", // photo coming: public/products/tools-accessories-pack/main.jpg
   },
 ];
 
