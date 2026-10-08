@@ -25,7 +25,7 @@ export default function ProductLineup() {
             Our collection
           </span>
           <h2 id="lineup-heading" className="text-[clamp(32px,4vw,48px)] font-bold tracking-tight text-brand-navy">
-            Meet our <span className="text-highlight">5 STEM kits</span>
+            Meet our <span className="text-highlight">kits</span>
           </h2>
           <p className="mt-2.5 text-lg font-semibold text-muted">
             Each kit is a complete adventure: build it, discover how it works, then play.
@@ -55,12 +55,14 @@ export default function ProductLineup() {
         ))}
       </div>
 
-      <div className="mt-8 text-center">
+      <div className="mt-10 flex justify-center">
         <Link
           href="/shop"
-          className="inline-block text-sm font-extrabold uppercase tracking-wide text-brand-blue hover:text-brand-blue-600"
+          className="btn-brick group inline-flex w-full items-center justify-center gap-2.5 rounded-btn bg-brand-blue px-8 py-4 font-heading text-base font-semibold text-white sm:w-auto"
+          style={{ "--btn-brick-shadow": "var(--color-brand-blue-600)" } as React.CSSProperties}
         >
-          Explore All Kits →
+          Explore all kits
+          <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
         </Link>
       </div>
     </section>

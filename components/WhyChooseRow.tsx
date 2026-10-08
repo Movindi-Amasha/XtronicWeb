@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { products } from "@/lib/products";
 
 type Tone = "blue" | "yellow" | "amber" | "green";
 
@@ -18,7 +19,8 @@ const ITEMS: { icon: string; title: string; desc: string; tone: Tone }[] = [
 ];
 
 const STATS = [
-  { value: "5", label: "STEM kits" },
+  // Counted from the catalogue so it stays right as new kits are added.
+  { value: String(products.filter((p) => p.category !== "Bundles & Gifts").length), label: "STEM kits" },
   { value: "4.9/5", label: "Parent rating" },
   { value: "6+", label: "Suitable ages" },
 ];
