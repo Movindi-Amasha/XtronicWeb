@@ -33,8 +33,8 @@ const SOCIALS = [
 export default function Footer() {
   return (
     <footer className="mt-24 border-t-2 border-line bg-canvas">
-      <div className="mx-auto grid max-w-[1260px] gap-10 px-4 py-14 sm:grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr] md:px-6">
-        <div className="sm:col-span-2 md:col-span-1">
+      <div className="mx-auto grid max-w-[1260px] grid-cols-2 gap-x-6 gap-y-10 px-4 py-14 md:grid-cols-[1.6fr_1fr_1fr_1fr] md:px-6">
+        <div className="col-span-2 md:col-span-1">
           <div className="relative h-10 w-40">
             <Image
               src="/brand/xtronic-wordmark.png"

@@ -19,7 +19,7 @@ export default function HowItWorksSteps() {
   return (
     <section id="how" aria-labelledby="how-it-works-heading" className="mx-auto max-w-[1200px] px-4 pt-24 md:px-6">
       <div
-        className="rounded-[40px] px-5 py-14 sm:px-10 md:py-16"
+        className="rounded-[32px] px-5 py-10 sm:rounded-[40px] sm:px-10 sm:py-14 md:py-16"
         style={{ background: "linear-gradient(180deg, var(--color-brand-blue-50), #fff)" }}
       >
         <div className="relative flex flex-col items-center text-center">
@@ -37,20 +37,22 @@ export default function HowItWorksSteps() {
           </p>
         </div>
 
-        <ol className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+        <ol className="mt-8 grid grid-cols-1 gap-3 sm:mt-10 sm:grid-cols-3 sm:gap-5 lg:grid-cols-5">
           {STEPS.map((step, i) => (
             <li
               key={step.n}
-              className="relative rounded-card border-2 border-line bg-white px-4 py-7 text-center shadow-[0_10px_30px_-12px_rgba(14,30,63,0.18)]"
+              className="relative flex items-center gap-4 rounded-card border-2 border-line bg-white py-4 pr-4 pl-5 text-left sm:block sm:px-4 sm:py-7 sm:text-center shadow-[0_10px_30px_-12px_rgba(14,30,63,0.18)]"
             >
               <span
-                className={`absolute -top-4 left-1/2 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-[10px] font-heading text-sm font-bold text-white shadow-[inset_0_-3px_0_rgba(0,0,0,0.15)] ${TONE_STYLES[step.tone]}`}
+                className={`absolute -top-2 -left-2 flex h-7 w-7 items-center sm:-top-4 sm:left-1/2 sm:h-8 sm:w-8 sm:-translate-x-1/2 justify-center rounded-[10px] font-heading text-sm font-bold text-white shadow-[inset_0_-3px_0_rgba(0,0,0,0.15)] ${TONE_STYLES[step.tone]}`}
               >
                 {step.n}
               </span>
-              <span className="mb-2.5 block text-4xl">{step.icon}</span>
-              <h3 className="text-[18px] font-semibold text-brand-navy">{step.title}</h3>
-              <p className="mt-1.5 text-[14.5px] font-semibold text-muted">{step.desc}</p>
+              <span className="block shrink-0 text-3xl sm:mb-2.5 sm:text-4xl">{step.icon}</span>
+              <div>
+                <h3 className="text-[17px] font-semibold text-brand-navy sm:text-[18px]">{step.title}</h3>
+                <p className="mt-0.5 text-[14px] font-semibold text-muted sm:mt-1.5 sm:text-[14.5px]">{step.desc}</p>
+              </div>
               {i < STEPS.length - 1 && (
                 <span
                   aria-hidden

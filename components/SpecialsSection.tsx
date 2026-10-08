@@ -24,23 +24,23 @@ export default function SpecialsSection() {
       </p>
 
       <div className="mt-10 grid gap-5 md:grid-cols-[3fr_1.15fr]">
-        <div className="grid gap-5 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5">
           {BUNDLES.map((product) => (
             <div
               key={product.slug}
               className="flex flex-col overflow-hidden rounded-card border-2 border-line bg-white transition-transform hover:-translate-y-1.5"
             >
               <Link href={`/shop/${product.slug}`} aria-label={product.name} className="relative block aspect-square bg-brand-blue-50">
-                <div className="relative h-full w-full p-4">
+                <div className="relative h-full w-full p-3 sm:p-4">
                   <ProductImage src={product.image} alt={product.name} emoji={product.emoji} />
                 </div>
               </Link>
-              <div className="flex flex-1 flex-col gap-2 p-4">
-                <h3 className="font-heading text-base leading-tight text-brand-navy">
+              <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
+                <h3 className="font-heading text-sm leading-tight sm:text-base text-brand-navy">
                   <Link href={`/shop/${product.slug}`}>{product.name}</Link>
                 </h3>
                 <div className="mt-auto flex items-center justify-between pt-2">
-                  <span className="font-body text-lg font-bold text-brand-navy">
+                  <span className="font-body text-base font-bold text-brand-navy sm:text-lg">
                     {formatPriceAUD(product.priceCents)}
                   </span>
                   <button
@@ -55,7 +55,7 @@ export default function SpecialsSection() {
                       })
                     }
                     aria-label={`Add ${product.name} to cart`}
-                    className="btn-brick flex h-11 w-11 shrink-0 items-center justify-center rounded-btn bg-brand-amber text-white"
+                    className="btn-brick flex h-10 w-10 shrink-0 items-center justify-center rounded-btn bg-brand-amber sm:h-11 sm:w-11 text-white"
                     style={{ "--btn-brick-shadow": "var(--color-brand-amber-600)" } as React.CSSProperties}
                   >
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">

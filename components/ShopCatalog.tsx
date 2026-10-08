@@ -66,7 +66,7 @@ export default function ShopCatalog() {
         <div
           role="tablist"
           aria-label="Filter kits by category"
-          className="flex flex-wrap gap-2"
+          className="-mx-4 flex w-[calc(100%+2rem)] gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:w-auto sm:flex-wrap sm:px-0 [&::-webkit-scrollbar]:hidden"
         >
           {TABS.map((tab) => (
             <button
@@ -75,7 +75,7 @@ export default function ShopCatalog() {
               role="tab"
               aria-selected={activeTab === tab}
               onClick={() => setCategory(tab)}
-              className={`rounded-full px-5 py-2.5 text-sm font-bold uppercase tracking-wide transition-colors ${
+              className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm font-bold uppercase tracking-wide transition-colors ${
                 activeTab === tab
                   ? "bg-brand-blue text-white hover:opacity-90"
                   : "border border-line bg-surface text-brand-navy hover:bg-brand-blue-50"
@@ -106,7 +106,7 @@ export default function ShopCatalog() {
         {filtered.length} {filtered.length === 1 ? "kit" : "kits"} found
       </p>
 
-      <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
         {filtered.map((product, index) => (
           <ProductCard key={product.slug} product={product} index={index} />
         ))}

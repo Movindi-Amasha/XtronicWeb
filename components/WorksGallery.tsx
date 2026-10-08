@@ -55,23 +55,23 @@ export default function WorksGallery() {
 
       <div
         ref={trackRef}
-        className="mt-8 flex gap-5 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="-mx-4 mt-8 flex scroll-px-4 gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:scroll-px-0 md:gap-5 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         style={{ scrollSnapType: "x mandatory" }}
       >
         {KITS.map((kit) => (
           <Link
             key={kit.slug}
             href={`/shop/${kit.slug}`}
-            className="relative aspect-[4/5] shrink-0 basis-[calc((100%-60px)/4)] overflow-hidden rounded-card bg-brand-blue-50"
+            className="relative aspect-[4/5] shrink-0 basis-[72%] overflow-hidden rounded-card bg-brand-blue-50 sm:basis-[calc((100%-20px)/2)] md:basis-[calc((100%-40px)/3)] lg:basis-[calc((100%-60px)/4)]"
             style={{ scrollSnapAlign: "start" }}
           >
             <div className="absolute inset-0 p-6">
               <ProductImage src={kit.image} alt={kit.name} emoji={kit.emoji} />
             </div>
             <figcaption className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-2 rounded-2xl bg-white px-3.5 py-2.5 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.18)]">
-              <span>
+              <span className="min-w-0">
                 <strong className="block font-heading text-sm leading-tight text-brand-navy">{kit.name}</strong>
-                <small className="text-xs font-bold text-muted">{kit.categoryLabel}</small>
+                <small className="block truncate text-xs font-bold text-muted">{kit.categoryLabel}</small>
               </span>
             </figcaption>
           </Link>

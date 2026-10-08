@@ -31,13 +31,13 @@ export default function ProductLineup() {
             Each kit is a complete adventure: build it, discover how it works, then play.
           </p>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 [&::-webkit-scrollbar]:hidden">
           {CHIPS.map((chip) => (
             <button
               key={chip.value}
               type="button"
               onClick={() => setFilter(chip.value)}
-              className={`rounded-btn border-2 px-4 py-2.5 text-sm font-extrabold transition-colors ${
+              className={`shrink-0 whitespace-nowrap rounded-btn border-2 px-4 py-2.5 text-sm font-extrabold transition-colors ${
                 filter === chip.value
                   ? "border-brand-navy bg-brand-navy text-white"
                   : "border-line bg-white text-brand-navy hover:border-brand-blue hover:text-brand-blue"
@@ -49,7 +49,7 @@ export default function ProductLineup() {
         </div>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:grid-cols-5">
         {shown.map((product, i) => (
           <ProductCard key={product.slug} product={product} index={i} />
         ))}

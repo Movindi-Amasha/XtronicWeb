@@ -60,10 +60,10 @@ export default function Hero() {
             they work along the way.
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-3.5">
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3.5">
             <Link
               href="/shop"
-              className="btn-brick flex items-center gap-2.5 rounded-btn bg-brand-amber px-7 py-4 font-heading text-base font-semibold text-white"
+              className="btn-brick flex items-center justify-center gap-2.5 rounded-btn bg-brand-amber px-7 py-4 font-heading text-base font-semibold text-white"
               style={{ "--btn-brick-shadow": "var(--color-brand-amber-600)" } as React.CSSProperties}
             >
               Shop STEM Kits
@@ -71,7 +71,7 @@ export default function Hero() {
             </Link>
             <Link
               href="/how-it-works"
-              className="btn-brick flex items-center gap-2.5 rounded-btn border-2 border-line bg-white px-7 py-4 font-heading text-base font-semibold text-brand-navy"
+              className="btn-brick flex items-center justify-center gap-2.5 rounded-btn border-2 border-line bg-white px-7 py-4 font-heading text-base font-semibold text-brand-navy"
               style={{ "--btn-brick-shadow": "#d9e2f2" } as React.CSSProperties}
             >
               <span className="grid h-7 w-7 place-items-center rounded-full bg-brand-blue text-white">▶</span>
@@ -79,11 +79,11 @@ export default function Hero() {
             </Link>
           </div>
 
-          <ul className="mt-9 flex flex-wrap gap-7">
+          <ul className="mt-8 grid grid-cols-3 gap-3 sm:mt-9 sm:flex sm:flex-wrap sm:gap-7">
             {TRUST.map((t) => (
-              <li key={t.label} className={`border-l-4 pl-3.5 ${t.tone}`}>
-                <strong className="block font-heading text-xl text-brand-navy">{t.stat}</strong>
-                <span className="text-sm font-bold text-muted">{t.label}</span>
+              <li key={t.label} className={`border-l-4 pl-2.5 sm:pl-3.5 ${t.tone}`}>
+                <strong className="block font-heading text-lg text-brand-navy sm:text-xl">{t.stat}</strong>
+                <span className="text-xs font-bold text-muted sm:text-sm">{t.label}</span>
               </li>
             ))}
           </ul>

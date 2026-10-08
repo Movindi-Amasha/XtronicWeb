@@ -35,7 +35,7 @@ export default function ProductCard({
 
   return (
     <div
-      className={`group flex flex-col overflow-hidden rounded-card border-4 bg-surface shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg ${BORDER[tone]}`}
+      className={`group flex flex-col overflow-hidden rounded-card border-[3px] bg-surface sm:border-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg ${BORDER[tone]}`}
     >
       <Link
         href={`/shop/${product.slug}`}
@@ -43,14 +43,14 @@ export default function ProductCard({
         className={`relative block aspect-square w-full overflow-hidden ${MEDIA_BG[tone]}`}
       >
         <div aria-hidden className="board-joint board-joint-dark absolute inset-0" />
-        <div className="relative h-full w-full p-6 transition-transform duration-300 group-hover:scale-105">
+        <div className="relative h-full w-full p-3 transition-transform sm:p-6 duration-300 group-hover:scale-105">
           <ProductImage
             src={product.image}
             alt={product.name}
             emoji={product.emoji}
           />
         </div>
-        <span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-navy shadow">
+        <span className="absolute left-2 top-2 rounded-full bg-white px-2 py-0.5 text-[10px] sm:left-3 sm:top-3 sm:px-3 sm:py-1 sm:text-xs font-bold text-brand-navy shadow">
           Age {product.age}
         </span>
         <button
@@ -59,21 +59,21 @@ export default function ProductCard({
             e.preventDefault();
             openQuickView(product.slug);
           }}
-          className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-brand-navy opacity-0 shadow transition-opacity group-hover:opacity-100"
+          className="absolute right-3 top-3 hidden rounded-full bg-white/90 sm:block px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-brand-navy opacity-0 shadow transition-opacity group-hover:opacity-100"
         >
           Quick View
         </button>
       </Link>
 
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <p className="font-mono text-[11px] font-medium uppercase tracking-wide text-brand-blue-600">
+      <div className="flex flex-1 flex-col gap-1.5 p-3 sm:gap-2 sm:p-4">
+        <p className="line-clamp-1 font-mono text-[10px] font-medium uppercase tracking-wide text-brand-blue-600 sm:text-[11px]">
           {product.categoryLabel}
         </p>
-        <h3 className="font-heading text-xl leading-tight text-brand-navy">
+        <h3 className="font-heading text-[15px] leading-tight text-brand-navy sm:text-xl">
           <Link href={`/shop/${product.slug}`}>{product.name}</Link>
         </h3>
 
-        <div className="flex items-center gap-1 text-sm text-brand-navy" aria-label={`Rated ${product.rating} out of 5`}>
+        <div className="flex items-center gap-1 text-xs text-brand-navy sm:text-sm" aria-label={`Rated ${product.rating} out of 5`}>
           <span aria-hidden className="text-brand-amber">
             {"★".repeat(Math.round(product.rating))}
             {"☆".repeat(5 - Math.round(product.rating))}
@@ -81,8 +81,8 @@ export default function ProductCard({
           <span className="text-muted">({product.reviewCount})</span>
         </div>
 
-        <div className="mt-auto flex items-center justify-between gap-2 pt-3">
-          <span className="min-w-0 truncate font-body text-lg font-extrabold text-brand-navy sm:text-xl">
+        <div className="mt-auto flex items-center justify-between gap-2 pt-2 sm:pt-3">
+          <span className="min-w-0 truncate font-body text-base font-extrabold text-brand-navy sm:text-xl">
             {displayPrice}
           </span>
           <button
@@ -97,7 +97,7 @@ export default function ProductCard({
               })
             }
             aria-label={`Add ${product.name} to cart`}
-            className="btn-brick flex h-11 w-11 shrink-0 items-center justify-center rounded-btn bg-brand-navy text-white transition-colors hover:bg-brand-blue"
+            className="btn-brick flex h-10 w-10 shrink-0 sm:h-11 sm:w-11 items-center justify-center rounded-btn bg-brand-navy text-white transition-colors hover:bg-brand-blue"
             style={{ "--btn-brick-shadow": "var(--color-brand-navy-700)" } as React.CSSProperties}
           >
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">

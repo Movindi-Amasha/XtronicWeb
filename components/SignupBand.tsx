@@ -5,7 +5,7 @@ export default function SignupBand() {
   return (
     <section aria-labelledby="signup-heading" className="mx-auto max-w-[1200px] px-4 pt-24 pb-24 md:px-6">
       <div
-        className="relative flex flex-wrap items-center justify-between gap-7 overflow-hidden rounded-[32px] px-7 py-10 text-white shadow-[0_10px_0_var(--color-brand-blue-600)] sm:px-12"
+        className="relative flex flex-wrap items-center justify-between gap-7 overflow-hidden rounded-[32px] px-5 py-8 sm:px-7 sm:py-10 text-white shadow-[0_10px_0_var(--color-brand-blue-600)] sm:px-12"
         style={{ background: "linear-gradient(120deg, var(--color-brand-blue), var(--color-brand-blue-600))" }}
       >
         <div aria-hidden className="studs-texture" />
@@ -23,7 +23,7 @@ export default function SignupBand() {
             </p>
           </div>
         </div>
-        <div className="relative">
+        <div className="relative w-full sm:w-auto">
           <NewsletterForm variant="band" />
         </div>
       </div>
