@@ -4,6 +4,7 @@ import Link from "next/link";
 import CreationsCarousel from "@/components/CreationsCarousel";
 import SignupBand from "@/components/SignupBand";
 import { LOGO } from "@/lib/brandColors";
+import LineIcon, { type LineIconName } from "@/components/LineIcon";
 
 export const metadata: Metadata = {
   title: "How It Works: Build, Learn & Play STEM Kits",
@@ -11,71 +12,6 @@ export const metadata: Metadata = {
     "From unboxing to mastering the STEM concepts behind your build, here's how an XTRONIC KIDS kit works, step by step.",
   alternates: { canonical: "/how-it-works" },
 };
-
-// Line icons (Lucide-style, 24px grid), drawn in currentColor.
-const ICONS = {
-  flask: (
-    <>
-      <path d="M9 3h6M10 3v6L4.5 18.5A2 2 0 0 0 6.2 21.5h11.6a2 2 0 0 0 1.7-3L14 9V3" />
-      <path d="M7 15h10" />
-    </>
-  ),
-  cog: (
-    <>
-      <circle cx="12" cy="12" r="3" />
-      <circle cx="12" cy="12" r="7" />
-      <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" />
-    </>
-  ),
-  wrench: (
-    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-  ),
-  puzzle: (
-    <path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z" />
-  ),
-  palette: (
-    <>
-      <circle cx="13.5" cy="6.5" r="1" fill="currentColor" />
-      <circle cx="17.5" cy="10.5" r="1" fill="currentColor" />
-      <circle cx="8.5" cy="7.5" r="1" fill="currentColor" />
-      <circle cx="6.5" cy="12.5" r="1" fill="currentColor" />
-      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 11.996 2z" />
-    </>
-  ),
-  rocket: (
-    <>
-      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-      <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-      <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-    </>
-  ),
-  package: (
-    <>
-      <path d="m7.5 4.27 9 5.15" />
-      <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
-      <path d="m3.3 7 8.7 5 8.7-5M12 22V12" />
-    </>
-  ),
-  percent: (
-    <>
-      <path d="M19 5 5 19" />
-      <circle cx="6.5" cy="6.5" r="2.5" />
-      <circle cx="17.5" cy="17.5" r="2.5" />
-    </>
-  ),
-  zap: (
-    <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
-  ),
-  book: <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />,
-};
-
-function LineIcon({ name, size = 24 }: { name: keyof typeof ICONS; size?: number }) {
-  return (
-    <svg aria-hidden viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      {ICONS[name]}
-    </svg>
-  );
-}
 
 // Same five steps as the homepage, with the hover animations from
 // globals.css (step-card / step-icon-*). Pink and purple from the design are
@@ -96,7 +32,7 @@ const BOX_TO_PLAY = [
   { image: "/products/voice-robot/4.jpg", label: "Test & Play" },
 ];
 
-const SKILLS: { icon: keyof typeof ICONS; title: string; desc: string; color: string }[] = [
+const SKILLS: { icon: LineIconName; title: string; desc: string; color: string }[] = [
   { icon: "flask", title: "Science", desc: "Understand how things work in the real world.", color: LOGO.blue },
   { icon: "cog", title: "Technology", desc: "Explore electronics, solar power and more.", color: LOGO.yellow },
   { icon: "wrench", title: "Engineering", desc: "Build and create working models.", color: LOGO.red },
@@ -113,7 +49,7 @@ const CREATIONS = [
   { href: "/shop/solar-butterfly", image: "/products/solar-butterfly/4.jpg", title: "Solar Butterfly" },
 ];
 
-const PERKS: { icon: keyof typeof ICONS; title: string; desc: string; color: string }[] = [
+const PERKS: { icon: LineIconName; title: string; desc: string; color: string }[] = [
   { icon: "package", title: "Monthly STEM Kit", desc: "New project each month", color: LOGO.orange },
   { icon: "percent", title: "Exclusive Discounts", desc: "15% off for members", color: LOGO.red },
   { icon: "zap", title: "Early Access", desc: "To new products", color: LOGO.yellow },
