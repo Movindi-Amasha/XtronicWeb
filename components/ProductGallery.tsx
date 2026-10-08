@@ -78,17 +78,67 @@ function VideoModal({ src, alt, onClose }: { src: string; alt: string; onClose: 
   return (
     <ModalShell onClose={onClose} label={`${alt}, video`}>
       <div
-        className="relative h-[80vh] w-[90vw] max-w-4xl"
+        className="relative flex max-h-[80vh] w-[90vw] max-w-4xl items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* eslint-disable-next-line jsx-a11y/media-has-caption -- no captions track available for these product demo clips */}
-        <video
-          src={src}
-          controls
-          autoPlay
-          playsInline
-          className="h-full w-full object-contain"
-        />
+        {/* A chunky white "kit panel" frame: brand colour stripe across the
+            top (same as the footer), the video inset like a screen, and a
+            branded caption bar inside the frame below it, so nothing ever
+            sits on top of the native video controls. */}
+        <div className="relative w-full overflow-hidden rounded-[26px] bg-white p-2.5 shadow-[0_10px_0_var(--color-brand-amber),0_30px_60px_-20px_rgba(0,0,0,0.5)] sm:rounded-[32px] sm:p-3.5">
+          <div
+            aria-hidden
+            className="absolute inset-x-0 top-0 h-1.5"
+            style={{
+              background:
+                "linear-gradient(90deg, var(--color-brand-blue) 0 25%, var(--color-brand-yellow) 25% 50%, var(--color-brand-amber) 50% 75%, var(--color-brand-green) 75%)",
+            }}
+          />
+          {/* eslint-disable-next-line jsx-a11y/media-has-caption -- no captions track available for these product demo clips */}
+          <video
+            src={src}
+            controls
+            autoPlay
+            playsInline
+            className="mt-1.5 block max-h-[calc(80vh-110px)] w-full rounded-[16px] bg-black sm:max-h-[calc(80vh-130px)] sm:rounded-[20px]"
+          />
+          <div className="relative mt-2.5 flex items-center gap-3 overflow-hidden rounded-[16px] bg-brand-blue-50 px-2.5 py-2 sm:mt-3.5 sm:gap-4 sm:rounded-[20px] sm:px-3.5 sm:py-2.5">
+            <div aria-hidden className="board-joint board-joint-dark absolute inset-0 text-brand-blue" />
+            <div className="relative h-11 w-11 shrink-0 rounded-[14px] bg-white p-1 shadow-[inset_0_-3px_0_rgba(14,30,63,0.08)] sm:h-14 sm:w-14 sm:rounded-2xl">
+              <div className="relative h-full w-full">
+                <Image
+                  src="/brand/xtronic-logo-transparent.png"
+                  alt=""
+                  fill
+                  sizes="56px"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+            <div className="relative min-w-0 flex-1">
+              <p className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-brand-amber sm:text-[11px]">
+                XTRONIC KIDS · See it in action
+              </p>
+              <p className="truncate font-heading text-[15px] font-semibold leading-tight text-brand-navy sm:text-lg">
+                {alt}
+              </p>
+            </div>
+            <ul aria-hidden className="relative hidden shrink-0 gap-1.5 md:flex">
+              {[
+                ["Learn", "bg-brand-blue text-white"],
+                ["Build", "bg-brand-yellow text-brand-navy"],
+                ["Play", "bg-brand-green text-white"],
+              ].map(([label, tone]) => (
+                <li
+                  key={label}
+                  className={`rounded-full px-3 py-1 font-heading text-xs font-semibold shadow-[inset_0_-3px_0_rgba(0,0,0,0.15)] ${tone}`}
+                >
+                  {label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </ModalShell>
   );

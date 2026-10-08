@@ -26,7 +26,7 @@ const STATS = [
 export default function WhyChooseRow() {
   return (
     <section id="why" aria-labelledby="why-choose-heading" className="mx-auto max-w-[1200px] px-4 pt-24 md:px-6">
-      <div className="grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-center">
+      <div className="grid gap-10 md:gap-12 md:grid-cols-[1.2fr_1fr] md:items-center">
         <div>
           <span className="text-xs font-extrabold uppercase tracking-[0.1em] text-brand-amber">
             More than a toy
@@ -38,11 +38,11 @@ export default function WhyChooseRow() {
             Designed with teachers, tested by kids, loved by parents.
           </p>
 
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
             {ITEMS.map((item) => (
               <div
                 key={item.title}
-                className="flex gap-3.5 rounded-card border-2 border-transparent bg-canvas p-4.5 transition-colors hover:border-line hover:bg-white"
+                className="flex gap-3.5 rounded-card border-2 border-line bg-white p-4 sm:border-transparent sm:bg-canvas sm:p-4.5 transition-colors hover:border-line hover:bg-white"
               >
                 <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl text-xl text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.12)] ${TONE_STYLES[item.tone]}`}>
                   {item.icon}
@@ -58,7 +58,7 @@ export default function WhyChooseRow() {
 
         <div className="relative">
           <div
-            className="relative overflow-hidden rounded-[32px] p-9 text-white shadow-[0_12px_0_var(--color-brand-blue-600),0_24px_60px_-20px_rgba(14,30,63,0.28)]"
+            className="relative overflow-hidden rounded-[32px] p-6 text-white sm:p-9 shadow-[0_12px_0_var(--color-brand-blue-600),0_24px_60px_-20px_rgba(14,30,63,0.28)]"
             style={{ background: "linear-gradient(150deg, var(--color-brand-blue), var(--color-brand-blue-600))" }}
           >
             <div aria-hidden className="studs-texture" />
