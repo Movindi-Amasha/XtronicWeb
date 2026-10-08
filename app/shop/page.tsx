@@ -212,7 +212,7 @@ export default function ShopPage() {
               ))}
             </ul>
             <div aria-hidden className="pointer-events-none absolute -right-6 -top-2 h-32 w-32 rotate-6 opacity-95">
-              <Image src="/mascot/illustrated-robot.png" alt="" fill sizes="128px" className="object-contain" />
+              <Image src="/mascot/thumbs-up-confetti.png" alt="" fill sizes="128px" className="object-contain" />
             </div>
           </aside>
         </div>
