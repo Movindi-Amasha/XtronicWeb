@@ -122,7 +122,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <Header />
-        <main id="main-content" className="flex-1 pb-16 md:pb-0">
+        <main id="main-content" className="flex-1 overflow-x-clip pb-16 md:pb-0">
           {children}
         </main>
         <Footer />

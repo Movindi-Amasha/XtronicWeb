@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import SignupBand from "@/components/SignupBand";
+import Doodled from "@/components/Doodled";
 import LineIcon, { type LineIconName } from "@/components/LineIcon";
 import { LOGO } from "@/lib/brandColors";
 
@@ -59,15 +60,29 @@ const BEHIND_THE_SCENES = [
 
 // ── Building blocks ──
 
-function Heading({ icon, color, children, sub }: { icon: LineIconName; color: string; children: React.ReactNode; sub?: string }) {
+function Heading({
+  icon,
+  color,
+  children,
+  sub,
+  doodles = "left",
+}: {
+  icon: LineIconName;
+  color: string;
+  children: React.ReactNode;
+  sub?: string;
+  doodles?: "left" | "right" | "center" | "split";
+}) {
   return (
     <div>
-      <h2 className="flex items-center gap-2.5 text-[clamp(28px,3.6vw,40px)] font-bold leading-tight tracking-tight">
-        <span style={{ color }}>
-          <LineIcon name={icon} size={34} strokeWidth={2.2} />
-        </span>
-        {children}
-      </h2>
+      <Doodled preset={doodles}>
+        <h2 className="flex items-center gap-2.5 text-[clamp(28px,3.6vw,40px)] font-bold leading-tight tracking-tight">
+          <span style={{ color }}>
+            <LineIcon name={icon} size={34} strokeWidth={2.2} />
+          </span>
+          {children}
+        </h2>
+      </Doodled>
       {sub && <p className="mt-1 font-semibold text-muted sm:text-lg">{sub}</p>}
     </div>
   );
@@ -205,7 +220,7 @@ export default function AboutPage() {
       {/* ── Journey timeline ── */}
       <section id="journey" aria-labelledby="journey-heading" className="relative mx-auto max-w-[1200px] scroll-mt-24 px-4 pt-16 md:px-6">
         <div id="journey-heading">
-          <Heading icon="heart" color={LOGO.red} sub="Key milestones in our growth and innovation.">
+          <Heading icon="heart" color={LOGO.red} doodles="right" sub="Key milestones in our growth and innovation.">
             <span style={{ color: LOGO.blue }}>Our</span> <span style={{ color: LOGO.orange }}>Journey</span>
           </Heading>
         </div>
@@ -233,7 +248,7 @@ export default function AboutPage() {
         <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           <div>
             <div id="values-heading">
-              <Heading icon="heart" color={LOGO.red} sub="The values that guide everything we do.">
+              <Heading icon="heart" color={LOGO.red} doodles="split" sub="The values that guide everything we do.">
                 <span style={{ color: LOGO.blue }}>Our Core</span> <span style={{ color: LOGO.orange }}>Values</span>
               </Heading>
             </div>
@@ -327,7 +342,7 @@ export default function AboutPage() {
 
           <div>
             <div className="flex flex-wrap items-end justify-between gap-3">
-              <Heading icon="cog" color={LOGO.blue} sub="Inside the kits: parts, builds and finished models.">
+              <Heading icon="cog" color={LOGO.blue} doodles="right" sub="Inside the kits: parts, builds and finished models.">
                 <span style={{ color: LOGO.blue }}>Behind the Scenes</span>
               </Heading>
               <Link href="/shop" className="rounded-btn border-2 border-brand-blue px-4 py-2 font-heading text-sm font-semibold text-brand-blue hover:bg-brand-blue hover:text-white">

@@ -2,6 +2,7 @@ import Link from "next/link";
 import CreationsCarousel from "./CreationsCarousel";
 import { products } from "@/lib/products";
 import { LOGO } from "@/lib/brandColors";
+import Doodled from "@/components/Doodled";
 
 // Each kit's "in action" photo (public/products/<slug>/4.jpg).
 const CREATIONS = products
@@ -12,9 +13,9 @@ export default function WorksGallery() {
   return (
     <section id="gallery" aria-labelledby="gallery-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">
       <div className="relative text-center">
-        <h2 id="gallery-heading" className="text-[clamp(30px,4vw,44px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
+        <Doodled preset="center"><h2 id="gallery-heading" className="text-[clamp(30px,4vw,44px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
           Our Works <span style={{ color: LOGO.orange }}>Gallery</span>
-        </h2>
+        </h2></Doodled>
         <p className="mt-1 text-lg font-semibold text-muted">Every kit built, powered up and ready to play.</p>
         <Link
           href="/how-it-works"

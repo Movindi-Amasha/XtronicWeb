@@ -248,6 +248,13 @@
   .step-card:hover .step-badge { animation: step-badge-pop 0.35s ease-out forwards; }
 }
 
+/* Heading doodles (components/Doodled.tsx) bob gently. */
+@keyframes doodle-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -5px; }
+}
+.doodle { animation: doodle-float 4s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { LOGO } from "@/lib/brandColors";
+import Doodled from "@/components/Doodled";
 
 const REVIEWS = [
   {
@@ -60,9 +61,9 @@ export default function ParentReviews() {
   return (
     <section id="reviews" aria-labelledby="reviews-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">
       <div className="text-center">
-        <h2 id="reviews-heading" className="text-[clamp(30px,4vw,44px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
+        <Doodled preset="center"><h2 id="reviews-heading" className="text-[clamp(30px,4vw,44px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
           What Parents &amp; <span style={{ color: LOGO.orange }}>Kids Say</span>
-        </h2>
+        </h2></Doodled>
         <p className="mt-1 text-lg font-semibold text-muted">
           <span className="text-brand-yellow-600" aria-hidden>★★★★★</span> 4.9 out of 5 from our amazing community
         </p>

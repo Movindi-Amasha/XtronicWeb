@@ -1,6 +1,8 @@
 import Link from "next/link";
 import ProductCard from "./ProductCard";
 import { products } from "@/lib/products";
+import { LOGO } from "@/lib/brandColors";
+import Doodled from "@/components/Doodled";
 
 function ViewAllButton({ className = "" }: { className?: string }) {
   return (
@@ -20,9 +22,9 @@ export default function ProductLineup() {
   return (
     <section id="kits" aria-labelledby="lineup-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">
       <div className="relative text-center">
-        <h2 id="lineup-heading" className="text-[clamp(32px,4.4vw,52px)] font-bold uppercase tracking-tight text-brand-navy">
-          Meet our <span className="text-highlight text-brand-amber">kits</span>
-        </h2>
+        <Doodled preset="center"><h2 id="lineup-heading" className="text-[clamp(32px,4.4vw,52px)] font-bold uppercase tracking-tight" style={{ color: LOGO.blue }}>
+          Meet our <span style={{ color: LOGO.orange }}>kits</span>
+        </h2></Doodled>
         <p className="mt-1.5 text-lg font-semibold text-muted">
           Explore our amazing kits. Build, learn and have fun!
         </p>

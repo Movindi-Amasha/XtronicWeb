@@ -8,6 +8,7 @@ import { products, type Product } from "@/lib/products";
 import { LOGO } from "@/lib/brandColors";
 import { useCartStore } from "@/lib/cartStore";
 import { useDisplayPrice } from "@/lib/useDisplayPrice";
+import Doodled from "@/components/Doodled";
 
 const KITS_TOTAL_CENTS = products
   .filter((p) => p.category !== "Bundles & Gifts")
@@ -86,9 +87,9 @@ export default function SpecialsSection() {
 
   return (
     <section id="specials" aria-labelledby="specials-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">
-      <h2 id="specials-heading" className="text-[clamp(30px,4vw,44px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
+      <Doodled preset="right"><h2 id="specials-heading" className="text-[clamp(30px,4vw,44px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
         Our Special <span style={{ color: LOGO.orange }}>Products</span>
-      </h2>
+      </h2></Doodled>
       <p className="mt-1 text-lg font-semibold text-muted">Unique kits and bundles for extra fun and learning!</p>
 
       <div className="mt-8 grid gap-5 lg:grid-cols-[3fr_1.2fr]">

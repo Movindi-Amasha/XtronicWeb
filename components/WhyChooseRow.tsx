@@ -3,6 +3,7 @@ import Link from "next/link";
 import LineIcon, { type LineIconName } from "./LineIcon";
 import { products } from "@/lib/products";
 import { LOGO } from "@/lib/brandColors";
+import Doodled from "@/components/Doodled";
 
 const ITEMS: { icon: LineIconName; title: string; desc: string; color: string }[] = [
   { icon: "flask", title: "STEM Skills", desc: "Science, technology, engineering and maths.", color: LOGO.blue },
@@ -24,9 +25,9 @@ export default function WhyChooseRow() {
     <section id="why" aria-labelledby="why-choose-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">
       <div className="grid items-center gap-8 lg:grid-cols-[1.5fr_1fr]">
         <div>
-          <h2 id="why-choose-heading" className="text-[clamp(30px,4vw,44px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
+          <Doodled preset="split"><h2 id="why-choose-heading" className="text-[clamp(30px,4vw,44px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
             Why <span style={{ color: LOGO.orange }}>XTRONIC</span>?
-          </h2>
+          </h2></Doodled>
           <p className="mt-1 text-lg font-semibold text-muted">More than a toy. It&apos;s a learning experience.</p>
 
           <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import LineIcon, { type LineIconName } from "./LineIcon";
 import { LOGO } from "@/lib/brandColors";
+import Doodled from "@/components/Doodled";
 
 const PERKS: { icon: LineIconName; title: string; desc: string; color: string }[] = [
   { icon: "package", title: "Monthly STEM Kit", desc: "New project each month", color: LOGO.orange },
@@ -65,11 +66,11 @@ export default function SubscriptionBand() {
         </div>
 
         <div>
-          <h2 id="club-heading" className="text-[clamp(28px,3.6vw,42px)] font-bold leading-tight">
+          <Doodled preset="left"><h2 id="club-heading" className="text-[clamp(28px,3.6vw,42px)] font-bold leading-tight">
             <span style={{ color: LOGO.blue }}>XTRONIC Club</span>
             <br />
             <span style={{ color: LOGO.orange }}>Subscription</span>
-          </h2>
+          </h2></Doodled>
           <p className="mt-2 max-w-lg font-semibold text-muted">
             Keep the learning going! A fresh STEM kit, activities and member-only perks delivered every
             month. Pause or cancel anytime.

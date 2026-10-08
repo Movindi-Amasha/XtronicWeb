@@ -5,6 +5,7 @@ import CreationsCarousel from "@/components/CreationsCarousel";
 import SignupBand from "@/components/SignupBand";
 import { LOGO } from "@/lib/brandColors";
 import LineIcon, { type LineIconName } from "@/components/LineIcon";
+import Doodled from "@/components/Doodled";
 
 export const metadata: Metadata = {
   title: "How It Works: Build, Learn & Play STEM Kits",
@@ -89,10 +90,22 @@ function SpeechBubble({ children, className = "", tail = "left" }: { children: R
   );
 }
 
-function SectionHeading({ children, sub, center = false }: { children: React.ReactNode; sub?: string; center?: boolean }) {
+function SectionHeading({
+  children,
+  sub,
+  center = false,
+  doodles = center ? "center" : "left",
+}: {
+  children: React.ReactNode;
+  sub?: string;
+  center?: boolean;
+  doodles?: "left" | "right" | "center" | "split";
+}) {
   return (
     <div className={center ? "text-center" : ""}>
-      <h2 className="text-[clamp(28px,4vw,42px)] font-bold leading-tight tracking-tight text-brand-navy">{children}</h2>
+      <Doodled preset={doodles}>
+        <h2 className="text-[clamp(28px,4vw,42px)] font-bold leading-tight tracking-tight text-brand-navy">{children}</h2>
+      </Doodled>
       {sub && <p className="mt-1.5 text-base font-semibold text-muted sm:text-lg">{sub}</p>}
     </div>
   );
@@ -274,7 +287,7 @@ export default function HowItWorksPage() {
         <div className="grid items-center gap-8 lg:grid-cols-[1fr_340px]">
           <div>
             <div id="learn-heading">
-              <SectionHeading sub="Every kit is a hands-on learning experience that builds real skills.">
+              <SectionHeading doodles="split" sub="Every kit is a hands-on learning experience that builds real skills.">
                 <span style={{ color: LOGO.blue }}>What</span> <span style={{ color: LOGO.orange }}>Kids</span>{" "}
                 <span style={{ color: LOGO.blue }}>Learn</span>
               </SectionHeading>
@@ -312,7 +325,7 @@ export default function HowItWorksPage() {
       {/* ── Creations carousel ── */}
       <section aria-labelledby="creations-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">
         <div id="creations-heading">
-          <SectionHeading sub="See every kit built, powered up and ready to play.">
+          <SectionHeading doodles="right" sub="See every kit built, powered up and ready to play.">
             <span style={{ color: LOGO.blue }}>Real Builds,</span> <span style={{ color: LOGO.orange }}>Real Creations</span>
           </SectionHeading>
         </div>
@@ -332,10 +345,10 @@ export default function HowItWorksPage() {
             <Image src="/mascot/holding-gift.png" alt="" fill sizes="208px" className="object-contain" />
           </div>
           <div>
-            <h2 id="club-heading" className="text-[clamp(26px,3.2vw,36px)] font-bold leading-tight">
+            <Doodled preset="left"><h2 id="club-heading" className="text-[clamp(26px,3.2vw,36px)] font-bold leading-tight">
               <span style={{ color: LOGO.blue }}>XTRONIC Club</span>{" "}
               <span style={{ color: LOGO.orange }}>Subscription</span>
-            </h2>
+            </h2></Doodled>
             <p className="mt-1.5 max-w-xl font-semibold text-muted">
               Keep the learning going! Get a new kit, activities and exclusive member benefits delivered
               every month for $19.99.

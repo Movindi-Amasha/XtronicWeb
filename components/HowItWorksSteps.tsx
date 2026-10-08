@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import LineIcon from "./LineIcon";
 import { LOGO } from "@/lib/brandColors";
+import Doodled from "@/components/Doodled";
 
 // anim = which step-icon-* hover animation (globals.css) the icon plays.
 const STEPS = [
@@ -22,9 +23,9 @@ export default function HowItWorksSteps() {
         <div>
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h2 id="how-it-works-heading" className="text-[clamp(30px,4vw,44px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
+              <Doodled preset="left"><h2 id="how-it-works-heading" className="text-[clamp(30px,4vw,44px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
                 How It <span style={{ color: LOGO.orange }}>Works</span>
-              </h2>
+              </h2></Doodled>
               <p className="mt-1 text-lg font-semibold text-muted">From box to brilliant creations!</p>
             </div>
             <span className="hidden -rotate-12 text-brand-blue/70 sm:block">

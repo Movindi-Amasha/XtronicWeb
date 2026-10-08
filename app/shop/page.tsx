@@ -7,6 +7,7 @@ import SignupBand from "@/components/SignupBand";
 import LineIcon, { type LineIconName } from "@/components/LineIcon";
 import { products } from "@/lib/products";
 import { LOGO } from "@/lib/brandColors";
+import Doodled from "@/components/Doodled";
 
 export const metadata: Metadata = {
   title: "Shop STEM Robotics & Solar Kits for Kids",
@@ -149,9 +150,9 @@ export default function ShopPage() {
 
       {/* ── Compare ── */}
       <section aria-labelledby="compare-heading" className="mx-auto max-w-[1260px] px-4 pt-20 md:px-6">
-        <h2 id="compare-heading" className="text-[clamp(28px,3.6vw,40px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
+        <Doodled preset="split"><h2 id="compare-heading" className="text-[clamp(28px,3.6vw,40px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
           Compare Our <span style={{ color: LOGO.orange }}>STEM Kits</span>
-        </h2>
+        </h2></Doodled>
         <p className="mt-1 text-lg font-semibold text-muted">Find the perfect kit for your child&apos;s interests!</p>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_300px]">
@@ -225,9 +226,9 @@ export default function ShopPage() {
           style={{ background: "linear-gradient(120deg, #fff 0%, #e9f5ff 60%, var(--color-brand-yellow-50) 100%)" }}
         >
           <div>
-            <h2 id="gift-heading" className="text-[clamp(26px,3.2vw,36px)] font-bold leading-tight" style={{ color: LOGO.blue }}>
+            <Doodled preset="right"><h2 id="gift-heading" className="text-[clamp(26px,3.2vw,36px)] font-bold leading-tight" style={{ color: LOGO.blue }}>
               Need a <span style={{ color: LOGO.red }}>Special Gift?</span>
-            </h2>
+            </h2></Doodled>
             <p className="mt-1 font-semibold text-muted">Our STEM kits are perfect for birthdays, holidays and special occasions!</p>
             <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
               {GIFT_OCCASIONS.map((o, i) => (
