@@ -18,14 +18,21 @@ export function getProductImages(slug: string): string[] {
     return [];
   }
 
+  const hasCutout = files.includes("cutout.png");
+
   const images = files.filter(
     (f) =>
       IMAGE_EXTENSIONS.includes(path.extname(f).toLowerCase()) &&
-      !f.toLowerCase().startsWith("banner.")
+      !f.toLowerCase().startsWith("banner.") &&
+      // When a background-removed cutout exists, skip the plain studio shot
+      // it was made from — showing the same product twice in a row (once
+      // floating, once on a flat background) right at the start of the
+      // gallery reads as a glitchy duplicate rather than a second angle.
+      !(hasCutout && f === "main.jpg")
   );
 
-  // Background-removed cutout (if one exists) leads the gallery, then the
-  // original studio photo, then any extra angle shots.
+  // Background-removed cutout (if one exists) leads the gallery, then any
+  // extra angle shots.
   const rank = (f: string) => (f === "cutout.png" ? 0 : f === "main.jpg" ? 1 : 2);
   images.sort((a, b) => {
     const r = rank(a) - rank(b);
@@ -55,9 +62,19 @@ const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov"];
 // itself is deployed. Add a new entry here once a video is uploaded; the
 // local public/products/<slug>/video.<ext> fallback below still works for
 // anyone testing with a file dropped in locally before it's uploaded.
+//
+// Every URL includes the q_auto,f_auto transformation — the raw uploads are
+// 50-100MB+ (far above normal web streaming bitrate), which is exactly why
+// playback kept stalling to buffer. q_auto,f_auto has Cloudinary serve an
+// auto-compressed, auto-format version instead (confirmed ~80% smaller,
+// still a valid, good-quality MP4) with no change needed to the source file.
 const EXTERNAL_VIDEOS: Record<string, string> = {
-  "voice-robot": "https://res.cloudinary.com/w70iq3ve/video/upload/v1791387112/Xtronic_Voice_Robot_WEB_VID.mp4",
-  "solar-4wd-rover": "https://res.cloudinary.com/w70iq3ve/video/upload/v1791387079/Racer_Web.mp4",
+  "voice-robot": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791442429/Xtronic_Voice_Robot_WEB_VID.mp4",
+  "solar-4wd-rover": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791442400/1_Racer.mp4",
+  // Uploaded as .mov — Cloudinary transcodes to real video/mp4 on the fly
+  // just by requesting the .mp4 extension, which is what every browser
+  // reliably plays (Chrome/Firefox often refuse video/quicktime outright).
+  "wooden-taxiing-aircraft": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791442848/Plane_Video.mp4",
 };
 
 /**

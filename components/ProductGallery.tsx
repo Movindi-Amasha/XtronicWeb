@@ -1,15 +1,20 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import ProductImage from "./ProductImage";
 
 const SWIPE_THRESHOLD_PX = 50;
 
 type Slide = { type: "video"; src: string } | { type: "image"; src: string };
 
-function VideoSlide({ src, poster }: { src: string; poster?: string }) {
+function VideoSlide({ src, poster, isActive }: { src: string; poster?: string; isActive: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    if (!isActive) videoRef.current?.pause();
+  }, [isActive]);
 
   return (
     <div className="relative h-full w-full">
@@ -19,7 +24,7 @@ function VideoSlide({ src, poster }: { src: string; poster?: string }) {
         poster={poster}
         controls
         playsInline
-        preload="metadata"
+        preload="auto"
         className="h-full w-full object-contain"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
@@ -46,6 +51,102 @@ function VideoSlide({ src, poster }: { src: string; poster?: string }) {
   );
 }
 
+function Lightbox({
+  images,
+  index,
+  alt,
+  onClose,
+  onPrev,
+  onNext,
+}: {
+  images: string[];
+  index: number;
+  alt: string;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  useEffect(() => {
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+      else if (e.key === "ArrowLeft") onPrev();
+      else if (e.key === "ArrowRight") onNext();
+    }
+    window.addEventListener("keydown", handleKey);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [onClose, onPrev, onNext]);
+
+  const count = images.length;
+
+  return (
+    <div
+      className="fixed inset-0 z-[1000] flex items-center justify-center bg-brand-navy/80 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${alt}, enlarged photo ${index + 1} of ${count}`}
+      onClick={onClose}
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close"
+        className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-2xl text-white hover:bg-white/20"
+      >
+        ✕
+      </button>
+
+      {count > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onPrev();
+            }}
+            disabled={index === 0}
+            aria-label="Previous"
+            className="absolute left-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white hover:bg-white/20 disabled:opacity-0 sm:left-6"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onNext();
+            }}
+            disabled={index === count - 1}
+            aria-label="Next"
+            className="absolute right-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white hover:bg-white/20 disabled:opacity-0 sm:right-6"
+          >
+            ›
+          </button>
+        </>
+      )}
+
+      <div
+        className="relative h-[80vh] w-[90vw] max-w-4xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Image
+          src={images[index]}
+          alt={`${alt}, enlarged photo ${index + 1} of ${count}`}
+          fill
+          sizes="90vw"
+          className="object-contain"
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function ProductGallery({
   images,
   video,
@@ -62,6 +163,7 @@ export default function ProductGallery({
   const [index, setIndex] = useState(0);
   const [dragPx, setDragPx] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const dragStartX = useRef<number | null>(null);
 
   const slides: Slide[] = [
@@ -108,6 +210,9 @@ export default function ProductGallery({
     }
   }
 
+  const currentSlide = slides[index];
+  const currentImageIndex = video ? index - 1 : index;
+
   const offsetPct = count > 0 ? -index * (100 / count) : 0;
 
   return (
@@ -140,7 +245,7 @@ export default function ProductGallery({
               aria-hidden={i !== index}
             >
               {slide.type === "video" ? (
-                <VideoSlide src={slide.src} poster={images[0]} />
+                <VideoSlide src={slide.src} poster={images[0]} isActive={i === index} />
               ) : (
                 <ProductImage src={slide.src} alt={`${alt}, photo ${i + 1} of ${count}`} emoji={emoji} />
               )}
@@ -178,6 +283,20 @@ export default function ProductGallery({
             </button>
           </>
         )}
+
+        {currentSlide?.type === "image" && (
+          <button
+            type="button"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={() => setLightboxIndex(currentImageIndex)}
+            aria-label="View full size"
+            className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-surface/90 text-brand-navy shadow transition-opacity hover:bg-surface"
+          >
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3" />
+            </svg>
+          </button>
+        )}
       </div>
 
       {canSwipe && (
@@ -195,6 +314,17 @@ export default function ProductGallery({
             />
           ))}
         </div>
+      )}
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={images}
+          index={lightboxIndex}
+          alt={alt}
+          onClose={() => setLightboxIndex(null)}
+          onPrev={() => setLightboxIndex((i) => Math.max(0, (i ?? 0) - 1))}
+          onNext={() => setLightboxIndex((i) => Math.min(images.length - 1, (i ?? 0) + 1))}
+        />
       )}
     </div>
   );

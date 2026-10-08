@@ -23,6 +23,31 @@ export interface Product {
 
 export const products: Product[] = [
   {
+    slug: "voice-robot",
+    name: "Smart Voice-Controlled Robot Kit",
+    emoji: "🤖",
+    category: "Robotics & Electronics",
+    categoryLabel: "Robotics & Electronics",
+    age: "7+",
+    priceCents: 3995,
+    buildTime: "60–90 min",
+    rating: 4.9,
+    reviewCount: 156,
+    highlights: [
+      "Responds to clap and voice triggers",
+      "Bi-directional gear system",
+      "Flashing LED eyes",
+    ],
+    stemConcepts: ["Sound frequency", "Electronics", "Gear mechanics"],
+    whatsInTheBox: [
+      "Robot chassis & gear system",
+      "Voice/clap sensor module",
+      "LED eye assembly",
+      "Illustrated build guide",
+    ],
+    image: "/products/voice-robot/cutout.png",
+  },
+  {
     slug: "solar-4wd-rover",
     name: "Solar 4-Wheel Drive DIY Rover",
     emoji: "☀️",
@@ -96,31 +121,6 @@ export const products: Product[] = [
       "Illustrated build guide",
     ],
     image: "/products/solar-speedboat/main.jpg",
-  },
-  {
-    slug: "voice-robot",
-    name: "Smart Voice-Controlled Robot Kit",
-    emoji: "🤖",
-    category: "Robotics & Electronics",
-    categoryLabel: "Robotics & Electronics",
-    age: "7+",
-    priceCents: 3995,
-    buildTime: "60–90 min",
-    rating: 4.9,
-    reviewCount: 156,
-    highlights: [
-      "Responds to clap and voice triggers",
-      "Bi-directional gear system",
-      "Flashing LED eyes",
-    ],
-    stemConcepts: ["Sound frequency", "Electronics", "Gear mechanics"],
-    whatsInTheBox: [
-      "Robot chassis & gear system",
-      "Voice/clap sensor module",
-      "LED eye assembly",
-      "Illustrated build guide",
-    ],
-    image: "/products/voice-robot/cutout.png",
   },
   {
     slug: "solar-butterfly",
