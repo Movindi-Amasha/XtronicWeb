@@ -69,14 +69,14 @@ const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov"];
 // auto-compressed, auto-format version instead (confirmed ~80% smaller,
 // still a valid, good-quality MP4) with no change needed to the source file.
 const EXTERNAL_VIDEOS: Record<string, string> = {
-  "voice-robot": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791451362/1008_5.mp4",
-  "solar-4wd-rover": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791451529/1008_6.mp4",
+  "voice-robot": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto,w_1280/v1791451362/1008_5.mp4",
+  "solar-4wd-rover": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto,w_1280/v1791451529/1008_6.mp4",
   // Uploaded as .mov — Cloudinary transcodes to real video/mp4 on the fly
   // just by requesting the .mp4 extension, which is what every browser
   // reliably plays (Chrome/Firefox often refuse video/quicktime outright).
-  "wooden-taxiing-aircraft": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791442848/Plane_Video.mp4",
-  "solar-speedboat": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791446099/Yatch.mp4",
-  "solar-butterfly": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791452010/1008_6_1.mp4",
+  "wooden-taxiing-aircraft": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto,w_1280/v1791442848/Plane_Video.mp4",
+  "solar-speedboat": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto,w_1280/v1791446099/Yatch.mp4",
+  "solar-butterfly": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto,w_1280/v1791452010/1008_6_1.mp4",
 };
 
 /**
