@@ -13,8 +13,20 @@ const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
 
 export default function PaypalPaymentSection({
   shippingMethod,
+  email,
+  name,
+  phone,
+  address,
+  city,
+  postcode,
 }: {
   shippingMethod: ShippingMethod;
+  email: string;
+  name: string;
+  phone: string;
+  address: string;
+  city: string;
+  postcode: string;
 }) {
   const items = useCartStore((s) => s.items);
   const clearCart = useCartStore((s) => s.clearCart);
@@ -61,7 +73,22 @@ export default function PaypalPaymentSection({
           const res = await fetch("/api/checkout/paypal/capture", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ orderId: data.orderID }),
+            body: JSON.stringify({
+              orderId: data.orderID,
+              items: items.map((i) => ({ slug: i.slug, qty: i.qty })),
+              shippingMethod,
+              // The checkout form's own fields — PayPal's own payer email
+              // and shipping info aren't reliable (we don't even collect
+              // shipping through PayPal; shipping_preference is NO_SHIPPING),
+              // so this is the single source of truth for who to contact
+              // and where to ship, same as the PayHere flow already does.
+              email,
+              name,
+              phone,
+              address,
+              city,
+              postcode,
+            }),
           });
           if (!res.ok) {
             const err = await res.json().catch(() => ({}));

@@ -75,6 +75,7 @@ const EXTERNAL_VIDEOS: Record<string, string> = {
   // just by requesting the .mp4 extension, which is what every browser
   // reliably plays (Chrome/Firefox often refuse video/quicktime outright).
   "wooden-taxiing-aircraft": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791442848/Plane_Video.mp4",
+  "solar-speedboat": "https://res.cloudinary.com/w70iq3ve/video/upload/q_auto,f_auto/v1791446099/Yatch.mp4",
 };
 
 /**

@@ -188,7 +188,15 @@ export default function CheckoutForm() {
                 <p className="mb-4 text-sm font-bold text-brand-navy">
                   Pay with PayPal or Card
                 </p>
-                <PaypalPaymentSection shippingMethod={shippingMethod} />
+                <PaypalPaymentSection
+                  shippingMethod={shippingMethod}
+                  email={email}
+                  name={name}
+                  phone={phone}
+                  address={address}
+                  city={city}
+                  postcode={postcode}
+                />
               </div>
               <div className="rounded-card border border-line p-5">
                 <p className="mb-4 text-sm font-bold text-brand-navy">Pay with PayHere</p>

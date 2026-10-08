@@ -38,14 +38,20 @@ export async function POST(request: Request) {
 
   // status_code: 2 = success, 0 = pending, -1 = cancelled, -2 = failed, -3 = chargedback
   if (status_code === "2") {
-    const totalCents = Math.round(parseFloat(payhere_amount) * 100);
-
+    // The real order (email, shipping address, line items, AUD totals) was
+    // already saved as "pending" by /api/checkout/payhere/create — this
+    // notify payload doesn't carry enough to reconstruct any of that, so the
+    // normal path is just flipping that existing row to "paid". The `create`
+    // fallback below only fires if that pending row is somehow missing.
     const existing = await db.order.findUnique({ where: { providerReference: order_id } });
     const isNewlyPaid = !existing || existing.status !== "paid";
+    const totalCents = existing?.totalCents ?? Math.round(parseFloat(payhere_amount) * 100);
+    const currency = existing?.currency ?? payhere_currency ?? "LKR";
+    const resolvedEmail = existing?.email && existing.email !== "unknown@example.com" ? existing.email : email;
 
     await db.order.upsert({
       where: { providerReference: order_id },
-      update: { status: "paid" },
+      update: { status: "paid", email: resolvedEmail },
       create: {
         paymentProvider: "payhere",
         providerReference: order_id,
@@ -54,7 +60,7 @@ export async function POST(request: Request) {
         subtotalCents: totalCents,
         shippingCents: 0,
         totalCents,
-        email,
+        email: resolvedEmail,
         shippingAddress: "{}",
         lineItems: "[]",
       },
@@ -64,9 +70,9 @@ export async function POST(request: Request) {
       const { subject, html } = orderConfirmationEmail({
         orderId: order_id,
         totalCents,
-        currency: payhere_currency || "LKR",
+        currency,
       });
-      await sendEmail({ to: email, subject, html });
+      await sendEmail({ to: resolvedEmail, subject, html });
     }
   }
 

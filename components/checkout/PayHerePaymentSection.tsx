@@ -48,6 +48,11 @@ export default function PayHerePaymentSection({
         body: JSON.stringify({
           items: items.map((i) => ({ slug: i.slug, qty: i.qty })),
           shippingMethod,
+          email,
+          name,
+          phone,
+          address,
+          city,
         }),
       });
       const data = await res.json();

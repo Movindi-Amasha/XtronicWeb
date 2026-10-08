@@ -8,50 +8,93 @@ const SWIPE_THRESHOLD_PX = 50;
 
 type Slide = { type: "video"; src: string } | { type: "image"; src: string };
 
-function VideoSlide({ src, poster, isActive }: { src: string; poster?: string; isActive: boolean }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  useEffect(() => {
-    if (!isActive) videoRef.current?.pause();
-  }, [isActive]);
-
+function VideoThumb({ poster, emoji, onPlay }: { poster?: string; emoji: string; onPlay: () => void }) {
   return (
     <div className="relative h-full w-full">
-      <video
-        ref={videoRef}
-        src={src}
-        poster={poster}
-        controls
-        playsInline
-        preload="auto"
-        className="h-full w-full object-contain"
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
+      {poster && <ProductImage src={poster} alt="" emoji={emoji} />}
+      <button
+        type="button"
+        onPointerDown={(e) => e.stopPropagation()}
+        onClick={onPlay}
+        aria-label="Play video"
+        className="absolute inset-0 flex items-center justify-center bg-brand-navy/10 transition-colors hover:bg-brand-navy/20"
       >
-        <track kind="captions" />
-      </video>
-
-      {!isPlaying && (
-        <button
-          type="button"
-          onPointerDown={(e) => e.stopPropagation()}
-          onClick={() => videoRef.current?.play()}
-          aria-label="Play video"
-          className="absolute inset-0 flex items-center justify-center bg-brand-navy/10 transition-colors hover:bg-brand-navy/15"
-        >
-          <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white/95 text-brand-navy shadow-lg transition-transform hover:scale-105">
-            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="ml-1">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </span>
-        </button>
-      )}
+        <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white/95 text-brand-navy shadow-lg transition-transform hover:scale-105">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="ml-1">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </span>
+      </button>
     </div>
   );
 }
 
-function Lightbox({
+function ModalShell({
+  onClose,
+  children,
+  label,
+}: {
+  onClose: () => void;
+  children: React.ReactNode;
+  label: string;
+}) {
+  useEffect(() => {
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", handleKey);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[1000] flex items-center justify-center bg-brand-navy/80 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label={label}
+      onClick={onClose}
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close"
+        className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-2xl text-white hover:bg-white/20"
+      >
+        ✕
+      </button>
+      {children}
+    </div>
+  );
+}
+
+function VideoModal({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) {
+  return (
+    <ModalShell onClose={onClose} label={`${alt}, video`}>
+      <div
+        className="relative h-[80vh] w-[90vw] max-w-4xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* eslint-disable-next-line jsx-a11y/media-has-caption -- no captions track available for these product demo clips */}
+        <video
+          src={src}
+          controls
+          autoPlay
+          playsInline
+          className="h-full w-full object-contain"
+        />
+      </div>
+    </ModalShell>
+  );
+}
+
+function ImageModal({
   images,
   index,
   alt,
@@ -67,41 +110,18 @@ function Lightbox({
   onNext: () => void;
 }) {
   useEffect(() => {
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
     function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-      else if (e.key === "ArrowLeft") onPrev();
+      if (e.key === "ArrowLeft") onPrev();
       else if (e.key === "ArrowRight") onNext();
     }
     window.addEventListener("keydown", handleKey);
-
-    return () => {
-      document.body.style.overflow = prevOverflow;
-      window.removeEventListener("keydown", handleKey);
-    };
-  }, [onClose, onPrev, onNext]);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [onPrev, onNext]);
 
   const count = images.length;
 
   return (
-    <div
-      className="fixed inset-0 z-[1000] flex items-center justify-center bg-brand-navy/80 backdrop-blur-sm"
-      role="dialog"
-      aria-modal="true"
-      aria-label={`${alt}, enlarged photo ${index + 1} of ${count}`}
-      onClick={onClose}
-    >
-      <button
-        type="button"
-        onClick={onClose}
-        aria-label="Close"
-        className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-2xl text-white hover:bg-white/20"
-      >
-        ✕
-      </button>
-
+    <ModalShell onClose={onClose} label={`${alt}, enlarged photo ${index + 1} of ${count}`}>
       {count > 1 && (
         <>
           <button
@@ -143,7 +163,7 @@ function Lightbox({
           className="object-contain"
         />
       </div>
-    </div>
+    </ModalShell>
   );
 }
 
@@ -164,6 +184,7 @@ export default function ProductGallery({
   const [dragPx, setDragPx] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
   const dragStartX = useRef<number | null>(null);
 
   const slides: Slide[] = [
@@ -245,7 +266,7 @@ export default function ProductGallery({
               aria-hidden={i !== index}
             >
               {slide.type === "video" ? (
-                <VideoSlide src={slide.src} poster={images[0]} isActive={i === index} />
+                <VideoThumb poster={images[0]} emoji={emoji} onPlay={() => setVideoModalOpen(true)} />
               ) : (
                 <ProductImage src={slide.src} alt={`${alt}, photo ${i + 1} of ${count}`} emoji={emoji} />
               )}
@@ -317,7 +338,7 @@ export default function ProductGallery({
       )}
 
       {lightboxIndex !== null && (
-        <Lightbox
+        <ImageModal
           images={images}
           index={lightboxIndex}
           alt={alt}
@@ -325,6 +346,10 @@ export default function ProductGallery({
           onPrev={() => setLightboxIndex((i) => Math.max(0, (i ?? 0) - 1))}
           onNext={() => setLightboxIndex((i) => Math.min(images.length - 1, (i ?? 0) + 1))}
         />
+      )}
+
+      {videoModalOpen && video && (
+        <VideoModal src={video} alt={alt} onClose={() => setVideoModalOpen(false)} />
       )}
     </div>
   );

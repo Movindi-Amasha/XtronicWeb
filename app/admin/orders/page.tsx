@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { db } from "@/lib/db";
 import { formatPriceAUD } from "@/lib/products";
 
@@ -34,15 +35,31 @@ export default async function AdminOrdersPage() {
               </tr>
             )}
             {orders.map((order) => (
-              <tr key={order.id} className="border-t border-line">
-                <td className="px-4 py-3">
-                  {order.createdAt.toLocaleDateString("en-AU")}
+              <tr key={order.id} className="border-t border-line hover:bg-brand-blue-50">
+                <td className="p-0">
+                  <Link href={`/admin/orders/${order.id}`} className="block px-4 py-3">
+                    {order.createdAt.toLocaleDateString("en-AU")}
+                  </Link>
                 </td>
-                <td className="px-4 py-3">{order.email}</td>
-                <td className="px-4 py-3 capitalize">{order.paymentProvider}</td>
-                <td className="px-4 py-3 capitalize">{order.status}</td>
-                <td className="px-4 py-3 font-bold">
-                  {formatPriceAUD(order.totalCents)}
+                <td className="p-0">
+                  <Link href={`/admin/orders/${order.id}`} className="block px-4 py-3">
+                    {order.email}
+                  </Link>
+                </td>
+                <td className="p-0">
+                  <Link href={`/admin/orders/${order.id}`} className="block px-4 py-3 capitalize">
+                    {order.paymentProvider}
+                  </Link>
+                </td>
+                <td className="p-0">
+                  <Link href={`/admin/orders/${order.id}`} className="block px-4 py-3 capitalize">
+                    {order.status}
+                  </Link>
+                </td>
+                <td className="p-0">
+                  <Link href={`/admin/orders/${order.id}`} className="block px-4 py-3 font-bold">
+                    {formatPriceAUD(order.totalCents)}
+                  </Link>
                 </td>
               </tr>
             ))}
