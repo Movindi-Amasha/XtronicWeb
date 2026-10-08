@@ -52,7 +52,7 @@ export default function HowItWorksSteps() {
                     viewBox="0 0 24 12"
                     width="20"
                     height="10"
-                    className="absolute top-[38%] -right-[14px] z-20 hidden sm:block"
+                    className="arrow-nudge absolute top-[38%] -right-[14px] z-20 hidden sm:block"
                     fill="none"
                     stroke={STEPS[i + 1].color}
                     strokeWidth="2.5"
@@ -77,15 +77,15 @@ export default function HowItWorksSteps() {
         <div className="relative mx-auto aspect-square w-full max-w-[300px] lg:max-w-none">
           <div aria-hidden className="absolute inset-[6%] rounded-full" style={{ background: "radial-gradient(circle, #fff 0%, #d6ecff 60%, transparent 75%)" }} />
           <Image
-            src="/mascot/playing-with-robot.png"
-            alt="XTRONIC mascot building a robot"
+            src="/kids/girl-goggles-robot.png"
+            alt="Girl in safety goggles holding the robot car she built"
             fill
             sizes="340px"
             className="object-contain drop-shadow-[0_16px_20px_rgba(13,31,53,0.25)]"
           />
           <div
             aria-hidden
-            className="absolute -top-2 right-0 rotate-[8deg] rounded-[44%] border-[3px] border-brand-navy bg-white px-4 py-2.5 text-center font-heading text-base font-bold leading-[1.05] shadow-[4px_5px_0_rgba(13,31,53,0.15)]"
+            className="absolute -top-2 right-0 rotate-[8deg] speech-bubble rounded-[44%] border-[3px] border-brand-navy bg-white px-4 py-2.5 text-center font-heading text-base font-bold leading-[1.05] shadow-[4px_5px_0_rgba(13,31,53,0.15)]"
           >
             <span style={{ color: LOGO.blue }}>Small Hands</span>
             <br />

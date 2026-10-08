@@ -68,6 +68,7 @@ function SpecialCard({ product }: { product: Product }) {
             onClick={() =>
               addItem({ slug: product.slug, name: product.name, emoji: product.emoji, image: product.image, priceCents: product.priceCents })
             }
+            data-add-to-cart
             aria-label={`Add ${product.name} to cart`}
             className="btn-brick flex h-10 w-10 shrink-0 items-center justify-center rounded-btn bg-brand-navy text-white hover:bg-brand-blue"
             style={{ "--btn-brick-shadow": "var(--color-brand-navy-700)" } as React.CSSProperties}
@@ -125,7 +126,7 @@ export default function SpecialsSection() {
             Find a Gift →
           </Link>
           <div aria-hidden className="pointer-events-none absolute -right-3 -bottom-3 h-36 w-36 rotate-[-6deg]">
-            <Image src="/mascot/holding-gift.png" alt="" fill sizes="144px" className="object-contain object-bottom" />
+            <Image src="/kids/girl-butterfly.png" alt="" fill sizes="144px" className="object-contain object-bottom" />
           </div>
         </aside>
       </div>

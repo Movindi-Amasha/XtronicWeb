@@ -107,7 +107,7 @@ export default function KitFeatures({ features }: { features: KitFeature[] }) {
     <ul aria-label="What you can do with this kit" className="grid grid-cols-4 gap-1">
       {features.map((key) => (
         <li key={key} className="flex flex-col items-center gap-1 text-center">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-blue-50 text-brand-blue sm:h-8 sm:w-8">
+          <span className={`kf-${key} flex h-7 w-7 items-center justify-center rounded-lg bg-brand-blue-50 text-brand-blue sm:h-8 sm:w-8`}>
             <svg aria-hidden viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               {FEATURES[key].icon}
             </svg>

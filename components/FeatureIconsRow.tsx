@@ -72,14 +72,14 @@ export default function FeatureIconsRow() {
   return (
     <section aria-label="Why families choose XTRONIC KIDS" className="relative z-20 mx-auto -mt-9 max-w-[1200px] px-4 md:px-6 xl:max-w-[1320px]">
       <ul className="grid grid-cols-4 gap-x-2 gap-y-5 rounded-card border-2 border-line bg-white px-3 py-5 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.18)] sm:p-6 lg:grid-cols-8 lg:gap-x-1 lg:px-4">
-        {ITEMS.map((item) => (
+        {ITEMS.map((item, i) => (
           <li
             key={item.title + item.sub}
             className="group flex flex-col items-center gap-2 text-center xl:flex-row xl:justify-center xl:gap-2.5 xl:text-left"
           >
             <span
-              className="flex h-13 w-13 shrink-0 items-center justify-center rounded-full text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.14),0_6px_14px_-6px_rgba(14,30,63,0.35)] transition-transform group-hover:-translate-y-1 group-hover:-rotate-6 sm:h-14 sm:w-14 xl:h-12 xl:w-12"
-              style={{ background: `radial-gradient(circle at 35% 30%, color-mix(in srgb, ${item.color}, white 22%), ${item.color} 70%)` }}
+              className="wave-icon flex h-13 w-13 shrink-0 items-center justify-center rounded-full text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.14),0_6px_14px_-6px_rgba(14,30,63,0.35)] transition-transform group-hover:-translate-y-1 group-hover:-rotate-6 sm:h-14 sm:w-14 xl:h-12 xl:w-12"
+              style={{ background: `radial-gradient(circle at 35% 30%, color-mix(in srgb, ${item.color}, white 22%), ${item.color} 70%)`, animationDelay: `${i * 0.35}s` }}
             >
               <svg
                 aria-hidden

@@ -163,7 +163,8 @@ export default function SchoolQuoteForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="rounded-full bg-brand-amber px-6 py-3 text-sm font-bold uppercase tracking-wide text-brand-navy transition-transform hover:-translate-y-0.5 hover:opacity-90 disabled:opacity-60 sm:col-span-2 sm:w-fit"
+        className="btn-brick rounded-btn bg-brand-amber px-7 py-3.5 font-heading text-base font-semibold text-white disabled:opacity-60 sm:col-span-2 sm:w-fit"
+        style={{ "--btn-brick-shadow": "var(--color-brand-amber-600)" } as React.CSSProperties}
       >
         {submitting ? "Sending..." : "Request School Quote"}
       </button>

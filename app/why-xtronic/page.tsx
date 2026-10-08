@@ -131,7 +131,7 @@ export default function AboutPage() {
               </span>
             </h1>
             <p
-              className="mt-4 inline-block -rotate-2 rounded-xl px-5 py-2.5 font-heading text-lg font-bold leading-tight text-brand-navy shadow-[0_6px_0_rgba(13,31,53,0.15)] sm:text-2xl"
+              className="mt-4 ribbon-shine inline-block -rotate-2 rounded-xl px-5 py-2.5 font-heading text-lg font-bold leading-tight text-brand-navy shadow-[0_6px_0_rgba(13,31,53,0.15)] sm:text-2xl"
               style={{ background: `linear-gradient(90deg, #FFD54A, ${LOGO.yellow})` }}
             >
               Building a Brighter Future
@@ -146,13 +146,10 @@ export default function AboutPage() {
 
           <div className="relative mx-auto aspect-[5/4] w-full max-w-[520px]">
             <div aria-hidden className="absolute inset-[6%] rounded-full" style={{ background: "radial-gradient(circle, #fff 0%, #d6ecff 60%, transparent 75%)" }} />
-            <Image src="/mascot/mascot-handshake-robot.png" alt="XTRONIC mascot with a robot kit" fill priority sizes="(min-width: 768px) 520px, 90vw" className="object-contain drop-shadow-[0_18px_22px_rgba(13,31,53,0.25)]" />
-            <div className="absolute -bottom-2 -left-2 h-24 w-28 sm:h-28 sm:w-36">
-              <Image src="/products/solar-speedboat/main.jpg" alt="" fill sizes="144px" className="rounded-2xl border-4 border-white object-cover shadow-lg" />
-            </div>
+            <Image src="/kids/duo-building-robot.png" alt="Boy and girl building a robot kit together" fill priority sizes="(min-width: 768px) 520px, 90vw" className="object-contain drop-shadow-[0_18px_22px_rgba(13,31,53,0.25)]" />
             <div
               aria-hidden
-              className="absolute -top-3 right-0 rotate-[8deg] rounded-[44%] border-[3px] border-brand-navy bg-white px-4 py-2.5 text-center font-heading text-base font-bold leading-[1.05] shadow-[4px_5px_0_rgba(13,31,53,0.15)] sm:text-xl"
+              className="absolute -top-3 right-0 rotate-[8deg] speech-bubble rounded-[44%] border-[3px] border-brand-navy bg-white px-4 py-2.5 text-center font-heading text-base font-bold leading-[1.05] shadow-[4px_5px_0_rgba(13,31,53,0.15)] sm:text-xl"
             >
               <span style={{ color: LOGO.blue }}>Small Hands</span>
               <br />
@@ -200,9 +197,14 @@ export default function AboutPage() {
               To inspire and empower children with innovative STEM kits that build real skills, creativity and
               confidence.
             </InfoCard>
-            <InfoCard icon="eye" color={LOGO.blue} title="Our Vision">
-              A world where every child has access to hands-on STEM learning and the chance to turn their ideas
-              into reality.
+            <InfoCard icon="eye" color={LOGO.blue} title="Our Vision" className="relative overflow-hidden">
+              <p className="pr-20 sm:pr-0 xl:pr-20">
+                A world where every child has access to hands-on STEM learning and the chance to turn their ideas
+                into reality.
+              </p>
+              <div aria-hidden className="absolute -right-2 -bottom-2 h-24 w-28 sm:hidden xl:block">
+                <Image src="/kids/boy-daydreaming.png" alt="" fill sizes="112px" className="object-contain object-bottom" />
+              </div>
             </InfoCard>
             <InfoCard icon="cog" color={LOGO.blue} title="What We Do" className="relative overflow-hidden sm:col-span-2">
               <p className="sm:pr-36">
@@ -402,7 +404,7 @@ export default function AboutPage() {
               </Link>
             </div>
             <div className="relative mx-auto h-36 w-32">
-              <Image src="/mascot/waving.png" alt="" fill sizes="128px" className="object-contain object-bottom" />
+              <Image src="/kids/girl-robot-thumbs-up.png" alt="" fill sizes="128px" className="object-contain object-bottom" />
             </div>
           </div>
         </div>

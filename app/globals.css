@@ -255,6 +255,135 @@
 }
 .doodle { animation: doodle-float 4s ease-in-out infinite; }
 
+/* Sound-wave rings pulsing out from the voice robot (Parents' Guide). */
+@keyframes sound-ring {
+  0% { scale: 0.6; opacity: 0.8; }
+  100% { scale: 2.1; opacity: 0; }
+}
+.sound-ring { animation: sound-ring 1.8s ease-out infinite; }
+
+/* "Explain it by moving" icon animations (Parents' Guide concepts, Schools
+   ordering steps). Each one acts out what the card is about. */
+@keyframes xk-spin { from { rotate: 0deg; } to { rotate: 360deg; } }
+@keyframes sun-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(253, 171, 5, 0)); }
+  50% { filter: drop-shadow(0 0 10px rgba(253, 171, 5, 0.9)); }
+}
+@keyframes flicker { 0%, 100% { opacity: 0; scale: 0.6; } 45%, 60% { opacity: 1; scale: 1; } }
+@keyframes bob { 0%, 100% { translate: 0 0; rotate: -4deg; } 50% { translate: 0 -6px; rotate: 4deg; } }
+@keyframes wave-slide { from { translate: 0 0; } to { translate: -24px 0; } }
+@keyframes fly {
+  0%, 100% { translate: 0 0; rotate: 0deg; }
+  50% { translate: -4px -10px; rotate: -3deg; }
+}
+@keyframes wind { 0% { translate: 40px 0; opacity: 0; } 30% { opacity: 0.9; } 100% { translate: -60px 0; opacity: 0; } }
+@keyframes send-off {
+  0%, 15% { translate: 0 0; opacity: 1; }
+  55% { translate: 26px -18px; opacity: 0; }
+  56% { translate: -26px 18px; opacity: 0; }
+  90%, 100% { translate: 0 0; opacity: 1; }
+}
+@keyframes drive {
+  0%, 100% { translate: -6px 0; }
+  25% { translate: 0 -2px; }
+  50% { translate: 6px 0; }
+  75% { translate: 0 -2px; }
+}
+.anim-spin { animation: xk-spin 6s linear infinite; }
+.anim-spin-rev { animation: xk-spin 4s linear infinite reverse; }
+.anim-sun { animation: xk-spin 14s linear infinite, sun-glow 2.4s ease-in-out infinite; }
+.anim-flicker { animation: flicker 1.6s ease-in-out infinite; }
+.anim-bob { animation: bob 2.6s ease-in-out infinite; }
+.anim-wave { animation: wave-slide 1.4s linear infinite; }
+.anim-fly { animation: fly 3s ease-in-out infinite; }
+.anim-wind { animation: wind 1.8s linear infinite; }
+.anim-send { animation: send-off 2.8s ease-in-out infinite; }
+.anim-drive { animation: drive 1.6s ease-in-out infinite; }
+
+/* ── Site-wide motion (components/SiteMotion.tsx) ── */
+
+/* Sections below the fold fade + rise in once as they scroll into view. */
+.reveal { opacity: 0; translate: 0 28px; transition: opacity 0.7s ease, translate 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.reveal.revealed { opacity: 1; translate: 0 0; }
+
+/* Add-to-cart: the button squishes, the cart wobbles, the count pops. */
+@keyframes added-pop { 0% { scale: 1; } 35% { scale: 0.86; } 70% { scale: 1.12; } 100% { scale: 1; } }
+.added-pop { animation: added-pop 0.45s ease-out; }
+@keyframes cart-bump {
+  0%, 100% { rotate: 0deg; scale: 1; }
+  25% { rotate: -14deg; scale: 1.22; }
+  50% { rotate: 10deg; scale: 1.1; }
+  75% { rotate: -6deg; }
+}
+.cart-bump { animation: cart-bump 0.6s ease-out; }
+@keyframes badge-pop { 0% { scale: 0.3; } 60% { scale: 1.35; } 100% { scale: 1; } }
+.badge-pop { animation: badge-pop 0.4s ease-out; }
+
+/* Feature strip icons wiggle one after another, like a wave. */
+@keyframes wave-icon { 0%, 70%, 100% { translate: 0 0; rotate: 0deg; } 80% { translate: 0 -5px; rotate: -8deg; } 90% { translate: 0 0; rotate: 5deg; } }
+.wave-icon { animation: wave-icon 3.2s ease-in-out infinite; }
+
+/* Free-standing kid cut-outs drift very slightly (kept subtle on purpose) (not ones clipped into badges). */
+@keyframes kid-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -3px; } }
+main img[src*="%2Fkids%2F"]:not(.rounded-full img):not(.anim-fly) { animation: kid-float 7s ease-in-out infinite; }
+
+/* Kit card feature icons act themselves out while the card is hovered. */
+@keyframes pulse-scale { 0%, 100% { scale: 1; } 50% { scale: 1.25; } }
+@keyframes sway { 0%, 100% { rotate: -10deg; } 50% { rotate: 10deg; } }
+@keyframes twinkle { 0%, 100% { scale: 1; rotate: 0deg; } 50% { scale: 1.3; rotate: 45deg; } }
+@media (hover: hover) {
+  .group:hover .kf-build svg { animation: step-twist 0.8s ease-in-out infinite; }
+  .group:hover .kf-speak svg { animation: pulse-scale 0.6s ease-in-out infinite; }
+  .group:hover .kf-move svg, .group:hover .kf-play svg { animation: step-mash 0.4s linear infinite; }
+  .group:hover .kf-solar svg { animation: xk-spin 3s linear infinite; }
+  .group:hover .kf-explore svg { animation: xk-spin 2s linear infinite; }
+  .group:hover .kf-drive svg { animation: drive 1s ease-in-out infinite; }
+  .group:hover .kf-race svg, .group:hover .kf-nature svg { animation: sway 0.8s ease-in-out infinite; transform-origin: 20% 90%; }
+  .group:hover .kf-float svg { animation: bob 1.4s ease-in-out infinite; }
+  .group:hover .kf-learn svg { animation: sun-glow 1s ease-in-out infinite; }
+  .group:hover .kf-create svg { animation: twinkle 1s ease-in-out infinite; }
+}
+
+/* Speech bubbles gently breathe. */
+@keyframes breathe { 0%, 100% { scale: 1; } 50% { scale: 1.04; } }
+.speech-bubble { animation: breathe 3.5s ease-in-out infinite; }
+
+/* Step arrows nudge forward, pointing the way. */
+@keyframes arrow-nudge { 0%, 100% { translate: 0 0; } 50% { translate: 4px 0; } }
+.arrow-nudge { animation: arrow-nudge 1.4s ease-in-out infinite; }
+
+/* Arrows inside buttons/links slide forward on hover. */
+a > span[aria-hidden]:last-child:not(.badge-pop), button > span[aria-hidden]:last-child:not(.badge-pop) { transition: translate 0.2s ease; }
+a:hover > span[aria-hidden]:last-child:not(.badge-pop), button:hover > span[aria-hidden]:last-child:not(.badge-pop) { translate: 4px 0; }
+
+/* Hero comic headings drop in with a little bounce when the page opens. */
+@keyframes drop-in { 0% { opacity: 0; translate: 0 -28px; scale: 1.08; } 60% { opacity: 1; translate: 0 4px; } 100% { translate: 0 0; scale: 1; } }
+h1:has(.text-comic) { animation: drop-in 0.7s cubic-bezier(0.3, 1.4, 0.5, 1) both; }
+
+/* A shine sweeps across the heading ribbons every few seconds. */
+@keyframes ribbon-shine { 0%, 70% { translate: -120% 0; } 100% { translate: 220% 0; } }
+.ribbon-shine { position: relative; overflow: hidden; }
+.ribbon-shine::after {
+  content: ""; position: absolute; inset: 0; width: 40%; pointer-events: none;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  animation: ribbon-shine 4.5s ease-in-out infinite;
+}
+
+/* Brick buttons get a quick shine on hover. */
+.btn-brick {
+  background-image: linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.35) 50%, transparent 60%);
+  background-size: 250% 100%; background-repeat: no-repeat; background-position: 150% 0;
+}
+.btn-brick:hover { background-position: -50% 0; transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease, background-position 0.6s ease; }
+
+/* FAQ answers slide in when opened. */
+@keyframes faq-in { from { opacity: 0; translate: 0 -6px; } to { opacity: 1; translate: 0 0; } }
+details[open] > :not(summary) { animation: faq-in 0.3s ease-out; }
+
+/* "Added to cart" toast pops up. */
+@keyframes toast-pop { 0% { opacity: 0; scale: 0.6; } 70% { opacity: 1; scale: 1.08; } 100% { scale: 1; } }
+.toast-pop { animation: toast-pop 0.35s ease-out; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

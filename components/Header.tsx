@@ -40,8 +40,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-[999] border-b border-line bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-[1260px] items-center gap-3 px-4 md:px-6 xl:gap-4">
-        <Link href="/" aria-label="XTRONIC KIDS — Home" className="flex shrink-0 items-center gap-2">
-          <div className="relative h-12 w-12 shrink-0">
+        <Link href="/" aria-label="XTRONIC KIDS — Home" className="group/logo flex shrink-0 items-center gap-2">
+          <div className="relative h-12 w-12 shrink-0 transition-transform duration-300 ease-out group-hover/logo:-rotate-12 group-hover/logo:scale-110">
             <Image
               src="/brand/xtronic-logo-transparent.png"
               sizes="48px"
@@ -106,14 +106,16 @@ export default function Header() {
           <button
             type="button"
             onClick={openCart}
+            data-cart-target
             aria-label={`Cart, ${cartCount} items`}
             className="relative flex h-11 w-11 items-center justify-center rounded-btn bg-brand-yellow-50 text-xl text-brand-navy transition-colors hover:bg-brand-yellow-50/70"
           >
             🛒
             {cartCount > 0 && (
               <span
+                key={cartCount}
                 aria-hidden
-                className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-brand-amber text-[11px] font-bold text-white"
+                className="badge-pop absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-brand-amber text-[11px] font-bold text-white"
               >
                 {cartCount}
               </span>

@@ -80,7 +80,7 @@ const FAQS = [
 function SpeechBubble({ children, className = "", tail = "left" }: { children: React.ReactNode; className?: string; tail?: "left" | "right" }) {
   return (
     <div className={`pointer-events-none absolute z-10 ${className}`} aria-hidden>
-      <div className="relative rounded-[46%] border-[3px] border-brand-navy bg-white px-6 py-4 text-center font-heading font-bold leading-[1.05] shadow-[5px_6px_0_rgba(13,31,53,0.15)]">
+      <div className="relative speech-bubble rounded-[46%] border-[3px] border-brand-navy bg-white px-6 py-4 text-center font-heading font-bold leading-[1.05] shadow-[5px_6px_0_rgba(13,31,53,0.15)]">
         {children}
         <span
           className={`absolute -bottom-3 h-6 w-6 rotate-45 border-r-[3px] border-b-[3px] border-brand-navy bg-white ${tail === "left" ? "left-8" : "right-8"}`}
@@ -121,7 +121,7 @@ function Star({ className, color }: { className: string; color: string }) {
 
 function Arrow({ color, className = "" }: { color: string; className?: string }) {
   return (
-    <svg aria-hidden viewBox="0 0 32 16" width="32" height="16" className={className} fill="none" stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden viewBox="0 0 32 16" width="32" height="16" className={`arrow-nudge ${className}`} fill="none" stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
       <path d="M2 8h26M21 2l7 6-7 6" />
     </svg>
   );
@@ -159,7 +159,7 @@ export default function HowItWorksPage() {
               </span>
             </h1>
             <p
-              className="mt-4 inline-block -rotate-2 rounded-xl px-5 py-2.5 font-heading text-lg font-bold text-white shadow-[0_6px_0_rgba(13,31,53,0.18)] sm:text-2xl"
+              className="mt-4 ribbon-shine inline-block -rotate-2 rounded-xl px-5 py-2.5 font-heading text-lg font-bold text-white shadow-[0_6px_0_rgba(13,31,53,0.18)] sm:text-2xl"
               style={{ background: `linear-gradient(90deg, ${LOGO.red}, ${LOGO.orange})` }}
             >
               From Box to Brilliant Creations!
@@ -177,8 +177,8 @@ export default function HowItWorksPage() {
               style={{ background: "radial-gradient(circle, #fff 0%, #d6ecff 60%, transparent 75%)" }}
             />
             <Image
-              src="/mascot/playing-with-robot.png"
-              alt="XTRONIC mascot building a robot"
+              src="/kids/duo-building-car.png"
+              alt="Boy and girl building a robot car together"
               fill
               priority
               sizes="(min-width: 768px) 460px, 90vw"
@@ -341,8 +341,8 @@ export default function HowItWorksPage() {
           style={{ background: "linear-gradient(120deg, #e9f5ff, #fff 55%, var(--color-brand-yellow-50))" }}
         >
           <Star className="right-6 top-5 h-7 w-7 rotate-12" color={LOGO.yellow} />
-          <div className="relative mx-auto h-44 w-44 lg:h-52 lg:w-52">
-            <Image src="/mascot/holding-gift.png" alt="" fill sizes="208px" className="object-contain" />
+          <div className="relative mx-auto h-44 w-44 overflow-hidden rounded-full border-4 border-white shadow-[0_8px_0_rgba(13,31,53,0.15)] lg:h-52 lg:w-52" style={{ background: "radial-gradient(circle at 50% 35%, #fff 0%, #eaf5ff 70%, #cfe9ff 100%)" }}>
+            <Image src="/kids/boy-backpack.png" alt="" fill sizes="208px" className="translate-y-[6%] scale-105 object-contain object-bottom" />
           </div>
           <div>
             <Doodled preset="left"><h2 id="club-heading" className="text-[clamp(26px,3.2vw,36px)] font-bold leading-tight">
@@ -415,7 +415,7 @@ export default function HowItWorksPage() {
               <br />
               <span style={{ color: LOGO.red }}>to help!</span>
             </SpeechBubble>
-            <Image src="/mascot/thinking.png" alt="" fill sizes="224px" className="object-contain object-bottom" />
+            <Image src="/kids/girl-idea.png" alt="" fill sizes="224px" className="object-contain object-bottom" />
             <Link
               href="/help/faq"
               className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-btn bg-brand-blue px-4 py-2 font-heading text-sm font-semibold text-white shadow-md hover:bg-brand-blue-600"

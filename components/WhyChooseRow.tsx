@@ -64,14 +64,17 @@ export default function WhyChooseRow() {
               <br />
               Tomorrow!
             </p>
-            <div className="relative h-36 w-28 sm:h-44 sm:w-36">
-              <Image src="/mascot/thumbs-up-confetti.png" alt="" fill sizes="144px" className="object-contain object-bottom drop-shadow-[0_10px_14px_rgba(14,30,63,0.35)]" />
+            {/* White badge behind the cut-out: hides its rough edge on the blue
+                and the flat crop at the bottom tucks into the circle. */}
+            <div className="relative h-32 w-32 overflow-hidden rounded-full border-4 border-white bg-white shadow-[0_8px_0_rgba(13,31,53,0.18)] sm:h-40 sm:w-40">
+              <div aria-hidden className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 35%, #fff 0%, #fff6d6 70%, #ffe9a8 100%)" }} />
+              <Image src="/kids/girl-dreaming.png" alt="" fill sizes="160px" className="translate-y-[6%] scale-110 object-contain object-bottom" />
             </div>
           </div>
           <div className="relative mt-5 grid grid-cols-3 gap-2">
             {STATS.map((s) => (
               <div key={s.label} className="rounded-2xl bg-white/15 px-2 py-3 text-center backdrop-blur-sm">
-                <strong className="block font-heading text-xl text-brand-yellow">{s.value}</strong>
+                <strong data-count-up className="block font-heading text-xl text-brand-yellow">{s.value}</strong>
                 <span className="text-[12px] font-bold opacity-90">{s.label}</span>
               </div>
             ))}

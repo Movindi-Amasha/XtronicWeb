@@ -18,7 +18,7 @@ export default function CartToast() {
     <div
       role="status"
       aria-live="polite"
-      className="fixed bottom-20 left-1/2 z-[9999] -translate-x-1/2 rounded-full border border-brand-navy/10 bg-brand-green px-5 py-3 text-sm font-bold text-brand-navy md:bottom-6"
+      className="toast-pop fixed bottom-20 left-1/2 z-[9999] -translate-x-1/2 rounded-full border border-brand-navy/10 bg-brand-green px-5 py-3 text-sm font-bold text-brand-navy md:bottom-6"
     >
       {toastMessage}
     </div>

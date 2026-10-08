@@ -26,12 +26,13 @@ export default function MobileBottomBar() {
           className="relative flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-brand-navy"
           style={{ minHeight: 44 }}
         >
-          <span aria-hidden className="relative text-lg">
+          <span aria-hidden className="relative inline-block text-lg" {...(item.label === "Cart" ? { "data-cart-target": "" } : {})}>
             {item.icon}
             {item.label === "Cart" && cartCount > 0 && (
               <span
+                key={cartCount}
                 aria-hidden
-                className="absolute -right-2 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-amber text-[9px] font-bold uppercase tracking-wide text-white"
+                className="badge-pop absolute -right-2 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-amber text-[9px] font-bold uppercase tracking-wide text-white"
               >
                 {cartCount}
               </span>

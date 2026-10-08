@@ -48,16 +48,16 @@ export default function SubscriptionBand() {
         <div className="relative mx-auto aspect-[5/4] w-full max-w-[360px]">
           <div className="absolute inset-0 rotate-[-4deg] overflow-hidden rounded-[30px] border-4 border-white bg-[#dcefff] shadow-[0_12px_0_var(--color-brand-amber),0_30px_60px_-24px_rgba(14,30,63,0.45)]">
             <Image
-              src="/mascot/banner-toys.png"
-              alt="XTRONIC mascot with a new monthly kit"
+              src="/kids/boy-cheering.png"
+              alt="Boy cheering next to the robot car he built"
               fill
-              sizes="320px"
-              className="object-cover object-[25%_50%]"
+              sizes="360px"
+              className="object-contain object-bottom p-4"
             />
           </div>
           <span
             aria-hidden
-            className="absolute -right-2 -top-3 rotate-[8deg] rounded-[44%] border-[3px] border-brand-navy bg-white px-4 py-2.5 text-center font-heading text-sm font-bold leading-tight shadow-[4px_5px_0_rgba(13,31,53,0.15)] sm:text-base"
+            className="absolute -right-2 -top-3 rotate-[8deg] speech-bubble rounded-[44%] border-[3px] border-brand-navy bg-white px-4 py-2.5 text-center font-heading text-sm font-bold leading-tight shadow-[4px_5px_0_rgba(13,31,53,0.15)] sm:text-base"
           >
             <span style={{ color: LOGO.red }}>New Kit</span>
             <br />

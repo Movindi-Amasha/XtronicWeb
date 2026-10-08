@@ -174,6 +174,7 @@ export default function QuickViewModal() {
               </div>
 
               <button
+                data-add-to-cart
                 type="button"
                 onClick={() => {
                   addItem(

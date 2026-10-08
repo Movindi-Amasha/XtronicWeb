@@ -7,6 +7,7 @@ import CartDrawer from "@/components/CartDrawer";
 import CartToast from "@/components/CartToast";
 import CartHydration from "@/components/CartHydration";
 import QuickViewModal from "@/components/QuickViewModal";
+import SiteMotion from "@/components/SiteMotion";
 import "./globals.css";
 
 // Body text
@@ -131,6 +132,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <CartToast />
         <CartHydration />
         <QuickViewModal />
+        <SiteMotion />
       </body>
     </html>
   );

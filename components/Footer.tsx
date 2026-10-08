@@ -54,7 +54,7 @@ export default function Footer() {
               <span
                 key={s.label}
                 aria-label={s.label}
-                className={`flex h-9 w-9 items-center justify-center rounded-btn text-sm font-bold text-white shadow-[inset_0_-3px_0_rgba(0,0,0,0.15)] ${s.tone}`}
+                className={`flex h-9 w-9 items-center justify-center rounded-btn text-sm font-bold text-white shadow-[inset_0_-3px_0_rgba(0,0,0,0.15)] transition-transform duration-200 hover:-translate-y-1 hover:-rotate-6 ${s.tone}`}
               >
                 {s.icon}
               </span>

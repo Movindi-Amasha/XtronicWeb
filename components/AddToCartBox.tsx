@@ -42,6 +42,7 @@ export default function AddToCartBox({ product }: { product: Product }) {
 
       <button
         type="button"
+        data-add-to-cart
         onClick={() => {
           addItem(
             {

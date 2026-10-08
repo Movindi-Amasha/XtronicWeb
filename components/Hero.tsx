@@ -104,7 +104,7 @@ export default function Hero() {
         <div className="relative mx-auto aspect-[1/0.95] w-full max-w-[460px] md:max-w-[620px]">
           <div
             aria-hidden
-            className="pointer-events-none absolute -top-4 right-0 z-20 rotate-[8deg] rounded-[44%] border-[3px] border-brand-navy bg-white px-5 py-3 text-center font-heading text-base font-bold uppercase leading-[1.05] shadow-[5px_6px_0_rgba(13,31,53,0.15)] sm:text-xl md:-top-6 md:-right-4"
+            className="pointer-events-none absolute -top-4 right-0 z-20 rotate-[8deg] speech-bubble rounded-[44%] border-[3px] border-brand-navy bg-white px-5 py-3 text-center font-heading text-base font-bold uppercase leading-[1.05] shadow-[5px_6px_0_rgba(13,31,53,0.15)] sm:text-xl md:-top-6 md:-right-4"
           >
             <span style={{ color: LOGO.blue }}>STEM</span> <span style={{ color: LOGO.orange }}>Fun</span>
             <br />

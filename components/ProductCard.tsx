@@ -111,6 +111,7 @@ export default function ProductCard({
                 priceCents: product.priceCents,
               })
             }
+            data-add-to-cart
             aria-label={`Add ${product.name} to cart`}
             className="btn-brick flex h-10 w-10 shrink-0 items-center justify-center rounded-btn bg-brand-navy text-white transition-colors hover:bg-brand-blue"
             style={{ "--btn-brick-shadow": "var(--color-brand-navy-700)" } as React.CSSProperties}

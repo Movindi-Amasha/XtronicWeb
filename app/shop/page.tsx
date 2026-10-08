@@ -81,7 +81,7 @@ export default function ShopPage() {
               </span>
             </h1>
             <p
-              className="mt-3 inline-block -rotate-2 rounded-xl px-5 py-2 font-heading text-lg font-bold uppercase text-white shadow-[0_6px_0_rgba(13,31,53,0.18)] sm:text-xl"
+              className="mt-3 ribbon-shine inline-block -rotate-2 rounded-xl px-5 py-2 font-heading text-lg font-bold uppercase text-white shadow-[0_6px_0_rgba(13,31,53,0.18)] sm:text-xl"
               style={{ background: `linear-gradient(90deg, ${LOGO.red}, ${LOGO.orange})` }}
             >
               Build · Learn · Have Fun!
@@ -108,8 +108,8 @@ export default function ShopPage() {
           <div className="relative mx-auto aspect-square w-full max-w-[380px]">
             <div aria-hidden className="absolute inset-[6%] rounded-full" style={{ background: "radial-gradient(circle, #fff 0%, #d6ecff 60%, transparent 75%)" }} />
             <Image
-              src="/mascot/mascot-pointing-robot.png"
-              alt="XTRONIC mascot showing off a robot kit"
+              src="/kids/boy-goggles-building.png"
+              alt="Boy in safety goggles building a robot car"
               fill
               priority
               sizes="380px"
@@ -117,7 +117,7 @@ export default function ShopPage() {
             />
             <div
               aria-hidden
-              className="absolute -top-2 -left-2 -rotate-[8deg] rounded-[44%] border-[3px] border-brand-navy bg-white px-4 py-2.5 text-center font-heading text-base font-bold uppercase leading-[1.05] shadow-[4px_5px_0_rgba(13,31,53,0.15)] sm:text-lg"
+              className="absolute -top-2 -left-2 -rotate-[8deg] speech-bubble rounded-[44%] border-[3px] border-brand-navy bg-white px-4 py-2.5 text-center font-heading text-base font-bold uppercase leading-[1.05] shadow-[4px_5px_0_rgba(13,31,53,0.15)] sm:text-lg"
             >
               <span style={{ color: LOGO.red }}>Real</span>
               <br />
@@ -199,7 +199,7 @@ export default function ShopPage() {
             className="relative overflow-hidden rounded-[26px] p-6 text-brand-navy shadow-[0_10px_0_var(--color-brand-yellow-600)]"
             style={{ background: "linear-gradient(160deg, #FFE27A, #FFD03A)" }}
           >
-            <h3 className="max-w-[200px] text-[26px] font-bold leading-tight" style={{ color: LOGO.blue }}>
+            <h3 className="max-w-[170px] text-[26px] font-bold leading-tight sm:max-w-[200px]" style={{ color: LOGO.blue }}>
               STEM Learning Made Easy!
             </h3>
             <ul className="relative z-10 mt-4 grid gap-2 font-extrabold">
@@ -212,8 +212,9 @@ export default function ShopPage() {
                 </li>
               ))}
             </ul>
-            <div aria-hidden className="pointer-events-none absolute -right-6 -top-2 h-32 w-32 rotate-6 opacity-95">
-              <Image src="/mascot/thumbs-up-confetti.png" alt="" fill sizes="128px" className="object-contain" />
+            {/* Circle badge: the cut-out ends in a flat crop, which tucks into the circle. */}
+            <div aria-hidden className="pointer-events-none absolute right-4 top-4 h-24 w-24 overflow-hidden rounded-full lg:top-auto lg:bottom-5 lg:right-5 lg:h-24 lg:w-24 border-4 border-white shadow-[0_6px_0_rgba(13,31,53,0.15)] sm:h-28 sm:w-28" style={{ background: "radial-gradient(circle at 50% 35%, #fff 0%, #eaf5ff 70%, #cfe9ff 100%)" }}>
+              <Image src="/kids/boy-thumbs-up.png" alt="" fill sizes="112px" className="translate-y-[8%] scale-110 object-contain object-bottom" />
             </div>
           </aside>
         </div>
@@ -247,7 +248,7 @@ export default function ShopPage() {
             </ul>
           </div>
           <div className="relative mx-auto hidden h-48 w-44 lg:block">
-            <Image src="/mascot/holding-gift.png" alt="" fill sizes="176px" className="object-contain object-bottom" />
+            <Image src="/kids/girl-hugging-robot.png" alt="" fill sizes="176px" className="object-contain object-bottom" />
           </div>
         </div>
       </section>
