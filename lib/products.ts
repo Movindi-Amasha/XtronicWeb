@@ -4,6 +4,11 @@ export type ProductCategory =
   | "Wooden Mechanics"
   | "Bundles & Gifts";
 
+/** The four little "what you do with it" icons shown on each kit card. */
+export type KitFeature =
+  | "build" | "speak" | "move" | "play" | "solar" | "float"
+  | "explore" | "learn" | "create" | "drive" | "race" | "nature";
+
 export interface Product {
   slug: string;
   name: string;
@@ -16,6 +21,7 @@ export interface Product {
   rating: number;
   reviewCount: number;
   highlights: string[];
+  features?: KitFeature[];
   stemConcepts: string[];
   whatsInTheBox: string[];
   image: string;
@@ -24,6 +30,7 @@ export interface Product {
 export const products: Product[] = [
   {
     slug: "voice-robot",
+    features: ["build", "speak", "move", "play"],
     name: "Smart Voice-Controlled Robot Kit",
     emoji: "🤖",
     category: "Robotics & Electronics",
@@ -49,6 +56,7 @@ export const products: Product[] = [
   },
   {
     slug: "solar-4wd-rover",
+    features: ["build", "solar", "drive", "race"],
     name: "Solar 4-Wheel Drive DIY Rover",
     emoji: "☀️",
     category: "Solar Energy",
@@ -74,6 +82,7 @@ export const products: Product[] = [
   },
   {
     slug: "wooden-taxiing-aircraft",
+    features: ["build", "learn", "move", "create"],
     name: "Wooden Taxiing Aircraft Kit",
     emoji: "✈️",
     category: "Wooden Mechanics",
@@ -99,6 +108,7 @@ export const products: Product[] = [
   },
   {
     slug: "solar-speedboat",
+    features: ["build", "solar", "float", "explore"],
     name: "Solar-Powered Yacht / Speedboat",
     emoji: "🛥️",
     category: "Solar Energy",
@@ -124,6 +134,7 @@ export const products: Product[] = [
   },
   {
     slug: "solar-butterfly",
+    features: ["build", "solar", "move", "nature"],
     name: "Solar-Powered Flapping Butterfly",
     emoji: "🦋",
     category: "Solar Energy",

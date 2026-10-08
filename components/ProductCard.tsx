@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import ProductImage from "./ProductImage";
+import KitFeatures from "./KitFeatures";
 import type { Product } from "@/lib/products";
 import { useCartStore } from "@/lib/cartStore";
 import { useQuickViewStore } from "@/lib/quickViewStore";
@@ -32,6 +33,9 @@ export default function ProductCard({
   const openQuickView = useQuickViewStore((s) => s.open);
   const displayPrice = useDisplayPrice(product.priceCents);
   const tone = TONES[index % TONES.length];
+  // "LKR 7,790.95" doesn't fit a narrow card on one line, so non-AUD prices
+  // show the currency code as a small label above the number.
+  const priceParts = displayPrice.match(/^([A-Z]{3})\s+(.+)$/);
 
   return (
     <div
@@ -81,9 +85,24 @@ export default function ProductCard({
           <span className="text-muted">({product.reviewCount})</span>
         </div>
 
+        {product.features && (
+          <div className="mt-1 border-t border-dashed border-line pt-2.5">
+            <KitFeatures features={product.features} />
+          </div>
+        )}
+
         <div className="mt-auto flex items-center justify-between gap-2 pt-2 sm:pt-3">
-          <span className="min-w-0 truncate font-body text-base font-extrabold text-brand-navy sm:text-xl">
-            {displayPrice}
+          <span className="min-w-0 font-body text-base font-extrabold leading-tight text-brand-navy sm:text-xl">
+            {priceParts ? (
+              <>
+                <span className="block text-[10px] font-bold uppercase tracking-wide text-muted sm:text-xs">
+                  {priceParts[1]}
+                </span>
+                <span className="whitespace-nowrap">{priceParts[2]}</span>
+              </>
+            ) : (
+              <span className="whitespace-nowrap">{displayPrice}</span>
+            )}
           </span>
           <button
             type="button"
