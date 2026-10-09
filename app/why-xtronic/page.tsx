@@ -8,6 +8,7 @@ import { LOGO, band } from "@/lib/brandColors";
 import { CraftArt, JoinCelebration, MissionArt, VisionArt } from "@/components/AboutArt";
 import HeroScene from "@/components/HeroScene";
 import HeroCloud from "@/components/HeroCloud";
+import Mascot from "@/components/Mascot";
 
 export const metadata: Metadata = {
   title: "About Us: Our Story & Why Parents Choose Us",
@@ -176,7 +177,8 @@ export default function AboutPage() {
         className="relative isolate overflow-hidden pt-12 pb-16 md:pt-16 md:pb-24"
         style={{ background: "radial-gradient(900px 500px at 80% 20%, #fff 0%, transparent 60%), linear-gradient(180deg, #cfe9ff 0%, #e9f5ff 55%, #f8fafc 100%)" }}
       >
-        <HeroScene />
+        <HeroScene decor="about" />
+        <Mascot pose="waving" className="absolute bottom-6 right-[1.5%] z-10 hidden h-[38%] max-h-56 xl:block" sizes="200px" />
         <Star className="left-[3%] top-6" color={LOGO.yellow} />
         <Star className="left-[44%] top-10 hidden md:block" color={LOGO.blue} />
         <div className="relative mx-auto grid max-w-[1200px] items-center gap-8 px-4 md:grid-cols-[1.05fr_1fr] md:px-6">
@@ -466,8 +468,11 @@ export default function AboutPage() {
                 Join the Community <span aria-hidden>→</span>
               </Link>
             </div>
-            <div className="relative z-10 mx-auto h-36 w-32">
-              <Image src="/kids/girl-robot-thumbs-up.png" alt="" fill sizes="128px" className="object-contain object-bottom" />
+            <div className="relative z-10 mx-auto flex items-end gap-1">
+              <Mascot pose="cheer" className="h-32 sm:h-36" sizes="120px" />
+              <div className="relative h-36 w-32">
+                <Image src="/kids/girl-robot-thumbs-up.png" alt="" fill sizes="128px" className="object-contain object-bottom" />
+              </div>
             </div>
           </div>
         </div>

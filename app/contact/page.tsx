@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
 import Doodled from "@/components/Doodled";
 import HeroScene from "@/components/HeroScene";
+import { MailboxScene } from "@/components/ContactArt";
+import HeroCloud from "@/components/HeroCloud";
+import Mascot from "@/components/Mascot";
 import LineIcon, { type LineIconName } from "@/components/LineIcon";
 import { LOGO } from "@/lib/brandColors";
 
@@ -30,10 +32,11 @@ const FAQS = [
 export default function ContactPage() {
   return (
     <>
-      <section className="relative isolate overflow-hidden bg-gradient-to-b from-[#e8f4ff] via-[#f4f9ff] to-white pt-10 pb-12 md:pt-16 md:pb-16">
-        <HeroScene />
+      <section className="relative isolate overflow-hidden pt-12 pb-16 md:pt-16 md:pb-24">
+        <HeroScene decor="contact" />
         <div className="relative mx-auto grid max-w-[1200px] items-center gap-8 px-4 md:grid-cols-[1.05fr_0.95fr] md:px-6">
-          <div className="relative z-10">
+          <div className="relative isolate z-10 md:justify-self-start">
+            <HeroCloud shape="contact" />
             <p className="mb-4 flex w-fit items-center gap-2 rounded-full border border-brand-blue/15 bg-white/85 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.14em] text-brand-blue shadow-sm">
               <LineIcon name="send" size={15} /> We&apos;re happy to help
             </p>
@@ -50,27 +53,42 @@ export default function ContactPage() {
               Send us a message <span aria-hidden>↓</span>
             </a>
           </div>
-          <div className="relative mx-auto w-full max-w-[520px]">
-            <div aria-hidden className="absolute inset-[8%] rounded-full bg-brand-yellow/25 blur-2xl" />
-            <div aria-hidden className="absolute bottom-[9%] left-[5%] h-20 w-20 rotate-[-12deg] rounded-[24px] bg-brand-yellow shadow-[0_8px_0_var(--color-brand-yellow-600)]" />
-            <div className="relative mx-auto aspect-[1.18/1] w-full">
-              <Image src="/kids/boy-goggles-building.png" alt="Young maker building a colorful robotics kit" fill priority sizes="(min-width: 768px) 520px, 92vw" className="object-contain drop-shadow-[0_20px_22px_rgba(13,31,53,0.2)]" />
+          <div className="relative mx-auto flex w-full max-w-[520px] justify-center">
+            <div aria-hidden className="absolute inset-x-[10%] bottom-0 top-[10%] rounded-full bg-white/60 blur-2xl" />
+            {/* Robot mascot waving hello, with chat bubbles popping up beside him */}
+            <Mascot pose="waving" className="relative h-[300px] sm:h-[380px]" sizes="(min-width: 640px) 320px, 240px" />
+            <div className="chat-pop absolute left-0 top-[24%] rotate-[-5deg] rounded-[22px] rounded-bl-md border-[3px] border-brand-navy bg-white px-4 py-2.5 font-heading text-sm font-bold leading-tight shadow-[4px_5px_0_rgba(13,31,53,0.14)] sm:left-2 sm:text-lg">
+              <span style={{ color: LOGO.blue }}>Hi there!</span> <span aria-hidden>👋</span>
             </div>
-            <div className="absolute right-0 top-3 rotate-[5deg] rounded-[22px] border-[3px] border-brand-navy bg-white px-4 py-3 text-center font-heading text-sm font-bold leading-tight shadow-[4px_5px_0_rgba(13,31,53,0.14)] sm:right-2 sm:top-5 sm:text-base">
-              <span style={{ color: LOGO.blue }}>Small questions?</span><br /><span style={{ color: LOGO.red }}>Big ideas!</span>
+            <div className="chat-pop absolute right-0 top-[38%] rotate-[4deg] rounded-[22px] rounded-br-md border-[3px] border-brand-navy bg-white px-4 py-2.5 font-heading text-sm font-bold leading-tight shadow-[4px_5px_0_rgba(13,31,53,0.14)] [animation-delay:1.2s] sm:text-lg">
+              <span style={{ color: LOGO.red }}>How can we</span>
+              <br />
+              <span style={{ color: LOGO.orange }}>help?</span>
             </div>
-            <span aria-hidden className="scatter-spin absolute left-3 top-10 text-4xl text-brand-amber">✦</span>
-            <span aria-hidden className="scatter-float absolute bottom-8 right-4 text-4xl text-brand-blue">✧</span>
+            <span aria-hidden className="typing-dots absolute bottom-[18%] left-[6%] flex gap-1.5 rounded-full border-[3px] border-brand-navy bg-white px-3 py-2 shadow-[3px_4px_0_rgba(13,31,53,0.14)]">
+              <i /> <i /> <i />
+            </span>
           </div>
         </div>
       </section>
 
-      <section aria-label="Contact options" className="relative z-10 mx-auto -mt-2 max-w-[1200px] px-4 md:px-6">
+      <section aria-label="Contact options" className="relative z-10 mx-auto mt-6 max-w-[1200px] px-4 md:px-6">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {CONTACT_OPTIONS.map((option) => (
-            <Link key={option.title} href={option.href} className="group rounded-[20px] border border-white bg-white/90 p-4 shadow-[0_10px_28px_-20px_rgba(13,31,53,0.35)] transition-[translate,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_32px_-20px_rgba(13,31,53,0.4)]">
-              <span className="grid h-11 w-11 place-items-center rounded-full text-white shadow-[inset_0_-3px_0_rgba(0,0,0,0.12)] transition-transform duration-300 group-hover:rotate-[-7deg] group-hover:scale-110" style={{ background: option.color }}>
-                <LineIcon name={option.icon} size={21} strokeWidth={2.2} />
+            <Link
+              key={option.title}
+              href={option.href}
+              className="group rounded-[20px] border-2 p-4 transition-[translate] duration-300 hover:-translate-y-1.5"
+              style={{
+                background: `linear-gradient(165deg, color-mix(in srgb, ${option.color} 30%, white) 0%, color-mix(in srgb, ${option.color} 8%, white) 75%)`,
+                borderColor: `color-mix(in srgb, ${option.color} 50%, white)`,
+                boxShadow: `0 6px 0 color-mix(in srgb, ${option.color} 32%, white), 0 16px 28px -20px rgba(13,31,53,0.35)`,
+              }}
+            >
+              <span className="grid h-11 w-11 place-items-center rounded-full text-white shadow-[inset_0_-3px_0_rgba(0,0,0,0.12)] transition-transform duration-300 group-hover:scale-110" style={{ background: option.color }}>
+                <span className="wiggle-on-hover inline-block">
+                  <LineIcon name={option.icon} size={21} strokeWidth={2.2} />
+                </span>
               </span>
               <h2 className="mt-3 font-heading text-base font-bold text-brand-navy">{option.title}</h2>
               <p className="mt-1 text-xs font-semibold leading-relaxed text-muted">{option.detail}</p>
@@ -80,9 +98,10 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section id="send-message" aria-labelledby="message-heading" className="mx-auto max-w-[1200px] scroll-mt-28 px-4 pt-16 md:px-6 md:pt-20">
+      <section id="send-message" aria-labelledby="message-heading" className="mx-auto max-w-[1200px] scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-[28px] border border-white bg-white p-5 shadow-[0_18px_45px_-32px_rgba(13,31,53,0.32)] sm:p-8">
+          <div className="relative rounded-[28px] border border-white bg-white p-5 shadow-[0_18px_45px_-32px_rgba(13,31,53,0.32)] sm:p-8">
+            <Mascot pose="cheer" motion="peek" className="absolute -top-[62px] right-6 h-24 sm:right-10 sm:h-28" sizes="120px" />
             <Doodled preset="left">
               <h2 id="message-heading" className="font-heading text-[clamp(28px,4vw,40px)] font-bold leading-tight">
                 <span style={{ color: LOGO.blue }}>Send us</span> <span style={{ color: LOGO.orange }}>a message</span>
@@ -94,7 +113,7 @@ export default function ContactPage() {
 
           <aside className="flex flex-col gap-5">
             <div className="relative isolate flex-1 overflow-hidden rounded-[28px] border-2 border-white p-6 shadow-[0_15px_38px_-28px_rgba(13,31,53,0.35)] sm:p-8" style={{ background: "linear-gradient(135deg, #eaf5ff 0%, #f5faff 54%, #fff3db 100%)" }}>
-              <span aria-hidden className="scatter-float absolute right-7 top-5 text-3xl text-brand-blue">✦</span>
+              <MailboxScene className="pointer-events-none absolute -right-2 -top-2 hidden w-44 sm:block" />
               <p className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-brand-orange">Here for your next big idea</p>
               <h2 className="mt-2 max-w-sm font-heading text-3xl font-bold leading-tight text-brand-navy">A real person, ready to help.</h2>
               <p className="mt-3 max-w-md text-sm font-semibold leading-relaxed text-brand-navy-700">Whether you&apos;re choosing your first kit, need help with an order, or planning a classroom build, we&apos;ll point you in the right direction.</p>
@@ -118,7 +137,9 @@ export default function ContactPage() {
       </section>
 
       <section aria-labelledby="contact-faq-heading" className="band mx-auto mt-16 max-w-[1200px] rounded-[30px] px-4 py-14 md:px-8" style={{ background: "linear-gradient(135deg, #eef7ff 0%, #fff 55%, #fff6df 100%)" }}>
-        <div className="mx-auto max-w-3xl">
+        <div className="relative mx-auto max-w-3xl">
+          <Mascot pose="balloon" motion="fly" className="absolute -left-44 top-10 hidden h-36 xl:block" sizes="220px" />
+          <Mascot pose="building" className="absolute -right-48 bottom-0 hidden h-32 xl:block" sizes="220px" />
           <Doodled preset="center">
             <h2 id="contact-faq-heading" className="text-center font-heading text-[clamp(28px,4vw,40px)] font-bold text-brand-navy">Frequently asked <span style={{ color: LOGO.blue }}>questions</span></h2>
           </Doodled>

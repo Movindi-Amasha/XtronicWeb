@@ -7,6 +7,7 @@ import LineIcon, { type LineIconName } from "./LineIcon";
 import { LOGO } from "@/lib/brandColors";
 import Doodled from "@/components/Doodled";
 import GiftBox from "./GiftBox";
+import Mascot from "./Mascot";
 
 const CONFETTI = Array.from({ length: 18 }, (_, i) => ({
   left: `${(i * 37) % 100}%`,
@@ -69,6 +70,8 @@ export default function SubscriptionBand() {
         {/* Floating presents */}
         <GiftBox className="gift-hop pointer-events-none absolute -right-4 -bottom-4 hidden h-32 w-32 md:block" box={LOGO.yellow} lid="#FFC94A" ribbon={LOGO.red} tag={false} />
         <GiftBox className="gift-hop pointer-events-none absolute right-24 -bottom-6 hidden h-20 w-20 [animation-delay:1.2s] lg:block" box={LOGO.red} lid="#FF4D4C" ribbon={LOGO.yellow} tag={false} />
+        {/* Robot flying in on his balloon (top-right, as in the mockup) */}
+        <Mascot pose="balloon" motion="fly" className="absolute right-6 top-5 hidden h-28 lg:block xl:h-32" sizes="200px" />
 
         <div className="relative grid items-center gap-8 md:grid-cols-[0.9fr_1.4fr]">
           {/* Kid on a badge, with orbiting stars and a spinning stamp */}

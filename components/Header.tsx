@@ -67,7 +67,7 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav aria-label="Primary" className="mx-auto hidden items-center gap-0.5 lg:flex xl:gap-1">
+        <nav aria-label="Primary" className="mx-auto hidden items-center gap-0.5 xl:flex 2xl:gap-1">
           {NAV_LINKS.map((link) => {
             const active = isLinkActive(pathname, link.href);
             return (
@@ -90,7 +90,7 @@ export default function Header() {
         <div className="ml-auto flex items-center gap-2 sm:gap-3">
           <form
             onSubmit={handleSearch}
-            className="hidden items-center rounded-full border-2 border-line bg-white py-1 pr-1 pl-4 focus-within:border-brand-blue md:flex lg:hidden xl:flex"
+            className="hidden items-center rounded-full border-2 border-line bg-white py-1 pr-1 pl-4 focus-within:border-brand-blue md:flex xl:hidden 2xl:flex"
           >
             <input
               type="search"
@@ -137,7 +137,7 @@ export default function Header() {
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((v) => !v)}
-            className="flex h-11 w-11 items-center justify-center rounded-btn text-2xl text-brand-navy hover:bg-brand-blue-50 lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-btn text-2xl text-brand-navy hover:bg-brand-blue-50 xl:hidden"
           >
             {menuOpen ? "✕" : "☰"}
           </button>
@@ -145,7 +145,7 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-line bg-white px-4 pb-4 lg:hidden">
+        <div className="border-t border-line bg-white px-4 pb-4 xl:hidden">
           <nav aria-label="Mobile primary" className="flex flex-col gap-1 pt-2">
             <div className="flex items-center justify-between px-3 py-2 text-sm font-extrabold text-brand-navy">
               Currency

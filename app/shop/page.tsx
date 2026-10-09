@@ -12,6 +12,7 @@ import Doodled from "@/components/Doodled";
 import HeroScene from "@/components/HeroScene";
 import HeroCloud from "@/components/HeroCloud";
 import CompareScroller from "@/components/CompareScroller";
+import Mascot from "@/components/Mascot";
 
 export const metadata: Metadata = {
   title: "Shop STEM Robotics & Solar Kits for Kids",
@@ -75,7 +76,7 @@ export default function ShopPage() {
             "radial-gradient(900px 500px at 80% 20%, #fff 0%, transparent 60%), linear-gradient(180deg, #cfe9ff 0%, #e9f5ff 55%, #f8fafc 100%)",
         }}
       >
-        <HeroScene split="lg" />
+        <HeroScene split="lg" decor="shop" />
         <div className="relative mx-auto grid max-w-[1260px] items-center gap-8 px-4 md:px-6 lg:static lg:min-h-[520px] lg:grid-cols-2">
           <div className="relative isolate md:justify-self-start">
             <HeroCloud shape="shop" />
@@ -225,6 +226,7 @@ export default function ShopPage() {
             className="relative overflow-hidden rounded-[26px] p-6 text-brand-navy shadow-[0_10px_0_var(--color-brand-yellow-600)]"
             style={{ background: "linear-gradient(160deg, #FFE27A, #FFD03A)" }}
           >
+            <Mascot pose="cheer" className="absolute right-3 top-3 hidden h-32 lg:block" sizes="120px" />
             <h3 className="max-w-[170px] text-[26px] font-bold leading-tight sm:max-w-[200px]" style={{ color: LOGO.blue }}>
               STEM Learning Made Easy!
             </h3>

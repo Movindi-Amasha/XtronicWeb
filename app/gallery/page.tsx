@@ -68,7 +68,7 @@ export default function GalleryPage() {
   return (
     <>
       <section className="relative isolate overflow-hidden bg-gradient-to-b from-[#e9f5ff] to-white pt-12 pb-14 md:pt-20 md:pb-20">
-        <HeroScene />
+        <HeroScene decor="gallery" />
         <div className="relative mx-auto grid max-w-[1200px] items-center gap-9 px-4 md:grid-cols-[1.05fr_0.95fr] md:px-6">
           <div>
             <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-blue/15 bg-white/85 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue shadow-sm">

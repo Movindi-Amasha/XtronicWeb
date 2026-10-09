@@ -10,6 +10,7 @@ import Doodled from "@/components/Doodled";
 import GiftBox from "@/components/GiftBox";
 import HeroScene from "@/components/HeroScene";
 import HeroCloud from "@/components/HeroCloud";
+import Mascot from "@/components/Mascot";
 
 export const metadata: Metadata = {
   title: "How It Works: Build, Learn & Play STEM Kits",
@@ -137,7 +138,7 @@ export default function HowItWorksPage() {
             "radial-gradient(900px 500px at 85% 10%, #d6ecff, transparent 70%), radial-gradient(700px 500px at 0% 100%, var(--color-brand-yellow-50), transparent 70%), linear-gradient(180deg, #e9f5ff, #fff)",
         }}
       >
-        <HeroScene />
+        <HeroScene decor="how" />
         <Star className="left-[4%] top-8 h-7 w-7 rotate-12" color={LOGO.yellow} />
         <Star className="left-[46%] top-6 hidden h-6 w-6 -rotate-12 md:block" color={LOGO.blue} />
         <Star className="right-[38%] bottom-10 hidden h-5 w-5 md:block" color={LOGO.red} />
@@ -403,7 +404,8 @@ export default function HowItWorksPage() {
               <br />
               <span style={{ color: LOGO.red }}>to help!</span>
             </SpeechBubble>
-            <Image src="/kids/girl-idea.png" alt="" fill sizes="224px" className="object-contain object-bottom" />
+            <Image src="/kids/girl-idea.png" alt="" fill sizes="224px" className="object-contain object-bottom opacity-0 lg:opacity-100" />
+            <Mascot pose="waving" className="absolute bottom-6 left-1/2 h-44 -translate-x-1/2 lg:-left-24 lg:bottom-4 lg:h-40 lg:translate-x-0" />
             <Link
               href="/help/faq"
               className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-btn bg-brand-blue px-4 py-2 font-heading text-sm font-semibold text-white shadow-md hover:bg-brand-blue-600"

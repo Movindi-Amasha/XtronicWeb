@@ -114,7 +114,7 @@ export default function ParentsGuidePage() {
         className="relative isolate overflow-hidden pt-12 pb-16 md:pt-16 md:pb-24"
         style={{ background: "radial-gradient(900px 500px at 80% 20%, #fff 0%, transparent 60%), linear-gradient(180deg, #cfe9ff 0%, #e9f5ff 55%, #f8fafc 100%)" }}
       >
-        <HeroScene />
+        <HeroScene decor="parents" />
         <div className="relative mx-auto grid max-w-[1200px] items-center gap-8 px-4 md:grid-cols-[1.1fr_1fr] md:px-6">
           <div className="relative isolate md:justify-self-start">
             <HeroCloud shape="parents" />
