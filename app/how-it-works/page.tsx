@@ -212,7 +212,10 @@ export default function HowItWorksPage() {
             <li key={step.title} className="relative flex">
               <div
                 className="step-card relative flex w-full cursor-default flex-col items-center rounded-card border-[3px] bg-white px-4 pt-9 pb-6 text-center shadow-[0_10px_30px_-14px_rgba(14,30,63,0.25)] transition-[translate,scale,box-shadow] duration-300 ease-out hover:z-10 hover:-translate-y-2 hover:scale-[1.05] hover:shadow-[0_24px_40px_-16px_rgba(14,30,63,0.35)]"
-                style={{ borderColor: step.color }}
+                style={{
+                  borderColor: step.color,
+                  background: `linear-gradient(170deg, color-mix(in srgb, ${step.color} 28%, white) 0%, color-mix(in srgb, ${step.color} 7%, white) 80%)`,
+                }}
               >
                 <span
                   className="step-badge absolute -top-5 left-1/2 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full border-[3px] border-white font-heading text-sm font-bold text-white shadow-md"
