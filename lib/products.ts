@@ -9,6 +9,8 @@ export type KitFeature =
   | "build" | "speak" | "move" | "play" | "solar" | "float"
   | "explore" | "learn" | "create" | "drive" | "race" | "nature";
 
+export type SkillLevel = "Beginner" | "Intermediate" | "Advanced";
+
 export interface Product {
   slug: string;
   name: string;
@@ -18,6 +20,8 @@ export interface Product {
   age: string;
   priceCents: number;
   buildTime: string;
+  /** How hard the build is; shown on cards and used by the shop filter. */
+  skillLevel?: SkillLevel;
   rating: number;
   reviewCount: number;
   highlights: string[];
@@ -33,6 +37,7 @@ export interface Product {
 export const products: Product[] = [
   {
     slug: "voice-robot",
+    skillLevel: "Advanced",
     badge: "New",
     features: ["build", "speak", "move", "play"],
     name: "Smart Voice-Controlled Robot Kit",
@@ -60,6 +65,7 @@ export const products: Product[] = [
   },
   {
     slug: "solar-4wd-rover",
+    skillLevel: "Intermediate",
     badge: "New",
     features: ["build", "solar", "drive", "race"],
     name: "Solar 4-Wheel Drive DIY Rover",
@@ -87,6 +93,7 @@ export const products: Product[] = [
   },
   {
     slug: "wooden-taxiing-aircraft",
+    skillLevel: "Beginner",
     badge: "New",
     features: ["build", "learn", "move", "create"],
     name: "Wooden Taxiing Aircraft Kit",
@@ -114,6 +121,7 @@ export const products: Product[] = [
   },
   {
     slug: "solar-speedboat",
+    skillLevel: "Beginner",
     badge: "New",
     features: ["build", "solar", "float", "explore"],
     name: "Solar-Powered Yacht / Speedboat",
@@ -141,6 +149,7 @@ export const products: Product[] = [
   },
   {
     slug: "solar-butterfly",
+    skillLevel: "Beginner",
     badge: "New",
     features: ["build", "solar", "move", "nature"],
     name: "Solar-Powered Flapping Butterfly",

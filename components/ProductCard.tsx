@@ -3,6 +3,7 @@
 import Link from "next/link";
 import ProductImage from "./ProductImage";
 import KitFeatures from "./KitFeatures";
+import SkillBadge from "./SkillBadge";
 import LineIcon from "./LineIcon";
 import type { Product } from "@/lib/products";
 import { LOGO } from "@/lib/brandColors";
@@ -56,6 +57,7 @@ export default function ProductCard({
             {product.badge}
           </span>
         )}
+        {product.skillLevel && <SkillBadge level={product.skillLevel} className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3" />}
         <button
           type="button"
           onClick={(e) => {

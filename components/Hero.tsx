@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { LOGO } from "@/lib/brandColors";
-import HeroScatter from "@/components/HeroScatter";
 
 const BRICKS = [
   { tone: "bg-brand-amber shadow-[inset_0_-4px_0_var(--color-brand-amber-600)]", pos: "left-[1%] top-[82%]", size: "h-7 w-12", studs: 2, rotate: "8deg", delay: "0s" },
@@ -23,7 +22,6 @@ export default function Hero() {
           "radial-gradient(900px 600px at 80% 20%, #fff 0%, transparent 60%), radial-gradient(1000px 700px at 2% 98%, var(--color-brand-yellow-50), transparent 72%), linear-gradient(180deg, #cfe9ff 0%, #e9f5ff 45%, #fff 100%)",
       }}
     >
-        <HeroScatter set="a" />
       <div aria-hidden className="pointer-events-none absolute inset-0 hidden md:block">
         {BRICKS.map((b, i) => (
           <motion.div

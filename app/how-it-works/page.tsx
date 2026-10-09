@@ -3,10 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import CreationsCarousel from "@/components/CreationsCarousel";
 import SignupBand from "@/components/SignupBand";
-import { LOGO } from "@/lib/brandColors";
+import { LOGO, band } from "@/lib/brandColors";
+import SubscriptionBand from "@/components/SubscriptionBand";
 import LineIcon, { type LineIconName } from "@/components/LineIcon";
 import Doodled from "@/components/Doodled";
 import GiftBox from "@/components/GiftBox";
+import HeroScene from "@/components/HeroScene";
 
 export const metadata: Metadata = {
   title: "How It Works: Build, Learn & Play STEM Kits",
@@ -35,13 +37,14 @@ const BOX_TO_PLAY = [
   { image: "/products/voice-robot/4.jpg", label: "Test & Play" },
 ];
 
-const SKILLS: { icon: LineIconName; title: string; desc: string; color: string }[] = [
-  { icon: "flask", title: "Science", desc: "Understand how things work in the real world.", color: LOGO.blue },
-  { icon: "cog", title: "Technology", desc: "Explore electronics, solar power and more.", color: LOGO.yellow },
-  { icon: "wrench", title: "Engineering", desc: "Build and create working models.", color: LOGO.red },
-  { icon: "puzzle", title: "Problem Solving", desc: "Think, test and find solutions.", color: LOGO.green },
-  { icon: "palette", title: "Creativity", desc: "Use imagination to make new ideas.", color: LOGO.lightBlue },
-  { icon: "rocket", title: "Confidence", desc: "Feel proud after completing a project.", color: LOGO.orange },
+// anim = looping icon animation (globals.css) that acts the skill out.
+const SKILLS: { icon: LineIconName; title: string; desc: string; color: string; anim: string }[] = [
+  { icon: "flask", title: "Science", desc: "Understand how things work in the real world.", color: LOGO.blue, anim: "anim-bob" },
+  { icon: "cog", title: "Technology", desc: "Explore electronics, solar power and more.", color: LOGO.yellow, anim: "anim-spin" },
+  { icon: "wrench", title: "Engineering", desc: "Build and create working models.", color: LOGO.red, anim: "anim-twist" },
+  { icon: "puzzle", title: "Problem Solving", desc: "Think, test and find solutions.", color: LOGO.green, anim: "anim-flip" },
+  { icon: "palette", title: "Creativity", desc: "Use imagination to make new ideas.", color: LOGO.lightBlue, anim: "anim-sway" },
+  { icon: "rocket", title: "Confidence", desc: "Feel proud after completing a project.", color: LOGO.orange, anim: "anim-launch" },
 ];
 
 const CREATIONS = [
@@ -50,13 +53,6 @@ const CREATIONS = [
   { href: "/shop/wooden-taxiing-aircraft", image: "/products/wooden-taxiing-aircraft/4.jpg", title: "Wooden Taxiing Aircraft" },
   { href: "/shop/solar-4wd-rover", image: "/products/solar-4wd-rover/4.jpg", title: "Solar 4WD Rover" },
   { href: "/shop/solar-butterfly", image: "/products/solar-butterfly/4.jpg", title: "Solar Butterfly" },
-];
-
-const PERKS: { icon: LineIconName; title: string; desc: string; color: string }[] = [
-  { icon: "package", title: "Monthly STEM Kit", desc: "New project each month", color: LOGO.orange },
-  { icon: "percent", title: "Exclusive Discounts", desc: "15% off for members", color: LOGO.red },
-  { icon: "zap", title: "Early Access", desc: "To new products", color: LOGO.yellow },
-  { icon: "book", title: "Fun Learning Guides", desc: "And activities", color: LOGO.blue },
 ];
 
 const FAQS = [
@@ -134,12 +130,13 @@ export default function HowItWorksPage() {
     <>
       {/* ── Hero ── */}
       <section
-        className="relative overflow-hidden pt-10 pb-14 md:pt-14 md:pb-20"
+        className="relative isolate overflow-hidden pt-10 pb-14 md:pt-14 md:pb-20"
         style={{
           background:
             "radial-gradient(900px 500px at 85% 10%, #d6ecff, transparent 70%), radial-gradient(700px 500px at 0% 100%, var(--color-brand-yellow-50), transparent 70%), linear-gradient(180deg, #e9f5ff, #fff)",
         }}
       >
+        <HeroScene />
         <Star className="left-[4%] top-8 h-7 w-7 rotate-12" color={LOGO.yellow} />
         <Star className="left-[46%] top-6 hidden h-6 w-6 -rotate-12 md:block" color={LOGO.blue} />
         <Star className="right-[38%] bottom-10 hidden h-5 w-5 md:block" color={LOGO.red} />
@@ -291,7 +288,7 @@ export default function HowItWorksPage() {
       </section>
 
       {/* ── What Kids Learn ── */}
-      <section aria-labelledby="learn-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">
+      <section aria-labelledby="learn-heading" className="band mx-auto max-w-[1200px] px-4 pt-20 md:px-6" style={band("sunset")}>
         <div className="grid items-center gap-8 lg:grid-cols-[1fr_340px]">
           <div>
             <div id="learn-heading">
@@ -304,13 +301,20 @@ export default function HowItWorksPage() {
               {SKILLS.map((skill) => (
                 <li
                   key={skill.title}
-                  className="group flex flex-col items-center rounded-card border-2 border-line bg-white px-3 py-5 text-center transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_30px_-14px_rgba(14,30,63,0.3)]"
+                  className="group flex flex-col items-center rounded-card border-2 px-3 py-5 text-center transition-[translate] duration-300 hover:-translate-y-1.5"
+                  style={{
+                    background: `linear-gradient(170deg, color-mix(in srgb, ${skill.color} 32%, white) 0%, color-mix(in srgb, ${skill.color} 8%, white) 75%)`,
+                    borderColor: `color-mix(in srgb, ${skill.color} 55%, white)`,
+                    boxShadow: `0 6px 0 color-mix(in srgb, ${skill.color} 35%, white)`,
+                  }}
                 >
                   <span
-                    className="flex h-14 w-14 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110"
-                    style={{ color: skill.color, background: `color-mix(in srgb, ${skill.color} 14%, white)` }}
+                    className="flex h-14 w-14 items-center justify-center rounded-full text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.14)] transition-transform duration-300 group-hover:scale-110"
+                    style={{ background: skill.color }}
                   >
-                    <LineIcon name={skill.icon} size={28} />
+                    <span className={`inline-block ${skill.anim}`}>
+                      <LineIcon name={skill.icon} size={26} strokeWidth={2.2} />
+                    </span>
                   </span>
                   <h3 className="mt-3 text-[15px] font-semibold text-brand-navy">{skill.title}</h3>
                   <p className="mt-1 text-xs font-semibold text-muted">{skill.desc}</p>
@@ -319,7 +323,15 @@ export default function HowItWorksPage() {
             </ul>
           </div>
           <div className="relative mx-auto aspect-square w-full max-w-[280px] lg:max-w-[340px]">
-            <div aria-hidden className="absolute inset-[6%] rounded-full" style={{ background: "radial-gradient(circle, #fff 0%, #fff3d1 55%, transparent 75%)" }} />
+            <div
+              aria-hidden
+              className="scatter-spin absolute inset-[2%] rounded-full [animation-duration:40s]"
+              style={{
+                background: `repeating-conic-gradient(color-mix(in srgb, ${LOGO.yellow} 45%, transparent) 0 10deg, transparent 10deg 20deg)`,
+                maskImage: "radial-gradient(circle, #000 30%, transparent 70%)",
+              }}
+            />
+            <div aria-hidden className="absolute inset-[16%] rounded-full" style={{ background: `radial-gradient(circle, #fff 0%, color-mix(in srgb, ${LOGO.yellow} 35%, white) 60%, transparent 75%)` }} />
             <Image
               src="/kids/girl-butterfly.png"
               alt="Girl holding up the solar butterfly she built"
@@ -343,46 +355,8 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      {/* ── Subscription band ── */}
-      <section aria-labelledby="club-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">
-        <div
-          className="relative grid items-center gap-6 overflow-hidden rounded-[32px] border-2 border-line p-6 sm:p-8 lg:grid-cols-[220px_1fr_auto] lg:gap-8"
-          style={{ background: "linear-gradient(120deg, #e9f5ff, #fff 55%, var(--color-brand-yellow-50))" }}
-        >
-          <Star className="right-6 top-5 h-7 w-7 rotate-12" color={LOGO.yellow} />
-          <div className="relative mx-auto h-44 w-44 overflow-hidden rounded-full border-4 border-white shadow-[0_8px_0_rgba(13,31,53,0.15)] lg:h-52 lg:w-52" style={{ background: "radial-gradient(circle at 50% 35%, #fff 0%, #eaf5ff 70%, #cfe9ff 100%)" }}>
-            <Image src="/kids/boy-backpack.png" alt="" fill sizes="208px" className="translate-y-[6%] scale-105 object-contain object-bottom" />
-          </div>
-          <div>
-            <Doodled preset="left"><h2 id="club-heading" className="text-[clamp(26px,3.2vw,36px)] font-bold leading-tight">
-              <span style={{ color: LOGO.blue }}>XTRONIC Club</span>{" "}
-              <span style={{ color: LOGO.orange }}>Subscription</span>
-            </h2></Doodled>
-            <p className="mt-1.5 max-w-xl font-semibold text-muted">
-              Keep the learning going! Get a new kit, activities and exclusive member benefits delivered
-              every month for $19.99.
-            </p>
-            <ul className="mt-5 grid grid-cols-2 gap-2.5 md:grid-cols-4">
-              {PERKS.map((perk) => (
-                <li key={perk.title} className="flex flex-col items-center rounded-2xl border-2 border-line bg-white px-2 py-3 text-center">
-                  <span style={{ color: perk.color }}>
-                    <LineIcon name={perk.icon} size={26} />
-                  </span>
-                  <strong className="mt-1.5 text-[13px] font-extrabold text-brand-navy">{perk.title}</strong>
-                  <span className="text-[11px] font-semibold text-muted">{perk.desc}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <Link
-            href="/#subscribe"
-            className="btn-brick inline-flex items-center justify-center gap-2 rounded-btn bg-brand-amber px-7 py-4 font-heading text-base font-semibold text-white"
-            style={{ "--btn-brick-shadow": "var(--color-brand-amber-600)" } as React.CSSProperties}
-          >
-            Subscribe Now <span aria-hidden>→</span>
-          </Link>
-        </div>
-      </section>
+      {/* ── Subscription band (same animated design + sign-up form as the homepage) ── */}
+      <SubscriptionBand />
 
       {/* ── FAQ ── */}
       <section aria-labelledby="faq-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">

@@ -4,7 +4,8 @@ import SchoolQuoteForm from "@/components/SchoolQuoteForm";
 import SignupBand from "@/components/SignupBand";
 import Doodled from "@/components/Doodled";
 import LineIcon, { type LineIconName } from "@/components/LineIcon";
-import { LOGO } from "@/lib/brandColors";
+import { LOGO, band } from "@/lib/brandColors";
+import HeroScene from "@/components/HeroScene";
 
 export const metadata: Metadata = {
   title: "Schools & STEM Clubs: Bulk Kits & Quotes",
@@ -50,9 +51,10 @@ export default function SchoolsPage() {
     <>
       {/* ── Hero ── */}
       <section
-        className="relative overflow-hidden pt-10 pb-12 md:pt-12 md:pb-16"
+        className="relative isolate overflow-hidden pt-10 pb-12 md:pt-12 md:pb-16"
         style={{ background: "radial-gradient(900px 500px at 80% 20%, #fff 0%, transparent 60%), linear-gradient(180deg, #cfe9ff 0%, #e9f5ff 55%, #f8fafc 100%)" }}
       >
+        <HeroScene />
         <div className="relative mx-auto grid max-w-[1200px] items-center gap-8 px-4 md:grid-cols-[1.1fr_1fr] md:px-6">
           <div>
             <h1 className="-rotate-2 font-heading text-[clamp(48px,8vw,92px)] font-bold uppercase leading-[0.92] tracking-tight">
@@ -108,7 +110,7 @@ export default function SchoolsPage() {
       </section>
 
       {/* ── Bundles ── */}
-      <section aria-labelledby="bundles-heading" className="mx-auto max-w-[1200px] px-4 pt-16 md:px-6">
+      <section aria-labelledby="bundles-heading" className="band mx-auto max-w-[1200px] px-4 pt-16 md:px-6" style={band("sky")}>
         <div id="bundles-heading">
           <SectionHeading preset="center" sub="Bulk pricing for classrooms, clubs and whole year groups.">
             <span style={{ color: LOGO.blue }}>Classroom</span> <span style={{ color: LOGO.orange }}>Bundles</span>
@@ -143,7 +145,7 @@ export default function SchoolsPage() {
       </section>
 
       {/* ── Why schools + lesson plans ── */}
-      <section aria-labelledby="why-schools-heading" className="mx-auto max-w-[1200px] px-4 pt-16 md:px-6">
+      <section aria-labelledby="why-schools-heading" className="band mx-auto max-w-[1200px] px-4 pt-16 md:px-6" style={band("sunset")}>
         <div className="grid items-center gap-8 lg:grid-cols-[1.5fr_1fr]">
           <div>
             <div id="why-schools-heading">
@@ -180,7 +182,7 @@ export default function SchoolsPage() {
       </section>
 
       {/* ── How ordering works ── */}
-      <section aria-labelledby="order-steps-heading" className="mx-auto max-w-[1200px] px-4 pt-16 md:px-6">
+      <section aria-labelledby="order-steps-heading" className="band mx-auto max-w-[1200px] px-4 pt-16 md:px-6" style={band("mint")}>
         <div id="order-steps-heading">
           <SectionHeading preset="center" sub="Three simple steps from request to classroom.">
             <span style={{ color: LOGO.blue }}>How Ordering</span> <span style={{ color: LOGO.orange }}>Works</span>

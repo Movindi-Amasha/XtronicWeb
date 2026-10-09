@@ -22,7 +22,12 @@ const STATS = [
 
 export default function WhyChooseRow() {
   return (
-    <section id="why" aria-labelledby="why-choose-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">
+    <section
+      id="why"
+      aria-labelledby="why-choose-heading"
+      className="band mx-auto max-w-[1200px] px-4 pt-20 md:px-6"
+      style={{ "--band": "linear-gradient(140deg, #fff0d6 0%, #ffe3ec 35%, #e5f1ff 70%, #e3f7e4 100%)" } as React.CSSProperties}
+    >
       <div className="grid items-center gap-8 lg:grid-cols-[1.5fr_1fr]">
         <div>
           <Doodled preset="split"><h2 id="why-choose-heading" className="text-[clamp(30px,4vw,44px)] font-bold tracking-tight" style={{ color: LOGO.blue }}>
@@ -37,8 +42,9 @@ export default function WhyChooseRow() {
                 className={`group flex flex-col items-center rounded-card border-2 px-3 py-5 ${i === ITEMS.length - 1 ? "col-span-2 sm:col-span-1" : ""} text-center transition-[translate,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_30px_-14px_rgba(14,30,63,0.3)]`}
                 // Soft gradient in the card's own icon colour.
                 style={{
-                  background: `linear-gradient(170deg, color-mix(in srgb, ${item.color} 16%, white) 0%, #fff 70%)`,
-                  borderColor: `color-mix(in srgb, ${item.color} 30%, white)`,
+                  background: `linear-gradient(170deg, color-mix(in srgb, ${item.color} 32%, white) 0%, color-mix(in srgb, ${item.color} 8%, white) 75%)`,
+                  borderColor: `color-mix(in srgb, ${item.color} 55%, white)`,
+                  boxShadow: `0 6px 0 color-mix(in srgb, ${item.color} 35%, white)`,
                 }}
               >
                 <span

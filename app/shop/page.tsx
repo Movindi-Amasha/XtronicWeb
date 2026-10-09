@@ -9,6 +9,7 @@ import LineIcon, { type LineIconName } from "@/components/LineIcon";
 import { products } from "@/lib/products";
 import { LOGO } from "@/lib/brandColors";
 import Doodled from "@/components/Doodled";
+import HeroScene from "@/components/HeroScene";
 
 export const metadata: Metadata = {
   title: "Shop STEM Robotics & Solar Kits for Kids",
@@ -35,6 +36,7 @@ const COMPARE_ROWS: { icon: LineIconName; label: string; value: (p: (typeof KITS
   { icon: "move", label: "Moves", value: (p) => Boolean(p.features?.some((f) => ["move", "drive", "float", "race"].includes(f))) },
   { icon: "clock", label: "Build Time", value: (p) => p.buildTime },
   { icon: "smile", label: "Age Suitable", value: (p) => p.age },
+  { icon: "star", label: "Skill Level", value: (p) => p.skillLevel ?? "—" },
 ];
 
 const EASY_POINTS = ["Engaging Projects", "Designed with Teachers", "Step-by-Step Guides", "Build Real Skills", "Perfect for Home or School"];
@@ -65,13 +67,14 @@ export default function ShopPage() {
     <>
       {/* ── Hero ── */}
       <section
-        className="relative overflow-hidden pt-10 pb-12 md:pt-12 md:pb-16"
+        className="relative isolate overflow-hidden pt-10 pb-12 md:pt-12 md:pb-16"
         style={{
           background:
             "radial-gradient(900px 500px at 80% 20%, #fff 0%, transparent 60%), linear-gradient(180deg, #cfe9ff 0%, #e9f5ff 55%, #f8fafc 100%)",
         }}
       >
-        <div className="relative mx-auto grid max-w-[1260px] items-center gap-8 px-4 md:px-6 lg:grid-cols-[1.15fr_1fr_auto]">
+        <HeroScene split="lg" />
+        <div className="relative mx-auto grid max-w-[1260px] items-center gap-8 px-4 md:px-6 lg:static lg:min-h-[520px] lg:grid-cols-2">
           <div>
             <h1 className="-rotate-2 font-heading text-[clamp(56px,9vw,104px)] font-bold uppercase leading-[0.92] tracking-tight">
               <span className="text-comic" style={{ color: LOGO.blue, "--comic-stroke": "#fff", "--comic-shadow": "rgba(13,31,53,0.25)" } as React.CSSProperties}>
@@ -106,19 +109,22 @@ export default function ShopPage() {
             </ul>
           </div>
 
-          <div className="relative mx-auto aspect-square w-full max-w-[380px]">
-            <div aria-hidden className="absolute inset-[6%] rounded-full" style={{ background: "radial-gradient(circle, #fff 0%, #d6ecff 60%, transparent 75%)" }} />
+          {/* The cut-out's right edge (his hand) and bottom (table) are straight
+              crops, so on desktop the picture is pinned to the screen's right
+              edge and the hero's bottom; pills float on its left side. */}
+          <div className="relative -mr-4 -mb-12 ml-auto aspect-[303/264] w-[92%] max-w-[460px] md:-mr-6 md:-mb-16 lg:absolute lg:right-0 lg:bottom-0 lg:m-0 lg:aspect-auto lg:h-[94%] lg:w-[50%] lg:max-w-none">
+            <div aria-hidden className="absolute inset-[8%] rounded-full lg:right-[-10%]" style={{ background: "radial-gradient(circle, #fff 0%, #d6ecff 60%, transparent 75%)" }} />
             <Image
               src="/kids/boy-goggles-building.png"
               alt="Boy in safety goggles building a robot car"
               fill
               priority
-              sizes="380px"
-              className="object-contain drop-shadow-[0_18px_22px_rgba(13,31,53,0.25)]"
+              sizes="(min-width: 1024px) 50vw, 92vw"
+              className="object-contain object-right-bottom drop-shadow-[0_18px_22px_rgba(13,31,53,0.25)]"
             />
             <div
               aria-hidden
-              className="absolute -top-2 -left-2 -rotate-[8deg] speech-bubble rounded-[44%] border-[3px] border-brand-navy bg-white px-4 py-2.5 text-center font-heading text-base font-bold uppercase leading-[1.05] shadow-[4px_5px_0_rgba(13,31,53,0.15)] sm:text-lg"
+              className="absolute top-0 left-0 -rotate-[8deg] speech-bubble rounded-[44%] border-[3px] border-brand-navy bg-white px-4 py-2.5 text-center font-heading text-base font-bold uppercase leading-[1.05] shadow-[4px_5px_0_rgba(13,31,53,0.15)] sm:text-lg lg:left-[22%] lg:top-[2%]"
             >
               <span style={{ color: LOGO.red }}>Real</span>
               <br />
@@ -127,18 +133,22 @@ export default function ShopPage() {
               <span style={{ color: LOGO.blue }}>Learning</span>
               <span className="absolute -bottom-2.5 right-7 h-5 w-5 rotate-45 border-r-[3px] border-b-[3px] border-brand-navy bg-white" />
             </div>
-          </div>
 
-          <ul aria-hidden className="hidden flex-col gap-3 lg:flex">
-            {HERO_PILLS.map((pill) => (
-              <li key={pill.label} className="flex items-center gap-3 rounded-full bg-white py-1.5 pr-7 pl-1.5 font-heading text-lg font-bold uppercase text-brand-navy shadow-[0_8px_20px_-10px_rgba(14,30,63,0.35)]">
-                <span className="grid h-12 w-12 place-items-center rounded-full text-white" style={{ background: pill.color }}>
-                  <LineIcon name={pill.icon} size={24} strokeWidth={2.2} />
-                </span>
-                {pill.label}
-              </li>
-            ))}
-          </ul>
+            <ul aria-hidden className="absolute top-[36%] left-0 z-10 hidden flex-col gap-3 lg:flex">
+              {HERO_PILLS.map((pill, i) => (
+                <li
+                  key={pill.label}
+                  className="scatter-float flex items-center gap-3 rounded-full bg-white py-1.5 pr-7 pl-1.5 font-heading text-lg font-bold uppercase text-brand-navy shadow-[0_8px_20px_-10px_rgba(14,30,63,0.35)]"
+                  style={{ animationDelay: `${i * 0.6}s` }}
+                >
+                  <span className="grid h-12 w-12 place-items-center rounded-full text-white" style={{ background: pill.color }}>
+                    <LineIcon name={pill.icon} size={24} strokeWidth={2.2} />
+                  </span>
+                  {pill.label}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 

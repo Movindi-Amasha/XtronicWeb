@@ -6,7 +6,8 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import ProductCard from "./ProductCard";
 import LineIcon, { type LineIconName } from "./LineIcon";
-import { categories, products, type ProductCategory } from "@/lib/products";
+import { categories, products, type ProductCategory, type SkillLevel } from "@/lib/products";
+import { SKILL_LEVELS, SKILL_STYLE } from "@/lib/skillLevels";
 import { LOGO } from "@/lib/brandColors";
 import { useDisplayPrice } from "@/lib/useDisplayPrice";
 
@@ -29,6 +30,7 @@ const CATEGORY_ICONS: Record<ProductCategory | "All", { icon: LineIconName; colo
 
 const TABS: Array<ProductCategory | "All"> = ["All", ...categories];
 const AGES = [...new Set(products.map((p) => p.age))];
+const LEVELS = SKILL_LEVELS.filter((l) => products.some((p) => p.skillLevel === l));
 // Slider ceiling: the dearest product, rounded up to the next $10.
 const PRICE_CEILING_CENTS = Math.ceil(Math.max(...products.map((p) => p.priceCents)) / 1000) * 1000;
 const KIT_COUNT = products.filter((p) => p.category !== "Bundles & Gifts").length;
@@ -76,6 +78,7 @@ export default function ShopCatalog() {
 
   const [sort, setSort] = useState<SortKey>("featured");
   const [ages, setAges] = useState<string[]>([]);
+  const [levels, setLevels] = useState<SkillLevel[]>([]);
   const [maxPriceCents, setMaxPriceCents] = useState(PRICE_CEILING_CENTS);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const maxPriceLabel = useDisplayPrice(maxPriceCents);
@@ -107,6 +110,7 @@ export default function ShopCatalog() {
       );
     }
     if (ages.length) list = list.filter((p) => ages.includes(p.age));
+    if (levels.length) list = list.filter((p) => p.skillLevel && levels.includes(p.skillLevel));
     list = list.filter((p) => p.priceCents <= maxPriceCents);
 
     const sorted = [...list];
@@ -114,10 +118,10 @@ export default function ShopCatalog() {
     if (sort === "price-high") sorted.sort((a, b) => b.priceCents - a.priceCents);
     if (sort === "age") sorted.sort((a, b) => a.age.localeCompare(b.age));
     return sorted;
-  }, [activeTab, sort, query, ages, maxPriceCents]);
+  }, [activeTab, sort, query, ages, levels, maxPriceCents]);
 
   const showPromo = !query && (activeTab === "All" || activeTab === "Bundles & Gifts");
-  const filtersActive = ages.length > 0 || maxPriceCents < PRICE_CEILING_CENTS;
+  const filtersActive = ages.length > 0 || levels.length > 0 || maxPriceCents < PRICE_CEILING_CENTS;
 
   const sidebar = (
     <div className="flex flex-col gap-6 rounded-card border-2 border-line bg-white p-5">
@@ -170,6 +174,34 @@ export default function ShopCatalog() {
       </div>
 
       <div className="border-t border-line pt-5">
+        <FilterHeading>Skill Level</FilterHeading>
+        <div className="mt-3 flex flex-col gap-2">
+          {LEVELS.map((level) => {
+            const { color, bars } = SKILL_STYLE[level];
+            const on = levels.includes(level);
+            return (
+              <button
+                key={level}
+                type="button"
+                aria-pressed={on}
+                onClick={() => setLevels((cur) => (cur.includes(level) ? cur.filter((l) => l !== level) : [...cur, level]))}
+                className="flex items-center gap-2.5 rounded-xl border-2 px-3 py-2 text-left text-sm font-bold transition-colors"
+                style={on ? { borderColor: color, background: `color-mix(in srgb, ${color} 12%, white)`, color } : { borderColor: "transparent" }}
+              >
+                <span aria-hidden className="flex items-end gap-[2px]">
+                  {[1, 2, 3].map((n) => (
+                    <span key={n} className="w-1 rounded-sm" style={{ height: 5 + n * 4, background: n <= bars ? color : "#d6dde8" }} />
+                  ))}
+                </span>
+                <span className={on ? "" : "text-brand-navy-700"}>{level}</span>
+                <span className="ml-auto text-xs text-muted">({products.filter((p) => p.skillLevel === level).length})</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="border-t border-line pt-5">
         <FilterHeading>Price Range</FilterHeading>
         <input
           type="range"
@@ -189,6 +221,7 @@ export default function ShopCatalog() {
           type="button"
           onClick={() => {
             setAges([]);
+            setLevels([]);
             setMaxPriceCents(PRICE_CEILING_CENTS);
           }}
           className="rounded-btn border-2 border-line px-4 py-2 text-sm font-bold text-brand-navy hover:border-brand-blue hover:text-brand-blue"

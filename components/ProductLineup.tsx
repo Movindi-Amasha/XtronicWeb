@@ -34,7 +34,12 @@ export default function ProductLineup() {
   const kits = filter === "all" ? allKits : allKits.filter((p) => p.category === filter);
 
   return (
-    <section id="kits" aria-labelledby="lineup-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">
+    <section
+      id="kits"
+      aria-labelledby="lineup-heading"
+      className="band mx-auto max-w-[1200px] px-4 pt-20 md:px-6"
+      style={{ "--band": "linear-gradient(160deg, #d9edff 0%, #eaf5ff 45%, #fff1cf 100%)" } as React.CSSProperties}
+    >
       <div className="relative text-center">
         <Doodled preset="center"><h2 id="lineup-heading" className="text-[clamp(32px,4.4vw,52px)] font-bold uppercase tracking-tight" style={{ color: LOGO.blue }}>
           Meet our <span style={{ color: LOGO.orange }}>kits</span>

@@ -4,7 +4,8 @@ import Link from "next/link";
 import SignupBand from "@/components/SignupBand";
 import Doodled from "@/components/Doodled";
 import LineIcon, { type LineIconName } from "@/components/LineIcon";
-import { LOGO } from "@/lib/brandColors";
+import { LOGO, band } from "@/lib/brandColors";
+import HeroScene from "@/components/HeroScene";
 
 export const metadata: Metadata = {
   title: "Parents' Guide: Age Guidance & Safety Tips",
@@ -109,9 +110,10 @@ export default function ParentsGuidePage() {
     <>
       {/* ── Hero ── */}
       <section
-        className="relative overflow-hidden pt-10 pb-12 md:pt-12 md:pb-16"
+        className="relative isolate overflow-hidden pt-10 pb-12 md:pt-12 md:pb-16"
         style={{ background: "radial-gradient(900px 500px at 80% 20%, #fff 0%, transparent 60%), linear-gradient(180deg, #cfe9ff 0%, #e9f5ff 55%, #f8fafc 100%)" }}
       >
+        <HeroScene />
         <div className="relative mx-auto grid max-w-[1200px] items-center gap-8 px-4 md:grid-cols-[1.1fr_1fr] md:px-6">
           <div>
             <h1 className="-rotate-2 font-heading text-[clamp(48px,8vw,92px)] font-bold uppercase leading-[0.92] tracking-tight">
@@ -158,7 +160,7 @@ export default function ParentsGuidePage() {
       </section>
 
       {/* ── Age guidance ── */}
-      <section id="ages" aria-labelledby="ages-heading" className="mx-auto max-w-[1200px] scroll-mt-24 px-4 pt-16 md:px-6">
+      <section id="ages" aria-labelledby="ages-heading" className="band mx-auto max-w-[1200px] scroll-mt-24 px-4 pt-16 md:px-6" style={band("sky")}>
         <div id="ages-heading">
           <SectionHeading preset="center" sub="How much help to expect at each age.">
             <span style={{ color: LOGO.blue }}>Age</span> <span style={{ color: LOGO.orange }}>Guidance</span>
@@ -185,7 +187,7 @@ export default function ParentsGuidePage() {
       </section>
 
       {/* ── STEM concepts ── */}
-      <section id="concepts" aria-labelledby="concepts-heading" className="mx-auto max-w-[1200px] scroll-mt-24 px-4 pt-16 md:px-6">
+      <section id="concepts" aria-labelledby="concepts-heading" className="band mx-auto max-w-[1200px] scroll-mt-24 px-4 pt-16 md:px-6" style={band("sunset")}>
         <div id="concepts-heading">
           <SectionHeading preset="split" sub="The real science your child learns while building.">
             <span style={{ color: LOGO.blue }}>STEM Concepts,</span> <span style={{ color: LOGO.orange }}>Explained</span>
@@ -259,7 +261,7 @@ export default function ParentsGuidePage() {
       </section>
 
       {/* ── Safety + FAQ ── */}
-      <section aria-label="Safety and questions" className="mx-auto max-w-[1200px] px-4 pt-16 md:px-6">
+      <section aria-label="Safety and questions" className="band mx-auto max-w-[1200px] px-4 pt-16 md:px-6" style={band("mint")}>
         <div className="grid items-start gap-8 lg:grid-cols-[1fr_1.2fr]">
           <div id="safety" className="scroll-mt-24 rounded-[26px] p-6 text-brand-navy shadow-[0_10px_0_var(--color-brand-yellow-600)] sm:p-7" style={{ background: "linear-gradient(160deg, #FFE27A, #FFD03A)" }}>
             <h2 className="flex items-center gap-2 text-[clamp(26px,3vw,34px)] font-bold leading-tight" style={{ color: LOGO.blue }}>

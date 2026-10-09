@@ -4,7 +4,9 @@ import Link from "next/link";
 import SignupBand from "@/components/SignupBand";
 import Doodled from "@/components/Doodled";
 import LineIcon, { type LineIconName } from "@/components/LineIcon";
-import { LOGO } from "@/lib/brandColors";
+import { LOGO, band } from "@/lib/brandColors";
+import { CraftArt, JoinCelebration, MissionArt, VisionArt } from "@/components/AboutArt";
+import HeroScene from "@/components/HeroScene";
 
 export const metadata: Metadata = {
   title: "About Us: Our Story & Why Parents Choose Us",
@@ -115,16 +117,44 @@ function AnimIcon({ name, size, strokeWidth = 2.2 }: { name: LineIconName; size:
   );
 }
 
-function InfoCard({ icon, color, title, children, className = "" }: { icon: LineIconName; color: string; title: string; children: React.ReactNode; className?: string }) {
+const mix = (c: string, pct: number) => `color-mix(in srgb, ${c} ${pct}%, white)`;
+
+function InfoCard({
+  icon,
+  color,
+  title,
+  children,
+  className = "",
+  art,
+  artBg,
+}: {
+  icon: LineIconName;
+  color: string;
+  title: string;
+  children: React.ReactNode;
+  className?: string;
+  art?: React.ReactNode;
+  artBg?: string;
+}) {
   return (
-    <div className={`rounded-card border-2 border-line bg-white p-5 shadow-[0_10px_30px_-16px_rgba(14,30,63,0.25)] ${className}`}>
-      <h3 className="flex items-center gap-2 text-xl font-bold" style={{ color: LOGO.blue }}>
-        <span style={{ color }}>
-          <AnimIcon name={icon} size={28} />
-        </span>
-        {title}
-      </h3>
-      <div className="mt-2 text-sm font-semibold text-muted">{children}</div>
+    <div
+      className={`group overflow-hidden rounded-card border-2 bg-white transition-[translate] duration-300 hover:-translate-y-1.5 ${className}`}
+      style={{ borderColor: mix(color, 45), boxShadow: `0 6px 0 ${mix(color, 30)}, 0 18px 30px -18px rgba(14,30,63,0.35)` }}
+    >
+      {art && (
+        <div className="relative h-32 border-b-2 sm:h-36" style={{ background: artBg ?? `linear-gradient(160deg, ${mix(color, 26)} 0%, ${mix(color, 8)} 100%)`, borderColor: mix(color, 30) }}>
+          {art}
+        </div>
+      )}
+      <div className="p-5" style={{ background: `linear-gradient(180deg, ${mix(color, 7)}, #fff)` }}>
+        <h3 className="flex items-center gap-2 text-xl font-bold" style={{ color: LOGO.blue }}>
+          <span style={{ color }}>
+            <AnimIcon name={icon} size={28} />
+          </span>
+          {title}
+        </h3>
+        <div className="mt-2 text-sm font-semibold text-muted">{children}</div>
+      </div>
     </div>
   );
 }
@@ -142,9 +172,10 @@ export default function AboutPage() {
     <>
       {/* ── Hero ── */}
       <section
-        className="relative overflow-hidden pt-10 pb-12 md:pt-12 md:pb-16"
+        className="relative isolate overflow-hidden pt-10 pb-12 md:pt-12 md:pb-16"
         style={{ background: "radial-gradient(900px 500px at 80% 20%, #fff 0%, transparent 60%), linear-gradient(180deg, #cfe9ff 0%, #e9f5ff 55%, #f8fafc 100%)" }}
       >
+        <HeroScene />
         <Star className="left-[3%] top-6" color={LOGO.yellow} />
         <Star className="left-[44%] top-10 hidden md:block" color={LOGO.blue} />
         <div className="relative mx-auto grid max-w-[1200px] items-center gap-8 px-4 md:grid-cols-[1.05fr_1fr] md:px-6">
@@ -188,7 +219,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Story + Mission / Vision / What we do ── */}
-      <section aria-labelledby="story-heading" className="mx-auto max-w-[1200px] px-4 pt-16 md:px-6">
+      <section aria-labelledby="story-heading" className="band mx-auto max-w-[1200px] px-4 pt-16 md:px-6" style={band("sky")}>
         <div className="grid gap-6 lg:grid-cols-[1.25fr_1fr]">
           <div className="grid items-center gap-6 sm:grid-cols-[1fr_260px]">
             <div>
@@ -220,50 +251,52 @@ export default function AboutPage() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <InfoCard icon="target" color={LOGO.red} title="Our Mission">
+            <InfoCard icon="target" color={LOGO.red} title="Our Mission" art={<MissionArt />}>
               To inspire and empower children with innovative STEM kits that build real skills, creativity and
               confidence.
             </InfoCard>
-            <InfoCard icon="eye" color={LOGO.blue} title="Our Vision" className="relative overflow-hidden">
-              <p className="pr-20 sm:pr-0 xl:pr-20">
-                A world where every child has access to hands-on STEM learning and the chance to turn their ideas
-                into reality.
-              </p>
-              <div aria-hidden className="absolute -right-2 -bottom-2 h-24 w-28 sm:hidden xl:block">
-                <Image src="/kids/boy-daydreaming.png" alt="" fill sizes="112px" className="object-contain object-bottom" />
-              </div>
+            <InfoCard
+              icon="eye"
+              color={LOGO.blue}
+              title="Our Vision"
+              art={<VisionArt />}
+              artBg={`linear-gradient(170deg, color-mix(in srgb, ${LOGO.blue} 70%, black) 0%, ${LOGO.blue} 100%)`}
+            >
+              A world where every child has access to hands-on STEM learning and the chance to turn their ideas into
+              reality.
             </InfoCard>
-            <InfoCard icon="cog" color={LOGO.blue} title="What We Do" className="relative overflow-hidden sm:col-span-2">
-              <p className="sm:pr-36">
-                We design, develop and deliver high-quality STEM building kits that combine science, technology,
-                engineering and creativity, so kids learn through real hands-on experience, not screen time.
-              </p>
-              <div className="absolute -right-3 -bottom-3 hidden h-28 w-36 sm:block">
-                <Image src="/products/solar-4wd-rover/cutout.png" alt="" fill sizes="144px" className="anim-drive object-contain" />
-              </div>
+            <InfoCard icon="cog" color={LOGO.orange} title="What We Do" className="sm:col-span-2" art={<CraftArt />}>
+              We design, develop and deliver high-quality STEM building kits that combine science, technology,
+              engineering and creativity, so kids learn through real hands-on experience, not screen time.
             </InfoCard>
           </div>
         </div>
       </section>
 
       {/* ── Journey timeline ── */}
-      <section id="journey" aria-labelledby="journey-heading" className="relative mx-auto max-w-[1200px] scroll-mt-24 px-4 pt-16 md:px-6">
+      <section id="journey" aria-labelledby="journey-heading" className="band relative mx-auto max-w-[1200px] scroll-mt-24 px-4 pt-16 md:px-6" style={band("sunset")}>
         <div id="journey-heading">
           <Heading icon="heart" color={LOGO.red} doodles="right" sub="Key milestones in our growth and innovation.">
             <span style={{ color: LOGO.blue }}>Our</span> <span style={{ color: LOGO.orange }}>Journey</span>
           </Heading>
         </div>
         <ol className="relative mt-10 grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
-          <span aria-hidden className="absolute inset-x-4 top-[58px] hidden border-t-2 border-dashed border-brand-blue/40 lg:block" />
+          <span aria-hidden className="timeline-march absolute inset-x-6 top-[40px] hidden h-[3px] lg:block" style={{ "--march": `color-mix(in srgb, ${LOGO.blue} 55%, transparent)` } as React.CSSProperties} />
           {MILESTONES.map((m) => (
             <li key={m.title} className="relative flex flex-col items-center text-center">
-              <span style={{ color: m.color }}>
-                <AnimIcon name={m.icon} size={30} />
+              <span className="relative z-10 grid h-20 w-20 place-items-center rounded-full bg-white shadow-md" style={{ color: m.color, border: `3px solid ${mix(m.color, 55)}` }}>
+                <AnimIcon name={m.icon} size={34} />
               </span>
-              <span className="relative z-10 mt-2 rounded-full px-3 py-1 font-heading text-xs font-bold text-white shadow" style={{ background: LOGO.blue }}>
+              <span
+                className="relative z-10 mt-2 rounded-full px-3 py-1 font-heading text-xs font-bold shadow"
+                style={{ background: m.color, color: m.color === LOGO.yellow ? "#0D1F35" : "#fff" }}
+              >
                 {m.year}
               </span>
-              <div className="mt-3 w-full flex-1 rounded-2xl border-2 border-line bg-white px-3 py-3">
+              <div
+                className="mt-3 w-full flex-1 rounded-2xl border-2 px-3 py-3 transition-transform duration-300 hover:-translate-y-1"
+                style={{ background: `linear-gradient(170deg, ${mix(m.color, 22)}, #fff 85%)`, borderColor: mix(m.color, 45), boxShadow: `0 5px 0 ${mix(m.color, 30)}` }}
+              >
                 <h3 className="text-sm font-bold text-brand-navy">{m.title}</h3>
                 <p className="mt-1 text-xs font-semibold text-muted">{m.desc}</p>
               </div>
@@ -326,7 +359,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Team + behind the scenes ── */}
-      <section aria-labelledby="team-heading" className="mx-auto max-w-[1200px] px-4 pt-16 md:px-6">
+      <section aria-labelledby="team-heading" className="band mx-auto max-w-[1200px] px-4 pt-16 md:px-6" style={band("peach")}>
         <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <div id="team-heading">
@@ -411,10 +444,11 @@ export default function AboutPage() {
           )}
 
           <div
-            className="relative grid items-center gap-4 overflow-hidden rounded-[28px] p-6 sm:grid-cols-[1fr_auto] sm:p-8"
-            style={{ background: "linear-gradient(140deg, #FFE27A, #FFD03A)" }}
+            className="relative isolate grid items-center gap-4 overflow-hidden rounded-[28px] p-6 shadow-[0_10px_0_color-mix(in_srgb,#FDAB05_70%,black)] sm:grid-cols-[1fr_auto] sm:p-8"
+            style={{ background: `linear-gradient(135deg, ${mix(LOGO.yellow, 45)} 0%, ${mix(LOGO.yellow, 80)} 55%, color-mix(in srgb, ${LOGO.orange} 55%, ${LOGO.yellow}) 100%)` }}
           >
-            <div>
+            <JoinCelebration />
+            <div className="relative z-10">
               <h2 className="flex items-center gap-2 text-[clamp(26px,3vw,34px)] font-bold leading-tight" style={{ color: LOGO.blue }}>
                 <span style={{ color: LOGO.red }}>
                   <AnimIcon name="rocket" size={32} />
@@ -424,13 +458,13 @@ export default function AboutPage() {
               <p className="mt-1 font-bold text-brand-navy">Let&apos;s build a brighter future together. Be part of the XTRONIC KIDS community!</p>
               <Link
                 href="/#subscribe"
-                className="btn-brick mt-4 inline-flex items-center gap-2 rounded-btn bg-brand-amber px-6 py-3 font-heading text-sm font-semibold text-white"
+                className="btn-brick pulse-ring mt-4 inline-flex items-center gap-2 rounded-btn bg-brand-amber px-6 py-3 font-heading text-sm font-semibold text-white"
                 style={{ "--btn-brick-shadow": "var(--color-brand-amber-600)" } as React.CSSProperties}
               >
                 Join the Community <span aria-hidden>→</span>
               </Link>
             </div>
-            <div className="relative mx-auto h-36 w-32">
+            <div className="relative z-10 mx-auto h-36 w-32">
               <Image src="/kids/girl-robot-thumbs-up.png" alt="" fill sizes="128px" className="object-contain object-bottom" />
             </div>
           </div>
