@@ -18,7 +18,7 @@ export default function WorksGallery() {
         </h2></Doodled>
         <p className="mt-1 text-lg font-semibold text-muted">Every kit built, powered up and ready to play.</p>
         <Link
-          href="/how-it-works"
+          href="/gallery"
           className="btn-brick mt-5 inline-flex items-center gap-2 rounded-btn bg-brand-yellow px-5 py-2.5 font-heading text-sm font-semibold text-brand-navy lg:absolute lg:right-0 lg:top-1/2 lg:mt-0 lg:-translate-y-1/2"
           style={{ "--btn-brick-shadow": "var(--color-brand-yellow-600)" } as React.CSSProperties}
         >

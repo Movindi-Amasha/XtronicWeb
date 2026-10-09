@@ -8,14 +8,16 @@ import { useCartStore, cartItemCount } from "@/lib/cartStore";
 import CurrencySelector from "./CurrencySelector";
 import LineIcon from "./LineIcon";
 
-// Mockup nav (minus "Our Works"), plus the two extra pages this site has (Schools, Parents' Guide).
+// Primary navigation for the main store and support pages.
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "STEM Kits" },
+  { href: "/gallery", label: "Our Works" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/why-xtronic", label: "About Us" },
   { href: "/schools", label: "Schools & Clubs" },
   { href: "/parents-guide", label: "Parents' Guide" },
+  { href: "/contact", label: "Contact Us" },
 ];
 
 function isLinkActive(pathname: string, href: string): boolean {

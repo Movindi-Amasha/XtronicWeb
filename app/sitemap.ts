@@ -8,6 +8,8 @@ const HELP_TOPICS = ["faq", "shipping-returns", "safety", "privacy", "terms"];
 const STATIC_PAGES = [
   { path: "", priority: 1, changeFrequency: "weekly" as const },
   { path: "/shop", priority: 0.9, changeFrequency: "weekly" as const },
+  { path: "/gallery", priority: 0.7, changeFrequency: "monthly" as const },
+  { path: "/contact", priority: 0.6, changeFrequency: "yearly" as const },
   { path: "/how-it-works", priority: 0.7, changeFrequency: "monthly" as const },
   { path: "/why-xtronic", priority: 0.7, changeFrequency: "monthly" as const },
   { path: "/schools", priority: 0.6, changeFrequency: "monthly" as const },
