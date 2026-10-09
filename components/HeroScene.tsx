@@ -1,62 +1,16 @@
 import { LOGO } from "@/lib/brandColors";
+import ToyBricks from "./ToyBricks";
 
-// Inner-page hero backdrop (after the client's reference): a bright sky, a
-// big fluffy white cloud behind the heading/text, a smiling doodle sun near
-// the kids, a few faint white hand-drawn tool doodles, leaves in the corner
-// and a soft white wave into the page. Logo colours only. Sits behind content
-// (-z-10; the hero section is `isolate`).
+// Inner-page hero backdrop (after the client's reference): a bright sky with
+// soft white glows, white hand-drawn STEM doodles, toy bricks in the corner on
+// phones and a soft white wave into the page. Logo colours only. Sits behind
+// content (-z-10; the hero section is `isolate`). The cloud behind the text,
+// the sun and (on wider screens) the bricks come from HeroCloud, which sizes
+// itself to each page's own text.
 //
 // `split` is the breakpoint where the hero goes side-by-side (text left,
-// kids right); below it the cloud sits behind the stacked text instead.
+// kids right); it decides which doodles show.
 
-const NAVY = "#0D1F35";
-
-/** Circles along the edge of a rounded rectangle; filled white they read as one fluffy cloud. */
-function cloudBumps(w: number, h: number, pad: number, step: number, rMin: number, rMax: number) {
-  const pts: [number, number][] = [];
-  for (let x = pad; x <= w - pad; x += step) pts.push([x, pad], [x, h - pad]);
-  for (let y = pad + step; y < h - pad; y += step) pts.push([pad, y], [w - pad, y]);
-  return pts.map(([cx, cy], i) => ({ cx, cy, r: rMin + (rMax - rMin) * (0.5 + 0.5 * Math.sin(i * 2.3)) }));
-}
-
-function Cloud({ w, h, pad, step, rMin, rMax, className }: { w: number; h: number; pad: number; step: number; rMin: number; rMax: number; className: string }) {
-  return (
-    <svg
-      viewBox={`0 0 ${w} ${h}`}
-      preserveAspectRatio="none"
-      className={className}
-      style={{ filter: `drop-shadow(0 14px 24px color-mix(in srgb, ${LOGO.blue} 22%, transparent))`, overflow: "visible" }}
-    >
-      <g fill="#fff">
-        <rect x={pad} y={pad} width={w - pad * 2} height={h - pad * 2} />
-        {cloudBumps(w, h, pad, step, rMin, rMax).map((c, i) => (
-          <circle key={i} cx={c.cx} cy={c.cy} r={c.r} />
-        ))}
-      </g>
-    </svg>
-  );
-}
-
-function Sun({ className }: { className: string }) {
-  return (
-    <div className={className}>
-      <svg viewBox="0 0 100 100" className="scatter-spin absolute inset-0 h-full w-full [animation-duration:24s]">
-        {Array.from({ length: 10 }, (_, i) => (
-          <rect key={i} x="47" y="2" width="6" height="16" rx="3" fill={LOGO.yellow} transform={`rotate(${i * 36} 50 50)`} />
-        ))}
-      </svg>
-      <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full">
-        <circle cx="50" cy="50" r="27" fill={LOGO.yellow} />
-        <circle cx="50" cy="50" r="27" fill="none" stroke={LOGO.orange} strokeWidth="2.5" opacity="0.6" />
-        <circle cx="41" cy="46" r="3" fill={NAVY} />
-        <circle cx="59" cy="46" r="3" fill={NAVY} />
-        <path d="M39 56c5 7 17 7 22 0" stroke={NAVY} strokeWidth="3" strokeLinecap="round" fill="none" />
-        <circle cx="35" cy="55" r="3.5" fill={LOGO.orange} opacity="0.45" />
-        <circle cx="65" cy="55" r="3.5" fill={LOGO.orange} opacity="0.45" />
-      </svg>
-    </div>
-  );
-}
 
 // Hand-drawn doodles for the sky: thin white line icons plus a few yellow
 // scribbles near the sun. `on` = shown side-by-side (desk) or stacked (mob).
@@ -99,37 +53,6 @@ const DOODLES: Doodle[] = [
   { el: D.star, className: "left-[30%] top-[62%] h-5 w-5", delay: 0.7, color: "yellow", on: "mob" },
 ];
 
-/** A little stack of toy bricks with a turning gear behind it (bottom-left corner). */
-function Bricks({ className }: { className: string }) {
-  const shade = (c: string) => `color-mix(in srgb, ${c} 72%, black)`;
-  const light = (c: string) => `color-mix(in srgb, ${c} 75%, white)`;
-  const brick = (x: number, y: number, w: number, h: number, c: string, studs: number) => (
-    <g>
-      {Array.from({ length: studs }, (_, i) => {
-        const sx = x + (w / studs) * (i + 0.5) - 8;
-        return <rect key={i} x={sx} y={y - 7} width="16" height="9" rx="3" fill={light(c)} stroke={shade(c)} strokeWidth="1.5" />;
-      })}
-      <rect x={x} y={y} width={w} height={h} rx="5" fill={c} />
-      <rect x={x} y={y + h - 7} width={w} height="7" rx="3" fill={shade(c)} opacity="0.55" />
-      <rect x={x + 5} y={y + 4} width={w - 10} height="3" rx="1.5" fill="#fff" opacity="0.35" />
-    </g>
-  );
-  return (
-    <svg viewBox="0 0 170 130" className={className} style={{ filter: "drop-shadow(0 8px 10px rgba(13,31,53,0.18))" }}>
-      <g className="scatter-spin [animation-duration:14s]" style={{ transformBox: "fill-box", transformOrigin: "center" }}>
-        <path
-          d="M46 14l4 8 9-2 1 9 9 2-3 9 7 6-7 6 3 9-9 2-1 9-9-2-4 8-5-7-8 4-3-9-9-1 2-9-8-5 6-7-4-8 9-3 1-9 9 2z"
-          fill={LOGO.orange}
-        />
-        <circle cx="45" cy="47" r="9" fill="#fff" />
-      </g>
-      {brick(14, 92, 142, 34, LOGO.blue, 4)}
-      {brick(48, 60, 76, 32, LOGO.yellow, 2)}
-      <g transform="rotate(12 138 52)">{brick(112, 40, 50, 26, LOGO.red, 2)}</g>
-    </svg>
-  );
-}
-
 export default function HeroScene({ split = "md" }: { split?: "md" | "lg" }) {
   const desk = split === "lg" ? "hidden lg:block" : "hidden md:block";
   const mob = split === "lg" ? "lg:hidden" : "md:hidden";
@@ -146,9 +69,6 @@ export default function HeroScene({ split = "md" }: { split?: "md" | "lg" }) {
       <div className="absolute right-[8%] top-[6%] h-16 w-40 rounded-full bg-white/70 blur-xl" />
       <div className="absolute right-[34%] top-[30%] hidden h-12 w-32 rounded-full bg-white/60 blur-xl md:block" />
       <div className="absolute bottom-[-20%] right-[-10%] h-[90%] w-[60%] rounded-full bg-white/50 blur-[70px]" />
-
-      {/* sun */}
-      <Sun className={`absolute left-[49%] top-[4%] h-24 w-24 xl:h-28 xl:w-28 ${desk}`} />
 
       {/* hand-drawn doodles in the sky */}
       {DOODLES.map((dd, i) => (
@@ -167,12 +87,8 @@ export default function HeroScene({ split = "md" }: { split?: "md" | "lg" }) {
         </svg>
       ))}
 
-      {/* the big cloud behind the text */}
-      <Cloud w={760} h={500} pad={80} step={62} rMin={46} rMax={72} className={`absolute left-[-3%] top-[4%] h-[90%] w-[56%] ${desk}`} />
-      <Cloud w={400} h={420} pad={56} step={50} rMin={34} rMax={54} className={`absolute left-[-6%] top-[1%] h-[60%] w-[112%] ${mob}`} />
-
-      {/* toy bricks + turning gear in the bottom-left corner */}
-      <Bricks className="absolute bottom-1 left-1 h-20 w-[6.5rem] md:bottom-2 md:left-[1.5%] md:h-28 md:w-36" />
+      {/* toy bricks in the bottom-left corner on phones (on wider screens they sit on the text cloud: HeroCloud) */}
+      <ToyBricks className={`absolute bottom-1 left-1 h-20 w-[6.5rem] ${mob}`} />
 
       {/* soft white wave into the page */}
       <svg viewBox="0 0 1440 90" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 h-10 w-full md:h-16">

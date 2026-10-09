@@ -470,6 +470,15 @@ details[open] > :not(summary) { animation: faq-in 0.3s ease-out; }
 .scatter-float { animation: scatter-float 5s ease-in-out infinite; }
 .scatter-drift { animation: scatter-drift 7s ease-in-out infinite; }
 .scatter-spin { animation: xk-spin 18s linear infinite; }
+/* Inner-page hero details (components/HeroDecor.tsx). */
+@keyframes mini-cloud { from { translate: -14px 0; } to { translate: 14px 0; } }
+.mini-cloud { animation: mini-cloud 11s ease-in-out infinite alternate; }
+@keyframes balloon-bob { 0%, 100% { translate: 0 0; rotate: -3deg; } 50% { translate: 0 -10px; rotate: 3deg; } }
+.balloon-bob { animation: balloon-bob 6s ease-in-out infinite; transform-origin: 50% 100%; }
+@keyframes loop-fly { 0% { offset-distance: 0%; opacity: 0; } 8% { opacity: 1; } 86% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+.loop-plane { offset-rotate: auto; animation: loop-fly 7s cubic-bezier(0.45, 0.05, 0.4, 0.95) infinite; }
+@keyframes led-blink { 0%, 100% { opacity: 0.45; } 50% { opacity: 0.05; } }
+.led-blink { animation: led-blink 1.6s ease-in-out infinite; }
 /* Hero bunting flags flutter. */
 @keyframes flag-flutter { 0%, 100% { rotate: -5deg; } 50% { rotate: 5deg; } }
 .bunting-flag { animation: flag-flutter 2.6s ease-in-out infinite; transform-box: view-box; }

@@ -9,6 +9,7 @@ import LineIcon, { type LineIconName } from "@/components/LineIcon";
 import Doodled from "@/components/Doodled";
 import GiftBox from "@/components/GiftBox";
 import HeroScene from "@/components/HeroScene";
+import HeroCloud from "@/components/HeroCloud";
 
 export const metadata: Metadata = {
   title: "How It Works: Build, Learn & Play STEM Kits",
@@ -130,7 +131,7 @@ export default function HowItWorksPage() {
     <>
       {/* ── Hero ── */}
       <section
-        className="relative isolate overflow-hidden pt-10 pb-14 md:pt-14 md:pb-20"
+        className="relative isolate overflow-hidden pt-12 pb-16 md:pt-16 md:pb-24"
         style={{
           background:
             "radial-gradient(900px 500px at 85% 10%, #d6ecff, transparent 70%), radial-gradient(700px 500px at 0% 100%, var(--color-brand-yellow-50), transparent 70%), linear-gradient(180deg, #e9f5ff, #fff)",
@@ -142,7 +143,8 @@ export default function HowItWorksPage() {
         <Star className="right-[38%] bottom-10 hidden h-5 w-5 md:block" color={LOGO.red} />
 
         <div className="relative mx-auto grid max-w-[1200px] items-center gap-8 px-4 md:grid-cols-[1.1fr_1fr] md:px-6">
-          <div>
+          <div className="relative isolate md:justify-self-start">
+            <HeroCloud shape="how" />
             <h1 className="font-heading text-[clamp(56px,10vw,112px)] font-bold uppercase leading-[0.92] tracking-tight">
               <span
                 className="text-comic block"

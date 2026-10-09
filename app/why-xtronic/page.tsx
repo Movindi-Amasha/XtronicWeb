@@ -7,6 +7,7 @@ import LineIcon, { type LineIconName } from "@/components/LineIcon";
 import { LOGO, band } from "@/lib/brandColors";
 import { CraftArt, JoinCelebration, MissionArt, VisionArt } from "@/components/AboutArt";
 import HeroScene from "@/components/HeroScene";
+import HeroCloud from "@/components/HeroCloud";
 
 export const metadata: Metadata = {
   title: "About Us: Our Story & Why Parents Choose Us",
@@ -172,14 +173,15 @@ export default function AboutPage() {
     <>
       {/* ── Hero ── */}
       <section
-        className="relative isolate overflow-hidden pt-10 pb-12 md:pt-12 md:pb-16"
+        className="relative isolate overflow-hidden pt-12 pb-16 md:pt-16 md:pb-24"
         style={{ background: "radial-gradient(900px 500px at 80% 20%, #fff 0%, transparent 60%), linear-gradient(180deg, #cfe9ff 0%, #e9f5ff 55%, #f8fafc 100%)" }}
       >
         <HeroScene />
         <Star className="left-[3%] top-6" color={LOGO.yellow} />
         <Star className="left-[44%] top-10 hidden md:block" color={LOGO.blue} />
         <div className="relative mx-auto grid max-w-[1200px] items-center gap-8 px-4 md:grid-cols-[1.05fr_1fr] md:px-6">
-          <div>
+          <div className="relative isolate md:justify-self-start">
+            <HeroCloud shape="about" />
             <h1 className="-rotate-2 font-heading text-[clamp(56px,9vw,104px)] font-bold uppercase leading-[0.92] tracking-tight">
               <span className="text-comic" style={{ color: LOGO.blue, "--comic-stroke": "#fff", "--comic-shadow": "rgba(13,31,53,0.25)" } as React.CSSProperties}>
                 About{" "}
