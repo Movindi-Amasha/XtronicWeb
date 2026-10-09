@@ -10,6 +10,7 @@ import { products } from "@/lib/products";
 import { LOGO } from "@/lib/brandColors";
 import Doodled from "@/components/Doodled";
 import HeroScene from "@/components/HeroScene";
+import CompareScroller from "@/components/CompareScroller";
 
 export const metadata: Metadata = {
   title: "Shop STEM Robotics & Solar Kits for Kids",
@@ -167,18 +168,28 @@ export default function ShopPage() {
         <p className="mt-1 text-lg font-semibold text-muted">Find the perfect kit for your child&apos;s interests!</p>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_300px]">
-          <div className="overflow-x-auto rounded-card border-2 border-line bg-white">
-            <table className="w-full min-w-[680px] border-collapse text-center text-sm">
+          {/* 3 kits per view (2 on phones); arrows/dots page through the rest. */}
+          <CompareScroller count={KITS.length}>
+            <table
+              className="border-collapse text-center text-sm [table-layout:fixed]"
+              style={{ width: `calc(var(--label) + (100cqw - var(--label)) / var(--visible) * ${KITS.length})` }}
+            >
+              <colgroup>
+                <col style={{ width: "var(--label)" }} />
+                {KITS.map((kit) => (
+                  <col key={kit.slug} style={{ width: "calc((100cqw - var(--label)) / var(--visible))" }} />
+                ))}
+              </colgroup>
               <thead>
                 <tr>
-                  <th className="sticky left-0 z-10 w-36 bg-white p-3" />
+                  <th className="sticky left-0 z-10 bg-white p-2 sm:p-3" />
                   {KITS.map((kit) => (
-                    <th key={kit.slug} className="border-l border-line p-3 align-bottom">
+                    <th key={kit.slug} className="snap-start border-l border-line p-2 align-bottom sm:p-3">
                       <Link href={`/shop/${kit.slug}`} className="group flex flex-col items-center gap-2">
-                        <span className="relative h-16 w-20">
+                        <span className="relative h-12 w-16 sm:h-16 sm:w-20">
                           <Image src={kit.image} alt="" fill sizes="80px" className="object-contain transition-transform group-hover:scale-110" />
                         </span>
-                        <span className="font-heading text-[13px] font-semibold leading-tight text-brand-navy group-hover:text-brand-blue">
+                        <span className="font-heading text-[11px] font-semibold leading-tight text-brand-navy group-hover:text-brand-blue sm:text-[13px]">
                           {kit.name}
                         </span>
                       </Link>
@@ -189,14 +200,16 @@ export default function ShopPage() {
               <tbody>
                 {COMPARE_ROWS.map((row) => (
                   <tr key={row.label} className="border-t border-line bg-white even:bg-canvas">
-                    <th scope="row" className="sticky left-0 z-10 bg-inherit p-3 text-left shadow-[4px_0_6px_-4px_rgba(14,30,63,0.15)]">
-                      <span className="flex items-center gap-2 text-[13px] font-bold" style={{ color: LOGO.blue }}>
-                        <LineIcon name={row.icon} size={18} strokeWidth={2.2} />
+                    <th scope="row" className="sticky left-0 z-10 bg-inherit p-2 text-left shadow-[4px_0_6px_-4px_rgba(14,30,63,0.15)] sm:p-3">
+                      <span className="flex items-center gap-1.5 text-[11px] font-bold sm:gap-2 sm:text-[13px]" style={{ color: LOGO.blue }}>
+                        <span className="shrink-0 [&_svg]:size-4 sm:[&_svg]:size-[18px]">
+                          <LineIcon name={row.icon} size={18} strokeWidth={2.2} />
+                        </span>
                         {row.label}
                       </span>
                     </th>
                     {KITS.map((kit) => (
-                      <td key={kit.slug} className="border-l border-line p-3">
+                      <td key={kit.slug} className="border-l border-line p-2 sm:p-3">
                         <Mark value={row.value(kit)} />
                       </td>
                     ))}
@@ -204,7 +217,7 @@ export default function ShopPage() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </CompareScroller>
 
           <aside
             className="relative overflow-hidden rounded-[26px] p-6 text-brand-navy shadow-[0_10px_0_var(--color-brand-yellow-600)]"
