@@ -441,6 +441,13 @@ details[open] > :not(summary) { animation: faq-in 0.3s ease-out; }
 @keyframes kits-fade { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
 .kits-fade > * { animation: kits-fade 0.4s ease-out both; }
 
+/* Hero decorations (components/HeroScatter.tsx): slow, small movements. */
+@keyframes scatter-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+@keyframes scatter-drift { 0%, 100% { translate: 0 0; rotate: -4deg; } 50% { translate: 8px -6px; rotate: 4deg; } }
+.scatter-float { animation: scatter-float 5s ease-in-out infinite; }
+.scatter-drift { animation: scatter-drift 7s ease-in-out infinite; }
+.scatter-spin { animation: xk-spin 18s linear infinite; }
+
 /* Special products: bows wiggle, the SAVE sticker turns, faint confetti. */
 @keyframes bow-wiggle { 0%, 80%, 100% { rotate: 0deg; } 86% { rotate: -6deg; } 93% { rotate: 5deg; } }
 .bow-wiggle { animation: bow-wiggle 3.5s ease-in-out infinite; transform-origin: 50% 90%; }

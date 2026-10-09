@@ -31,10 +31,15 @@ export default function WhyChooseRow() {
           <p className="mt-1 text-lg font-semibold text-muted">More than a toy. It&apos;s a learning experience.</p>
 
           <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
-            {ITEMS.map((item) => (
+            {ITEMS.map((item, i) => (
               <li
                 key={item.title}
-                className="group flex flex-col items-center rounded-card border-2 border-line bg-white px-3 py-5 text-center transition-[translate,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_30px_-14px_rgba(14,30,63,0.3)]"
+                className={`group flex flex-col items-center rounded-card border-2 px-3 py-5 ${i === ITEMS.length - 1 ? "col-span-2 sm:col-span-1" : ""} text-center transition-[translate,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_30px_-14px_rgba(14,30,63,0.3)]`}
+                // Soft gradient in the card's own icon colour.
+                style={{
+                  background: `linear-gradient(170deg, color-mix(in srgb, ${item.color} 16%, white) 0%, #fff 70%)`,
+                  borderColor: `color-mix(in srgb, ${item.color} 30%, white)`,
+                }}
               >
                 <span
                   className="flex h-14 w-14 items-center justify-center rounded-full text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.14)] transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110"

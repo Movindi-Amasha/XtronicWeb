@@ -47,7 +47,7 @@ const SOCIALS = [
 
 export default function Footer() {
   return (
-    <footer className="relative mt-16 pb-16 md:pb-0" style={{ background: "linear-gradient(180deg, rgba(232,244,255,0.9), rgba(255,246,220,0.9))" }}>
+    <footer className="relative mt-16 overflow-x-clip pb-16 md:pb-0" style={{ background: "linear-gradient(180deg, rgba(232,244,255,0.9), rgba(255,246,220,0.9))" }}>
       <div className="mx-auto grid max-w-[1260px] grid-cols-2 gap-x-6 gap-y-10 px-4 pt-14 pb-10 md:grid-cols-[1.5fr_1fr_1fr_1fr] md:px-6 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1.2fr]">
         <div className="col-span-2 md:col-span-1">
           <div className="relative h-14 w-40">

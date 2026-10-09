@@ -6,6 +6,7 @@ import SignupBand from "@/components/SignupBand";
 import { LOGO } from "@/lib/brandColors";
 import LineIcon, { type LineIconName } from "@/components/LineIcon";
 import Doodled from "@/components/Doodled";
+import GiftBox from "@/components/GiftBox";
 
 export const metadata: Metadata = {
   title: "How It Works: Build, Learn & Play STEM Kits",
@@ -27,7 +28,8 @@ const STEPS = [
 
 const BOX_TO_PLAY = [
   // The prop art has the mascot's sneakers at the top; crop to the box.
-  { image: "/mascot/gift-box-prop.png", label: "Open the Box", position: "object-bottom" },
+  // First tile is drawn (GiftBox) rather than a photo.
+  { image: "", label: "Open the Box", position: "" },
   { image: "/products/voice-robot/2.jpg", label: "Check the Parts" },
   { image: "/products/voice-robot/3.jpg", label: "Build Step by Step" },
   { image: "/products/voice-robot/4.jpg", label: "Test & Play" },
@@ -246,17 +248,23 @@ export default function HowItWorksPage() {
           </div>
         </div>
 
-        <div className="relative mt-8 grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-4 lg:gap-x-10 lg:pr-44 xl:pr-52">
+        <div className="relative mt-8 grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-4 lg:gap-x-10 lg:pr-48 xl:pr-56">
           {BOX_TO_PLAY.map((tile, i) => (
             <figure key={tile.label} className="group relative">
               <div className="relative aspect-[4/3] overflow-hidden rounded-card border-4 border-white bg-brand-blue-50 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.25)]">
-                <Image
-                  src={tile.image}
-                  alt={tile.label}
-                  fill
-                  sizes="(min-width: 1024px) 240px, 50vw"
-                  className={`object-cover transition-transform duration-500 group-hover:scale-105 ${tile.position ?? ""}`}
-                />
+                {tile.image ? (
+                  <Image
+                    src={tile.image}
+                    alt={tile.label}
+                    fill
+                    sizes="(min-width: 1024px) 240px, 50vw"
+                    className={`object-cover transition-transform duration-500 group-hover:scale-105 ${tile.position ?? ""}`}
+                  />
+                ) : (
+                  <div className="grid h-full place-items-center" style={{ background: "radial-gradient(circle at 50% 45%, #fff 0%, #e3f1ff 75%)" }}>
+                    <GiftBox className="gift-hop h-[78%] w-[78%]" box="#1E88E5" lid="#42A5F5" ribbon={LOGO.yellow} />
+                  </div>
+                )}
               </div>
               <figcaption
                 className="relative -mt-4 mx-auto w-fit rounded-btn px-4 py-1.5 text-center font-heading text-xs font-semibold text-white shadow-md sm:text-sm"
@@ -270,7 +278,7 @@ export default function HowItWorksPage() {
             </figure>
           ))}
 
-          <SpeechBubble className="-right-2 top-1/2 hidden -translate-y-1/2 rotate-[-6deg] text-2xl lg:block xl:text-3xl" tail="left">
+          <SpeechBubble className="right-2 top-1/2 hidden -translate-y-1/2 rotate-[-6deg] text-xl lg:block xl:text-2xl" tail="left">
             <span style={{ color: LOGO.blue }}>Learn</span>
             <br />
             <span style={{ color: LOGO.green }}>Create</span>

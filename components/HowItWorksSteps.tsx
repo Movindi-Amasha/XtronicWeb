@@ -17,8 +17,8 @@ export default function HowItWorksSteps() {
   return (
     <section id="how" aria-labelledby="how-it-works-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">
       <div
-        className="relative grid items-center gap-8 overflow-hidden rounded-[32px] border-2 border-line px-5 py-10 sm:px-8 lg:grid-cols-[1fr_340px] lg:py-8"
-        style={{ background: "linear-gradient(120deg, #fff 0%, #fff 55%, #e9f5ff 100%)" }}
+        className="relative grid items-center gap-8 overflow-hidden rounded-[32px] border-2 border-[#cfe6ff] px-5 py-10 sm:px-8 lg:grid-cols-[1fr_340px] lg:py-8"
+        style={{ background: "linear-gradient(125deg, #e6f3ff 0%, #eef7ff 45%, #fff4d8 100%)" }}
       >
         <div>
           <div className="flex items-start justify-between gap-4">
