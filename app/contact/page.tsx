@@ -34,7 +34,7 @@ export default function ContactPage() {
         <HeroScene />
         <div className="relative mx-auto grid max-w-[1200px] items-center gap-8 px-4 md:grid-cols-[1.05fr_0.95fr] md:px-6">
           <div className="relative z-10">
-            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-blue/15 bg-white/85 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.14em] text-brand-blue shadow-sm">
+            <p className="mb-4 flex w-fit items-center gap-2 rounded-full border border-brand-blue/15 bg-white/85 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.14em] text-brand-blue shadow-sm">
               <LineIcon name="send" size={15} /> We&apos;re happy to help
             </p>
             <Doodled preset="left">
