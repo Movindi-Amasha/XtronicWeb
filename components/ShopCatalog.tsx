@@ -50,7 +50,7 @@ function BundlePromo() {
         <span style={{ color: LOGO.blue }}>All {KIT_COUNT} Kits!</span>
         <span className="mt-1 block text-sm font-semibold text-muted">for a complete STEM adventure</span>
       </p>
-      <div className="absolute right-[-4%] bottom-4 h-40 w-40 sm:right-[-8%] sm:bottom-14 sm:h-44 sm:w-44 transition-transform duration-300 group-hover:scale-105">
+      <div className="absolute right-3 bottom-4 h-36 w-36 sm:right-3 sm:bottom-16 sm:h-40 sm:w-40 transition-transform duration-300 group-hover:scale-105">
         <Image src="/products/solar-butterfly/cutout.png" alt="" fill sizes="176px" className="object-contain" />
       </div>
       <span

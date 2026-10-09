@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,7 +16,7 @@ function ArrowButton({ dir, onClick }: { dir: -1 | 1; onClick: () => void }) {
       type="button"
       onClick={onClick}
       aria-label={dir < 0 ? "Previous" : "Next"}
-      className={`absolute top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border-2 border-line bg-white text-lg font-bold text-brand-navy shadow-md transition-colors hover:border-brand-blue hover:bg-brand-blue hover:text-white sm:grid ${
+      className={`absolute top-[calc(50%-18px)] z-10 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border-2 border-line bg-white text-lg font-bold text-brand-navy shadow-md transition-colors hover:border-brand-blue hover:bg-brand-blue hover:text-white sm:grid ${
         dir < 0 ? "-left-3" : "-right-3"
       }`}
     >
@@ -27,6 +27,23 @@ function ArrowButton({ dir, onClick }: { dir: -1 | 1; onClick: () => void }) {
 
 export default function CreationsCarousel({ items }: { items: Creation[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  // Dot = the card currently at the left edge of the track.
+  function onScroll() {
+    const el = trackRef.current;
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    const step = card ? card.offsetWidth + 16 : el.clientWidth;
+    const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
+    setActive(atEnd ? items.length - 1 : Math.round(el.scrollLeft / step));
+  }
+
+  function goTo(i: number) {
+    const el = trackRef.current;
+    const card = el?.children[i] as HTMLElement | undefined;
+    if (el && card) el.scrollTo({ left: card.offsetLeft - el.offsetLeft, behavior: "smooth" });
+  }
 
   function scroll(dir: 1 | -1) {
     const el = trackRef.current;
@@ -38,13 +55,14 @@ export default function CreationsCarousel({ items }: { items: Creation[] }) {
       <ArrowButton dir={-1} onClick={() => scroll(-1)} />
       <div
         ref={trackRef}
+        onScroll={onScroll}
         className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:scroll-px-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {items.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className="group relative aspect-[4/3] shrink-0 lg:aspect-square basis-[78%] snap-start overflow-hidden rounded-card border-4 border-white bg-brand-blue-50 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.25)] sm:basis-[calc((100%-16px)/2)] md:basis-[calc((100%-32px)/3)] lg:basis-[calc((100%-64px)/5)]"
+            className="group relative aspect-[4/3] shrink-0 basis-[78%] snap-start overflow-hidden rounded-card border-4 border-white bg-brand-blue-50 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.25)] sm:basis-[calc((100%-16px)/2)] md:basis-[calc((100%-32px)/3)] lg:basis-[calc((100%-64px)/5)]"
           >
             <Image
               src={item.image}
@@ -60,6 +78,17 @@ export default function CreationsCarousel({ items }: { items: Creation[] }) {
         ))}
       </div>
       <ArrowButton dir={1} onClick={() => scroll(1)} />
+      <div className="mt-4 flex justify-center gap-2">
+        {items.map((item, i) => (
+          <button
+            key={item.href}
+            type="button"
+            onClick={() => goTo(i)}
+            aria-label={`Show ${item.title}`}
+            className={`h-2.5 rounded-full transition-all duration-300 ${i === active ? "w-7 bg-brand-amber" : "w-2.5 bg-line hover:bg-brand-blue/40"}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -78,7 +78,7 @@ function Heading({
       <Doodled preset={doodles}>
         <h2 className="flex items-center gap-2.5 text-[clamp(28px,3.6vw,40px)] font-bold leading-tight tracking-tight">
           <span style={{ color }}>
-            <LineIcon name={icon} size={34} strokeWidth={2.2} />
+            <AnimIcon name={icon} size={34} />
           </span>
           {children}
         </h2>
@@ -88,12 +88,39 @@ function Heading({
   );
 }
 
+// Which looping animation (globals.css) each icon plays, so it acts out its meaning.
+const ICON_ANIM: Partial<Record<LineIconName, string>> = {
+  bulb: "anim-glow",
+  rocket: "anim-launch",
+  cog: "anim-spin",
+  zap: "anim-flicker-soft",
+  smile: "anim-bob",
+  star: "anim-twinkle",
+  target: "anim-pulse",
+  eye: "anim-blink",
+  book: "anim-flip",
+  shield: "anim-pulse",
+  family: "anim-bob",
+  leaf: "anim-sway",
+  globe: "anim-spin-slow",
+  truck: "anim-drive",
+  heart: "anim-beat",
+};
+
+function AnimIcon({ name, size, strokeWidth = 2.2 }: { name: LineIconName; size: number; strokeWidth?: number }) {
+  return (
+    <span className={`inline-block ${ICON_ANIM[name] ?? ""}`}>
+      <LineIcon name={name} size={size} strokeWidth={strokeWidth} />
+    </span>
+  );
+}
+
 function InfoCard({ icon, color, title, children, className = "" }: { icon: LineIconName; color: string; title: string; children: React.ReactNode; className?: string }) {
   return (
     <div className={`rounded-card border-2 border-line bg-white p-5 shadow-[0_10px_30px_-16px_rgba(14,30,63,0.25)] ${className}`}>
       <h3 className="flex items-center gap-2 text-xl font-bold" style={{ color: LOGO.blue }}>
         <span style={{ color }}>
-          <LineIcon name={icon} size={28} strokeWidth={2.2} />
+          <AnimIcon name={icon} size={28} />
         </span>
         {title}
       </h3>
@@ -163,7 +190,7 @@ export default function AboutPage() {
       {/* ── Story + Mission / Vision / What we do ── */}
       <section aria-labelledby="story-heading" className="mx-auto max-w-[1200px] px-4 pt-16 md:px-6">
         <div className="grid gap-6 lg:grid-cols-[1.25fr_1fr]">
-          <div className="grid items-center gap-6 sm:grid-cols-[1fr_220px]">
+          <div className="grid items-center gap-6 sm:grid-cols-[1fr_260px]">
             <div>
               <div id="story-heading">
                 <Heading icon="star" color={LOGO.orange} sub="From a simple idea to a brighter future.">
@@ -187,7 +214,7 @@ export default function AboutPage() {
                 Our Journey <span aria-hidden>→</span>
               </a>
             </div>
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-[260px] overflow-hidden rounded-[28px] border-4 border-white shadow-[0_20px_40px_-18px_rgba(14,30,63,0.4)]">
+            <div className="relative mx-auto aspect-[4/3] w-full max-w-[320px] overflow-hidden rounded-[28px] border-4 border-white shadow-[0_20px_40px_-18px_rgba(14,30,63,0.4)]">
               <Image src="/products/voice-robot/3.jpg" alt="Robot kit mid-build" fill sizes="260px" className="object-cover" />
             </div>
           </div>
@@ -212,7 +239,7 @@ export default function AboutPage() {
                 engineering and creativity, so kids learn through real hands-on experience, not screen time.
               </p>
               <div className="absolute -right-3 -bottom-3 hidden h-28 w-36 sm:block">
-                <Image src="/products/solar-4wd-rover/cutout.png" alt="" fill sizes="144px" className="object-contain" />
+                <Image src="/products/solar-4wd-rover/cutout.png" alt="" fill sizes="144px" className="anim-drive object-contain" />
               </div>
             </InfoCard>
           </div>
@@ -231,7 +258,7 @@ export default function AboutPage() {
           {MILESTONES.map((m) => (
             <li key={m.title} className="relative flex flex-col items-center text-center">
               <span style={{ color: m.color }}>
-                <LineIcon name={m.icon} size={30} strokeWidth={2.2} />
+                <AnimIcon name={m.icon} size={30} />
               </span>
               <span className="relative z-10 mt-2 rounded-full px-3 py-1 font-heading text-xs font-bold text-white shadow" style={{ background: LOGO.blue }}>
                 {m.year}
@@ -262,7 +289,7 @@ export default function AboutPage() {
                   style={{ background: `linear-gradient(160deg, color-mix(in srgb, ${v.color}, white 15%), ${v.color})` }}
                 >
                   <span className="transition-transform duration-300 group-hover:scale-110">
-                    <LineIcon name={v.icon} size={36} strokeWidth={2} />
+                    <AnimIcon name={v.icon} size={36} strokeWidth={2} />
                   </span>
                   <h3 className="mt-2 font-heading text-[17px] font-bold">{v.title}</h3>
                   <p className="mt-1 text-xs font-bold opacity-95">{v.desc}</p>
@@ -286,7 +313,7 @@ export default function AboutPage() {
                     <span className="text-xs font-semibold text-muted">{r.detail}</span>
                   </span>
                   <span className="ml-auto" style={{ color: LOGO.green }}>
-                    <LineIcon name="truck" size={24} />
+                    <AnimIcon name="truck" size={24} />
                   </span>
                 </li>
               ))}
@@ -353,8 +380,8 @@ export default function AboutPage() {
             </div>
             <ul className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
               {BEHIND_THE_SCENES.map((src) => (
-                <li key={src} className="group relative aspect-square overflow-hidden rounded-2xl border-[3px] border-white shadow-[0_8px_20px_-12px_rgba(14,30,63,0.4)]">
-                  <Image src={src} alt="" fill sizes="(min-width: 640px) 160px, 45vw" className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                <li key={src} className="group relative aspect-[4/3] overflow-hidden rounded-2xl border-[3px] border-white shadow-[0_8px_20px_-12px_rgba(14,30,63,0.4)]">
+                  <Image src={src} alt="" fill sizes="(min-width: 640px) 160px, 45vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                 </li>
               ))}
             </ul>
@@ -390,7 +417,7 @@ export default function AboutPage() {
             <div>
               <h2 className="flex items-center gap-2 text-[clamp(26px,3vw,34px)] font-bold leading-tight" style={{ color: LOGO.blue }}>
                 <span style={{ color: LOGO.red }}>
-                  <LineIcon name="rocket" size={32} strokeWidth={2.2} />
+                  <AnimIcon name="rocket" size={32} />
                 </span>
                 Join Our <span style={{ color: LOGO.orange }}>Mission</span>
               </h2>

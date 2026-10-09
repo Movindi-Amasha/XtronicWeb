@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ShopCatalog from "@/components/ShopCatalog";
 import SignupBand from "@/components/SignupBand";
+import GiftBox from "@/components/GiftBox";
 import LineIcon, { type LineIconName } from "@/components/LineIcon";
 import { products } from "@/lib/products";
 import { LOGO } from "@/lib/brandColors";
@@ -39,7 +40,7 @@ const COMPARE_ROWS: { icon: LineIconName; label: string; value: (p: (typeof KITS
 const EASY_POINTS = ["Engaging Projects", "Designed with Teachers", "Step-by-Step Guides", "Build Real Skills", "Perfect for Home or School"];
 
 const GIFT_OCCASIONS: { icon: LineIconName; label: string; color: string }[] = [
-  { icon: "gift", label: "Birthday Gifts", color: LOGO.red },
+  { icon: "gift", label: "Birthday Gifts", color: "#E91E8C" },
   { icon: "tree", label: "Christmas Gifts", color: LOGO.green },
   { icon: "sun", label: "School Holidays", color: LOGO.yellow },
   { icon: "flask", label: "STEM Gifts", color: LOGO.blue },
@@ -220,35 +221,76 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/* ── Gift band ── */}
+      {/* ── Gift band: a gift-wrapped panel with occasion tags hanging from a string ── */}
       <section aria-labelledby="gift-heading" className="mx-auto max-w-[1260px] px-4 pt-20 md:px-6">
         <div
-          className="relative grid items-center gap-6 overflow-hidden rounded-[32px] border-2 border-line p-6 sm:p-8 lg:grid-cols-[1fr_200px]"
-          style={{ background: "linear-gradient(120deg, #fff 0%, #e9f5ff 60%, var(--color-brand-yellow-50) 100%)" }}
+          className="relative overflow-hidden rounded-[32px] px-5 pt-10 pb-8 shadow-[0_12px_0_#c9d9ee,0_30px_60px_-30px_rgba(14,30,63,0.4)] sm:px-10 lg:pb-10"
+          style={{ background: "linear-gradient(135deg, #eaf5ff 0%, #ffffff 45%, #fff6dc 100%)" }}
         >
-          <div>
-            <Doodled preset="right"><h2 id="gift-heading" className="text-[clamp(26px,3.2vw,36px)] font-bold leading-tight" style={{ color: LOGO.blue }}>
-              Need a <span style={{ color: LOGO.red }}>Special Gift?</span>
-            </h2></Doodled>
-            <p className="mt-1 font-semibold text-muted">Our STEM kits are perfect for birthdays, holidays and special occasions!</p>
-            <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
-              {GIFT_OCCASIONS.map((o, i) => (
-                <li key={o.label} className={i === GIFT_OCCASIONS.length - 1 ? "col-span-2 sm:col-span-1" : ""}>
-                  <Link
-                    href="/shop?category=Bundles+%26+Gifts"
-                    className="group flex flex-col items-center gap-2 rounded-2xl border-2 border-line bg-white px-2 py-4 text-center transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_14px_26px_-14px_rgba(14,30,63,0.3)]"
-                  >
-                    <span className="transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6" style={{ color: o.color }}>
-                      <LineIcon name={o.icon} size={32} strokeWidth={2} />
-                    </span>
-                    <span className="text-[13px] font-extrabold text-brand-navy">{o.label}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="relative mx-auto hidden h-48 w-44 lg:block">
-            <Image src="/kids/girl-hugging-robot.png" alt="" fill sizes="176px" className="object-contain object-bottom" />
+          {/* Ribbon wrapped round the panel + bow where it crosses */}
+          <span aria-hidden className="absolute inset-x-0 top-0 h-3" style={{ background: `repeating-linear-gradient(90deg, ${LOGO.red} 0 40px, ${LOGO.yellow} 40px 80px, ${LOGO.blue} 80px 120px, ${LOGO.green} 120px 160px)` }} />
+          <span aria-hidden className="doodle absolute left-6 top-10 hidden md:block" style={{ color: LOGO.yellow }}>
+            <LineIcon name="star" size={26} strokeWidth={2.4} />
+          </span>
+          <span aria-hidden className="doodle absolute right-[38%] top-8 hidden lg:block [animation-delay:1s]" style={{ color: LOGO.blue }}>
+            <LineIcon name="sparkles" size={22} strokeWidth={2.4} />
+          </span>
+
+          <div className="relative grid items-end gap-8 lg:grid-cols-[1fr_340px]">
+            <div>
+              <div className="text-center lg:text-left">
+                <Doodled preset="split">
+                  <h2 id="gift-heading" className="text-[clamp(28px,3.6vw,40px)] font-bold leading-tight" style={{ color: LOGO.blue }}>
+                    Need a <span style={{ color: LOGO.red }}>Special Gift?</span>
+                  </h2>
+                </Doodled>
+                <p className="mt-1 font-semibold text-muted">Our STEM kits are perfect for birthdays, holidays and special occasions!</p>
+              </div>
+
+              {/* Gift tags on a string */}
+              <div className="relative mt-6">
+                <svg aria-hidden viewBox="0 0 1000 40" preserveAspectRatio="none" className="absolute inset-x-0 top-0 hidden h-8 w-full sm:block">
+                  <path d="M0 6 Q 500 46 1000 6" stroke="#8a5a2b" strokeWidth="3" fill="none" strokeDasharray="2 6" strokeLinecap="round" />
+                </svg>
+                <ul className="relative grid grid-cols-2 gap-x-3 gap-y-5 pt-2 sm:grid-cols-5 sm:pt-5">
+                  {GIFT_OCCASIONS.map((o, i) => (
+                    <li key={o.label} className={i === GIFT_OCCASIONS.length - 1 ? "col-span-2 sm:col-span-1" : ""}>
+                      <Link
+                        href="/shop?category=Bundles+%26+Gifts"
+                        className="gift-tag group relative mx-auto flex max-w-[150px] flex-col items-center gap-1.5 rounded-b-2xl rounded-t-[40px] border-[3px] bg-white px-2 pt-6 pb-3 text-center shadow-[0_10px_20px_-12px_rgba(14,30,63,0.45)]"
+                        style={{ borderColor: o.color, animationDelay: `${i * 0.4}s` }}
+                      >
+                        {/* tag hole + string */}
+                        <span aria-hidden className="absolute -top-4 left-1/2 h-5 w-[3px] -translate-x-1/2 bg-[#8a5a2b] sm:-top-6 sm:h-7" />
+                        <span aria-hidden className="absolute top-2 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full border-2 bg-[#f8fafc]" style={{ borderColor: o.color }} />
+                        <span
+                          className="grid h-12 w-12 place-items-center rounded-full text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.14)] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12"
+                          style={{ background: o.color }}
+                        >
+                          <LineIcon name={o.icon} size={24} strokeWidth={2.2} />
+                        </span>
+                        <span className="text-[13px] font-extrabold text-brand-navy">{o.label}</span>
+                        <span className="text-[11px] font-extrabold" style={{ color: o.color }}>
+                          Shop gifts →
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Girl hugging her robot next to a stack of presents */}
+            <div aria-hidden className="relative mx-auto h-60 w-80">
+              <div className="absolute bottom-0 left-0 h-[92%] w-44">
+                <Image src="/kids/girl-hugging-robot.png" alt="" fill sizes="176px" className="object-contain object-bottom" />
+              </div>
+              <GiftBox className="gift-hop absolute bottom-0 right-0 h-32 w-32" box="#1E88E5" lid="#42A5F5" ribbon={LOGO.red} />
+              <GiftBox className="gift-hop absolute bottom-[104px] right-6 h-24 w-24 [animation-delay:1.2s]" box="#E91E8C" lid="#FF5CB0" ribbon={LOGO.yellow} tag={false} />
+              <span className="doodle absolute right-28 top-2" style={{ color: LOGO.red }}>
+                <LineIcon name="heart" size={26} strokeWidth={2.4} />
+              </span>
+            </div>
           </div>
         </div>
       </section>

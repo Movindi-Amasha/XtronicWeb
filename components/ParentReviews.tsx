@@ -80,7 +80,12 @@ export default function ParentReviews() {
               key={review.name}
               className="flex shrink-0 basis-[82%] snap-start flex-col gap-3 rounded-card border-2 border-line bg-white p-5 transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_-14px_rgba(14,30,63,0.25)] sm:basis-[calc((100%-16px)/2)] lg:basis-auto"
             >
-              <figcaption className="flex items-center gap-3">
+
+              <span className="text-brand-yellow-600" aria-label={`Rated ${review.rating} out of 5`}>
+                {"★".repeat(review.rating)}
+              </span>
+              <blockquote className="flex-1 text-[15px] font-bold text-brand-navy">&ldquo;{review.text}&rdquo;</blockquote>
+              <figcaption className="flex items-center gap-3 border-t border-line pt-3">
                 <span
                   className="grid h-12 w-12 shrink-0 place-items-center rounded-full border-[3px] border-white font-heading text-lg font-bold text-white shadow-md"
                   style={{ background: review.color }}
@@ -92,10 +97,6 @@ export default function ParentReviews() {
                   <small className="text-xs font-bold text-muted">{review.sub}</small>
                 </span>
               </figcaption>
-              <span className="text-brand-yellow-600" aria-label={`Rated ${review.rating} out of 5`}>
-                {"★".repeat(review.rating)}
-              </span>
-              <blockquote className="flex-1 text-[15px] font-bold text-brand-navy">&ldquo;{review.text}&rdquo;</blockquote>
             </figure>
           ))}
         </div>

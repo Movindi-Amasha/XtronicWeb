@@ -22,6 +22,8 @@ export interface Product {
   reviewCount: number;
   highlights: string[];
   features?: KitFeature[];
+  /** Corner ribbon on product cards, e.g. "New". */
+  badge?: string;
   stemConcepts: string[];
   whatsInTheBox: string[];
   /** Path under /public, or "" while the photo isn't ready (shows a placeholder). */
@@ -31,6 +33,7 @@ export interface Product {
 export const products: Product[] = [
   {
     slug: "voice-robot",
+    badge: "New",
     features: ["build", "speak", "move", "play"],
     name: "Smart Voice-Controlled Robot Kit",
     emoji: "🤖",
@@ -57,6 +60,7 @@ export const products: Product[] = [
   },
   {
     slug: "solar-4wd-rover",
+    badge: "New",
     features: ["build", "solar", "drive", "race"],
     name: "Solar 4-Wheel Drive DIY Rover",
     emoji: "☀️",
@@ -83,6 +87,7 @@ export const products: Product[] = [
   },
   {
     slug: "wooden-taxiing-aircraft",
+    badge: "New",
     features: ["build", "learn", "move", "create"],
     name: "Wooden Taxiing Aircraft Kit",
     emoji: "✈️",
@@ -109,6 +114,7 @@ export const products: Product[] = [
   },
   {
     slug: "solar-speedboat",
+    badge: "New",
     features: ["build", "solar", "float", "explore"],
     name: "Solar-Powered Yacht / Speedboat",
     emoji: "🛥️",
@@ -131,10 +137,11 @@ export const products: Product[] = [
       "Twin-screw propeller set",
       "Illustrated build guide",
     ],
-    image: "/products/solar-speedboat/main.jpg",
+    image: "/products/solar-speedboat/cutout.png",
   },
   {
     slug: "solar-butterfly",
+    badge: "New",
     features: ["build", "solar", "move", "nature"],
     name: "Solar-Powered Flapping Butterfly",
     emoji: "🦋",

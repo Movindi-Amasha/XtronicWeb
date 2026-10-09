@@ -107,7 +107,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${nunito.variable} ${geistMono.variable} ${fredoka.variable} h-full`}
     >
-      <body className="flex min-h-full flex-col bg-canvas text-brand-navy antialiased">
+      <body className="flex min-h-full flex-col text-brand-navy antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -123,7 +123,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <Header />
-        <main id="main-content" className="flex-1 overflow-x-clip pb-16 md:pb-0">
+        <main id="main-content" className="flex-1 overflow-x-clip">
           {children}
         </main>
         <Footer />

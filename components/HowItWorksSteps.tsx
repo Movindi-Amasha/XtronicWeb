@@ -36,7 +36,7 @@ export default function HowItWorksSteps() {
           <ol className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-5 sm:gap-2">
             {STEPS.map((step, i) => (
               <li key={step.title} className="relative flex sm:justify-center">
-                <div className="step-card relative flex w-full cursor-default items-center gap-4 rounded-card border-2 border-line bg-white p-3 transition-[translate,scale,box-shadow,border-color] duration-300 ease-out hover:z-10 hover:-translate-y-1.5 hover:scale-[1.06] hover:shadow-[0_18px_30px_-14px_rgba(14,30,63,0.35)] sm:flex-col sm:gap-2 sm:border-transparent sm:bg-transparent sm:px-1 sm:py-3 sm:text-center sm:hover:border-line sm:hover:bg-white">
+                <div className="step-card relative flex w-full cursor-default items-center gap-4 rounded-card border-2 border-line bg-white p-3 transition-[translate,scale,box-shadow,border-color] duration-300 ease-out hover:z-10 hover:-translate-y-1.5 hover:scale-[1.06] hover:shadow-[0_18px_30px_-14px_rgba(14,30,63,0.35)] sm:flex-col sm:gap-2 sm:px-1 sm:py-3 sm:text-center">
                   <span
                     className="step-badge flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-heading text-[11px] font-bold text-white shadow"
                     style={{ background: step.color }}

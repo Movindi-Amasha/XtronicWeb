@@ -6,8 +6,8 @@ import KitFeatures from "./KitFeatures";
 import LineIcon from "./LineIcon";
 import type { Product } from "@/lib/products";
 import { LOGO } from "@/lib/brandColors";
-import { useCartStore } from "@/lib/cartStore";
 import { useQuickViewStore } from "@/lib/quickViewStore";
+import { useCartStore } from "@/lib/cartStore";
 import { useDisplayPrice } from "@/lib/useDisplayPrice";
 
 // Each card takes the next logo colour for its border and photo backdrop.
@@ -16,12 +16,14 @@ const TONES = [LOGO.orange, LOGO.blue, LOGO.yellow, LOGO.green, LOGO.red];
 export default function ProductCard({
   product,
   index = 0,
+  showRating = true,
 }: {
   product: Product;
   index?: number;
+  showRating?: boolean;
 }) {
-  const addItem = useCartStore((s) => s.addItem);
   const openQuickView = useQuickViewStore((s) => s.open);
+  const addItem = useCartStore((s) => s.addItem);
   const displayPrice = useDisplayPrice(product.priceCents);
   const tone = TONES[index % TONES.length];
   // "LKR 7,790.95" doesn't fit a narrow card on one line, so non-AUD prices
@@ -36,17 +38,24 @@ export default function ProductCard({
       <Link
         href={`/shop/${product.slug}`}
         aria-label={product.name}
-        className="relative block aspect-square w-full overflow-hidden"
+        className="relative block aspect-[4/3] w-full overflow-hidden"
         style={{
           background: `radial-gradient(circle at 50% 40%, #fff 0%, color-mix(in srgb, ${tone} 22%, white) 55%, color-mix(in srgb, ${tone} 45%, white) 100%)`,
         }}
       >
-        <div className="relative h-full w-full p-3 transition-transform duration-300 group-hover:scale-105 sm:p-5">
-          <ProductImage src={product.image} alt={product.name} emoji={product.emoji} />
+        {/* Generous padding so the whole product sits inside the frame,
+            even the tightly-trimmed cut-outs and on hover zoom. */}
+        <div className="absolute inset-x-[9%] top-[13%] bottom-[7%] transition-transform duration-300 group-hover:scale-105">
+          <ProductImage src={product.image} alt={product.name} emoji={product.emoji} className="rounded-xl" />
         </div>
-        <span className="absolute left-2 top-2 rounded-full bg-white px-2 py-0.5 text-[10px] font-bold text-brand-navy shadow sm:left-3 sm:top-3 sm:px-3 sm:py-1 sm:text-xs">
-          Age {product.age}
-        </span>
+        {product.badge && (
+          <span
+            className="absolute left-2 top-2 rounded-md px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-white shadow sm:left-3 sm:top-3 sm:text-xs"
+            style={{ background: LOGO.green }}
+          >
+            {product.badge}
+          </span>
+        )}
         <button
           type="button"
           onClick={(e) => {
@@ -64,16 +73,8 @@ export default function ProductCard({
           <Link href={`/shop/${product.slug}`}>{product.name}</Link>
         </h3>
 
-        <div className="flex items-center gap-1 text-xs text-brand-navy" aria-label={`Rated ${product.rating} out of 5`}>
-          <span aria-hidden className="text-brand-amber">
-            {"★".repeat(Math.round(product.rating))}
-            {"☆".repeat(5 - Math.round(product.rating))}
-          </span>
-          <span className="text-muted">({product.reviewCount})</span>
-        </div>
-
         {product.features && (
-          <div className="w-full border-t border-dashed border-line pt-2.5">
+          <div className="w-full">
             <KitFeatures features={product.features} />
           </div>
         )}
@@ -89,19 +90,28 @@ export default function ProductCard({
           )}
         </p>
 
+        {showRating && (
+          <div className="-mt-1 flex items-center gap-1 text-xs text-brand-navy" aria-label={`Rated ${product.rating} out of 5`}>
+            <span aria-hidden className="text-brand-amber">
+              {"★".repeat(Math.round(product.rating))}
+              {"☆".repeat(5 - Math.round(product.rating))}
+            </span>
+            <span className="text-muted">({product.reviewCount})</span>
+          </div>
+        )}
+
         <div className="flex w-full items-center gap-2">
           <Link
             href={`/shop/${product.slug}`}
             className="btn-brick flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-btn bg-brand-amber px-2 py-2.5 font-heading text-[13px] font-semibold text-white sm:text-sm"
             style={{ "--btn-brick-shadow": "var(--color-brand-amber-600)" } as React.CSSProperties}
           >
-            {/* Full label only where the card is wide enough for it. */}
-            <span className="sm:hidden lg:inline xl:hidden">View</span>
-            <span className="hidden sm:inline lg:hidden xl:inline">View Product</span>
-            <span aria-hidden className="hidden xl:inline">→</span>
+            <span className="truncate">View<span className="hidden xl:inline"> Product</span></span>
+            <span aria-hidden className="hidden sm:inline">→</span>
           </Link>
           <button
             type="button"
+            data-add-to-cart
             onClick={() =>
               addItem({
                 slug: product.slug,
@@ -111,7 +121,6 @@ export default function ProductCard({
                 priceCents: product.priceCents,
               })
             }
-            data-add-to-cart
             aria-label={`Add ${product.name} to cart`}
             className="btn-brick flex h-10 w-10 shrink-0 items-center justify-center rounded-btn bg-brand-navy text-white transition-colors hover:bg-brand-blue"
             style={{ "--btn-brick-shadow": "var(--color-brand-navy-700)" } as React.CSSProperties}

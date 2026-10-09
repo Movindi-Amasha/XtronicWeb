@@ -5,12 +5,6 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { LOGO } from "@/lib/brandColors";
 
-const TRUST = [
-  { stat: "4.9★", label: "2,000+ reviews", tone: "border-brand-yellow" },
-  { stat: "Ages 6+", label: "Safe & tested", tone: "border-brand-blue" },
-  { stat: "30-day", label: "Happy returns", tone: "border-brand-amber" },
-];
-
 const BRICKS = [
   { tone: "bg-brand-amber shadow-[inset_0_-4px_0_var(--color-brand-amber-600)]", pos: "left-[1%] top-[82%]", size: "h-7 w-12", studs: 2, rotate: "8deg", delay: "0s" },
   { tone: "bg-brand-blue shadow-[inset_0_-4px_0_var(--color-brand-blue-600)]", pos: "right-[2%] top-[6%]", size: "h-6 w-10", studs: 2, rotate: "-10deg", delay: ".6s" },
@@ -67,9 +61,8 @@ export default function Hero() {
           </h1>
 
           <p className="mt-6 max-w-lg text-lg font-semibold text-brand-navy-700">
-            Fun STEM kits that inspire the next generation of creators. Kids snap together
-            real robots, solar cars and boats, turning screen time into{" "}
-            <strong className="text-brand-amber">build time</strong>.
+            Fun STEM kits that inspire the{" "}
+            <strong className="text-brand-amber">next generation of creators</strong>.
           </p>
 
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3.5">
@@ -91,27 +84,22 @@ export default function Hero() {
             </Link>
           </div>
 
-          <ul className="mt-8 grid grid-cols-3 gap-3 sm:mt-9 sm:flex sm:flex-wrap sm:gap-7">
-            {TRUST.map((t) => (
-              <li key={t.label} className={`border-l-4 pl-2.5 sm:pl-3.5 ${t.tone}`}>
-                <strong className="block font-heading text-lg text-brand-navy sm:text-xl">{t.stat}</strong>
-                <span className="text-xs font-bold text-muted sm:text-sm">{t.label}</span>
-              </li>
-            ))}
-          </ul>
         </div>
 
         <div className="relative mx-auto aspect-[1/0.95] w-full max-w-[460px] md:max-w-[620px]">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-4 right-0 z-20 rotate-[8deg] speech-bubble rounded-[44%] border-[3px] border-brand-navy bg-white px-5 py-3 text-center font-heading text-base font-bold uppercase leading-[1.05] shadow-[5px_6px_0_rgba(13,31,53,0.15)] sm:text-xl md:-top-6 md:-right-4"
-          >
-            <span style={{ color: LOGO.blue }}>STEM</span> <span style={{ color: LOGO.orange }}>Fun</span>
-            <br />
-            <span style={{ color: LOGO.red }}>for a brighter</span>
-            <br />
-            <span style={{ color: LOGO.green }}>tomorrow!</span>
-            <span className="absolute -bottom-3 left-8 h-6 w-6 rotate-45 border-r-[3px] border-b-[3px] border-brand-navy bg-white" />
+          {/* Wooden signpost, as in the mockup. */}
+          <div aria-hidden className="pointer-events-none absolute -top-2 right-0 z-20 rotate-[6deg] md:-right-6 md:-top-4">
+            <div
+              className="speech-bubble rounded-xl border-[3px] border-[#7a4a1f] px-4 py-2.5 text-center font-heading text-base font-bold uppercase leading-[1.05] shadow-[4px_6px_0_rgba(13,31,53,0.18)] sm:px-5 sm:text-xl"
+              style={{ background: "repeating-linear-gradient(0deg, #f4c27a 0 9px, #eab468 9px 11px)" }}
+            >
+              <span style={{ color: LOGO.blue }}>STEM</span> <span style={{ color: LOGO.orange }}>Fun</span>
+              <br />
+              <span style={{ color: LOGO.red }}>Brighter</span>
+              <br />
+              <span style={{ color: LOGO.green }}>Tomorrow!</span>
+            </div>
+            <div className="mx-auto h-8 w-3 rounded-b bg-[#a8692f] shadow-[inset_-3px_0_0_rgba(0,0,0,0.15)] sm:h-12" />
           </div>
           {/* Soft layered spotlight instead of a brick/stud plate — the logo
               itself already reads as a chunky brick icon, so a second brick

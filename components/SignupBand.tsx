@@ -11,12 +11,13 @@ const PERKS: { icon: LineIconName; label: string; color: string }[] = [
 
 export default function SignupBand() {
   return (
-    <section aria-labelledby="signup-heading" className="mx-auto max-w-[1200px] px-4 pt-20 md:px-6">
+    <section aria-labelledby="signup-heading" className="mt-20">
       <div
-        className="relative grid items-center gap-7 overflow-hidden rounded-[32px] px-6 py-9 text-white shadow-[0_10px_0_var(--color-brand-blue-600)] sm:px-10 lg:grid-cols-[auto_1fr_auto] lg:gap-10"
+        className="relative overflow-hidden text-white"
         style={{ background: `linear-gradient(120deg, ${LOGO.blue}, var(--color-brand-blue-600))` }}
       >
         <div aria-hidden className="studs-texture" />
+        <div className="relative mx-auto grid max-w-[1260px] items-center gap-7 px-4 py-9 md:px-6 lg:grid-cols-[auto_1fr_auto] lg:gap-10">
         <span aria-hidden className="relative hidden -rotate-12 text-white/80 lg:block">
           <LineIcon name="send" size={56} strokeWidth={1.5} />
         </span>
@@ -39,6 +40,7 @@ export default function SignupBand() {
             </li>
           ))}
         </ul>
+        </div>
       </div>
     </section>
   );

@@ -299,6 +299,59 @@
 .anim-wind { animation: wind 1.8s linear infinite; }
 .anim-send { animation: send-off 2.8s ease-in-out infinite; }
 .anim-drive { animation: drive 1.6s ease-in-out infinite; }
+/* About page icon animations. */
+@keyframes launch { 0%, 100% { translate: 0 0; } 40% { translate: 3px -6px; } 50% { translate: 4px -8px; } 60% { translate: 2px -4px; } }
+@keyframes pulse-ring { 0%, 100% { scale: 1; } 50% { scale: 1.18; } }
+@keyframes blink { 0%, 88%, 100% { scale: 1 1; } 93% { scale: 1 0.1; } }
+@keyframes flip { 0%, 70%, 100% { rotate: 0deg; } 80% { rotate: -14deg; } 90% { rotate: 8deg; } }
+@keyframes beat { 0%, 60%, 100% { scale: 1; } 70% { scale: 1.25; } 80% { scale: 1; } 90% { scale: 1.15; } }
+@keyframes flicker-soft { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: 0.55; scale: 0.9; } }
+.anim-glow { animation: sun-glow 2s ease-in-out infinite; }
+.anim-launch { animation: launch 1.8s ease-in-out infinite; }
+.anim-twinkle { animation: twinkle 2.4s ease-in-out infinite; }
+.anim-pulse { animation: pulse-ring 1.8s ease-in-out infinite; }
+.anim-blink { animation: blink 3.5s ease-in-out infinite; }
+.anim-flip { animation: flip 3s ease-in-out infinite; }
+.anim-sway { animation: sway 2.6s ease-in-out infinite; transform-origin: 20% 90%; }
+.anim-spin-slow { animation: xk-spin 10s linear infinite; }
+.anim-beat { animation: beat 1.6s ease-in-out infinite; }
+.anim-flicker-soft { animation: flicker-soft 1.4s ease-in-out infinite; }
+
+/* Soft brand-colour wash instead of plain white: low-opacity blue, yellow and
+   orange glows that stay put while you scroll. Cards stay white on top. */
+body {
+  background-color: #f6f9ff;
+  background-image:
+    radial-gradient(900px 600px at 0% 0%, rgba(1, 119, 222, 0.16), transparent 60%),
+    radial-gradient(800px 600px at 100% 30%, rgba(253, 171, 5, 0.20), transparent 60%),
+    radial-gradient(900px 700px at 10% 75%, rgba(255, 122, 31, 0.13), transparent 60%),
+    radial-gradient(800px 600px at 95% 100%, rgba(1, 156, 248, 0.16), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Every other section gets a faint full-width tinted band (blue / yellow). */
+main > section:not(:first-child):nth-of-type(4n + 2),
+main > section:not(:first-child):nth-of-type(4n + 4) {
+  position: relative;
+  isolation: isolate;
+}
+main > section:not(:first-child):nth-of-type(4n + 2)::before,
+main > section:not(:first-child):nth-of-type(4n + 4)::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 2.5rem -100vmax -1rem;
+  pointer-events: none;
+}
+main > section:not(:first-child):nth-of-type(4n + 2)::before {
+  background: linear-gradient(180deg, transparent, rgba(1, 119, 222, 0.10) 25%, rgba(1, 119, 222, 0.10) 75%, transparent);
+}
+main > section:not(:first-child):nth-of-type(4n + 4)::before {
+  background: linear-gradient(180deg, transparent, rgba(253, 171, 5, 0.15) 25%, rgba(253, 171, 5, 0.15) 75%, transparent);
+}
+
+/* Pages ending with the community band: footer sits flush against it. */
+main:has(> section:last-of-type #signup-heading) + footer { margin-top: 0; }
 
 /* ── Site-wide motion (components/SiteMotion.tsx) ── */
 
@@ -383,6 +436,38 @@ details[open] > :not(summary) { animation: faq-in 0.3s ease-out; }
 /* "Added to cart" toast pops up. */
 @keyframes toast-pop { 0% { opacity: 0; scale: 0.6; } 70% { opacity: 1; scale: 1.08; } 100% { scale: 1; } }
 .toast-pop { animation: toast-pop 0.35s ease-out; }
+
+/* Homepage kit filter: cards fade up when the selection changes. */
+@keyframes kits-fade { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
+.kits-fade > * { animation: kits-fade 0.4s ease-out both; }
+
+/* Special products: bows wiggle, the SAVE sticker turns, faint confetti. */
+@keyframes bow-wiggle { 0%, 80%, 100% { rotate: 0deg; } 86% { rotate: -6deg; } 93% { rotate: 5deg; } }
+.bow-wiggle { animation: bow-wiggle 3.5s ease-in-out infinite; transform-origin: 50% 90%; }
+.group:hover .bow-wiggle { animation-duration: 0.7s; }
+@keyframes sticker-spin { 0%, 100% { rotate: -10deg; scale: 1; } 50% { rotate: 8deg; scale: 1.06; } }
+.sticker-spin { animation: sticker-spin 3s ease-in-out infinite; }
+/* STEM Kits page gift tags swing gently on their string. */
+@keyframes tag-swing { 0%, 100% { rotate: -3deg; } 50% { rotate: 3deg; } }
+.gift-tag { transform-origin: 50% -20px; animation: tag-swing 3.2s ease-in-out infinite; transition: translate 0.3s ease; }
+.gift-tag:hover { animation-duration: 0.9s; translate: 0 -4px; }
+.confetti-bg {
+  background-image:
+    radial-gradient(circle, rgba(245, 44, 43, 0.18) 2.5px, transparent 3px),
+    radial-gradient(circle, rgba(1, 119, 222, 0.16) 2.5px, transparent 3px),
+    radial-gradient(circle, rgba(253, 171, 5, 0.22) 2.5px, transparent 3px);
+  background-size: 90px 90px, 130px 130px, 70px 70px;
+  background-position: 10px 20px, 50px 70px, 30px 5px;
+}
+
+/* Big gift (shop page) does a little hop now and then, like it wants opening. */
+@keyframes gift-hop {
+  0%, 70%, 100% { translate: 0 0; rotate: 0deg; scale: 1 1; }
+  76% { translate: 0 0; scale: 1.06 0.94; }
+  84% { translate: 0 -14px; rotate: -5deg; scale: 0.97 1.04; }
+  92% { translate: 0 0; rotate: 3deg; scale: 1.04 0.96; }
+}
+.gift-hop { transform-origin: 50% 100%; animation: gift-hop 3.2s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

@@ -310,13 +310,14 @@ export default function HowItWorksPage() {
               ))}
             </ul>
           </div>
-          <div className="relative mx-auto aspect-square w-full max-w-[260px] overflow-hidden rounded-[32px] lg:max-w-[340px] border-4 border-white shadow-[0_20px_40px_-18px_rgba(14,30,63,0.4)]">
+          <div className="relative mx-auto aspect-square w-full max-w-[280px] lg:max-w-[340px]">
+            <div aria-hidden className="absolute inset-[6%] rounded-full" style={{ background: "radial-gradient(circle, #fff 0%, #fff3d1 55%, transparent 75%)" }} />
             <Image
-              src="/products/solar-butterfly/4.jpg"
-              alt="Solar-powered butterfly kit, built and flapping in the sun"
+              src="/kids/girl-butterfly.png"
+              alt="Girl holding up the solar butterfly she built"
               fill
               sizes="340px"
-              className="object-cover"
+              className="object-contain object-bottom drop-shadow-[0_14px_18px_rgba(13,31,53,0.2)]"
             />
           </div>
         </div>
