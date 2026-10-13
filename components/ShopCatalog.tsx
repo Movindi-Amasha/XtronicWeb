@@ -30,6 +30,15 @@ const CATEGORY_ICONS: Record<ProductCategory | "All", { icon: LineIconName; colo
 
 const TABS: Array<ProductCategory | "All"> = ["All", ...categories];
 const AGES = [...new Set(products.map((p) => p.age))];
+
+/** Age options suitable for a child of the given age (e.g. "6-7" → kits for 6+),
+ * from a ?age= link such as the Parents' Guide age cards. Uses the youngest
+ * age in the range so every kit shown suits the whole range. */
+function agesForParam(param: string | null): string[] {
+  const youngest = param ? parseInt(param, 10) : NaN;
+  if (!Number.isFinite(youngest)) return [];
+  return AGES.filter((a) => a !== "All ages" && parseInt(a, 10) <= youngest);
+}
 const LEVELS = SKILL_LEVELS.filter((l) => products.some((p) => p.skillLevel === l));
 // Slider ceiling: the dearest product, rounded up to the next Rs 1,000.
 const PRICE_CEILING_CENTS = Math.ceil(Math.max(...products.map((p) => p.priceCents)) / 100000) * 100000;
@@ -77,7 +86,15 @@ export default function ShopCatalog() {
   const query = searchParams.get("q")?.trim().toLowerCase() ?? "";
 
   const [sort, setSort] = useState<SortKey>("featured");
-  const [ages, setAges] = useState<string[]>([]);
+  const ageParam = searchParams.get("age");
+  const [ages, setAges] = useState<string[]>(() => agesForParam(ageParam));
+  // A new ?age= link while the shop is already open re-applies the filter.
+  const [appliedAgeParam, setAppliedAgeParam] = useState(ageParam);
+  if (ageParam !== appliedAgeParam) {
+    setAppliedAgeParam(ageParam);
+    setAges(agesForParam(ageParam));
+  }
+  const ageLabel = ageParam && agesForParam(ageParam).length ? ageParam.replace("-", "–") : null;
   const [levels, setLevels] = useState<SkillLevel[]>([]);
   const [maxPriceCents, setMaxPriceCents] = useState(PRICE_CEILING_CENTS);
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -233,7 +250,7 @@ export default function ShopCatalog() {
   );
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[250px_1fr]">
+    <div id="kits" className="grid scroll-mt-28 gap-8 lg:grid-cols-[250px_1fr]">
       <aside className="hidden lg:block">{sidebar}</aside>
 
       <div>
@@ -249,6 +266,19 @@ export default function ShopCatalog() {
               {filtered.length} {filtered.length === 1 ? "product" : "products"} to build, learn and explore
               {query && <> matching &ldquo;{query}&rdquo;</>}
             </p>
+            {ageLabel && ages.length > 0 && (
+              <p className="mt-2 inline-flex items-center gap-2 rounded-full bg-brand-blue-50 py-1 pr-1 pl-3 text-sm font-bold text-brand-blue">
+                Kits for ages {ageLabel}
+                <button
+                  type="button"
+                  onClick={() => setAges([])}
+                  aria-label="Show kits for all ages"
+                  className="grid h-6 w-6 place-items-center rounded-full bg-white text-base leading-none text-brand-navy hover:text-brand-red"
+                >
+                  ×
+                </button>
+              </p>
+            )}
           </div>
 
           <div className="flex items-center gap-2">

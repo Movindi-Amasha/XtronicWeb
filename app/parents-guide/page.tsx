@@ -15,10 +15,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/parents-guide" },
 };
 
-const AGE_GUIDANCE: { age: string; title: string; note: string; color: string; icon: LineIconName }[] = [
-  { age: "6–7", title: "Little Builders", note: "Best with light adult supervision for the first build.", color: LOGO.blue, icon: "family" },
-  { age: "8–10", title: "Young Engineers", note: "Most kids can build independently using the illustrated guide.", color: LOGO.orange, icon: "wrench" },
-  { age: "11+", title: "Master Makers", note: "Fully independent, including the Smart Voice-Controlled Robot Kit.", color: LOGO.green, icon: "rocket" },
+// Each card opens the shop filtered to kits for that age (?age=, see ShopCatalog).
+const AGE_GUIDANCE: { age: string; param: string; title: string; note: string; color: string; icon: LineIconName }[] = [
+  { age: "6–7", param: "6-7", title: "Little Builders", note: "Best with light adult supervision for the first build.", color: LOGO.blue, icon: "family" },
+  { age: "8–10", param: "8-10", title: "Young Engineers", note: "Most kids can build independently using the illustrated guide.", color: LOGO.orange, icon: "wrench" },
+  { age: "11+", param: "11+", title: "Master Makers", note: "Fully independent, including the Smart Voice-Controlled Robot Kit.", color: LOGO.green, icon: "rocket" },
 ];
 
 // Concepts with an `image` get large feature cards; `sound` adds animated sound waves.
@@ -170,7 +171,13 @@ export default function ParentsGuidePage() {
         </div>
         <ul className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3">
           {AGE_GUIDANCE.map((row) => (
-            <li key={row.age} className="group overflow-hidden rounded-card border-[3px] bg-white text-center shadow-[0_10px_30px_-14px_rgba(14,30,63,0.25)] transition-[translate] duration-300 hover:-translate-y-1.5" style={{ borderColor: row.color }}>
+            <li key={row.age}>
+              <Link
+                href={`/shop?age=${encodeURIComponent(row.param)}#kits`}
+                aria-label={`Shop STEM kits for ages ${row.age}`}
+                className="group block h-full overflow-hidden rounded-card border-[3px] bg-white text-center shadow-[0_10px_30px_-14px_rgba(14,30,63,0.25)] transition-[translate,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_34px_-16px_rgba(14,30,63,0.35)]"
+                style={{ borderColor: row.color }}
+              >
               <div className="relative grid h-32 place-items-center" style={{ background: `radial-gradient(circle at 50% 40%, #fff 0%, color-mix(in srgb, ${row.color} 22%, white) 75%)` }}>
                 <span className="flex h-20 w-20 items-center justify-center rounded-full text-white shadow-[inset_0_-5px_0_rgba(0,0,0,0.14)] transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" style={{ background: row.color }}>
                   <LineIcon name={row.icon} size={38} strokeWidth={2} />
@@ -182,7 +189,11 @@ export default function ParentsGuidePage() {
                 </span>
                 <h3 className="mt-2 font-heading text-lg font-bold text-brand-navy">{row.title}</h3>
                 <p className="mt-1 text-sm font-semibold text-muted">{row.note}</p>
+                <span className="mt-3 inline-flex items-center gap-1 font-heading text-sm font-bold transition-[gap] group-hover:gap-2" style={{ color: row.color }}>
+                  Shop kits for {row.age} <span aria-hidden>→</span>
+                </span>
               </div>
+              </Link>
             </li>
           ))}
         </ul>
