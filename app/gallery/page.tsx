@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SignupBand from "@/components/SignupBand";
 import HeroScene from "@/components/HeroScene";
+import VideoBand from "@/components/VideoBand";
 import Doodled from "@/components/Doodled";
 import LineIcon from "@/components/LineIcon";
 import { LOGO, band } from "@/lib/brandColors";
@@ -124,6 +125,8 @@ export default function GalleryPage() {
           </div>
         </div>
       </section>
+
+      <VideoBand videoId="GfCBBbu2PLE" title="XTRONIC KIDS kits in action" />
 
       <section className="mx-auto max-w-[1200px] px-4 pt-12 md:px-6" aria-label="Gallery highlights">
         <div className="grid grid-cols-1 gap-3 rounded-[24px] border border-white bg-white/80 p-4 shadow-[0_12px_35px_-25px_rgba(13,31,53,0.35)] sm:grid-cols-3 sm:p-5">

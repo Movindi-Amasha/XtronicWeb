@@ -75,32 +75,25 @@ export default function SubscriptionBand() {
         <Mascot pose="balloon" motion="fly" className="absolute right-6 top-5 hidden h-28 lg:block xl:h-32" sizes="200px" />
 
         <div className="relative grid items-center gap-8 md:grid-cols-[0.9fr_1.4fr]">
-          {/* Kid unboxing his monthly kit (the photo carries its own "New Kit
-              Every Month!" bubble): a tilted photo card on a yellow back plate,
-              with a light sweep and a few twinkling stars. */}
-          <div className="relative mx-auto w-full max-w-[400px] pt-3 pb-4">
-            <div aria-hidden className="absolute inset-x-4 top-6 bottom-1 rotate-[5deg] rounded-[30px]" style={{ background: LOGO.yellow }} />
-            <figure className="group relative -rotate-[3deg] overflow-hidden rounded-[28px] shadow-[0_22px_34px_-14px_rgba(13,31,53,0.55)] transition-transform duration-500 hover:rotate-0">
-              <div className="relative aspect-[1252/1067]">
-                <Image
-                  src="/kids/boy-unboxing-kit.jpg"
-                  alt="Excited boy opening his monthly XTRONIC KIDS kit box"
-                  fill
-                  sizes="(min-width: 768px) 400px, 90vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <span aria-hidden className="club-sheen pointer-events-none absolute inset-y-0 -left-1/4 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/45 to-transparent" />
-            </figure>
-            {[
-              { c: LOGO.yellow, pos: "-left-2 top-1/3", d: "0s" },
-              { c: "#fff", pos: "left-6 -bottom-1", d: "0.9s" },
-              { c: LOGO.green, pos: "-right-2 bottom-1/4", d: "1.7s" },
-            ].map((st) => (
-              <span key={st.pos} aria-hidden className={`club-twinkle absolute ${st.pos} h-5 w-5`} style={{ color: st.c, animationDelay: st.d }}>
-                <LineIcon name="sparkles" size={20} strokeWidth={2.6} />
-              </span>
-            ))}
+          {/* Kid on a badge, with orbiting stars and a spinning stamp */}
+          <div className="relative mx-auto aspect-square w-full max-w-[340px]">
+            <div aria-hidden className="club-orbit absolute inset-0">
+              {[LOGO.yellow, LOGO.orange, "#fff", LOGO.green].map((c, i) => (
+                <span key={i} className="absolute h-4 w-4" style={{ color: c, left: `${50 + 48 * Math.cos((i * Math.PI) / 2)}%`, top: `${50 + 48 * Math.sin((i * Math.PI) / 2)}%`, translate: "-50% -50%" }}>
+                  <LineIcon name="star" size={16} strokeWidth={2.6} />
+                </span>
+              ))}
+            </div>
+            <div className="absolute inset-[8%] overflow-hidden rounded-full border-[6px] border-white shadow-[0_12px_0_rgba(13,31,53,0.18)]" style={{ background: "radial-gradient(circle at 50% 35%, #fff 0%, #fff6d6 65%, #ffe39a 100%)" }}>
+              <Image src="/kids/boy-cheering.png" alt="Boy cheering next to the robot car he built" fill sizes="340px" className="translate-y-[6%] scale-110 object-contain object-bottom" />
+            </div>
+            <div aria-hidden className="club-stamp absolute -top-1 -right-1 grid h-24 w-24 place-items-center rounded-full border-4 border-white text-center font-heading text-[11px] font-bold uppercase leading-tight text-white shadow-lg sm:h-28 sm:w-28 sm:text-xs" style={{ background: LOGO.red }}>
+              New kit
+              <br />
+              every
+              <br />
+              month!
+            </div>
           </div>
 
           <div>

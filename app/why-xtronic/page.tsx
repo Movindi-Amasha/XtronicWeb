@@ -24,7 +24,7 @@ const MILESTONES: { year: string; title: string; desc: string; icon: LineIconNam
   { year: "Growth", title: "Word Spread", desc: "Sales grew fivefold within a few years.", icon: "rocket", color: LOGO.red },
   { year: "Early 2022", title: "Ravana PCB", desc: "First rebrand, growing into coding, electronics and robotics.", icon: "cog", color: LOGO.blue },
   { year: "Late 2022", title: "XTRONIC", desc: "Rebranded to XTRONIC, a full development platform.", icon: "zap", color: LOGO.orange },
-  { year: "Today", title: "XTRONIC KIDS", desc: "Rebuilt from the ground up for builders aged 6 and up.", icon: "smile", color: LOGO.green },
+  { year: "2026", title: "XTRONIC KIDS", desc: "Rebuilt from the ground up for builders aged 6 and up.", icon: "smile", color: LOGO.green },
   { year: "Next", title: "Brighter Future", desc: "More kits to inspire young creators.", icon: "star", color: LOGO.lightBlue },
 ];
 

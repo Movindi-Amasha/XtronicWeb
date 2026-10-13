@@ -526,6 +526,9 @@ details[open] > :not(summary) { animation: faq-in 0.3s ease-out; }
 /* Club subscription: falling confetti, orbiting stars, spinning stamp, pulsing price. */
 @keyframes club-confetti { 0% { translate: 0 -20px; rotate: 0deg; opacity: 0; } 10% { opacity: 0.9; } 100% { translate: 30px 620px; rotate: 540deg; opacity: 0; } }
 .club-confetti { animation: club-confetti 7s linear infinite; }
+.club-orbit { animation: xk-spin 16s linear infinite; }
+@keyframes club-stamp { 0%, 100% { rotate: -12deg; scale: 1; } 50% { rotate: 8deg; scale: 1.06; } }
+.club-stamp { animation: club-stamp 3s ease-in-out infinite; }
 /* Club photo: a soft light sweep across the picture, like sun on the solar panel. */
 @keyframes club-sheen { 0%, 55% { translate: -120% 0; opacity: 0; } 60% { opacity: 1; } 90% { opacity: 1; } 100% { translate: 120% 0; opacity: 0; } }
 .club-sheen { animation: club-sheen 6s ease-in-out infinite; }

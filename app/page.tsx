@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import FeatureIconsRow from "@/components/FeatureIconsRow";
+import RoverAssembly from "@/components/RoverAssembly";
 import ProductLineup from "@/components/ProductLineup";
 import HowItWorksSteps from "@/components/HowItWorksSteps";
 import WorksGallery from "@/components/WorksGallery";
@@ -14,6 +15,7 @@ export default function Home() {
     <>
       <Hero />
       <FeatureIconsRow />
+      <RoverAssembly />
       <ProductLineup />
       <HowItWorksSteps />
       <WorksGallery />

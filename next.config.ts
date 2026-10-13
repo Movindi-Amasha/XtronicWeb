@@ -33,7 +33,7 @@ const nextConfig: NextConfig = {
               // PayPal's buttons render inside an iframe/popup from its own
               // domain; PayHere isn't an iframe (see form-action below) but
               // is included here too in case that ever changes.
-              "frame-src 'self' https://www.paypal.com https://www.sandbox.paypal.com",
+              "frame-src 'self' https://www.paypal.com https://www.sandbox.paypal.com https://www.youtube-nocookie.com",
               // PayHerePaymentSection does a full-page <form> POST redirect
               // straight to PayHere's checkout — that's governed by
               // form-action, not connect-src/frame-src.
