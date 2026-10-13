@@ -16,7 +16,7 @@ function ArrowButton({ dir, onClick }: { dir: -1 | 1; onClick: () => void }) {
       type="button"
       onClick={onClick}
       aria-label={dir < 0 ? "Previous" : "Next"}
-      className={`absolute top-[calc(50%-18px)] z-10 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border-2 border-line bg-white text-lg font-bold text-brand-navy shadow-md transition-colors hover:border-brand-blue hover:bg-brand-blue hover:text-white sm:grid ${
+      className={`absolute top-[calc(50%-34px)] z-10 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border-2 border-line bg-white text-lg font-bold text-brand-navy shadow-md transition-colors hover:border-brand-blue hover:bg-brand-blue hover:text-white sm:grid ${
         dir < 0 ? "-left-3" : "-right-3"
       }`}
     >
@@ -62,16 +62,19 @@ export default function CreationsCarousel({ items }: { items: Creation[] }) {
           <Link
             key={item.href}
             href={item.href}
-            className="group relative aspect-[4/3] shrink-0 basis-[78%] snap-start overflow-hidden rounded-card border-4 border-white bg-brand-blue-50 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.25)] sm:basis-[calc((100%-16px)/2)] md:basis-[calc((100%-32px)/3)] lg:basis-[calc((100%-64px)/5)]"
+            className="group shrink-0 basis-[78%] snap-start sm:basis-[calc((100%-16px)/2)] md:basis-[calc((100%-32px)/3)] lg:basis-[calc((100%-48px)/4)]"
           >
-            <Image
-              src={item.image}
-              alt={item.title}
-              fill
-              sizes="(min-width: 1024px) 240px, (min-width: 768px) 33vw, 78vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            <span className="absolute inset-x-2 bottom-2 truncate rounded-xl bg-white/95 px-3 py-1.5 font-heading text-xs font-semibold text-brand-navy shadow sm:text-sm">
+            {/* Title sits under the photo so it never covers it. */}
+            <span className="relative block aspect-[4/3] overflow-hidden rounded-card border-4 border-white bg-brand-blue-50 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.25)]">
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                sizes="(min-width: 1024px) 300px, (min-width: 768px) 33vw, 78vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+            </span>
+            <span className="mt-2.5 block px-1 text-center font-heading text-sm font-semibold leading-snug text-brand-navy transition-colors group-hover:text-brand-blue">
               {item.title}
             </span>
           </Link>

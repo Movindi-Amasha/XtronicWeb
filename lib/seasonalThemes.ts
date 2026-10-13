@@ -1,7 +1,8 @@
 import { LOGO } from "./brandColors";
 
-// Seasonal site themes: a themed top banner (with a decorated bottom edge)
-// and a few gently falling particles. Each one switches on by itself during
+// Seasonal site themes: a themed top banner (rotating messages, countdown,
+// decorated edge), falling particles, animated characters (SeasonScene), a
+// hat on the header logo, stickers on product cards and a page tint. Each one switches on by itself during
 // its dates (Sri Lanka time), and the admin can force one on or off at
 // /admin/theme. Client-safe: no server imports here.
 
@@ -15,6 +16,12 @@ export interface SeasonalTheme {
   name: string;
   /** Short line shown when no custom message is set in admin. */
   message: string;
+  /** More lines the banner rotates through after `message`. */
+  lines: string[];
+  /** Small sticker on product cards. */
+  sticker: string;
+  /** Banner countdown: to a Sri Lanka date/time, with its label. */
+  countdown?: { month: number; day: number; hour: number; minute: number; label: string; done: string };
   title: string;
   cta: { label: string; href: string };
   /** Banner background, text colour and the CTA pill colours. */
@@ -35,6 +42,9 @@ export const THEMES: Record<ThemeId, SeasonalTheme> = {
     name: "Halloween",
     title: "Spooky STEM season!",
     message: "Build something that glows, spins and surprises this Halloween.",
+    lines: ["Trick or treat? Treat them to a kit they build themselves.", "Solar spooks, robot monsters and flapping bats: all hands-on."],
+    sticker: "Spooky pick",
+    countdown: { month: 10, day: 31, hour: 0, minute: 0, label: "Halloween in", done: "Happy Halloween!" },
     cta: { label: "Shop kits", href: "/shop" },
     bg: `linear-gradient(90deg, #0D1F35 0%, #1d2547 55%, #0D1F35 100%)`,
     fg: "#fff",
@@ -50,6 +60,9 @@ export const THEMES: Record<ThemeId, SeasonalTheme> = {
     name: "11.11",
     title: "11.11 is here!",
     message: "Our biggest STEM kit deals of the year, for three days only.",
+    lines: ["Stock up on birthdays and Christmas gifts early.", "Free island-wide delivery on orders over Rs 7,000."],
+    sticker: "11.11 Deal",
+    countdown: { month: 11, day: 11, hour: 23, minute: 59, label: "Ends in", done: "Last chance!" },
     cta: { label: "See the deals", href: "/shop" },
     bg: `linear-gradient(90deg, ${LOGO.blue} 0%, ${LOGO.lightBlue} 100%)`,
     fg: "#fff",
@@ -65,6 +78,9 @@ export const THEMES: Record<ThemeId, SeasonalTheme> = {
     name: "Christmas",
     title: "Merry Christmas!",
     message: "Give a gift they build themselves. Order early for island-wide delivery.",
+    lines: ["Wrapped with a card on request, delivered across Sri Lanka.", "Screen-free fun for the whole holiday."],
+    sticker: "Gift idea",
+    countdown: { month: 12, day: 25, hour: 0, minute: 0, label: "Christmas in", done: "Merry Christmas!" },
     cta: { label: "Shop gifts", href: "/shop?category=Bundles+%26+Gifts" },
     bg: `linear-gradient(90deg, #c81f1e 0%, ${LOGO.red} 50%, #c81f1e 100%)`,
     fg: "#fff",
@@ -80,6 +96,8 @@ export const THEMES: Record<ThemeId, SeasonalTheme> = {
     name: "Easter",
     title: "Happy Easter!",
     message: "Fill their basket with something to build, not just something sweet.",
+    lines: ["Egg hunt! Find the 5 hidden eggs around the site.", "Solar butterflies and flying planes for spring adventures."],
+    sticker: "Easter treat",
     cta: { label: "Shop kits", href: "/shop" },
     bg: `linear-gradient(90deg, color-mix(in srgb, ${LOGO.yellow} 30%, white) 0%, color-mix(in srgb, ${LOGO.green} 22%, white) 100%)`,
     fg: "#0D1F35",
@@ -157,4 +175,9 @@ export function resolveTheme(setting: ThemeSetting | null, now: Date): ThemeId |
   if (mode === "off") return null;
   if (mode === "auto") return themeForDate(now);
   return mode;
+}
+
+/** A Sri Lanka (UTC+5:30) wall-clock time as a Date. */
+export function colomboTime(year: number, month: number, day: number, hour = 0, minute = 0): Date {
+  return new Date(Date.UTC(year, month - 1, day, hour, minute) - 5.5 * 3_600_000);
 }

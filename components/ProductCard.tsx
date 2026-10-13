@@ -10,6 +10,7 @@ import { LOGO } from "@/lib/brandColors";
 import { useQuickViewStore } from "@/lib/quickViewStore";
 import { useCartStore } from "@/lib/cartStore";
 import { formatPrice } from "@/lib/products";
+import { SeasonSticker } from "./season/SeasonTouches";
 
 // Each card takes the next logo colour for its border and photo backdrop.
 const TONES = [LOGO.orange, LOGO.blue, LOGO.yellow, LOGO.green, LOGO.red];
@@ -54,6 +55,7 @@ export default function ProductCard({
             {product.badge}
           </span>
         )}
+        <SeasonSticker index={index} />
         {product.skillLevel && <SkillBadge level={product.skillLevel} className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3" />}
         <button
           type="button"

@@ -112,6 +112,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      data-season={themeId ?? undefined}
       className={`${nunito.variable} ${geistMono.variable} ${fredoka.variable} h-full`}
     >
       <body className="flex min-h-full flex-col text-brand-navy antialiased">

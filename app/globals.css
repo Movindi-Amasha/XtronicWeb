@@ -653,3 +653,68 @@ details[open] > :not(summary) { animation: faq-in 0.3s ease-out; }
 @media (prefers-reduced-motion: reduce) {
   .theme-particles { display: none; }
 }
+
+/* Seasonal page tint and header edge (<html data-season>, set by the layout
+   and SeasonalTheme). The tint swaps the page's soft corner glows for the
+   season's colours; the header gets a decorated bottom edge. */
+html[data-season="halloween"] body {
+  background-image:
+    radial-gradient(900px 600px at 0% 0%, rgba(59, 42, 92, 0.18), transparent 60%),
+    radial-gradient(800px 600px at 100% 30%, rgba(255, 122, 31, 0.22), transparent 60%),
+    radial-gradient(900px 700px at 10% 75%, rgba(253, 171, 5, 0.14), transparent 60%),
+    radial-gradient(800px 600px at 95% 100%, rgba(59, 42, 92, 0.16), transparent 60%);
+}
+html[data-season="christmas"] body {
+  background-image:
+    radial-gradient(900px 600px at 0% 0%, rgba(245, 44, 43, 0.12), transparent 60%),
+    radial-gradient(800px 600px at 100% 30%, rgba(71, 167, 35, 0.14), transparent 60%),
+    radial-gradient(900px 700px at 10% 75%, rgba(1, 156, 248, 0.12), transparent 60%),
+    radial-gradient(800px 600px at 95% 100%, rgba(245, 44, 43, 0.10), transparent 60%);
+}
+html[data-season="singles-day"] body {
+  background-image:
+    radial-gradient(900px 600px at 0% 0%, rgba(1, 119, 222, 0.20), transparent 60%),
+    radial-gradient(800px 600px at 100% 30%, rgba(253, 171, 5, 0.26), transparent 60%),
+    radial-gradient(900px 700px at 10% 75%, rgba(245, 44, 43, 0.12), transparent 60%),
+    radial-gradient(800px 600px at 95% 100%, rgba(1, 156, 248, 0.18), transparent 60%);
+}
+html[data-season="easter"] body {
+  background-image:
+    radial-gradient(900px 600px at 0% 0%, rgba(253, 171, 5, 0.18), transparent 60%),
+    radial-gradient(800px 600px at 100% 30%, rgba(71, 167, 35, 0.16), transparent 60%),
+    radial-gradient(900px 700px at 10% 75%, rgba(1, 156, 248, 0.12), transparent 60%),
+    radial-gradient(800px 600px at 95% 100%, rgba(253, 171, 5, 0.14), transparent 60%);
+}
+html[data-season] body > header::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  pointer-events: none;
+}
+/* Christmas: a cap of snow along the header's bottom edge */
+html[data-season="christmas"] body > header::after {
+  bottom: -9px;
+  height: 12px;
+  background:
+    radial-gradient(circle at 12px 0, #fff 9px, transparent 9.5px) 0 0 / 24px 12px repeat-x,
+    radial-gradient(circle at 6px 0, #fff 5px, transparent 5.5px) 7px 0 / 37px 12px repeat-x;
+  filter: drop-shadow(0 2px 1px rgba(1, 119, 222, 0.18));
+}
+/* Easter: grass tufts */
+html[data-season="easter"] body > header::after {
+  bottom: -8px;
+  height: 10px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0 0h40v2l-3 8-3-8-4 6-3-6-3 8-3-8-4 6-3-6-3 8-3-8-4 7-3-7-3 6z' fill='%2347A723'/%3E%3C/svg%3E") repeat-x;
+}
+/* 11.11: a strip of confetti */
+html[data-season="singles-day"] body > header::after {
+  bottom: -7px;
+  height: 7px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='7'%3E%3Crect x='2' y='1' width='7' height='3' rx='1' fill='%23F52C2B'/%3E%3Ccircle cx='18' cy='4' r='2' fill='%23FDAB05'/%3E%3Crect x='27' y='2' width='6' height='3' rx='1' fill='%2347A723'/%3E%3Ccircle cx='42' cy='3' r='2' fill='%230177DE'/%3E%3Crect x='48' y='1' width='6' height='3' rx='1' fill='%23FF7A1F'/%3E%3C/svg%3E") repeat-x;
+}
+/* Halloween: dripping slime in orange */
+html[data-season="halloween"] body > header::after {
+  bottom: -10px;
+  height: 11px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='11'%3E%3Cpath d='M0 0h90v3c-4 0-5 2-5 5a2.5 2.5 0 0 1-5 0c0-3-2-5-6-5H52c-3 0-4 2-4 4a2 2 0 0 1-4 0c0-2-1-4-4-4H22c-3 0-4 3-4 6a3 3 0 0 1-6 0c0-3-2-6-5-6H0z' fill='%23FF7A1F'/%3E%3C/svg%3E") repeat-x;
+}

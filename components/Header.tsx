@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCartStore, cartItemCount } from "@/lib/cartStore";
 import LineIcon from "./LineIcon";
+import { SeasonHat } from "./season/SeasonTouches";
 
 // Primary navigation for the main store and support pages.
 const NAV_LINKS = [
@@ -53,6 +54,7 @@ export default function Header() {
               className="object-contain"
               priority
             />
+            <SeasonHat />
           </div>
           <div className="relative hidden h-8 w-32 shrink-0 sm:block">
             <Image

@@ -19,11 +19,18 @@ export async function saveThemeSetting(formData: FormData) {
   const message = String(formData.get("message") ?? "").trim().slice(0, 160);
   const setting: ThemeSetting = { mode, ...(message ? { message } : {}) };
 
-  await db.siteSetting.upsert({
-    where: { key: THEME_SETTING_KEY },
-    update: { value: JSON.stringify(setting) },
-    create: { key: THEME_SETTING_KEY, value: JSON.stringify(setting) },
-  });
+  try {
+    await db.siteSetting.upsert({
+      where: { key: THEME_SETTING_KEY },
+      update: { value: JSON.stringify(setting) },
+      create: { key: THEME_SETTING_KEY, value: JSON.stringify(setting) },
+    });
+  } catch (err) {
+    // Most likely the SiteSetting table doesn't exist yet (it's created by
+    // `prisma db push` on deploy). Report it on the page instead of crashing.
+    console.error("Saving the theme setting failed:", err);
+    redirect("/admin/theme?error=1");
+  }
 
   // Show the change on every page straight away.
   revalidateTag(THEME_CACHE_TAG, { expire: 0 });

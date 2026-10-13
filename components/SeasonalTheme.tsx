@@ -2,12 +2,18 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { LOGO } from "@/lib/brandColors";
-import { THEMES, isThemeId, type Edge, type Particle, type SeasonalTheme as Theme, type ThemeId } from "@/lib/seasonalThemes";
+import { useSeasonStore } from "@/lib/seasonStore";
+import SeasonScene from "@/components/season/SeasonScene";
+import { THEMES, colomboTime, isThemeId, type Edge, type Particle, type SeasonalTheme as Theme, type ThemeId } from "@/lib/seasonalThemes";
 
 // The active seasonal theme (chosen on the server, see lib/siteTheme.ts):
-// a top banner with a decorated bottom edge, plus a few gently falling
-// particles. Shoppers can close the banner (remembered per theme). Add
+// a top banner (rotating messages, a live countdown, decorated edge), two
+// depths of falling particles and the theme's animated characters
+// (SeasonScene). It also tells the rest of the site which theme is on
+// (<html data-season>, useSeasonStore) for the logo hat, card stickers and
+// page tint. Shoppers can close the banner (remembered per theme). Add
 // ?theme-preview=<id> (or =off) to any URL to preview a theme in your own
 // browser without switching it on for everyone.
 
@@ -132,14 +138,20 @@ function ParticleShape({ kind, color }: { kind: Particle; color: string }) {
   }
 }
 
-const PARTICLES = Array.from({ length: 14 }, (_, i) => ({
-  left: (i * 41 + 7) % 100,
-  size: 10 + ((i * 7) % 4) * 3,
-  dur: 11 + ((i * 5) % 7),
-  delay: -((i * 2.3) % 14),
-  sway: i % 2 ? 40 : -40,
-  mobile: i % 2 === 0,
-}));
+// Two depths: small, slow, faint "far" particles and bigger, quicker "near" ones.
+const PARTICLES = Array.from({ length: 20 }, (_, i) => {
+  const near = i % 3 === 0;
+  return {
+    left: (i * 37 + 11) % 100,
+    size: near ? 16 + (i % 3) * 3 : 8 + (i % 4) * 2,
+    dur: near ? 9 + (i % 4) : 15 + ((i * 5) % 7),
+    delay: -((i * 2.1) % 16),
+    sway: i % 2 ? 50 : -50,
+    opacity: near ? 0.85 : 0.5,
+    blur: near ? 0 : 0.4,
+    mobile: i % 2 === 0,
+  };
+});
 
 function Particles({ theme }: { theme: Theme }) {
   return (
@@ -147,12 +159,14 @@ function Particles({ theme }: { theme: Theme }) {
       {PARTICLES.map((p, i) => (
         <span
           key={i}
-          className={`theme-fall absolute -top-8 opacity-70 ${p.mobile ? "" : "hidden md:block"}`}
+          className={`theme-fall absolute -top-8 ${p.mobile ? "" : "hidden md:block"}`}
           style={
             {
               left: `${p.left}%`,
               width: p.size,
               height: p.size,
+              opacity: p.opacity,
+              filter: p.blur ? `blur(${p.blur}px)` : undefined,
               animationDuration: `${p.dur}s`,
               animationDelay: `${p.delay}s`,
               "--sway": `${p.sway}px`,
@@ -166,12 +180,52 @@ function Particles({ theme }: { theme: Theme }) {
   );
 }
 
+function pad(n: number) {
+  return String(n).padStart(2, "0");
+}
+
+/** "3 days" / "04:12:33" until the theme's countdown time, ticking each second. */
+function Countdown({ theme }: { theme: Theme }) {
+  const [now, setNow] = useState<number | null>(null);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- start the clock only in the browser (avoids a hydration mismatch)
+    setNow(Date.now());
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, []);
+  const c = theme.countdown;
+  if (!c || now === null) return null;
+  const year = new Date(now).getUTCFullYear();
+  const left = colomboTime(year, c.month, c.day, c.hour, c.minute).getTime() - now;
+  if (left < -86_400_000) return null;
+  let text = c.done;
+  if (left > 0) {
+    const days = Math.floor(left / 86_400_000);
+    const h = Math.floor((left % 86_400_000) / 3_600_000);
+    const m = Math.floor((left % 3_600_000) / 60_000);
+    const sec = Math.floor((left % 60_000) / 1000);
+    text = days >= 2 ? `${c.label} ${days} days` : `${c.label} ${days ? `${days}d ` : ""}${pad(h)}:${pad(m)}:${pad(sec)}`;
+  }
+  return (
+    <motion.span
+      initial={{ scale: 0.6, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      className="hidden shrink-0 rounded-full border border-current/30 bg-black/10 px-2.5 py-1 font-heading text-xs font-bold tabular-nums sm:inline-block"
+    >
+      {text}
+    </motion.span>
+  );
+}
+
 export default function SeasonalTheme({ themeId, message }: { themeId: ThemeId | null; message?: string }) {
   // Server choice first (so the banner is in the HTML with no layout jump),
   // then a preview from the URL or a dismissal from this browser on mount.
   const [shown, setShown] = useState<ThemeId | null>(themeId);
   const [customMessage, setCustomMessage] = useState(message);
   const [dismissed, setDismissed] = useState(false);
+  const [line, setLine] = useState(0);
+  const reduce = useReducedMotion();
+  const setSeason = useSeasonStore((s) => s.setSeason);
 
   useEffect(() => {
     const preview = new URLSearchParams(window.location.search).get("theme-preview");
@@ -189,15 +243,27 @@ export default function SeasonalTheme({ themeId, message }: { themeId: ThemeId |
     if (id !== themeId) setCustomMessage(undefined);
     setDismissed(wasDismissed);
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [themeId]);
+    setSeason(id);
+    if (id) document.documentElement.dataset.season = id;
+    else delete document.documentElement.dataset.season;
+  }, [themeId, setSeason]);
 
-  if (!shown) return null;
-  const theme = THEMES[shown];
+  const theme = shown ? THEMES[shown] : null;
+  const lines = theme ? (customMessage ? [customMessage] : [theme.message, ...theme.lines]) : [];
+
+  // Rotate the banner's message every few seconds.
+  useEffect(() => {
+    if (lines.length < 2 || reduce) return;
+    const t = setInterval(() => setLine((l) => (l + 1) % lines.length), 5000);
+    return () => clearInterval(t);
+  }, [lines.length, reduce]);
+
+  if (!theme) return null;
 
   function dismiss() {
     setDismissed(true);
     try {
-      localStorage.setItem(DISMISS_KEY, theme.id);
+      localStorage.setItem(DISMISS_KEY, theme!.id);
     } catch {
       // ignore
     }
@@ -206,20 +272,64 @@ export default function SeasonalTheme({ themeId, message }: { themeId: ThemeId |
   return (
     <>
       {!dismissed && (
-        <div role="region" aria-label={`${theme.name} announcement`} style={{ background: theme.bg, color: theme.fg }}>
+        <div role="region" aria-label={`${theme.name} announcement`} className="relative overflow-hidden" style={{ background: theme.bg, color: theme.fg }}>
+          {/* a soft light sweeping across the banner */}
+          {!reduce && (
+            <motion.span
+              aria-hidden
+              className="pointer-events-none absolute inset-y-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+              initial={{ left: "-40%" }}
+              animate={{ left: "140%" }}
+              transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 5, ease: "easeInOut" }}
+            />
+          )}
           <div className="relative mx-auto flex max-w-[1260px] items-center justify-center gap-3 px-10 pt-2 pb-1 text-sm sm:gap-4 md:px-6">
-            <Icon id={theme.id} />
-            <p className="min-w-0 leading-tight">
-              <strong className="font-heading text-[15px] font-bold">{theme.title}</strong>{" "}
-              <span className="hidden font-semibold opacity-90 md:inline">{customMessage ?? theme.message}</span>
-            </p>
-            <Link
-              href={theme.cta.href}
-              className="shrink-0 rounded-full px-3.5 py-1.5 font-heading text-xs font-bold whitespace-nowrap shadow-[0_3px_0_rgba(13,31,53,0.25)] transition-transform hover:-translate-y-0.5"
-              style={{ background: theme.ctaBg, color: theme.ctaFg }}
+            <motion.span
+              className="shrink-0"
+              animate={reduce ? undefined : { rotate: [0, -12, 10, -6, 0], y: [0, -3, 0] }}
+              transition={{ duration: 1.4, repeat: Infinity, repeatDelay: 2.4 }}
             >
-              {theme.cta.label} →
-            </Link>
+              <Icon id={theme.id} />
+            </motion.span>
+            <div className="flex min-w-0 items-center gap-2 leading-tight">
+              <strong className="shrink-0 font-heading text-[15px] font-bold">
+                {theme.title.split("").map((ch, i) => (
+                  <motion.span
+                    key={i}
+                    className="inline-block whitespace-pre"
+                    initial={reduce ? false : { y: -14, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.15 + i * 0.03, type: "spring", stiffness: 500, damping: 18 }}
+                  >
+                    {ch}
+                  </motion.span>
+                ))}
+              </strong>
+              <span className="relative hidden h-5 min-w-0 overflow-hidden md:block md:w-[min(46vw,520px)]">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={line}
+                    className="absolute inset-0 truncate font-semibold opacity-90"
+                    initial={{ y: 16, opacity: 0 }}
+                    animate={{ y: 0, opacity: 0.9 }}
+                    exit={{ y: -16, opacity: 0 }}
+                    transition={{ duration: 0.35 }}
+                  >
+                    {lines[line % lines.length]}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
+            </div>
+            <Countdown theme={theme} />
+            <motion.span whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.94 }} className="shrink-0">
+              <Link
+                href={theme.cta.href}
+                className="block rounded-full px-3.5 py-1.5 font-heading text-xs font-bold whitespace-nowrap shadow-[0_3px_0_rgba(13,31,53,0.25)]"
+                style={{ background: theme.ctaBg, color: theme.ctaFg }}
+              >
+                {theme.cta.label} →
+              </Link>
+            </motion.span>
             <button
               type="button"
               onClick={dismiss}
@@ -233,6 +343,7 @@ export default function SeasonalTheme({ themeId, message }: { themeId: ThemeId |
         </div>
       )}
       <Particles theme={theme} />
+      <SeasonScene season={theme.id} />
     </>
   );
 }

@@ -6,7 +6,7 @@ import { saveThemeSetting } from "./actions";
 export const dynamic = "force-dynamic";
 
 export default async function AdminThemePage({ searchParams }: PageProps<"/admin/theme">) {
-  const { saved } = await searchParams;
+  const { saved, error } = await searchParams;
   const setting = await getThemeSetting();
   const now = new Date();
   const mode = setting?.mode ?? "auto";
@@ -34,6 +34,13 @@ export default async function AdminThemePage({ searchParams }: PageProps<"/admin
       {saved && (
         <p role="status" className="mt-4 rounded-btn bg-brand-green/15 px-4 py-2 text-sm font-bold text-brand-green-700">
           Saved. The whole site is updated.
+        </p>
+      )}
+
+      {error && (
+        <p role="alert" className="mt-4 rounded-btn bg-brand-red/10 px-4 py-2 text-sm font-bold text-brand-red">
+          Couldn&apos;t save: the database isn&apos;t ready for theme settings yet. It&apos;s set up automatically on the
+          next deploy (or run <code className="font-mono">npx prisma db push</code>). Until then the site follows the dates.
         </p>
       )}
 

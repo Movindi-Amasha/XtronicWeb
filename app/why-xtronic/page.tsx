@@ -42,11 +42,6 @@ const REGIONS: { flag?: string; icon?: LineIconName; name: string; detail: strin
   { icon: "gift", name: "Free Delivery", detail: "On orders over Rs 7,000 · otherwise Rs 500" },
 ];
 
-// Add team members here as { name, role, desc, photo } (photo under /public).
-const TEAM: { name: string; role: string; desc: string; photo?: string }[] = [
-  { name: "Thimith Navodya", role: "Founder & CEO", desc: "Building hands-on electronics kits since 2018, now for curious kids." },
-];
-
 // Add real awards here as { title, org, year, image? }; the section stays hidden while empty.
 const AWARDS: { title: string; org: string; year: string; image?: string }[] = [];
 
@@ -375,71 +370,25 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Team + behind the scenes ── */}
-      <section aria-labelledby="team-heading" className="band mx-auto max-w-[1200px] px-4 pt-16 md:px-6" style={band("peach")}>
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
-          <div>
-            <div id="team-heading">
-              <Heading icon="family" color={LOGO.blue} sub="The passionate people behind XTRONIC KIDS.">
-                <span style={{ color: LOGO.blue }}>Our Team</span>
-              </Heading>
-            </div>
-            <ul className="mt-6 grid grid-cols-2 gap-3">
-              {TEAM.map((m) => (
-                <li key={m.name} className="overflow-hidden rounded-card border-2 border-line bg-white text-center shadow-[0_10px_24px_-16px_rgba(14,30,63,0.3)]">
-                  <div className="relative grid aspect-square place-items-center" style={{ background: "linear-gradient(160deg, #e9f5ff, #fff7dc)" }}>
-                    {m.photo ? (
-                      <Image src={m.photo} alt={m.name} fill sizes="240px" className="object-cover" />
-                    ) : (
-                      // Initials until a real photo is added to TEAM.
-                      <span className="grid h-24 w-24 place-items-center rounded-full border-4 border-white font-heading text-3xl font-bold text-white shadow-md" style={{ background: LOGO.blue }}>
-                        {m.name.split(" ").map((w) => w[0]).join("")}
-                      </span>
-                    )}
-                  </div>
-                  <div className="p-3">
-                    <h3 className="font-heading font-bold text-brand-navy">{m.name}</h3>
-                    <p className="text-xs font-extrabold" style={{ color: LOGO.orange }}>
-                      {m.role}
-                    </p>
-                    <p className="mt-1 text-xs font-semibold text-muted">{m.desc}</p>
-                  </div>
-                </li>
-              ))}
-              <li className="flex flex-col items-center justify-center rounded-card border-2 border-dashed border-line bg-white p-4 text-center">
-                <span style={{ color: LOGO.blue }}>
-                  <LineIcon name="heart" size={32} />
-                </span>
-                <p className="mt-2 font-heading font-bold text-brand-navy">Questions?</p>
-                <p className="text-xs font-semibold text-muted">Our support team is here to help.</p>
-                <Link href="/help/faq" className="mt-2 text-xs font-extrabold text-brand-blue hover:underline">
-                  Get in touch →
-                </Link>
-              </li>
-            </ul>
+      {/* ── Behind the scenes ── */}
+      <section aria-labelledby="behind-heading" className="band mx-auto max-w-[1200px] px-4 pt-16 md:px-6" style={band("peach")}>
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div id="behind-heading">
+            <Heading icon="cog" color={LOGO.blue} doodles="right" sub="Our production and quality process.">
+              <span style={{ color: LOGO.blue }}>Behind the Scenes</span>
+            </Heading>
           </div>
-
-          <div>
-            <div className="flex flex-wrap items-end justify-between gap-3">
-              <Heading icon="cog" color={LOGO.blue} doodles="right" sub="Our production and quality process.">
-                <span style={{ color: LOGO.blue }}>Behind the Scenes</span>
-              </Heading>
-              <Link href="/shop" className="rounded-btn border-2 border-brand-blue px-4 py-2 font-heading text-sm font-semibold text-brand-blue hover:bg-brand-blue hover:text-white">
-                See More →
-              </Link>
-            </div>
-            <ul className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-              {BEHIND_THE_SCENES.map((b) => (
-                <li key={b.src} className="group relative aspect-square overflow-hidden rounded-2xl border-[3px] border-white shadow-[0_8px_20px_-12px_rgba(14,30,63,0.4)]">
-                  <Image src={b.src} alt={b.label} fill sizes="(min-width: 640px) 170px, 45vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <span className="absolute inset-x-1.5 bottom-1.5 truncate rounded-lg bg-white/95 px-2 py-1 text-center font-heading text-[11px] font-semibold text-brand-navy shadow sm:text-xs">
-                    {b.label}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Link href="/shop" className="rounded-btn border-2 border-brand-blue px-4 py-2 font-heading text-sm font-semibold text-brand-blue hover:bg-brand-blue hover:text-white">
+            See More →
+          </Link>
         </div>
+        <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+          {BEHIND_THE_SCENES.map((b) => (
+            <li key={b.src} className="group relative aspect-square overflow-hidden rounded-2xl border-4 border-white shadow-[0_10px_24px_-14px_rgba(14,30,63,0.45)]">
+              <Image src={b.src} alt={b.label} fill sizes="(min-width: 1200px) 290px, (min-width: 640px) 24vw, 46vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* ── Awards + join ── */}
