@@ -526,9 +526,14 @@ details[open] > :not(summary) { animation: faq-in 0.3s ease-out; }
 /* Club subscription: falling confetti, orbiting stars, spinning stamp, pulsing price. */
 @keyframes club-confetti { 0% { translate: 0 -20px; rotate: 0deg; opacity: 0; } 10% { opacity: 0.9; } 100% { translate: 30px 620px; rotate: 540deg; opacity: 0; } }
 .club-confetti { animation: club-confetti 7s linear infinite; }
-.club-orbit { animation: xk-spin 16s linear infinite; }
-@keyframes club-stamp { 0%, 100% { rotate: -12deg; scale: 1; } 50% { rotate: 8deg; scale: 1.06; } }
-.club-stamp { animation: club-stamp 3s ease-in-out infinite; }
+/* Club photo: a soft light sweep across the picture, like sun on the solar panel. */
+@keyframes club-sheen { 0%, 55% { translate: -120% 0; opacity: 0; } 60% { opacity: 1; } 90% { opacity: 1; } 100% { translate: 120% 0; opacity: 0; } }
+.club-sheen { animation: club-sheen 6s ease-in-out infinite; }
+@keyframes club-twinkle { 0%, 100% { scale: 0.7; opacity: 0.5; rotate: 0deg; } 50% { scale: 1.1; opacity: 1; rotate: 45deg; } }
+.club-twinkle { animation: club-twinkle 2.6s ease-in-out infinite; }
+/* Shop gift band: slow rolling background waves. */
+@keyframes gift-wave { from { translate: 0 0; } to { translate: -50% 0; } }
+.gift-wave { animation: gift-wave 38s linear infinite; }
 @keyframes club-price { 0%, 100% { scale: 1; } 50% { scale: 1.05; } }
 .club-price { animation: club-price 2.2s ease-in-out infinite; }
 
@@ -633,4 +638,18 @@ details[open] > :not(summary) { animation: faq-in 0.3s ease-out; }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Seasonal themes (components/SeasonalTheme.tsx): particles drifting down
+   the screen with a gentle sway, and twinkling Christmas lights. */
+@keyframes theme-fall {
+  0% { translate: 0 -5vh; rotate: 0deg; }
+  50% { translate: var(--sway, 30px) 50vh; rotate: 180deg; }
+  100% { translate: 0 105vh; rotate: 360deg; }
+}
+.theme-fall { animation: theme-fall 14s linear infinite; }
+@keyframes theme-twinkle { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.theme-twinkle { animation: theme-twinkle 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .theme-particles { display: none; }
 }

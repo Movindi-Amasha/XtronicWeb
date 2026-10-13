@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import SignupBand from "@/components/SignupBand";
 import HeroScene from "@/components/HeroScene";
@@ -13,14 +14,16 @@ export const metadata: Metadata = {
   alternates: { canonical: "/gallery" },
 };
 
-const COLLECTIONS = [
+type Project = { title: string; image?: string; caption?: string; href?: string };
+
+const COLLECTIONS: { id: string; title: string; subtitle: string; color: string; emoji: string; projects: Project[] }[] = [
   {
     id: "robot-builds",
     title: "Robot Builds",
     subtitle: "Little engineers, big ideas.",
     color: LOGO.blue,
     emoji: "🤖",
-    projects: ["Robots in action", "Meet the machine", "Build-day moment"],
+    projects: [{ title: "Robots in action" }, { title: "Meet the machine" }, { title: "Build-day moment" }],
   },
   {
     id: "solar-creations",
@@ -28,7 +31,11 @@ const COLLECTIONS = [
     subtitle: "Powered by sunshine and curiosity.",
     color: LOGO.orange,
     emoji: "☀️",
-    projects: ["Sun-powered adventures", "Ready to roll", "A bright idea"],
+    projects: [
+      { title: "Sun-powered adventures", image: "/works/solar-boat.jpg", caption: "Solar-Powered Yacht", href: "/shop/solar-speedboat" },
+      { title: "Ready for take-off", image: "/works/solar-plane.jpg", caption: "Wooden Taxiing Aircraft", href: "/shop/wooden-taxiing-aircraft" },
+      { title: "A bright idea", image: "/works/solar-butterfly.jpg", caption: "Solar-Powered Flapping Butterfly", href: "/shop/solar-butterfly" },
+    ],
   },
   {
     id: "young-makers",
@@ -36,7 +43,7 @@ const COLLECTIONS = [
     subtitle: "The proud smiles behind every creation.",
     color: LOGO.green,
     emoji: "✨",
-    projects: ["Proud project reveal", "Making it together", "Future inventor"],
+    projects: [{ title: "Proud project reveal" }, { title: "Making it together" }, { title: "Future inventor" }],
   },
 ];
 
@@ -97,7 +104,16 @@ export default function GalleryPage() {
             <div aria-hidden className="absolute -left-4 top-8 h-20 w-20 rounded-[26px] bg-brand-yellow/80 rotate-[-12deg]" />
             <div aria-hidden className="absolute -right-3 bottom-4 h-24 w-24 rounded-full bg-brand-green/15" />
             <div className="relative rotate-[1deg] rounded-[30px] border-[5px] border-white bg-white p-2 shadow-[0_22px_55px_-22px_rgba(13,31,53,0.3)]">
-              <PhotoPlaceholder title="Featured XTRONIC creation" color={LOGO.blue} emoji="🚀" />
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[22px]">
+                <Image
+                  src="/works/solar-racer.jpg"
+                  alt="Boy building a solar-powered racing car from his XTRONIC KIDS kit"
+                  fill
+                  priority
+                  sizes="(min-width: 768px) 500px, 92vw"
+                  className="object-cover object-[50%_45%]"
+                />
+              </div>
             </div>
             <div className="scatter-float absolute -right-2 -top-5 grid h-14 w-14 place-items-center rounded-full border-4 border-white bg-brand-amber text-2xl text-white shadow-lg sm:-right-5 sm:top-2" aria-hidden>
               ✦
@@ -150,14 +166,35 @@ export default function GalleryPage() {
                     <h3 id={`${collection.id}-heading`} className="font-heading text-2xl font-bold sm:text-3xl" style={{ color: collection.color }}>{collection.title}</h3>
                     <p className="mt-1 text-sm font-semibold text-muted">{collection.subtitle}</p>
                   </div>
-                  <span className="rounded-full px-3 py-1 text-xs font-extrabold uppercase tracking-wider" style={{ color: collection.color, background: `color-mix(in srgb, ${collection.color} 10%, white)` }}>Photo slots open</span>
+                  {collection.projects.some((p) => !p.image) && (
+                    <span className="rounded-full px-3 py-1 text-xs font-extrabold uppercase tracking-wider" style={{ color: collection.color, background: `color-mix(in srgb, ${collection.color} 10%, white)` }}>Photo slots open</span>
+                  )}
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {collection.projects.map((project, index) => (
-                    <article key={project} className="group rounded-[22px] border border-white bg-white p-2.5 shadow-[0_8px_22px_-16px_rgba(13,31,53,0.35)] transition-[translate,scale,box-shadow] duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_18px_32px_-20px_rgba(13,31,53,0.4)]">
-                      <PhotoPlaceholder title={project} color={collection.color} emoji={collection.emoji} />
+                    <article key={project.title} className="group rounded-[22px] border border-white bg-white p-2.5 shadow-[0_8px_22px_-16px_rgba(13,31,53,0.35)] transition-[translate,scale,box-shadow] duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_18px_32px_-20px_rgba(13,31,53,0.4)]">
+                      {project.image ? (
+                        <div className="relative aspect-[4/3] overflow-hidden rounded-[18px]">
+                          <Image
+                            src={project.image}
+                            alt={`${project.title}: ${project.caption}`}
+                            fill
+                            sizes="(min-width: 1024px) 360px, (min-width: 640px) 46vw, 92vw"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        </div>
+                      ) : (
+                        <PhotoPlaceholder title={project.title} color={collection.color} emoji={collection.emoji} />
+                      )}
                       <div className="flex items-center justify-between gap-2 px-2 pb-1 pt-3">
-                        <div><h4 className="font-heading text-sm font-bold text-brand-navy">{project}</h4><p className="mt-0.5 text-xs font-semibold text-muted">Your next creation could be here</p></div>
+                        <div>
+                          <h4 className="font-heading text-sm font-bold text-brand-navy">{project.title}</h4>
+                          {project.href ? (
+                            <Link href={project.href} className="mt-0.5 block text-xs font-semibold text-brand-blue hover:underline">{project.caption} →</Link>
+                          ) : (
+                            <p className="mt-0.5 text-xs font-semibold text-muted">Your next creation could be here</p>
+                          )}
+                        </div>
                         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-xs font-extrabold text-white" style={{ background: collection.color }}>{String(index + 1).padStart(2, "0")}</span>
                       </div>
                     </article>

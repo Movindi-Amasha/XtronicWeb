@@ -105,3 +105,11 @@ model Coupon {
   usedAt     DateTime?
   createdAt  DateTime  @default(now())
 }
+
+// Small key/value store for site-wide admin settings (e.g. "theme": which
+// seasonal theme is showing, as JSON). Created by `prisma db push` on deploy.
+model SiteSetting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}

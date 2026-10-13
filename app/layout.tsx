@@ -8,6 +8,8 @@ import CartToast from "@/components/CartToast";
 import CartHydration from "@/components/CartHydration";
 import QuickViewModal from "@/components/QuickViewModal";
 import SiteMotion from "@/components/SiteMotion";
+import SeasonalTheme from "@/components/SeasonalTheme";
+import { getActiveTheme } from "@/lib/siteTheme";
 import "./globals.css";
 
 // Body text
@@ -101,7 +103,12 @@ const websiteJsonLd = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+// Pages are re-rendered at least hourly so a seasonal theme switches on and
+// off by date; saving in /admin/theme refreshes them straight away.
+export const revalidate = 3600;
+
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const { themeId, message } = await getActiveTheme();
   return (
     <html
       lang="en"
@@ -122,6 +129,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
+        <SeasonalTheme themeId={themeId} message={message} />
         <Header />
         <main id="main-content" className="flex-1 overflow-x-clip">
           {children}

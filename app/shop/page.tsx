@@ -65,6 +65,20 @@ function Mark({ value }: { value: boolean | string }) {
   );
 }
 
+// Gift band waves: a repeating crest every 720 units, drawn twice as wide as
+// the band so sliding it by half (CSS .gift-wave) loops seamlessly.
+function waveRow(y: number, amp: number) {
+  let d = `M0 ${y} Q180 ${y - amp} 360 ${y}`;
+  for (let x = 720; x <= 2880; x += 360) d += ` T${x} ${y}`;
+  return `${d} V200 H0Z`;
+}
+
+const GIFT_WAVES = [
+  { y: 70, amp: 34, fill: `color-mix(in srgb, ${LOGO.lightBlue} 16%, white)`, className: "bottom-[18%] h-[38%] opacity-80", dur: "38s" },
+  { y: 80, amp: 28, fill: `color-mix(in srgb, ${LOGO.yellow} 26%, white)`, className: "bottom-[6%] h-[34%] opacity-80 [animation-direction:reverse]", dur: "46s" },
+  { y: 90, amp: 22, fill: `color-mix(in srgb, ${LOGO.lightBlue} 24%, white)`, className: "bottom-0 h-[26%]", dur: "30s" },
+];
+
 export default function ShopPage() {
   return (
     <>
@@ -248,18 +262,27 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/* ── Gift band: a gift-wrapped panel with occasion tags hanging from a string ── */}
-      <section aria-labelledby="gift-heading" className="mx-auto max-w-[1260px] px-4 pt-20 md:px-6">
-        <div
-          className="relative overflow-hidden rounded-[32px] px-5 pt-10 pb-8 shadow-[0_12px_0_#c9d9ee,0_30px_60px_-30px_rgba(14,30,63,0.4)] sm:px-10 lg:pb-10"
-          style={{ background: "linear-gradient(135deg, #eaf5ff 0%, #ffffff 45%, #fff6dc 100%)" }}
-        >
-          {/* Ribbon wrapped round the panel + bow where it crosses */}
-          <span aria-hidden className="absolute inset-x-0 top-0 h-3" style={{ background: `repeating-linear-gradient(90deg, ${LOGO.red} 0 40px, ${LOGO.yellow} 40px 80px, ${LOGO.blue} 80px 120px, ${LOGO.green} 120px 160px)` }} />
-          <span aria-hidden className="doodle absolute left-6 top-10 hidden md:block" style={{ color: LOGO.yellow }}>
+      {/* ── Gift band: a full-width gift-wrapped band (ribbon across the top)
+          with occasion tags hanging from a string ── */}
+      <section aria-labelledby="gift-heading" className="relative isolate mt-20 overflow-hidden">
+        {/* wrapping-paper backdrop, fading softly into the page at the bottom */}
+        <div aria-hidden className="absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black_88%,transparent)]">
+          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, #eaf5ff 0%, #ffffff 45%, #fff6dc 100%)" }} />
+          <div className="absolute inset-0 opacity-50" style={{ backgroundImage: "radial-gradient(circle, rgba(1,119,222,0.10) 2px, transparent 2.5px)", backgroundSize: "28px 28px" }} />
+          {/* soft layered waves rolling slowly across the band */}
+          {GIFT_WAVES.map((w) => (
+            <svg key={w.fill} viewBox="0 0 2880 200" preserveAspectRatio="none" className={`gift-wave absolute left-0 w-[200%] ${w.className}`} style={{ animationDuration: w.dur }}>
+              <path d={waveRow(w.y, w.amp)} fill={w.fill} />
+            </svg>
+          ))}
+        </div>
+        {/* Ribbon wrapped round the band */}
+        <span aria-hidden className="absolute inset-x-0 top-0 h-3" style={{ background: `repeating-linear-gradient(90deg, ${LOGO.red} 0 40px, ${LOGO.yellow} 40px 80px, ${LOGO.blue} 80px 120px, ${LOGO.green} 120px 160px)` }} />
+        <div className="relative mx-auto max-w-[1260px] px-5 pt-12 pb-10 sm:px-10">
+          <span aria-hidden className="doodle absolute left-4 top-12 hidden md:block" style={{ color: LOGO.yellow }}>
             <LineIcon name="star" size={26} strokeWidth={2.4} />
           </span>
-          <span aria-hidden className="doodle absolute right-[38%] top-8 hidden lg:block [animation-delay:1s]" style={{ color: LOGO.blue }}>
+          <span aria-hidden className="doodle absolute right-[38%] top-10 hidden lg:block [animation-delay:1s]" style={{ color: LOGO.blue }}>
             <LineIcon name="sparkles" size={22} strokeWidth={2.4} />
           </span>
 
@@ -322,7 +345,8 @@ export default function ShopPage() {
         </div>
       </section>
 
-      <SignupBand />
+      {/* The gift band above is full width and already fades out, so less gap. */}
+      <SignupBand className="mt-6" />
     </>
   );
 }

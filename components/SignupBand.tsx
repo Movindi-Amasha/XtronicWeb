@@ -9,9 +9,9 @@ const PERKS: { icon: LineIconName; label: string; color: string }[] = [
   { icon: "heart", label: "Parenting Tips", color: LOGO.green },
 ];
 
-export default function SignupBand() {
+export default function SignupBand({ className = "mt-20" }: { className?: string }) {
   return (
-    <section aria-labelledby="signup-heading" className="mt-20">
+    <section aria-labelledby="signup-heading" className={className}>
       <div
         className="relative overflow-hidden text-white"
         style={{ background: `linear-gradient(120deg, ${LOGO.blue}, var(--color-brand-blue-600))` }}

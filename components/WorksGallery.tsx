@@ -1,13 +1,8 @@
 import Link from "next/link";
 import CreationsCarousel from "./CreationsCarousel";
-import { products } from "@/lib/products";
+import { WORKS } from "@/lib/works";
 import { LOGO } from "@/lib/brandColors";
 import Doodled from "@/components/Doodled";
-
-// Each kit's "in action" photo (public/products/<slug>/4.jpg).
-const CREATIONS = products
-  .filter((p) => p.category !== "Bundles & Gifts")
-  .map((p) => ({ href: `/shop/${p.slug}`, image: `/products/${p.slug}/4.jpg`, title: p.name }));
 
 export default function WorksGallery() {
   return (
@@ -26,7 +21,7 @@ export default function WorksGallery() {
         </Link>
       </div>
       <div className="mt-8">
-        <CreationsCarousel items={CREATIONS} />
+        <CreationsCarousel items={WORKS} />
       </div>
     </section>
   );

@@ -50,6 +50,11 @@ export default async function AdminOrdersPage() {
 
   return (
     <div className="mx-auto max-w-[1260px] px-4 py-10 md:px-6">
+      <p className="mb-4 text-sm font-bold">
+        <Link href="/admin/theme" className="text-brand-blue hover:underline">
+          Seasonal theme →
+        </Link>
+      </p>
       <h1 className="font-heading text-2xl font-extrabold text-brand-navy">
         Club kits to ship
         <span className="ml-3 align-middle text-sm font-bold text-muted">

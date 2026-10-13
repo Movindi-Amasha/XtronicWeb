@@ -10,6 +10,7 @@ import Doodled from "@/components/Doodled";
 import GiftBox from "@/components/GiftBox";
 import QrScan from "@/components/QrScan";
 import { CLUB_PRICE_LABEL } from "@/lib/club";
+import { WORKS } from "@/lib/works";
 import HeroScene from "@/components/HeroScene";
 import HeroCloud from "@/components/HeroCloud";
 import Mascot from "@/components/Mascot";
@@ -50,14 +51,6 @@ const SKILLS: { icon: LineIconName; title: string; desc: string; color: string; 
   { icon: "puzzle", title: "Problem Solving", desc: "Think, test and find solutions.", color: LOGO.green, anim: "anim-flip" },
   { icon: "palette", title: "Creativity", desc: "Use imagination to make new ideas.", color: LOGO.lightBlue, anim: "anim-sway" },
   { icon: "rocket", title: "Confidence", desc: "Feel proud after completing a project.", color: LOGO.orange, anim: "anim-launch" },
-];
-
-const CREATIONS = [
-  { href: "/shop/voice-robot", image: "/products/voice-robot/4.jpg", title: "Voice-Controlled Robot" },
-  { href: "/shop/solar-speedboat", image: "/products/solar-speedboat/4.jpg", title: "Solar-Powered Yacht" },
-  { href: "/shop/wooden-taxiing-aircraft", image: "/products/wooden-taxiing-aircraft/4.jpg", title: "Wooden Taxiing Aircraft" },
-  { href: "/shop/solar-4wd-rover", image: "/products/solar-4wd-rover/4.jpg", title: "Solar 4WD Rover" },
-  { href: "/shop/solar-butterfly", image: "/products/solar-butterfly/4.jpg", title: "Solar Butterfly" },
 ];
 
 const FAQS = [
@@ -367,7 +360,7 @@ export default function HowItWorksPage() {
           </SectionHeading>
         </div>
         <div className="mt-8">
-          <CreationsCarousel items={CREATIONS} />
+          <CreationsCarousel items={WORKS} />
         </div>
       </section>
 

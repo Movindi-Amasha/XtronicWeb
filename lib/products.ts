@@ -121,7 +121,7 @@ export const products: Product[] = [
   },
   {
     slug: "solar-speedboat",
-    skillLevel: "Beginner",
+    skillLevel: "Intermediate",
     badge: "New",
     features: ["build", "solar", "float", "explore"],
     name: "Solar-Powered Yacht / Speedboat",
@@ -149,7 +149,7 @@ export const products: Product[] = [
   },
   {
     slug: "solar-butterfly",
-    skillLevel: "Beginner",
+    skillLevel: "Advanced",
     badge: "New",
     features: ["build", "solar", "move", "nature"],
     name: "Solar-Powered Flapping Butterfly",

@@ -50,16 +50,16 @@ const TEAM: { name: string; role: string; desc: string; photo?: string }[] = [
 // Add real awards here as { title, org, year, image? }; the section stays hidden while empty.
 const AWARDS: { title: string; org: string; year: string; image?: string }[] = [];
 
-// Real product build photos: parts laid out, mid-build, finished.
+// Our production and quality process, step by step (public/behind/*).
 const BEHIND_THE_SCENES = [
-  "/products/voice-robot/2.jpg",
-  "/products/solar-4wd-rover/2.jpg",
-  "/products/wooden-taxiing-aircraft/2.jpg",
-  "/products/solar-speedboat/2.jpg",
-  "/products/voice-robot/3.jpg",
-  "/products/solar-butterfly/3.jpg",
-  "/products/wooden-taxiing-aircraft/3.jpg",
-  "/products/stem-bundle-5in1/main.jpg",
+  { src: "/behind/circuit-board.jpg", label: "Circuit boards" },
+  { src: "/behind/cutting-parts.jpg", label: "Preparing parts" },
+  { src: "/behind/production-line.jpg", label: "Production line" },
+  { src: "/behind/packing-tray.jpg", label: "Kit packing" },
+  { src: "/behind/solar-testing.jpg", label: "Solar testing" },
+  { src: "/behind/frame-assembly.jpg", label: "Frame assembly" },
+  { src: "/behind/motor-testing.jpg", label: "Motor checks" },
+  { src: "/behind/finished-boxes.jpg", label: "Ready to ship" },
 ];
 
 // ── Building blocks ──
@@ -421,7 +421,7 @@ export default function AboutPage() {
 
           <div>
             <div className="flex flex-wrap items-end justify-between gap-3">
-              <Heading icon="cog" color={LOGO.blue} doodles="right" sub="Inside the kits: parts, builds and finished models.">
+              <Heading icon="cog" color={LOGO.blue} doodles="right" sub="Our production and quality process.">
                 <span style={{ color: LOGO.blue }}>Behind the Scenes</span>
               </Heading>
               <Link href="/shop" className="rounded-btn border-2 border-brand-blue px-4 py-2 font-heading text-sm font-semibold text-brand-blue hover:bg-brand-blue hover:text-white">
@@ -429,9 +429,12 @@ export default function AboutPage() {
               </Link>
             </div>
             <ul className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-              {BEHIND_THE_SCENES.map((src) => (
-                <li key={src} className="group relative aspect-[4/3] overflow-hidden rounded-2xl border-[3px] border-white shadow-[0_8px_20px_-12px_rgba(14,30,63,0.4)]">
-                  <Image src={src} alt="" fill sizes="(min-width: 640px) 160px, 45vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+              {BEHIND_THE_SCENES.map((b) => (
+                <li key={b.src} className="group relative aspect-square overflow-hidden rounded-2xl border-[3px] border-white shadow-[0_8px_20px_-12px_rgba(14,30,63,0.4)]">
+                  <Image src={b.src} alt={b.label} fill sizes="(min-width: 640px) 170px, 45vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <span className="absolute inset-x-1.5 bottom-1.5 truncate rounded-lg bg-white/95 px-2 py-1 text-center font-heading text-[11px] font-semibold text-brand-navy shadow sm:text-xs">
+                    {b.label}
+                  </span>
                 </li>
               ))}
             </ul>
