@@ -88,7 +88,7 @@ export const THEMES: Record<ThemeId, SeasonalTheme> = {
     particle: "petal",
     particleColors: [`color-mix(in srgb, ${LOGO.yellow} 70%, white)`, `color-mix(in srgb, ${LOGO.green} 55%, white)`, `color-mix(in srgb, ${LOGO.lightBlue} 50%, white)`],
     edge: "eggs",
-    when: "The week before Easter Sunday to Easter Monday",
+    when: "the week before Easter Sunday to Easter Monday",
   },
 };
 
