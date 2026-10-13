@@ -85,7 +85,7 @@ export default function SubscriptionBand() {
               ))}
             </div>
             <div className="absolute inset-[8%] overflow-hidden rounded-full border-[6px] border-white shadow-[0_12px_0_rgba(13,31,53,0.18)]" style={{ background: "radial-gradient(circle at 50% 35%, #fff 0%, #fff6d6 65%, #ffe39a 100%)" }}>
-              <Image src="/kids/boy-cheering.png" alt="Boy cheering next to the robot car he built" fill sizes="340px" className="translate-y-[6%] scale-110 object-contain object-bottom" />
+              <Image src="/kids/boy-holding-kit.png" alt="Smiling boy holding his XTRONIC KIDS kit box" fill sizes="340px" className="translate-y-[4%] object-contain object-bottom" />
             </div>
             <div aria-hidden className="club-stamp absolute -top-1 -right-1 grid h-24 w-24 place-items-center rounded-full border-4 border-white text-center font-heading text-[11px] font-bold uppercase leading-tight text-white shadow-lg sm:h-28 sm:w-28 sm:text-xs" style={{ background: LOGO.red }}>
               New kit
