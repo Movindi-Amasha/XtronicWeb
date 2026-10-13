@@ -45,7 +45,7 @@ export const products: Product[] = [
     category: "Robotics & Electronics",
     categoryLabel: "Robotics & Electronics",
     age: "7+",
-    priceCents: 3995,
+    priceCents: 390000,
     buildTime: "60–90 min",
     rating: 4.9,
     reviewCount: 156,
@@ -73,7 +73,7 @@ export const products: Product[] = [
     category: "Solar Energy",
     categoryLabel: "Solar Mechanics & Clean Energy",
     age: "6+",
-    priceCents: 2995,
+    priceCents: 360000,
     buildTime: "45–60 min",
     rating: 4.9,
     reviewCount: 128,
@@ -101,7 +101,7 @@ export const products: Product[] = [
     category: "Wooden Mechanics",
     categoryLabel: "Wooden Mechanics & Flight",
     age: "6+",
-    priceCents: 2495,
+    priceCents: 320000,
     buildTime: "30–45 min",
     rating: 4.8,
     reviewCount: 94,
@@ -129,7 +129,7 @@ export const products: Product[] = [
     category: "Solar Energy",
     categoryLabel: "Solar Mechanics & Clean Energy",
     age: "6+",
-    priceCents: 3295,
+    priceCents: 350000,
     buildTime: "30–45 min",
     rating: 4.7,
     reviewCount: 71,
@@ -157,7 +157,7 @@ export const products: Product[] = [
     category: "Solar Energy",
     categoryLabel: "Solar Mechanics & Clean Energy",
     age: "6+",
-    priceCents: 2295,
+    priceCents: 300000,
     buildTime: "30–45 min",
     rating: 4.8,
     reviewCount: 63,
@@ -182,7 +182,7 @@ export const products: Product[] = [
     category: "Bundles & Gifts",
     categoryLabel: "Bundles & Gifts",
     age: "6+",
-    priceCents: 11995,
+    priceCents: 1390000,
     buildTime: "Weeks of building fun",
     rating: 5.0,
     reviewCount: 34,
@@ -208,7 +208,7 @@ export const products: Product[] = [
     category: "Bundles & Gifts",
     categoryLabel: "Bundles & Gifts",
     age: "All ages",
-    priceCents: 495,
+    priceCents: 50000,
     buildTime: "Add to any kit",
     rating: 4.9,
     reviewCount: 41,
@@ -232,7 +232,7 @@ export const products: Product[] = [
     category: "Bundles & Gifts",
     categoryLabel: "Bundles & Gifts",
     age: "6+",
-    priceCents: 1995,
+    priceCents: 150000,
     buildTime: "Keeps builds going",
     rating: 4.8,
     reviewCount: 57,
@@ -259,11 +259,15 @@ export const categories: ProductCategory[] = [
   "Bundles & Gifts",
 ];
 
-export function formatPriceAUD(cents: number): string {
-  return new Intl.NumberFormat("en-AU", {
-    style: "currency",
-    currency: "AUD",
-  }).format(cents / 100);
+/** Formats LKR cents as "Rs 3,500" (cents only shown when there are any). XTRONIC KIDS sells only in Sri Lanka. */
+export function formatPrice(cents: number): string {
+  const digits = cents % 100 === 0 ? 0 : 2;
+  return `Rs ${new Intl.NumberFormat("en-LK", { minimumFractionDigits: digits, maximumFractionDigits: digits }).format(cents / 100)}`;
+}
+
+/** Formats a stored amount in its own currency (older orders may be AUD or USD). */
+export function formatMoney(cents: number, currency: string): string {
+  return currency === "LKR" ? formatPrice(cents) : `${currency} ${(cents / 100).toFixed(2)}`;
 }
 
 export function getProductBySlug(slug: string): Product | undefined {

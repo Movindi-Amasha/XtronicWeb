@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useQuickViewStore } from "@/lib/quickViewStore";
 import { useCartStore } from "@/lib/cartStore";
 import { getProductBySlug } from "@/lib/products";
-import { useDisplayPrice } from "@/lib/useDisplayPrice";
+import { formatPrice } from "@/lib/products";
 import ProductImage from "./ProductImage";
 
 export default function QuickViewModal() {
@@ -21,7 +21,7 @@ export default function QuickViewModal() {
   const previouslyFocused = useRef<HTMLElement | null>(null);
 
   const product = openSlug ? getProductBySlug(openSlug) : undefined;
-  const displayPrice = useDisplayPrice((product?.priceCents ?? 0) * qty);
+  const displayPrice = formatPrice((product?.priceCents ?? 0) * qty);
 
   // Reset quantity when a different product opens — computed during render
   // (React's recommended pattern) instead of in an effect, to avoid an

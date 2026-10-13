@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import {
   isPayhereConfigured,
   computeCheckoutHash,
-  audCentsToLkrAmount,
   getPayhereActionUrl,
 } from "@/lib/payhere";
 import { computeOrderTotals, type CartLineInput } from "@/lib/orderTotals";
@@ -41,7 +40,7 @@ export async function POST(request: Request) {
   try {
     const totals = computeOrderTotals(body.items, body.shippingMethod);
     const orderId = `XK-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-    const amount = audCentsToLkrAmount(totals.totalCents);
+    const amount = (totals.totalCents / 100).toFixed(2);
     const currency = "LKR";
     const hash = computeCheckoutHash({ orderId, amount, currency });
 
@@ -57,7 +56,7 @@ export async function POST(request: Request) {
         paymentProvider: "payhere",
         providerReference: orderId,
         status: "pending",
-        currency: "AUD",
+        currency: "LKR",
         subtotalCents: totals.subtotalCents,
         shippingCents: totals.shippingCents,
         totalCents: totals.totalCents,
@@ -80,6 +79,10 @@ export async function POST(request: Request) {
     // can never be localhost) — always build these from the configured site
     // URL, never from the browser's origin.
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+    // Local testing only: PayHere can't reach localhost, so PAYHERE_NOTIFY_BASE_URL
+    // can point just the webhook at a public tunnel while the shopper stays on
+    // localhost (the domain registered with PayHere).
+    const notifyBase = process.env.PAYHERE_NOTIFY_BASE_URL || siteUrl;
 
     return NextResponse.json({
       actionUrl: getPayhereActionUrl(),
@@ -91,7 +94,7 @@ export async function POST(request: Request) {
       itemsDescription: totals.lineItems.map((item) => item.name).join(", "),
       returnUrl: `${siteUrl}/checkout/success?payhere_order=${orderId}`,
       cancelUrl: `${siteUrl}/checkout`,
-      notifyUrl: `${siteUrl}/api/webhooks/payhere`,
+      notifyUrl: `${notifyBase}/api/webhooks/payhere`,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Checkout failed";

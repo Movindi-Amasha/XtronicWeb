@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { isPaypalConfigured, paypalFetch } from "@/lib/paypal";
 import { db } from "@/lib/db";
 
-const CLUB_PRICE_CENTS = 1999;
+import { CLUB_PRICE_CENTS } from "@/lib/club";
 
 interface CreateBody {
   email: string;
@@ -64,7 +64,7 @@ export async function POST(request: Request) {
         status: "pending",
         paypalSubscriptionId: subscription.id,
         priceCents: CLUB_PRICE_CENTS,
-        currency: "AUD",
+        currency: "LKR",
       },
     });
 

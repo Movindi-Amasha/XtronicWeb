@@ -8,6 +8,8 @@ import SubscriptionBand from "@/components/SubscriptionBand";
 import LineIcon, { type LineIconName } from "@/components/LineIcon";
 import Doodled from "@/components/Doodled";
 import GiftBox from "@/components/GiftBox";
+import QrScan from "@/components/QrScan";
+import { CLUB_PRICE_LABEL } from "@/lib/club";
 import HeroScene from "@/components/HeroScene";
 import HeroCloud from "@/components/HeroCloud";
 import Mascot from "@/components/Mascot";
@@ -19,11 +21,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
 };
 
-// Same five steps as the homepage, with the hover animations from
+// Same six steps as the homepage, with the hover animations from
 // globals.css (step-card / step-icon-*). Pink and purple from the design are
 // swapped for the logo red and yellow, as on the homepage feature strip.
 const STEPS = [
   { icon: "📦", anim: "hop", title: "Choose Your Kit", desc: "Pick a STEM kit that interests your child: robots, solar vehicles or nature inspired.", color: LOGO.blue },
+  { icon: "📱", anim: "scan", title: "Scan the QR", desc: "Scan the QR code on the box with a phone or tablet to open your kit's step-by-step guide.", color: LOGO.lightBlue },
   { icon: "🔧", anim: "twist", title: "Build It", desc: "Follow the easy step-by-step picture guide. All parts are included in the box.", color: LOGO.orange },
   { icon: "💡", anim: "glow", title: "Discover How It Works", desc: "Learn the real science of motors, solar power and circuits behind your creation.", color: LOGO.green },
   { icon: "🎮", anim: "mash", title: "Play & Experiment", desc: "Test your creation and see it in action. Try different ways and have fun!", color: LOGO.red },
@@ -31,12 +34,12 @@ const STEPS = [
 ];
 
 const BOX_TO_PLAY = [
-  // The prop art has the mascot's sneakers at the top; crop to the box.
-  // First tile is drawn (GiftBox) rather than a photo.
-  { image: "", label: "Open the Box", position: "" },
-  { image: "/products/voice-robot/2.jpg", label: "Check the Parts" },
-  { image: "/products/voice-robot/3.jpg", label: "Build Step by Step" },
-  { image: "/products/voice-robot/4.jpg", label: "Test & Play" },
+  // Tiles without an image are drawn: "gift" = GiftBox, "qr" = QrScan.
+  { image: "", art: "gift", label: "Open the Box", position: "" },
+  { image: "", art: "qr", label: "Scan the QR", position: "" },
+  { image: "/products/wooden-taxiing-aircraft/2.jpg", label: "Check the Parts" },
+  { image: "/products/wooden-taxiing-aircraft/3.jpg", label: "Build Step by Step" },
+  { image: "/products/wooden-taxiing-aircraft/4.jpg", label: "Test & Play" },
 ];
 
 // anim = looping icon animation (globals.css) that acts the skill out.
@@ -72,7 +75,7 @@ const FAQS = [
   },
   {
     q: "Do you offer a subscription plan?",
-    a: "Yes! The XTRONIC Club is $19.99/month and includes a new STEM kit every month, 15% off everything and early access to new kits. You can pause or cancel anytime.",
+    a: `Yes! The XTRONIC Club is ${CLUB_PRICE_LABEL}/month and includes a new STEM kit every month, 15% off everything and early access to new kits. You can pause or cancel anytime.`,
   },
 ];
 
@@ -195,20 +198,20 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      {/* ── 5 Simple Steps ── */}
+      {/* ── 6 Simple Steps ── */}
       <section aria-labelledby="steps-heading" className="relative mx-auto max-w-[1200px] px-4 pt-16 md:px-6">
         <Star className="left-2 top-14 hidden h-8 w-8 -rotate-12 md:block" color={LOGO.yellow} />
         <Star className="right-4 top-12 hidden h-7 w-7 rotate-12 md:block" color={LOGO.blue} />
         <div id="steps-heading">
           <SectionHeading center>
-            <span style={{ color: LOGO.blue }}>5</span> Simple Steps to a{" "}
+            <span style={{ color: LOGO.blue }}>6</span> Simple Steps to a{" "}
             <span className="underline decoration-[5px] underline-offset-[6px]" style={{ color: LOGO.orange, textDecorationColor: LOGO.yellow }}>
               Big Adventure!
             </span>
           </SectionHeading>
         </div>
 
-        <ol className="mt-12 grid grid-cols-1 gap-x-3 gap-y-8 sm:grid-cols-2 lg:grid-cols-[repeat(5,minmax(0,1fr))]">
+        <ol className="mt-12 grid grid-cols-1 gap-x-3 gap-y-8 sm:grid-cols-2 lg:grid-cols-[repeat(6,minmax(0,1fr))]">
           {STEPS.map((step, i) => (
             <li key={step.title} className="relative flex">
               <div
@@ -251,9 +254,12 @@ export default function HowItWorksPage() {
           </div>
         </div>
 
-        <div className="relative mt-8 grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-4 lg:gap-x-10 lg:pr-48 xl:pr-56">
+        <div className="relative mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-9 xl:pr-48">
           {BOX_TO_PLAY.map((tile, i) => (
-            <figure key={tile.label} className="group relative">
+            <figure
+              key={tile.label}
+              className={`group relative ${i === BOX_TO_PLAY.length - 1 ? "col-span-2 mx-auto w-[calc(50%-8px)] sm:col-span-1 sm:mx-0 sm:w-auto" : ""}`}
+            >
               <div className="relative aspect-[4/3] overflow-hidden rounded-card border-4 border-white bg-brand-blue-50 shadow-[0_10px_30px_-12px_rgba(14,30,63,0.25)]">
                 {tile.image ? (
                   <Image
@@ -265,23 +271,27 @@ export default function HowItWorksPage() {
                   />
                 ) : (
                   <div className="grid h-full place-items-center" style={{ background: "radial-gradient(circle at 50% 45%, #fff 0%, #e3f1ff 75%)" }}>
-                    <GiftBox className="gift-hop h-[78%] w-[78%]" box="#1E88E5" lid="#42A5F5" ribbon={LOGO.yellow} />
+                    {tile.art === "qr" ? (
+                      <QrScan className="h-[82%] w-[88%]" />
+                    ) : (
+                      <GiftBox className="gift-hop h-[78%] w-[78%]" box="#1E88E5" lid="#42A5F5" ribbon={LOGO.yellow} />
+                    )}
                   </div>
                 )}
               </div>
               <figcaption
-                className="relative -mt-4 mx-auto w-fit rounded-btn px-4 py-1.5 text-center font-heading text-xs font-semibold text-white shadow-md sm:text-sm"
+                className="relative -mt-4 mx-auto w-fit whitespace-nowrap rounded-btn px-3 py-1.5 text-center font-heading text-xs font-semibold text-white shadow-md sm:text-sm lg:text-xs xl:text-[13px]"
                 style={{ background: LOGO.blue }}
               >
                 {i + 1}. {tile.label}
               </figcaption>
               {i < BOX_TO_PLAY.length - 1 && (
-                <Arrow color={LOGO.orange} className="absolute top-[38%] -right-[38px] hidden lg:block" />
+                <Arrow color={LOGO.orange} className="absolute top-[38%] -right-[34px] hidden h-4 w-7 lg:block" />
               )}
             </figure>
           ))}
 
-          <SpeechBubble className="right-2 top-1/2 hidden -translate-y-1/2 rotate-[-6deg] text-xl lg:block xl:text-2xl" tail="left">
+          <SpeechBubble className="right-0 top-1/2 hidden -translate-y-1/2 rotate-[-6deg] text-xl xl:block" tail="left">
             <span style={{ color: LOGO.blue }}>Learn</span>
             <br />
             <span style={{ color: LOGO.green }}>Create</span>

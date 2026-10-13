@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { getProductBySlug } from "./products";
 
 export interface CartItem {
   slug: string;
@@ -67,6 +68,16 @@ export const useCartStore = create<CartState>()(
       name: "xtronic-cart",
       partialize: (state) => ({ items: state.items }),
       skipHydration: true,
+      // Saved carts keep the price from when the kit was added (older carts
+      // even hold old AUD prices), so refresh every line from the catalogue on load.
+      merge: (persisted, current) => {
+        const saved = (persisted as Partial<CartState> | undefined)?.items ?? [];
+        const items = saved.flatMap((i) => {
+          const p = getProductBySlug(i.slug);
+          return p ? [{ ...i, name: p.name, priceCents: p.priceCents }] : [];
+        });
+        return { ...current, items };
+      },
     }
   )
 );

@@ -27,9 +27,8 @@ const TOPICS = {
       {
         h: "Shipping",
         items: [
-          { q: "AU Standard", a: "Free over A$75, otherwise a flat rate at checkout. 3–5 business days." },
-          { q: "AU Express", a: "1–2 business days, calculated at checkout." },
-          { q: "Sri Lanka", a: "Standard delivery, 7–14 business days, available at checkout." },
+          { q: "Island-wide delivery", a: "We deliver anywhere in Sri Lanka, usually within 2–5 business days." },
+          { q: "Delivery cost", a: "A flat Rs 500 per order, and free on orders over Rs 7,000." },
         ],
       },
       {
@@ -47,7 +46,7 @@ const TOPICS = {
       {
         h: "Small Parts Notice",
         items: [
-          { q: "Choking hazard", a: "All kits contain small parts and are not suitable for children under 3 years, per Australian toy safety standards." },
+          { q: "Choking hazard", a: "All kits contain small parts and are not suitable for children under 3 years, in line with international toy safety standards." },
           { q: "Supervision", a: "Adult supervision is recommended during assembly, especially for kits with batteries or moving parts." },
         ],
       },
@@ -71,7 +70,7 @@ const TOPICS = {
         h: "How we use your information",
         list: true,
         items: [
-          "To process and fulfil your orders, including shipping and delivery within Australia and to Sri Lanka.",
+          "To process and fulfil your orders, including delivery within Sri Lanka.",
           "To communicate with you about your purchase, provide customer support, and respond to enquiries or requests.",
           "To send order confirmations and, if you've opted in, our newsletter and welcome discount code.",
           "To improve our website, products and services based on feedback and browsing patterns.",
@@ -139,7 +138,7 @@ const TOPICS = {
         list: true,
         items: [
           "We strive to provide accurate product descriptions, images and pricing, but don't guarantee that every detail is complete or error-free.",
-          "Prices are shown in AUD and include GST for Australian orders. Prices are subject to change without notice, and promotions or discounts may carry their own additional terms and time limits.",
+          "Prices are shown in Sri Lankan rupees (LKR). Card and PayHere payments are charged in LKR; PayPal payments are charged in US dollars, converted at checkout. Prices are subject to change without notice, and promotions or discounts may carry their own additional terms and time limits.",
         ],
       },
       {
@@ -156,7 +155,7 @@ const TOPICS = {
         h: "Shipping and delivery",
         list: true,
         items: [
-          "We make reasonable efforts to ship and deliver orders promptly within Australia and to Sri Lanka.",
+          "We make reasonable efforts to deliver orders promptly within Sri Lanka.",
           "Shipping and delivery times shown at checkout are estimates and may vary depending on your location and other factors outside our control.",
         ],
       },
@@ -179,7 +178,7 @@ const TOPICS = {
         list: true,
         items: [
           "XTRONIC KIDS and its team are not liable for any indirect, incidental or consequential damages arising from your use of our website or our products.",
-          "We make no warranties, express or implied, beyond those required by Australian Consumer Law, regarding the products offered on our website.",
+          "We make no warranties, express or implied, beyond those required by Sri Lankan law, including the Consumer Affairs Authority Act, regarding the products offered on our website.",
         ],
       },
       {

@@ -6,13 +6,13 @@ import {
   useCartStore,
   cartSubtotalCents,
 } from "@/lib/cartStore";
-import { formatPriceAUD } from "@/lib/products";
+import { formatPrice } from "@/lib/products";
 import {
+  DEFAULT_SHIPPING_METHOD,
   SHIPPING_RATES,
   getShippingCostCents,
   type ShippingMethod,
 } from "@/lib/shipping";
-import { gstComponentCents } from "@/lib/pricing";
 import PaypalPaymentSection from "./PaypalPaymentSection";
 import PayHerePaymentSection from "./PayHerePaymentSection";
 import ProductImage from "@/components/ProductImage";
@@ -25,13 +25,12 @@ export default function CheckoutForm() {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [postcode, setPostcode] = useState("");
-  const [shippingMethod, setShippingMethod] = useState<ShippingMethod>("au-standard");
+  const [shippingMethod, setShippingMethod] = useState<ShippingMethod>(DEFAULT_SHIPPING_METHOD);
   const [readyForPayment, setReadyForPayment] = useState(false);
 
   const subtotal = cartSubtotalCents(items);
   const shippingCents = getShippingCostCents(shippingMethod, subtotal);
   const total = subtotal + shippingCents;
-  const gst = gstComponentCents(total);
 
   if (items.length === 0) {
     return (
@@ -162,7 +161,7 @@ export default function CheckoutForm() {
                       <span className="font-semibold text-brand-navy">{rate.label}</span>
                     </span>
                     <span className="font-bold text-brand-navy">
-                      {cost === 0 ? "Free" : formatPriceAUD(cost)}
+                      {cost === 0 ? "Free" : formatPrice(cost)}
                     </span>
                   </label>
                 );
@@ -226,7 +225,7 @@ export default function CheckoutForm() {
                 {item.name} <span className="text-muted">&times;{item.qty}</span>
               </span>
               <span className="font-bold text-brand-navy">
-                {formatPriceAUD(item.priceCents * item.qty)}
+                {formatPrice(item.priceCents * item.qty)}
               </span>
             </li>
           ))}
@@ -234,20 +233,16 @@ export default function CheckoutForm() {
         <div className="flex flex-col gap-2 border-t border-line pt-4 text-sm">
           <div className="flex justify-between text-brand-navy-700">
             <span>Subtotal</span>
-            <span>{formatPriceAUD(subtotal)}</span>
+            <span>{formatPrice(subtotal)}</span>
           </div>
           <div className="flex justify-between text-brand-navy-700">
             <span>Shipping</span>
-            <span>{shippingCents === 0 ? "Free" : formatPriceAUD(shippingCents)}</span>
-          </div>
-          <div className="flex justify-between text-muted">
-            <span>Includes GST</span>
-            <span>{formatPriceAUD(gst)}</span>
+            <span>{shippingCents === 0 ? "Free" : formatPrice(shippingCents)}</span>
           </div>
         </div>
         <div className="flex justify-between border-t border-line pt-4 font-body text-lg font-extrabold text-brand-navy">
           <span>Total</span>
-          <span>{formatPriceAUD(total)}</span>
+          <span>{formatPrice(total)}</span>
         </div>
       </aside>
     </div>

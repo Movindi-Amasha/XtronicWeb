@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCartStore, cartItemCount } from "@/lib/cartStore";
-import CurrencySelector from "./CurrencySelector";
 import LineIcon from "./LineIcon";
 
 // Primary navigation for the main store and support pages.
@@ -147,10 +146,6 @@ export default function Header() {
       {menuOpen && (
         <div className="border-t border-line bg-white px-4 pb-4 xl:hidden">
           <nav aria-label="Mobile primary" className="flex flex-col gap-1 pt-2">
-            <div className="flex items-center justify-between px-3 py-2 text-sm font-extrabold text-brand-navy">
-              Currency
-              <CurrencySelector className="flex" />
-            </div>
             {NAV_LINKS.map((link) => {
               const active = isLinkActive(pathname, link.href);
               return (

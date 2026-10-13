@@ -7,7 +7,10 @@ import {
   PayPalButtons,
 } from "@paypal/react-paypal-js";
 import { useCartStore } from "@/lib/cartStore";
-import type { ShippingMethod } from "@/lib/shipping";
+import { getShippingCostCents, type ShippingMethod } from "@/lib/shipping";
+import { cartSubtotalCents } from "@/lib/cartStore";
+import { formatPrice } from "@/lib/products";
+import { PAYPAL_CURRENCY, formatUsd, lkrCentsToUsdCents } from "@/lib/paypalCurrency";
 
 const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
 
@@ -32,6 +35,11 @@ export default function PaypalPaymentSection({
   const clearCart = useCartStore((s) => s.clearCart);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  // Same sum the server sends PayPal (each line converted, then added up).
+  const subtotal = cartSubtotalCents(items);
+  const shippingCents = getShippingCostCents(shippingMethod, subtotal);
+  const totalUsd =
+    items.reduce((sum, i) => sum + lkrCentsToUsdCents(i.priceCents) * i.qty, 0) + lkrCentsToUsdCents(shippingCents);
 
   if (!clientId) {
     return (
@@ -47,15 +55,19 @@ export default function PaypalPaymentSection({
 
   return (
     <PayPalScriptProvider
-      options={{ clientId, currency: "AUD", enableFunding: "paylater" }}
+      options={{ clientId, currency: PAYPAL_CURRENCY, enableFunding: "paylater" }}
     >
+      <p className="mb-3 text-xs font-semibold text-muted">
+        PayPal doesn&apos;t accept rupees, so your {formatPrice(subtotal + shippingCents)} is charged as{" "}
+        <span className="font-bold text-brand-navy">{formatUsd(totalUsd)}</span>. Your bank may convert it back to LKR.
+      </p>
       {error && (
         <p role="alert" className="mb-3 text-sm font-bold text-red-600">
           {error}
         </p>
       )}
       <PayPalButtons
-        style={{ layout: "vertical" }}
+        style={{ layout: "vertical", shape: "pill", height: 45 }}
         createOrder={async () => {
           const res = await fetch("/api/checkout/paypal/create", {
             method: "POST",

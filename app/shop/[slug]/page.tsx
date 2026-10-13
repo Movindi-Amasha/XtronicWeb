@@ -54,7 +54,7 @@ export default async function ProductPage({
     ...(product.image ? { image: `${siteUrl}${product.image}` } : {}),
     offers: {
       "@type": "Offer",
-      priceCurrency: "AUD",
+      priceCurrency: "LKR",
       price: (product.priceCents / 100).toFixed(2),
       availability: "https://schema.org/InStock",
     },
@@ -173,7 +173,7 @@ export default async function ProductPage({
           </h2>
           <p className="mt-3 text-sm text-brand-navy-700">
             Contains small parts. Not suitable for children under 3 years.
-            Adult supervision recommended during assembly. Meets Australian
+            Adult supervision recommended during assembly. Built to international
             toy safety standards.
           </p>
         </div>

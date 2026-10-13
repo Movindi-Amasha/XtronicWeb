@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName: "XTRONIC KIDS",
     type: "website",
-    locale: "en_AU",
+    locale: "en_LK",
     images: [
       {
         url: `${siteUrl}/brand/og-image.jpg`,
@@ -84,7 +84,7 @@ const organizationJsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/brand/xtronic-logo-transparent.png`,
   description:
-    "XTRONIC KIDS makes hands-on STEM robotics and solar engineering kits for kids 6+, shipping across Australia and Sri Lanka.",
+    "XTRONIC KIDS makes hands-on STEM robotics and solar engineering kits for kids 6+, delivering across Sri Lanka.",
 };
 
 const websiteJsonLd = {

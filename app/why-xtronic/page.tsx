@@ -5,7 +5,7 @@ import SignupBand from "@/components/SignupBand";
 import Doodled from "@/components/Doodled";
 import LineIcon, { type LineIconName } from "@/components/LineIcon";
 import { LOGO, band } from "@/lib/brandColors";
-import { CraftArt, JoinCelebration, MissionArt, VisionArt } from "@/components/AboutArt";
+import { CraftArt, JoinCelebration, MissionArt, StoryArt, VisionArt } from "@/components/AboutArt";
 import HeroScene from "@/components/HeroScene";
 import HeroCloud from "@/components/HeroCloud";
 import Mascot from "@/components/Mascot";
@@ -36,10 +36,10 @@ const VALUES: { icon: LineIconName; title: string; desc: string; color: string }
   { icon: "leaf", title: "Sustainability", desc: "Solar-powered kits for a brighter planet.", color: LOGO.orange },
 ];
 
-// Countries we actually ship to (see /help/shipping-returns).
-const REGIONS = [
-  { flag: "🇦🇺", name: "Australia", detail: "Standard 3–5 business days · Express 1–2" },
-  { flag: "🇱🇰", name: "Sri Lanka", detail: "Standard 7–14 business days" },
+// Where and how we deliver (see /help/shipping-returns).
+const REGIONS: { flag?: string; icon?: LineIconName; name: string; detail: string }[] = [
+  { flag: "🇱🇰", name: "Sri Lanka", detail: "Island-wide delivery · usually 2–5 business days" },
+  { icon: "gift", name: "Free Delivery", detail: "On orders over Rs 7,000 · otherwise Rs 500" },
 ];
 
 // Add team members here as { name, role, desc, photo } (photo under /public).
@@ -249,8 +249,15 @@ export default function AboutPage() {
                 Our Journey <span aria-hidden>→</span>
               </a>
             </div>
-            <div className="relative mx-auto aspect-[4/3] w-full max-w-[320px] overflow-hidden rounded-[28px] border-4 border-white shadow-[0_20px_40px_-18px_rgba(14,30,63,0.4)]">
-              <Image src="/products/voice-robot/3.jpg" alt="Robot kit mid-build" fill sizes="260px" className="object-cover" />
+            <div
+              className="relative mx-auto aspect-[6/5] w-full max-w-[320px] overflow-hidden rounded-[28px] border-2 p-3"
+              style={{
+                background: `linear-gradient(160deg, color-mix(in srgb, ${LOGO.yellow} 30%, white) 0%, color-mix(in srgb, ${LOGO.lightBlue} 14%, white) 100%)`,
+                borderColor: `color-mix(in srgb, ${LOGO.yellow} 55%, white)`,
+                boxShadow: `0 6px 0 color-mix(in srgb, ${LOGO.yellow} 35%, white), 0 18px 30px -18px rgba(14,30,63,0.35)`,
+              }}
+            >
+              <StoryArt />
             </div>
           </div>
 
@@ -342,9 +349,15 @@ export default function AboutPage() {
             <ul className="mt-5 grid gap-3">
               {REGIONS.map((r) => (
                 <li key={r.name} className="flex items-center gap-3 rounded-2xl border-2 border-line bg-white p-3">
-                  <span className="text-3xl" aria-hidden>
-                    {r.flag}
-                  </span>
+                  {r.flag ? (
+                    <span className="text-3xl" aria-hidden>
+                      {r.flag}
+                    </span>
+                  ) : (
+                    <span className="grid h-9 w-9 place-items-center rounded-full text-white" style={{ background: LOGO.orange }}>
+                      <LineIcon name={r.icon ?? "truck"} size={20} />
+                    </span>
+                  )}
                   <span>
                     <strong className="block font-heading text-brand-navy">{r.name}</strong>
                     <span className="text-xs font-semibold text-muted">{r.detail}</span>

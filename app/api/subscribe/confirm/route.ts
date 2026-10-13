@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { sendEmail, clubWelcomeEmail } from "@/lib/email";
 import { shippingFromPaypal, type PaypalSubscriber } from "@/lib/clubAccess";
 import { billingFields, type PaypalSubscriptionBilling } from "@/lib/clubBilling";
+import { CLUB_PRICE_CENTS } from "@/lib/club";
 
 interface ConfirmBody {
   subscriptionId: string;
@@ -67,8 +68,8 @@ export async function POST(request: Request) {
         status: isActive ? "active" : "pending",
         paypalSubscriptionId: subscription.id,
         shippingAddress,
-        priceCents: 1999,
-        currency: "AUD",
+        priceCents: CLUB_PRICE_CENTS,
+        currency: "LKR",
         startedAt: isActive ? new Date() : null,
         ...(isActive ? billingFields(subscription) : {}),
       },

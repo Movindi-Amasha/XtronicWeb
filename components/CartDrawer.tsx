@@ -7,7 +7,7 @@ import {
   cartSubtotalCents,
   type CartItem,
 } from "@/lib/cartStore";
-import { formatPriceAUD } from "@/lib/products";
+import { formatPrice } from "@/lib/products";
 import { amountUntilFreeShippingCents, FREE_SHIPPING_THRESHOLD_CENTS } from "@/lib/shipping";
 import ProductImage from "./ProductImage";
 
@@ -21,7 +21,7 @@ function LineItem({ item }: { item: CartItem }) {
       </div>
       <div className="flex flex-1 flex-col gap-1">
         <p className="text-sm font-bold text-brand-navy">{item.name}</p>
-        <p className="text-sm text-muted">{formatPriceAUD(item.priceCents)}</p>
+        <p className="text-sm text-muted">{formatPrice(item.priceCents)}</p>
         <div className="mt-1 flex items-center gap-2">
           <div className="flex items-center gap-2 rounded-full border border-line px-1.5 py-0.5">
             <button
@@ -156,7 +156,7 @@ export default function CartDrawer() {
             <div className="border-b border-line px-5 py-4">
               {remaining > 0 ? (
                 <p className="text-xs font-semibold text-brand-navy-700">
-                  {formatPriceAUD(remaining)} away from free delivery
+                  {formatPrice(remaining)} away from free delivery
                 </p>
               ) : (
                 <p className="text-xs font-semibold text-brand-green-700">
@@ -180,7 +180,7 @@ export default function CartDrawer() {
             <div className="border-t border-line px-5 py-4">
               <div className="flex items-center justify-between text-sm font-bold text-brand-navy">
                 <span>Subtotal</span>
-                <span>{formatPriceAUD(subtotal)}</span>
+                <span>{formatPrice(subtotal)}</span>
               </div>
               <p className="mt-1 text-xs text-muted">
                 Shipping and taxes calculated at checkout

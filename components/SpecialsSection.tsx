@@ -7,7 +7,7 @@ import GiftBox from "./GiftBox";
 import { products, type Product } from "@/lib/products";
 import { LOGO } from "@/lib/brandColors";
 import { useCartStore } from "@/lib/cartStore";
-import { useDisplayPrice } from "@/lib/useDisplayPrice";
+import { formatPrice } from "@/lib/products";
 import Doodled from "@/components/Doodled";
 
 const KITS_TOTAL_CENTS = products
@@ -43,7 +43,7 @@ function Bow({ color, className = "" }: { color: string; className?: string }) {
 }
 
 function Price({ cents, className = "" }: { cents: number; className?: string }) {
-  return <span className={className}>{useDisplayPrice(cents)}</span>;
+  return <span className={className}>{formatPrice(cents)}</span>;
 }
 
 function SpecialCard({ product }: { product: Product }) {

@@ -17,7 +17,7 @@ import Mascot from "@/components/Mascot";
 export const metadata: Metadata = {
   title: "Shop STEM Robotics & Solar Kits for Kids",
   description:
-    "Browse solar energy, robotics & electronics, and wooden mechanics STEM kits for kids 6+. Screen-free building kits shipped across Australia and Sri Lanka.",
+    "Browse solar energy, robotics & electronics, and wooden mechanics STEM kits for kids 6+. Screen-free building kits delivered across Sri Lanka.",
   alternates: { canonical: "/shop" },
 };
 

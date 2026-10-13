@@ -7,6 +7,7 @@ import Doodled from "@/components/Doodled";
 // anim = which step-icon-* hover animation (globals.css) the icon plays.
 const STEPS = [
   { icon: "📦", anim: "hop", title: "Choose Your Kit", color: LOGO.blue },
+  { icon: "📱", anim: "scan", title: "Scan the QR", color: LOGO.lightBlue },
   { icon: "🔧", anim: "twist", title: "Build It", color: LOGO.orange },
   { icon: "💡", anim: "glow", title: "Discover How It Works", color: LOGO.green },
   { icon: "🎮", anim: "mash", title: "Play & Experiment", color: LOGO.red },
@@ -33,7 +34,7 @@ export default function HowItWorksSteps() {
             </span>
           </div>
 
-          <ol className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-5 sm:gap-2">
+          <ol className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-x-2 sm:gap-y-4 lg:grid-cols-6">
             {STEPS.map((step, i) => (
               <li key={step.title} className="relative flex sm:justify-center">
                 <div
@@ -59,7 +60,7 @@ export default function HowItWorksSteps() {
                     viewBox="0 0 24 12"
                     width="20"
                     height="10"
-                    className="arrow-nudge absolute top-[38%] -right-[14px] z-20 hidden sm:block"
+                    className={`arrow-nudge absolute top-[38%] -right-[14px] z-20 hidden ${i === 2 ? "lg:block" : "sm:block"}`}
                     fill="none"
                     stroke={STEPS[i + 1].color}
                     strokeWidth="2.5"

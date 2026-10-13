@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import PaymentIcons, { PayHereBadge } from "./PaymentIcons";
-import CurrencySelector from "./CurrencySelector";
 import Doodled from "./Doodled";
 import { LOGO } from "@/lib/brandColors";
 
@@ -112,9 +111,8 @@ export default function Footer() {
       </div>
 
       <div className="mx-auto flex max-w-[1260px] flex-col gap-3 border-t border-line px-4 py-4 text-xs font-bold text-muted md:flex-row md:items-center md:justify-between md:px-6">
-        <span>© 2026 XTRONIC KIDS. All rights reserved. Shipping to Australia &amp; Sri Lanka.</span>
+        <span>© 2026 XTRONIC KIDS. All rights reserved. Delivering across Sri Lanka.</span>
         <span className="flex items-center gap-4">
-          <CurrencySelector className="flex" />
           <Link href="/help/terms" className="hover:text-brand-blue">
             Terms &amp; Conditions
           </Link>

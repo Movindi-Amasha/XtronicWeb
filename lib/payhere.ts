@@ -1,11 +1,5 @@
 import crypto from "node:crypto";
 
-// Static reference rate — same caveat as lib/currency.ts: refresh from a
-// live FX source before go-live. PayHere's sandbox reliably supports LKR
-// without extra merchant approval, unlike USD/other currencies, so the
-// checkout amount is converted to LKR specifically for this provider.
-const LKR_PER_AUD = 195;
-
 export function isPayhereConfigured(): boolean {
   return Boolean(process.env.PAYHERE_MERCHANT_ID && process.env.PAYHERE_MERCHANT_SECRET);
 }
@@ -15,12 +9,6 @@ export function getPayhereActionUrl(): string {
   return process.env.PAYHERE_ENV === "live"
     ? "https://www.payhere.lk/pay/checkout"
     : "https://sandbox.payhere.lk/pay/checkout";
-}
-
-/** Converts AUD cents to an LKR amount string formatted as PayHere expects (2 decimals). */
-export function audCentsToLkrAmount(audCents: number): string {
-  const lkr = (audCents / 100) * LKR_PER_AUD;
-  return lkr.toFixed(2);
 }
 
 function hashedSecret(): string {

@@ -57,7 +57,6 @@ export async function POST(request: Request) {
 
     const captured = (await res.json()) as PaypalCaptureResponse;
     const amount = captured.purchase_units?.[0]?.payments?.captures?.[0]?.amount;
-    const currency = amount?.currency_code ?? "AUD";
 
     // Note: /checkout/success's redirect-fallback path (PayPal's full-page
     // redirect when a popup is blocked) calls this route with only orderId —
@@ -86,6 +85,10 @@ export async function POST(request: Request) {
     } catch {
       totals = null;
     }
+    // Orders are recorded in LKR, the shop's own prices (PayPal itself was
+    // charged the USD equivalent). Without the cart, fall back to what PayPal
+    // reports, in its currency.
+    const currency = totals ? "LKR" : amount?.currency_code ?? "USD";
     const totalCents = totals
       ? totals.totalCents
       : amount
@@ -99,7 +102,7 @@ export async function POST(request: Request) {
       city: body.city ?? "",
       state: "",
       postcode: body.postcode ?? "",
-      country: "Australia",
+      country: "Sri Lanka",
       phone: body.phone ?? "",
     });
 

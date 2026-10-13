@@ -38,7 +38,7 @@ export async function POST(request: Request) {
 
   // status_code: 2 = success, 0 = pending, -1 = cancelled, -2 = failed, -3 = chargedback
   if (status_code === "2") {
-    // The real order (email, shipping address, line items, AUD totals) was
+    // The real order (email, shipping address, line items, LKR totals) was
     // already saved as "pending" by /api/checkout/payhere/create — this
     // notify payload doesn't carry enough to reconstruct any of that, so the
     // normal path is just flipping that existing row to "paid". The `create`

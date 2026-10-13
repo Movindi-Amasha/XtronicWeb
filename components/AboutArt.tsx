@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { LOGO } from "@/lib/brandColors";
 
 // Small looping illustrations for the About page cards. Pure SVG + CSS
@@ -27,6 +26,46 @@ function Sparkle({ x, y, s, color, delay }: { x: number; y: number; s: number; c
       d={`M${x} ${y - s}c${s * 0.15} ${s * 0.6} ${s * 0.4} ${s * 0.85} ${s} ${s}c-${s * 0.6} ${s * 0.15} -${s * 0.85} ${s * 0.4} -${s} ${s}c-${s * 0.15} -${s * 0.6} -${s * 0.4} -${s * 0.85} -${s} -${s}c${s * 0.6} -${s * 0.15} ${s * 0.85} -${s * 0.4} ${s} -${s}z`}
       fill={color}
     />
+  );
+}
+
+/** "From a simple idea to a brighter future": a glowing idea bulb with a gear
+ *  turning inside, and a rocket launching out of it along a dotted trail. */
+export function StoryArt() {
+  return (
+    <svg viewBox="0 0 240 200" className="h-full w-full" aria-hidden>
+      {/* soft glow + rays */}
+      <circle className="story-glow" style={spinOrigin} cx="92" cy="98" r="62" fill={LOGO.yellow} opacity="0.22" />
+      <g className="craft-spin [animation-duration:30s]" style={spinOrigin}>
+        {Array.from({ length: 12 }, (_, i) => (
+          <rect key={i} x="89" y="18" width="6" height="16" rx="3" fill={LOGO.yellow} opacity="0.7" transform={`rotate(${i * 30} 92 98)`} />
+        ))}
+      </g>
+      {/* bulb */}
+      <path d="M92 50a40 40 0 0 0-24 72c6 5 8 10 8 16h32c0-6 2-11 8-16a40 40 0 0 0-24-72z" fill={LOGO.yellow} stroke={NAVY} strokeWidth="3" strokeLinejoin="round" />
+      <path d="M70 80a26 26 0 0 1 18-18" stroke="#fff" strokeWidth="5" strokeLinecap="round" opacity="0.6" fill="none" />
+      <path className="craft-spin [animation-duration:6s]" style={spinOrigin} d={gearPath(92, 98, 17, 8)} fill={LOGO.orange} stroke={NAVY} strokeWidth="2.4" strokeLinejoin="round" />
+      <circle cx="92" cy="98" r="6" fill="#fff" stroke={NAVY} strokeWidth="2.4" />
+      <rect x="76" y="138" width="32" height="9" rx="3" fill="#B8C2CC" stroke={NAVY} strokeWidth="2.4" />
+      <rect x="78" y="147" width="28" height="9" rx="3" fill="#B8C2CC" stroke={NAVY} strokeWidth="2.4" />
+      <path d="M86 162h12" stroke={NAVY} strokeWidth="4" strokeLinecap="round" />
+      {/* dotted trail from the bulb to the rocket */}
+      <path d="M126 76C150 60 160 40 190 30" fill="none" stroke={LOGO.blue} strokeWidth="3" strokeLinecap="round" strokeDasharray="1 8" />
+      {/* rocket */}
+      <g className="story-rocket">
+        <g transform="translate(196 26) rotate(45)">
+          <path className="join-flame" style={spinOrigin} d="M-6 18c0 9 6 13 6 13s6-4 6-13z" fill={LOGO.orange} />
+          <path d="M0-24c9 7 12 18 10 34H-10C-12-6-9-17 0-24z" fill="#fff" stroke={NAVY} strokeWidth="2.6" strokeLinejoin="round" />
+          <circle cx="0" cy="-6" r="5" fill={LOGO.lightBlue} stroke={NAVY} strokeWidth="2.4" />
+          <path d="M-10 2l-8 10 9-2zM10 2l8 10-9-2z" fill={LOGO.red} stroke={NAVY} strokeWidth="2" strokeLinejoin="round" />
+          <path d="M-8 10h16v6H-8z" fill={LOGO.blue} stroke={NAVY} strokeWidth="2" />
+        </g>
+      </g>
+      <Sparkle x={30} y={40} s={8} color={LOGO.blue} delay={0} />
+      <Sparkle x={168} y={110} s={7} color={LOGO.orange} delay={0.7} />
+      <Sparkle x={210} y={150} s={6} color={LOGO.green} delay={1.4} />
+      <Sparkle x={36} y={160} s={6} color={LOGO.red} delay={1} />
+    </svg>
   );
 }
 
@@ -93,8 +132,16 @@ export function VisionArt() {
   );
 }
 
-/** Meshing gears turn while the rover drives along a moving conveyor belt. */
+// Kits that ride the conveyor belt one after another (CraftArt).
+const BELT_KITS = ["solar-4wd-rover", "voice-robot", "wooden-taxiing-aircraft", "solar-speedboat", "solar-butterfly"];
+/** Seconds each kit spends crossing the belt; the cycle repeats every BELT_KITS.length × this. */
+const BELT_STEP = 4.5;
+// Next's image optimiser, so the small belt pictures aren't the full-size cut-outs.
+const beltSrc = (slug: string) => `/_next/image?url=${encodeURIComponent(`/products/${slug}/cutout.png`)}&w=256&q=75`;
+
+/** Meshing gears turn while the kits ride along a moving conveyor belt, one after another. */
 export function CraftArt() {
+  const cycle = BELT_KITS.length * BELT_STEP;
   return (
     <div className="relative h-full w-full" aria-hidden>
       <svg viewBox="0 0 420 120" preserveAspectRatio="xMinYMid meet" className="absolute inset-0 h-full w-full">
@@ -104,6 +151,16 @@ export function CraftArt() {
         <circle cx="118" cy="34" r="7" fill="#fff" stroke={NAVY} strokeWidth="2.5" />
         <path className="craft-spin-rev" style={spinOrigin} d={gearPath(116, 88, 16, 7)} fill={LOGO.yellow} stroke={NAVY} strokeWidth="2.5" strokeLinejoin="round" />
         <circle cx="116" cy="88" r="5" fill="#fff" stroke={NAVY} strokeWidth="2.5" />
+        {/* kits riding the belt: each enters at the left end, travels across and drops off the right */}
+        {BELT_KITS.map((slug, i) => (
+          <g
+            key={slug}
+            className="belt-ride"
+            style={{ animationDuration: `${cycle}s`, animationDelay: `${i * BELT_STEP - cycle}s` }}
+          >
+            <image href={beltSrc(slug)} x="0" y="44" width="76" height="54" preserveAspectRatio="xMidYMax meet" className="belt-bump" />
+          </g>
+        ))}
         {/* conveyor belt */}
         <rect x="160" y="96" width="250" height="16" rx="8" fill={NAVY} />
         <path className="craft-belt" d="M170 104H400" stroke={LOGO.yellow} strokeWidth="7" strokeDasharray="8 8" />
@@ -113,9 +170,6 @@ export function CraftArt() {
         <Sparkle x={168} y={24} s={6} color={LOGO.yellow} delay={0.4} />
         <Sparkle x={400} y={20} s={5} color={LOGO.blue} delay={1.2} />
       </svg>
-      <div className="anim-drive absolute bottom-[14%] right-[6%] h-[62%] w-[34%] max-w-[150px]">
-        <Image src="/products/solar-4wd-rover/cutout.png" alt="" fill sizes="150px" className="object-contain object-bottom" />
-      </div>
     </div>
   );
 }

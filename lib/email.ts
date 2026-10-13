@@ -1,3 +1,5 @@
+import { formatMoney } from "./products";
+import { CLUB_PAYPAL_LABEL, CLUB_PRICE_LABEL } from "./club";
 import { Resend } from "resend";
 
 function escapeHtml(value: string): string {
@@ -67,7 +69,6 @@ export function orderConfirmationEmail({
   totalCents: number;
   currency: string;
 }): { subject: string; html: string } {
-  const amount = (totalCents / 100).toFixed(2);
   return {
     subject: "Your XTRONIC KIDS order is confirmed!",
     html: `
@@ -76,7 +77,7 @@ export function orderConfirmationEmail({
         <p>Thanks for your order. We're getting it ready to ship.</p>
         <p style="background: #F8FAFC; border-radius: 8px; padding: 16px;">
           <strong>Order reference:</strong> ${orderId}<br />
-          <strong>Total paid:</strong> ${currency} $${amount}
+          <strong>Total paid:</strong> ${formatMoney(totalCents, currency)}
         </p>
         <p>We'll email you again as soon as it ships.</p>
         <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDS &middot; Learn &bull; Build &bull; Play</p>
@@ -118,7 +119,7 @@ export function clubWelcomeEmail({ manageUrl }: { manageUrl: string }): { subjec
           <li>Early access to new kits</li>
           <li>Fun learning guides in every box</li>
         </ul>
-        <p>Your first charge of $19.99 AUD/month has been processed, and the next one will renew automatically each month.</p>
+        <p>Your first monthly charge of ${CLUB_PRICE_LABEL} (${CLUB_PAYPAL_LABEL} through PayPal) has been processed, and the next one will renew automatically each month.</p>
         <p>Need to pause or cancel? You can do it anytime at <a href="${manageUrl}" style="color: #1F6FE5;">${manageUrl}</a>.</p>
         <p style="color: #5B6B80; font-size: 13px;">XTRONIC KIDS &middot; Learn &bull; Build &bull; Play</p>
       </div>

@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useCartStore, cartSubtotalCents } from "@/lib/cartStore";
-import { formatPriceAUD } from "@/lib/products";
+import { formatPrice } from "@/lib/products";
 import { amountUntilFreeShippingCents, FREE_SHIPPING_THRESHOLD_CENTS } from "@/lib/shipping";
-import { gstComponentCents } from "@/lib/pricing";
 import ProductImage from "@/components/ProductImage";
 
 export default function CartPage() {
@@ -12,7 +11,6 @@ export default function CartPage() {
   const subtotal = cartSubtotalCents(items);
   const remaining = amountUntilFreeShippingCents(subtotal);
   const progressPct = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD_CENTS) * 100);
-  const gst = gstComponentCents(subtotal);
 
   if (items.length === 0) {
     return (
@@ -55,7 +53,7 @@ export default function CartPage() {
                 >
                   {item.name}
                 </Link>
-                <p className="text-sm text-muted">{formatPriceAUD(item.priceCents)} each</p>
+                <p className="text-sm text-muted">{formatPrice(item.priceCents)} each</p>
                 <div className="mt-2 flex items-center gap-3">
                   <div className="flex items-center gap-2 rounded-full border border-line px-2 py-1">
                     <button
@@ -88,7 +86,7 @@ export default function CartPage() {
                 </div>
               </div>
               <span className="font-body font-bold text-brand-navy">
-                {formatPriceAUD(item.priceCents * item.qty)}
+                {formatPrice(item.priceCents * item.qty)}
               </span>
             </li>
           ))}
@@ -98,7 +96,7 @@ export default function CartPage() {
           {remaining > 0 ? (
             <div>
               <p className="text-xs font-semibold text-brand-navy-700">
-                {formatPriceAUD(remaining)} away from free delivery
+                {formatPrice(remaining)} away from free delivery
               </p>
               <div className="mt-2 h-2 overflow-hidden rounded-full bg-line">
                 <div
@@ -116,11 +114,7 @@ export default function CartPage() {
           <div className="flex flex-col gap-2 border-t border-line pt-4 text-sm">
             <div className="flex justify-between text-brand-navy-700">
               <span>Subtotal</span>
-              <span>{formatPriceAUD(subtotal)}</span>
-            </div>
-            <div className="flex justify-between text-muted">
-              <span>Includes GST</span>
-              <span>{formatPriceAUD(gst)}</span>
+              <span>{formatPrice(subtotal)}</span>
             </div>
             <div className="flex justify-between text-muted">
               <span>Shipping</span>
@@ -130,7 +124,7 @@ export default function CartPage() {
 
           <div className="flex justify-between border-t border-line pt-4 font-body text-lg font-extrabold text-brand-navy">
             <span>Total</span>
-            <span>{formatPriceAUD(subtotal)}</span>
+            <span>{formatPrice(subtotal)}</span>
           </div>
 
           <Link

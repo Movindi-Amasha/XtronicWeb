@@ -1,16 +1,21 @@
-export const FREE_SHIPPING_THRESHOLD_CENTS = 7500; // A$75
+// All prices are LKR cents. XTRONIC KIDS delivers only within Sri Lanka:
+// one flat island-wide rate, free once the order reaches the threshold.
+export const FREE_SHIPPING_THRESHOLD_CENTS = 700000; // Rs 7,000
 
-// XTRONIC KIDS currently only sells into Australia and Sri Lanka.
 export const SHIPPING_RATES = {
-  "au-standard": { label: "AU Standard", cents: 995, freeOverThreshold: true },
-  "au-express": { label: "AU Express", cents: 1495, freeOverThreshold: false },
-  "sl-standard": { label: "Sri Lanka Standard", cents: 1995, freeOverThreshold: false },
+  "lk-standard": { label: "Island-wide Delivery", cents: 50000, freeOverThreshold: true },
 } as const;
 
 export type ShippingMethod = keyof typeof SHIPPING_RATES;
 
+export const DEFAULT_SHIPPING_METHOD: ShippingMethod = "lk-standard";
+
+export function isShippingMethod(value: unknown): value is ShippingMethod {
+  return typeof value === "string" && value in SHIPPING_RATES;
+}
+
 export function getShippingCostCents(method: ShippingMethod, subtotalCents: number): number {
-  const rate = SHIPPING_RATES[method];
+  const rate = SHIPPING_RATES[method] ?? SHIPPING_RATES[DEFAULT_SHIPPING_METHOD];
   if (rate.freeOverThreshold && subtotalCents >= FREE_SHIPPING_THRESHOLD_CENTS) {
     return 0;
   }

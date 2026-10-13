@@ -80,7 +80,7 @@ export default function PayHerePaymentSection({
         phone,
         address,
         city,
-        country: "Australia",
+        country: "Sri Lanka",
         // PayHere's notify_url callback doesn't include the buyer's email
         // directly — custom_1/custom_2 are the documented way to carry
         // merchant-defined data through the round trip.
@@ -114,13 +114,30 @@ export default function PayHerePaymentSection({
           redirect to PayHere) on click — this is PayHere's documented
           Checkout API integration, not the JS popup SDK. */}
       <form ref={formRef} method="post" />
+      <p className="mb-3 text-xs font-semibold text-muted">
+        Pay in rupees by card, Genie, FriMi, eZ Cash, mCash and more on PayHere&apos;s secure page.
+      </p>
+      {/* PayHere's official "Pay with PayHere" button artwork (payhere.lk
+          downloads, cropped to its text so the button can be full width like
+          the PayPal buttons beside it), on the same brand blue. */}
       <button
         type="button"
         onClick={handlePay}
         disabled={loading}
-        className="w-full rounded-btn bg-brand-navy px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+        aria-label={loading ? "Redirecting to PayHere" : "Pay with PayHere"}
+        className="flex h-[45px] w-full items-center justify-center gap-2 rounded-full bg-[#2447d7] text-sm font-bold text-white transition-[filter] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2447d7] disabled:cursor-wait"
       >
-        {loading ? "Redirecting to PayHere…" : "Pay with PayHere"}
+        {loading ? (
+          <>
+            <span aria-hidden className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+            Redirecting to PayHere…
+          </>
+        ) : (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/payments/pay-with-payhere.png" alt="" width={476} height={86} className="h-[30px] w-auto" />
+          </>
+        )}
       </button>
     </div>
   );

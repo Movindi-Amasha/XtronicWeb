@@ -11,7 +11,7 @@ import HeroCloud from "@/components/HeroCloud";
 export const metadata: Metadata = {
   title: "Schools & STEM Clubs: Bulk Kits & Quotes",
   description:
-    "Bulk STEM kit bundles, free lesson plans and custom quotes for schools, teachers and STEM clubs across Australia and Sri Lanka.",
+    "Bulk STEM kit bundles, free lesson plans and custom quotes for schools, teachers and STEM clubs across Sri Lanka.",
   alternates: { canonical: "/schools" },
 };
 
@@ -21,7 +21,7 @@ const BUNDLES: { name: string; discount: string; desc: string; icon: LineIconNam
   { name: "Classroom Discovery Pack", discount: "Mixed set", desc: "One of each kit across Solar, Robotics and Wooden Mechanics categories.", icon: "puzzle", color: LOGO.green },
 ];
 
-const HERO_CHECKS = ["Bulk Discounts", "Free Lesson Plans", "Quotes Within 1 Day", "Ships to AU & Sri Lanka"];
+const HERO_CHECKS = ["Bulk Discounts", "Free Lesson Plans", "Quotes Within 1 Day", "Island-wide Delivery"];
 
 const WHY: { icon: LineIconName; title: string; desc: string; color: string }[] = [
   { icon: "noScreen", title: "Screen-Free", desc: "Hands-on builds, no apps or logins.", color: LOGO.red },

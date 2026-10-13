@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
-import { formatPriceAUD } from "@/lib/products";
+import { formatMoney } from "@/lib/products";
 import type { ResolvedLineItem } from "@/lib/orderTotals";
 import ConfirmActionButton from "@/components/admin/ConfirmActionButton";
 import { refundOrderAction } from "../actions";
@@ -57,7 +57,7 @@ export default async function AdminOrderDetailPage({
         </span>
       </div>
       <p className="mt-1 text-sm text-muted">
-        Placed {order.createdAt.toLocaleString("en-AU")} via{" "}
+        Placed {order.createdAt.toLocaleString("en-GB")} via{" "}
         <span className="font-semibold capitalize">{order.paymentProvider}</span>
         {order.providerReference && (
           <span className="font-mono text-xs"> · ref: {order.providerReference}</span>
@@ -71,7 +71,7 @@ export default async function AdminOrderDetailPage({
             <p className="mt-1 max-w-md text-sm text-brand-navy-700">
               {order.paymentProvider === "payhere"
                 ? "PayHere refunds are made in the PayHere merchant portal. Refund it there first, then mark it here."
-                : `Refunds the full ${formatPriceAUD(order.totalCents)} to the customer's original ${order.paymentProvider === "paypal" ? "PayPal" : "card"} payment.`}
+                : `Refunds the full ${formatMoney(order.totalCents, order.currency)} to the customer's original ${order.paymentProvider === "paypal" ? "PayPal" : "card"} payment.`}
             </p>
           </div>
           {order.paymentProvider === "payhere" ? (
@@ -86,10 +86,10 @@ export default async function AdminOrderDetailPage({
             <ConfirmActionButton
               action={refundOrderAction}
               fields={{ orderId: order.id }}
-              label={`Refund ${formatPriceAUD(order.totalCents)}`}
+              label={`Refund ${formatMoney(order.totalCents, order.currency)}`}
               pendingLabel="Refunding…"
               tone="danger"
-              confirmMessage={`Refund ${formatPriceAUD(order.totalCents)} to ${order.email}? This can't be undone.`}
+              confirmMessage={`Refund ${formatMoney(order.totalCents, order.currency)} to ${order.email}? This can't be undone.`}
             />
           )}
         </div>
@@ -152,8 +152,8 @@ export default async function AdminOrderDetailPage({
               <tr key={item.slug} className="border-t border-line">
                 <td className="px-4 py-3 font-semibold text-brand-navy">{item.name}</td>
                 <td className="px-4 py-3">{item.qty}</td>
-                <td className="px-4 py-3">{formatPriceAUD(item.priceCents)}</td>
-                <td className="px-4 py-3 font-bold">{formatPriceAUD(item.lineTotalCents)}</td>
+                <td className="px-4 py-3">{formatMoney(item.priceCents, order.currency)}</td>
+                <td className="px-4 py-3 font-bold">{formatMoney(item.lineTotalCents, order.currency)}</td>
               </tr>
             ))}
           </tbody>
@@ -161,15 +161,15 @@ export default async function AdminOrderDetailPage({
         <div className="flex flex-col gap-1.5 border-t border-line p-4 text-sm">
           <div className="flex justify-between text-brand-navy-700">
             <span>Subtotal</span>
-            <span>{formatPriceAUD(order.subtotalCents)}</span>
+            <span>{formatMoney(order.subtotalCents, order.currency)}</span>
           </div>
           <div className="flex justify-between text-brand-navy-700">
             <span>Shipping</span>
-            <span>{formatPriceAUD(order.shippingCents)}</span>
+            <span>{formatMoney(order.shippingCents, order.currency)}</span>
           </div>
           <div className="flex justify-between border-t border-line pt-2 font-body text-base font-extrabold text-brand-navy">
             <span>Total</span>
-            <span>{formatPriceAUD(order.totalCents)}</span>
+            <span>{formatMoney(order.totalCents, order.currency)}</span>
           </div>
         </div>
       </div>

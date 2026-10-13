@@ -24,7 +24,7 @@ const CONTACT_OPTIONS: { title: string; detail: string; href: string; label: str
 ];
 
 const FAQS = [
-  { question: "How quickly will my order arrive?", answer: "Australian standard delivery usually takes 3–5 business days, and express delivery 1–2 business days. Sri Lanka orders usually take 7–14 business days." },
+  { question: "How quickly will my order arrive?", answer: "We deliver island-wide across Sri Lanka, usually within 2–5 business days. Delivery is Rs 500, and free on orders over Rs 7,000." },
   { question: "Are the kits suitable for beginners?", answer: "Yes. The kits are designed for hands-on discovery, and everything needed to build is included in the box. Check the product page for the recommended age." },
   { question: "What if a part is missing or damaged?", answer: "Our kits are covered by a lifetime replacement guarantee. Send us a message above and tell us which kit and part you need help with." },
 ];
@@ -119,7 +119,7 @@ export default function ContactPage() {
               <p className="mt-3 max-w-md text-sm font-semibold leading-relaxed text-brand-navy-700">Whether you&apos;re choosing your first kit, need help with an order, or planning a classroom build, we&apos;ll point you in the right direction.</p>
               <div className="mt-6 flex items-start gap-3 rounded-2xl border border-white/90 bg-white/75 p-4">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-blue text-white"><LineIcon name="globe" size={20} /></span>
-                <span><strong className="block font-heading text-sm text-brand-navy">Shipping to Australia &amp; Sri Lanka</strong><span className="mt-1 block text-xs font-semibold text-muted">Check delivery details and timing in our shipping guide.</span><Link href="/help/shipping-returns" className="mt-2 inline-block text-xs font-extrabold text-brand-blue hover:underline">Shipping &amp; returns →</Link></span>
+                <span><strong className="block font-heading text-sm text-brand-navy">Delivering across Sri Lanka</strong><span className="mt-1 block text-xs font-semibold text-muted">Check delivery details and timing in our shipping guide.</span><Link href="/help/shipping-returns" className="mt-2 inline-block text-xs font-extrabold text-brand-blue hover:underline">Shipping &amp; returns →</Link></span>
               </div>
               <div className="mt-3 flex items-start gap-3 rounded-2xl border border-white/90 bg-white/75 p-4">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-amber text-white"><LineIcon name="clock" size={20} /></span>

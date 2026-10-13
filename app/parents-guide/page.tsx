@@ -33,7 +33,7 @@ const CONCEPTS: { term: string; def: string; icon: LineIconName; color: string; 
 const SAFETY: { icon: LineIconName; text: string }[] = [
   { icon: "x", text: "Contains small parts: not suitable for children under 3 years." },
   { icon: "family", text: "Adult supervision is recommended during assembly." },
-  { icon: "shield", text: "Every kit meets Australian toy safety standards." },
+  { icon: "shield", text: "Every kit is built to international toy safety standards." },
   { icon: "book", text: "Read the safety notice included with your kit before building." },
 ];
 

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { isPaypalConfigured, paypalFetch } from "@/lib/paypal";
 import { computeOrderTotals, type CartLineInput } from "@/lib/orderTotals";
 import type { ShippingMethod } from "@/lib/shipping";
+import { PAYPAL_CURRENCY, lkrCentsToUsdCents } from "@/lib/paypalCurrency";
 
 interface CreateBody {
   items: CartLineInput[];
@@ -29,7 +30,14 @@ export async function POST(request: Request) {
 
   try {
     const totals = computeOrderTotals(body.items, body.shippingMethod);
-    const amount = (totals.totalCents / 100).toFixed(2);
+    // Prices are LKR; PayPal is charged the USD equivalent. Each line is
+    // converted first and the totals summed from those, so PayPal's own
+    // breakdown check (item_total = sum of items) always adds up.
+    const usd = (cents: number) => (cents / 100).toFixed(2);
+    const units = totals.lineItems.map((item) => lkrCentsToUsdCents(item.priceCents));
+    const itemTotalUsd = units.reduce((sum, unit, i) => sum + unit * totals.lineItems[i].qty, 0);
+    const shippingUsd = lkrCentsToUsdCents(totals.shippingCents);
+    const amount = usd(itemTotalUsd + shippingUsd);
 
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -47,25 +55,25 @@ export async function POST(request: Request) {
         purchase_units: [
           {
             amount: {
-              currency_code: "AUD",
+              currency_code: PAYPAL_CURRENCY,
               value: amount,
               breakdown: {
                 item_total: {
-                  currency_code: "AUD",
-                  value: (totals.subtotalCents / 100).toFixed(2),
+                  currency_code: PAYPAL_CURRENCY,
+                  value: usd(itemTotalUsd),
                 },
                 shipping: {
-                  currency_code: "AUD",
-                  value: (totals.shippingCents / 100).toFixed(2),
+                  currency_code: PAYPAL_CURRENCY,
+                  value: usd(shippingUsd),
                 },
               },
             },
-            items: totals.lineItems.map((item) => ({
+            items: totals.lineItems.map((item, i) => ({
               name: item.name,
               quantity: String(item.qty),
               unit_amount: {
-                currency_code: "AUD",
-                value: (item.priceCents / 100).toFixed(2),
+                currency_code: PAYPAL_CURRENCY,
+                value: usd(units[i]),
               },
             })),
           },

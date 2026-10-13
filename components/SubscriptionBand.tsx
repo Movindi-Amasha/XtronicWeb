@@ -8,6 +8,7 @@ import { LOGO } from "@/lib/brandColors";
 import Doodled from "@/components/Doodled";
 import GiftBox from "./GiftBox";
 import Mascot from "./Mascot";
+import { CLUB_PRICE_LABEL } from "@/lib/club";
 
 const CONFETTI = Array.from({ length: 18 }, (_, i) => ({
   left: `${(i * 37) % 100}%`,
@@ -126,7 +127,7 @@ export default function SubscriptionBand() {
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <p className="club-price inline-flex items-baseline gap-1 rounded-2xl bg-white px-4 py-2 font-heading text-4xl font-bold shadow-[0_6px_0_rgba(13,31,53,0.18)]" style={{ color: LOGO.orange }}>
-                $19.99 <span className="font-body text-base font-semibold text-muted">/month</span>
+                {CLUB_PRICE_LABEL} <span className="font-body text-base font-semibold text-muted">/month</span>
               </p>
               <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-extrabold uppercase tracking-wide">Cancel anytime</span>
             </div>

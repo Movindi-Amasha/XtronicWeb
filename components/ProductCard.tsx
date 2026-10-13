@@ -9,7 +9,7 @@ import type { Product } from "@/lib/products";
 import { LOGO } from "@/lib/brandColors";
 import { useQuickViewStore } from "@/lib/quickViewStore";
 import { useCartStore } from "@/lib/cartStore";
-import { useDisplayPrice } from "@/lib/useDisplayPrice";
+import { formatPrice } from "@/lib/products";
 
 // Each card takes the next logo colour for its border and photo backdrop.
 const TONES = [LOGO.orange, LOGO.blue, LOGO.yellow, LOGO.green, LOGO.red];
@@ -25,11 +25,8 @@ export default function ProductCard({
 }) {
   const openQuickView = useQuickViewStore((s) => s.open);
   const addItem = useCartStore((s) => s.addItem);
-  const displayPrice = useDisplayPrice(product.priceCents);
+  const displayPrice = formatPrice(product.priceCents);
   const tone = TONES[index % TONES.length];
-  // "LKR 7,790.95" doesn't fit a narrow card on one line, so non-AUD prices
-  // show the currency code as a small label above the number.
-  const priceParts = displayPrice.match(/^([A-Z]{3})\s+(.+)$/);
 
   return (
     <div
@@ -82,14 +79,7 @@ export default function ProductCard({
         )}
 
         <p className="mt-auto pt-1 font-body text-lg font-extrabold leading-tight text-brand-navy sm:text-xl">
-          {priceParts ? (
-            <>
-              <span className="block text-[10px] font-bold uppercase tracking-wide text-muted sm:text-xs">{priceParts[1]}</span>
-              <span className="whitespace-nowrap">{priceParts[2]}</span>
-            </>
-          ) : (
-            <span className="whitespace-nowrap">{displayPrice}</span>
-          )}
+          <span className="whitespace-nowrap">{displayPrice}</span>
         </p>
 
         {showRating && (

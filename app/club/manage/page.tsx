@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { formatPriceAUD } from "@/lib/products";
+import { formatMoney } from "@/lib/products";
 
 type Status = "active" | "suspended" | "cancelled";
 type Action = "pause" | "resume" | "cancel";
@@ -12,6 +12,7 @@ interface Membership {
   id: string;
   status: Status;
   priceCents: number;
+  currency: string;
   startedAt: string | null;
   cancelledAt: string | null;
   nextBillingAt: string | null;
@@ -24,7 +25,7 @@ const STATUS_LABEL: Record<Status, { text: string; tone: string }> = {
 };
 
 function formatDate(iso: string | null): string {
-  return iso ? new Date(iso).toLocaleDateString("en-AU", { day: "numeric", month: "long", year: "numeric" }) : "—";
+  return iso ? new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "—";
 }
 
 function Shell({ children }: { children: React.ReactNode }) {
@@ -120,7 +121,7 @@ function MembershipCard({
       </div>
       <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
         <dt className="font-bold text-muted">Price</dt>
-        <dd className="font-bold text-brand-navy">{formatPriceAUD(membership.priceCents)} / month</dd>
+        <dd className="font-bold text-brand-navy">{formatMoney(membership.priceCents, membership.currency)} / month</dd>
         <dt className="font-bold text-muted">Member since</dt>
         <dd className="font-bold text-brand-navy">{formatDate(membership.startedAt)}</dd>
         {membership.status === "active" && (

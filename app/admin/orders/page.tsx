@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
-import { formatPriceAUD } from "@/lib/products";
+import { formatMoney } from "@/lib/products";
 import type { SubscriptionStatus } from "@prisma/client";
 import { clubShippingQueue } from "@/lib/clubBilling";
 import { manageClubSubscriptionAction, markClubKitShipped } from "./actions";
@@ -94,7 +94,7 @@ export default async function AdminOrdersPage() {
                 <td className="whitespace-nowrap px-4 py-3">
                   {shipBy ? (
                     <>
-                      <span className="font-bold">{shipBy.toLocaleDateString("en-AU")}</span>
+                      <span className="font-bold">{shipBy.toLocaleDateString("en-GB")}</span>
                       <span className="block text-xs text-muted">
                         {due ? `paid ${relativeDays(shipBy, now)}` : relativeDays(shipBy, now)}
                       </span>
@@ -106,7 +106,7 @@ export default async function AdminOrdersPage() {
                 <td className="px-4 py-3">{sub.email}</td>
                 <td className="max-w-[280px] px-4 py-3">{formatShipping(sub.shippingAddress)}</td>
                 <td className="whitespace-nowrap px-4 py-3">
-                  {sub.lastShippedAt?.toLocaleDateString("en-AU") ?? "Never"}
+                  {sub.lastShippedAt?.toLocaleDateString("en-GB") ?? "Never"}
                 </td>
                 <td className="px-4 py-3 text-right">
                   {due && (
@@ -153,7 +153,7 @@ export default async function AdminOrdersPage() {
               <tr key={order.id} className="border-t border-line hover:bg-brand-blue-50">
                 <td className="p-0">
                   <Link href={`/admin/orders/${order.id}`} className="block px-4 py-3">
-                    {order.createdAt.toLocaleDateString("en-AU")}
+                    {order.createdAt.toLocaleDateString("en-GB")}
                   </Link>
                 </td>
                 <td className="p-0">
@@ -173,7 +173,7 @@ export default async function AdminOrdersPage() {
                 </td>
                 <td className="p-0">
                   <Link href={`/admin/orders/${order.id}`} className="block px-4 py-3 font-bold">
-                    {formatPriceAUD(order.totalCents)}
+                    {formatMoney(order.totalCents, order.currency)}
                   </Link>
                 </td>
               </tr>
@@ -213,7 +213,7 @@ export default async function AdminOrdersPage() {
             )}
             {subscriptions.map((sub) => (
               <tr key={sub.id} className="border-t border-line">
-                <td className="px-4 py-3">{sub.createdAt.toLocaleDateString("en-AU")}</td>
+                <td className="px-4 py-3">{sub.createdAt.toLocaleDateString("en-GB")}</td>
                 <td className="px-4 py-3">{sub.email}</td>
                 <td className="px-4 py-3">
                   <span className={`rounded-full px-2.5 py-1 text-xs font-bold capitalize ${SUB_STATUS_STYLES[sub.status]}`}>
@@ -221,9 +221,9 @@ export default async function AdminOrdersPage() {
                   </span>
                 </td>
                 <td className="max-w-[260px] px-4 py-3">{formatShipping(sub.shippingAddress)}</td>
-                <td className="px-4 py-3">{sub.startedAt?.toLocaleDateString("en-AU") ?? "—"}</td>
-                <td className="px-4 py-3">{sub.cancelledAt?.toLocaleDateString("en-AU") ?? "—"}</td>
-                <td className="px-4 py-3 font-bold">{formatPriceAUD(sub.priceCents)}/mo</td>
+                <td className="px-4 py-3">{sub.startedAt?.toLocaleDateString("en-GB") ?? "—"}</td>
+                <td className="px-4 py-3">{sub.cancelledAt?.toLocaleDateString("en-GB") ?? "—"}</td>
+                <td className="px-4 py-3 font-bold">{formatMoney(sub.priceCents, sub.currency)}/mo</td>
                 <td className="px-4 py-3 font-mono text-xs text-muted">{sub.paypalSubscriptionId ?? "—"}</td>
                 <td className="px-4 py-3">
                   {sub.paypalSubscriptionId && sub.status !== "pending" && (
@@ -243,7 +243,7 @@ export default async function AdminOrdersPage() {
                             label="Cancel + refund"
                             pendingLabel="Working…"
                             tone="danger"
-                            confirmMessage={`Cancel ${sub.email}'s membership AND refund their latest ${formatPriceAUD(sub.priceCents)} payment? This can't be undone.`}
+                            confirmMessage={`Cancel ${sub.email}'s membership AND refund their latest ${formatMoney(sub.priceCents, sub.currency)} payment? This can't be undone.`}
                           />
                         </>
                       )}
@@ -253,7 +253,7 @@ export default async function AdminOrdersPage() {
                           fields={{ subscriptionId: sub.id, mode: "refund" }}
                           label="Refund last payment"
                           pendingLabel="Refunding…"
-                          confirmMessage={`Refund ${sub.email}'s latest ${formatPriceAUD(sub.priceCents)} payment? This can't be undone.`}
+                          confirmMessage={`Refund ${sub.email}'s latest ${formatMoney(sub.priceCents, sub.currency)} payment? This can't be undone.`}
                         />
                       )}
                     </div>
@@ -290,7 +290,7 @@ export default async function AdminOrdersPage() {
             {quotes.map((quote) => (
               <tr key={quote.id} className="border-t border-line">
                 <td className="px-4 py-3">
-                  {quote.createdAt.toLocaleDateString("en-AU")}
+                  {quote.createdAt.toLocaleDateString("en-GB")}
                 </td>
                 <td className="px-4 py-3">{quote.name}</td>
                 <td className="px-4 py-3">{quote.school}</td>

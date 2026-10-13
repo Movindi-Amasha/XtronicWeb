@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Lets the dev server be opened through a Cloudflare quick tunnel, so
+  // PayHere's notify_url webhook can reach a local checkout test.
+  allowedDevOrigins: ["*.trycloudflare.com"],
   async headers() {
     return [
       {

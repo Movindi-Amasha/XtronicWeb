@@ -3,13 +3,14 @@
 import { useState } from "react";
 import type { Product } from "@/lib/products";
 import { useCartStore } from "@/lib/cartStore";
-import { useDisplayPrice } from "@/lib/useDisplayPrice";
+import { formatPrice } from "@/lib/products";
+import { FREE_SHIPPING_THRESHOLD_CENTS } from "@/lib/shipping";
 
 export default function AddToCartBox({ product }: { product: Product }) {
   const [qty, setQty] = useState(1);
   const addItem = useCartStore((s) => s.addItem);
   const openCart = useCartStore((s) => s.openCart);
-  const displayPrice = useDisplayPrice(product.priceCents * qty);
+  const displayPrice = formatPrice(product.priceCents * qty);
 
   return (
     <div className="flex flex-col gap-4 rounded-card border border-line bg-surface p-5">
@@ -61,7 +62,7 @@ export default function AddToCartBox({ product }: { product: Product }) {
         Add to Cart
       </button>
       <p className="text-center text-xs text-muted">
-        Free shipping on Australian orders over $75
+        Free delivery across Sri Lanka on orders over {formatPrice(FREE_SHIPPING_THRESHOLD_CENTS)}
       </p>
     </div>
   );

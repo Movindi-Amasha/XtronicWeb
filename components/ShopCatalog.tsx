@@ -9,7 +9,7 @@ import LineIcon, { type LineIconName } from "./LineIcon";
 import { categories, products, type ProductCategory, type SkillLevel } from "@/lib/products";
 import { SKILL_LEVELS, SKILL_STYLE } from "@/lib/skillLevels";
 import { LOGO } from "@/lib/brandColors";
-import { useDisplayPrice } from "@/lib/useDisplayPrice";
+import { formatPrice } from "@/lib/products";
 
 type SortKey = "featured" | "price-low" | "price-high" | "age";
 
@@ -31,8 +31,8 @@ const CATEGORY_ICONS: Record<ProductCategory | "All", { icon: LineIconName; colo
 const TABS: Array<ProductCategory | "All"> = ["All", ...categories];
 const AGES = [...new Set(products.map((p) => p.age))];
 const LEVELS = SKILL_LEVELS.filter((l) => products.some((p) => p.skillLevel === l));
-// Slider ceiling: the dearest product, rounded up to the next $10.
-const PRICE_CEILING_CENTS = Math.ceil(Math.max(...products.map((p) => p.priceCents)) / 1000) * 1000;
+// Slider ceiling: the dearest product, rounded up to the next Rs 1,000.
+const PRICE_CEILING_CENTS = Math.ceil(Math.max(...products.map((p) => p.priceCents)) / 100000) * 100000;
 const KIT_COUNT = products.filter((p) => p.category !== "Bundles & Gifts").length;
 
 function FilterHeading({ children }: { children: React.ReactNode }) {
@@ -81,7 +81,7 @@ export default function ShopCatalog() {
   const [levels, setLevels] = useState<SkillLevel[]>([]);
   const [maxPriceCents, setMaxPriceCents] = useState(PRICE_CEILING_CENTS);
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const maxPriceLabel = useDisplayPrice(maxPriceCents);
+  const maxPriceLabel = formatPrice(maxPriceCents);
 
   function setCategory(tab: ProductCategory | "All") {
     const params = new URLSearchParams(searchParams.toString());
@@ -207,7 +207,7 @@ export default function ShopCatalog() {
           type="range"
           min={0}
           max={PRICE_CEILING_CENTS}
-          step={500}
+          step={50000}
           value={maxPriceCents}
           onChange={(e) => setMaxPriceCents(Number(e.target.value))}
           aria-label="Maximum price"

@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     const paymentIntent = await stripe.paymentIntents.create(
       {
         amount: totals.totalCents,
-        currency: "aud",
+        currency: "lkr",
         receipt_email: body.email,
         automatic_payment_methods: { enabled: true },
         metadata: {
