@@ -8,7 +8,8 @@ import type { ThemeId } from "@/lib/seasonalThemes";
 // Animated characters for each seasonal theme (framer-motion). They live in
 // fixed corners/edges, above the page but below the header, and only the
 // playful ones take clicks. Reduced-motion users get none of them.
-//   Halloween: draggable ghost whose eyes follow the cursor, bats, a spider
+//   Halloween: draggable ghost whose eyes follow the cursor, bats, a spider,
+//              a witch flying on her broom, a pile of glowing pumpkins
 //   Christmas: Santa's sleigh flying over, a waving snowman
 //   11.11:     a confetti burst on arrival, a balloon you can pop
 //   Easter:    a hopping bunny and an egg hunt (5 eggs to find)
@@ -158,6 +159,125 @@ function Spider() {
         <circle cx="23.5" cy="16.5" r="1.1" fill={NAVY} />
         <path d="M17 23q3 2 6 0" stroke={LOGO.orange} strokeWidth="1.4" fill="none" strokeLinecap="round" />
       </motion.svg>
+    </motion.div>
+  );
+}
+
+/** A witch on her broomstick flying across the screen now and then, with a cat riding behind her. */
+function Witch() {
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none fixed left-0 top-[16vh] z-[55]"
+      initial={{ x: "112vw" }}
+      animate={{ x: ["112vw", "-30vw"], y: [0, -30, 10, -22, 0], rotate: [-4, 3, -3, 4, -4] }}
+      transition={{ duration: 12, delay: 6, repeat: Infinity, repeatDelay: 14, ease: "linear" }}
+    >
+      <svg viewBox="0 0 230 120" className="w-40 md:w-56">
+        {/* sparkle trail behind (she flies left, so the trail is on the right) */}
+        <g fill={LOGO.yellow}>
+          <circle cx="222" cy="78" r="2" opacity="0.5" />
+          <circle cx="210" cy="70" r="2.6" opacity="0.7" />
+          <circle cx="200" cy="82" r="1.6" opacity="0.6" />
+        </g>
+        {/* broom: handle + bristles */}
+        <path d="M20 84L176 70" stroke="#8a5a2b" strokeWidth="5" strokeLinecap="round" />
+        <path d="M168 62l40-6-2 30-38-6z" fill="#E0A94A" stroke={NAVY} strokeWidth="2" strokeLinejoin="round" />
+        <path d="M176 64l26-3M176 70l28 0M176 76l26 3" stroke="#a8742b" strokeWidth="1.6" />
+        <path d="M166 62v18" stroke={LOGO.red} strokeWidth="4" />
+        {/* black cat sitting on the broom, facing the way they fly; its tail
+            curls up from its back end and sways gently */}
+        <motion.path
+          d="M163 67c7 0 11-4 10-11s3-9 7-7"
+          stroke={NAVY}
+          strokeWidth="3.4"
+          fill="none"
+          strokeLinecap="round"
+          style={{ transformBox: "view-box", transformOrigin: "163px 67px" }}
+          animate={{ rotate: [-6, 8, -6] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <ellipse cx="155" cy="64" rx="10" ry="7.5" fill={NAVY} />
+        <path d="M150 70l-2 4M160 70l1 4" stroke={NAVY} strokeWidth="3" strokeLinecap="round" />
+        <circle cx="145" cy="56" r="6.5" fill={NAVY} />
+        <path d="M140 52l0-8 5 5zM146 50l4-6 1 7z" fill={NAVY} />
+        <circle cx="142.5" cy="55.5" r="1.4" fill={LOGO.yellow} />
+        <circle cx="147" cy="55.5" r="1.4" fill={LOGO.yellow} />
+        {/* witch: cape fluttering behind */}
+        <motion.path
+          d="M96 50q30 6 40 26l-30-4z"
+          fill="#3b2a5c"
+          stroke={NAVY}
+          strokeWidth="1.8"
+          strokeLinejoin="round"
+          style={{ transformBox: "view-box", transformOrigin: "96px 50px" }}
+          animate={{ rotate: [0, -14, 0], scaleX: [1, 1.12, 1] }}
+          transition={{ duration: 0.6, repeat: Infinity }}
+        />
+        {/* dress + legs */}
+        <path d="M78 52q14-4 26 4l4 26H80z" fill="#3b2a5c" stroke={NAVY} strokeWidth="2" strokeLinejoin="round" />
+        <path d="M80 82l-10 14M94 82l-4 16" stroke="#2c3e57" strokeWidth="4" strokeLinecap="round" />
+        <path d="M64 96h8l2 4h-12zM84 98h8l1 4H82z" fill={NAVY} />
+        <path d="M82 84h20" stroke={LOGO.orange} strokeWidth="3" />
+        {/* arms holding the broom */}
+        <path d="M84 60l-18 20" stroke="#3b2a5c" strokeWidth="5" strokeLinecap="round" />
+        <circle cx="66" cy="81" r="3.6" fill="#8fd18a" stroke={NAVY} strokeWidth="1.4" />
+        {/* head: green face, orange hair, big hat */}
+        <path d="M86 40q-10 8-6 22M98 40q10 8 8 20" stroke={LOGO.orange} strokeWidth="5" strokeLinecap="round" fill="none" />
+        <circle cx="90" cy="42" r="10" fill="#8fd18a" stroke={NAVY} strokeWidth="2" />
+        <circle cx="86" cy="41" r="1.6" fill={NAVY} />
+        <path d="M80 44l-5 3 6 0z" fill="#8fd18a" stroke={NAVY} strokeWidth="1.2" strokeLinejoin="round" />
+        <path d="M84 47q3 2 6 0" stroke={NAVY} strokeWidth="1.4" fill="none" strokeLinecap="round" />
+        <path d="M70 33q22-4 42 2" stroke={NAVY} strokeWidth="5" strokeLinecap="round" />
+        <path d="M78 33L92 4q4-4 6 2l6 28z" fill="#3b2a5c" stroke={NAVY} strokeWidth="2" strokeLinejoin="round" />
+        <path d="M80 29h24" stroke={LOGO.orange} strokeWidth="4" />
+        <rect x="88" y="26" width="6" height="6" rx="1" fill={LOGO.yellow} stroke={NAVY} strokeWidth="1" />
+      </svg>
+    </motion.div>
+  );
+}
+
+function Pumpkin({ size, delay, tilt = 0 }: { size: number; delay: number; tilt?: number }) {
+  return (
+    <svg viewBox="0 0 80 70" style={{ width: size, rotate: `${tilt}deg` }} className="drop-shadow-[0_6px_6px_rgba(13,31,53,0.25)]">
+      <path d="M40 14c2-8 6-10 10-10" stroke="#3f7d22" strokeWidth="5" strokeLinecap="round" fill="none" />
+      <path d="M46 10c6-4 12-2 14 3-6 2-10 1-14-3z" fill={LOGO.green} />
+      <ellipse cx="22" cy="40" rx="16" ry="25" fill="#e8661a" stroke={NAVY} strokeWidth="2" />
+      <ellipse cx="58" cy="40" rx="16" ry="25" fill="#e8661a" stroke={NAVY} strokeWidth="2" />
+      <ellipse cx="40" cy="40" rx="18" ry="27" fill={LOGO.orange} stroke={NAVY} strokeWidth="2" />
+      {/* glowing jack-o'-lantern face */}
+      <motion.g
+        fill={LOGO.yellow}
+        animate={{ opacity: [1, 0.55, 0.95, 0.7, 1] }}
+        transition={{ duration: 1.8, delay, repeat: Infinity }}
+      >
+        <path d="M24 32l8-8 6 9zM56 32l-8-8-6 9z" />
+        <path d="M38 40h4l-2 5z" />
+        <path d="M22 48q18 14 36 0l-4 7-5-4-4 5-4-5-5 4z" />
+      </motion.g>
+    </svg>
+  );
+}
+
+/** A little pile of jack-o'-lanterns in the bottom-left corner. */
+function Pumpkins() {
+  return (
+    <motion.div
+      aria-hidden
+      className={`pointer-events-none fixed left-2 z-[55] flex items-end md:left-5 ${CORNER_BOTTOM}`}
+      initial={{ y: 80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 1, type: "spring", stiffness: 110, damping: 13 }}
+    >
+      <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}>
+        <Pumpkin size={64} delay={0} tilt={-6} />
+      </motion.div>
+      <div className="-ml-3 hidden md:block">
+        <Pumpkin size={44} delay={0.6} tilt={8} />
+      </div>
+      <div className="-ml-2">
+        <Pumpkin size={34} delay={1.1} tilt={-4} />
+      </div>
     </motion.div>
   );
 }
@@ -507,6 +627,8 @@ export default function SeasonScene({ season }: { season: ThemeId }) {
           <Bat top="20vh" delay={3} />
           <Bat top="30vh" delay={4.2} scale={0.7} />
           <Spider />
+          <Witch />
+          <Pumpkins />
         </>
       );
     case "christmas":
